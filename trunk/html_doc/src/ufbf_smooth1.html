@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ufbf_smooth1</title>
+  <meta name="keywords" content="ufbf_smooth1">
+  <meta name="description" content="UFBF_SMOOTH1  Unscented Forward-Backward Filtering Based Smoother">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; ufbf_smooth1.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ufbf_smooth1
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>UFBF_SMOOTH1  Unscented Forward-Backward Filtering Based Smoother</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [M,P] = ufbf_smooth1(M,P,Y,ia,Q,aparam,h,R,hparam,alpha,beta,kappa,mat,same_p_a,same_p_h) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">UFBF_SMOOTH1  Unscented Forward-Backward Filtering Based Smoother
+
+ Syntax:
+   [M,P] = UFBF_SMOOTH1(M,P,Y,[ia,Q,aparam,h,R,hparam,,alpha,beta,kappa,mat,same_p_a,same_p_h])
+
+ In:
+   M - NxK matrix of K mean estimates from Kalman filter
+   P - NxNxK matrix of K state covariances from Kalman Filter
+   Y - Measurement vector
+  ia - Inverse prediction as a matrix IA defining
+       linear function ia(xw) = IA*xw, inline function,
+       function handle or name of function in
+       form ia(xw,param)                         (optional, default eye())
+   Q - Process noise of discrete model           (optional, default zero)
+   aparam - Parameters of a                      (optional, default empty)
+   h  - Measurement model function as a matrix H defining
+        linear function h(x) = H*x, inline function,
+        function handle or name of function in
+        form h(x,param)
+   R  - Measurement noise covariance.
+   hparam - Parameters of h              (optional, default aparam)
+   alpha - Transformation parameter      (optional)
+   beta  - Transformation parameter      (optional)
+   kappa - Transformation parameter      (optional)
+   mat   - If 1 uses matrix form         (optional, default 0)
+   same_p_a - If 1 uses the same parameters 
+              on every time step for a   (optional, default 1)
+   same_p_h - If 1 uses the same parameters 
+              on every time step for h   (optional, default 1) 
+
+ Out:
+   K - Smoothed state mean sequence
+   P - Smoothed state covariance sequence
+   
+ Description:
+   Two filter nonlinear smoother algorithm. Calculate &quot;smoothed&quot;
+   sequence from given extended Kalman filter output sequence
+   by conditioning all steps to all measurements.
+
+ Example:
+   [...]
+
+ See also:
+   <a href="ukf_predict1.html" class="code" title="function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)">UKF_PREDICT1</a>, <a href="ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">UKF_UPDATE1</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ukf_predict2.html" class="code" title="function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict2</a>	UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step</li><li><a href="ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>	UKF_UPDATE1 -  Additive form Unscented Kalman Filter update step</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/bot_demo/bot_demo_all.html" class="code" title="">bot_demo_all</a>	Bearings Only Tracking (BOT demonstration with EKF1,EKF2 and UKF</li><li><a href="../src/demos/bot_demo/ukfs_bot_demo.html" class="code" title="">ukfs_bot_demo</a>	Bearings Only Tracking (BOT) demonstration with UKF.</li><li><a href="../src/demos/dreentry_demo/dreentry_demo.html" class="code" title="">dreentry_demo</a>	Discrete-time reentry demonstration using EKF and UKF.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%UFBF_SMOOTH1  Unscented Forward-Backward Filtering Based Smoother</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [M,P] = UFBF_SMOOTH1(M,P,Y,[ia,Q,aparam,h,R,hparam,,alpha,beta,kappa,mat,same_p_a,same_p_h])</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% In:</span>
+0007 <span class="comment">%   M - NxK matrix of K mean estimates from Kalman filter</span>
+0008 <span class="comment">%   P - NxNxK matrix of K state covariances from Kalman Filter</span>
+0009 <span class="comment">%   Y - Measurement vector</span>
+0010 <span class="comment">%  ia - Inverse prediction as a matrix IA defining</span>
+0011 <span class="comment">%       linear function ia(xw) = IA*xw, inline function,</span>
+0012 <span class="comment">%       function handle or name of function in</span>
+0013 <span class="comment">%       form ia(xw,param)                         (optional, default eye())</span>
+0014 <span class="comment">%   Q - Process noise of discrete model           (optional, default zero)</span>
+0015 <span class="comment">%   aparam - Parameters of a                      (optional, default empty)</span>
+0016 <span class="comment">%   h  - Measurement model function as a matrix H defining</span>
+0017 <span class="comment">%        linear function h(x) = H*x, inline function,</span>
+0018 <span class="comment">%        function handle or name of function in</span>
+0019 <span class="comment">%        form h(x,param)</span>
+0020 <span class="comment">%   R  - Measurement noise covariance.</span>
+0021 <span class="comment">%   hparam - Parameters of h              (optional, default aparam)</span>
+0022 <span class="comment">%   alpha - Transformation parameter      (optional)</span>
+0023 <span class="comment">%   beta  - Transformation parameter      (optional)</span>
+0024 <span class="comment">%   kappa - Transformation parameter      (optional)</span>
+0025 <span class="comment">%   mat   - If 1 uses matrix form         (optional, default 0)</span>
+0026 <span class="comment">%   same_p_a - If 1 uses the same parameters</span>
+0027 <span class="comment">%              on every time step for a   (optional, default 1)</span>
+0028 <span class="comment">%   same_p_h - If 1 uses the same parameters</span>
+0029 <span class="comment">%              on every time step for h   (optional, default 1)</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% Out:</span>
+0032 <span class="comment">%   K - Smoothed state mean sequence</span>
+0033 <span class="comment">%   P - Smoothed state covariance sequence</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% Description:</span>
+0036 <span class="comment">%   Two filter nonlinear smoother algorithm. Calculate &quot;smoothed&quot;</span>
+0037 <span class="comment">%   sequence from given extended Kalman filter output sequence</span>
+0038 <span class="comment">%   by conditioning all steps to all measurements.</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">% Example:</span>
+0041 <span class="comment">%   [...]</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">% See also:</span>
+0044 <span class="comment">%   UKF_PREDICT1, UKF_UPDATE1</span>
+0045 
+0046 <span class="comment">% Copyright (C) 2006 Simo Särkkä</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">% $Id: ufbf_smooth1.m,v 1.4 2006/10/01 14:12:23 ssarkka Exp $</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">% This software is distributed under the GNU General Public</span>
+0051 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0052 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0053 <span class="comment">%</span>
+0054 
+0055 <a name="_sub0" href="#_subfunctions" class="code">function [M,P] = ufbf_smooth1(M,P,Y,ia,Q,aparam,h,R,</a><span class="keyword">...</span>
+0056                   hparam,alpha,beta,kappa,mat,same_p_a,same_p_h)
+0057 
+0058   <span class="comment">%</span>
+0059   <span class="comment">% Check which arguments are there</span>
+0060   <span class="comment">%</span>
+0061   <span class="keyword">if</span> nargin &lt; 3
+0062     error(<span class="string">'Too few arguments'</span>);
+0063   <span class="keyword">end</span>
+0064   <span class="keyword">if</span> nargin &lt; 4
+0065     ia = [];
+0066   <span class="keyword">end</span>
+0067   <span class="keyword">if</span> nargin &lt; 5
+0068     Q = [];
+0069   <span class="keyword">end</span>
+0070   <span class="keyword">if</span> nargin &lt; 6
+0071     aparam = [];
+0072   <span class="keyword">end</span>
+0073   <span class="keyword">if</span> nargin &lt; 7
+0074     h = [];
+0075   <span class="keyword">end</span>
+0076   <span class="keyword">if</span> nargin &lt; 8
+0077     R = [];
+0078   <span class="keyword">end</span>
+0079   <span class="keyword">if</span> nargin &lt; 9
+0080     hparam = [];
+0081   <span class="keyword">end</span>
+0082   <span class="keyword">if</span> nargin &lt; 10
+0083     alpha = [];
+0084   <span class="keyword">end</span>
+0085   <span class="keyword">if</span> nargin &lt; 11
+0086     beta = [];
+0087   <span class="keyword">end</span>
+0088   <span class="keyword">if</span> nargin &lt; 12
+0089     kappa = [];
+0090   <span class="keyword">end</span>
+0091   <span class="keyword">if</span> nargin &lt; 13
+0092     mat = [];
+0093   <span class="keyword">end</span>
+0094   <span class="keyword">if</span> nargin &lt; 14
+0095     same_p_a = 1;
+0096   <span class="keyword">end</span>
+0097   <span class="keyword">if</span> nargin &lt; 15
+0098     same_p_h = 1;
+0099   <span class="keyword">end</span>
+0100   
+0101   <span class="comment">%</span>
+0102   <span class="comment">% Apply defaults</span>
+0103   <span class="comment">%</span>
+0104   <span class="keyword">if</span> isempty(mat)
+0105     mat = 0;
+0106   <span class="keyword">end</span>
+0107   
+0108   <span class="comment">%</span>
+0109   <span class="comment">% Run the backward filter</span>
+0110   <span class="comment">%</span>
+0111   BM = zeros(size(M));
+0112   BP = zeros(size(P));
+0113   <span class="comment">%fm = zeros(size(M,1),1);</span>
+0114   <span class="comment">%fP = 1e12*eye(size(M,1));</span>
+0115   fm = M(:,end);
+0116   fP = P(:,:,end);
+0117   BM(:,end) = fm;
+0118   BP(:,:,end) = fP;
+0119   <span class="keyword">for</span> k=(size(M,2)-1):-1:1
+0120     <span class="keyword">if</span> isempty(hparam)
+0121       hparams = [];
+0122     <span class="keyword">elseif</span> same_p_h
+0123       hparams = hparam;
+0124     <span class="keyword">else</span>
+0125       hparams = hparam{k};
+0126     <span class="keyword">end</span>
+0127  
+0128     <span class="keyword">if</span> isempty(aparam)
+0129       aparams = [];
+0130     <span class="keyword">elseif</span> same_p_a
+0131       aparams = aparam;
+0132     <span class="keyword">else</span>
+0133       aparams = aparam{k};
+0134     <span class="keyword">end</span>
+0135     
+0136     [fm,fP] = <a href="ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>(fm,fP,Y(:,k+1),h,R,<span class="keyword">...</span>
+0137               hparams,alpha,beta,kappa,mat);
+0138     
+0139     <span class="comment">%</span>
+0140     <span class="comment">% Backward prediction</span>
+0141     <span class="comment">%</span>
+0142     [fm,fP] = <a href="ukf_predict2.html" class="code" title="function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict2</a>(fm,fP,ia,Q,aparams);
+0143 
+0144     BM(:,k) = fm;
+0145     BP(:,:,k) = fP;
+0146   <span class="keyword">end</span>
+0147 
+0148   <span class="comment">%</span>
+0149   <span class="comment">% Combine estimates</span>
+0150   <span class="comment">%</span>
+0151   <span class="keyword">for</span> k=1:size(M,2)-1
+0152     tmp = inv(inv(P(:,:,k)) + inv(BP(:,:,k)));
+0153     M(:,k) = tmp * (P(:,:,k)\M(:,k) + BP(:,:,k)\BM(:,k));
+0154     P(:,:,k) = tmp;
+0155   <span class="keyword">end</span>
+0156</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

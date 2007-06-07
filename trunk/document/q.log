@@ -1,0 +1,27 @@
+This is pdfTeX, Version 3.14159-1.10b (Web2C 7.4.5) (format=pdflatex 2004.2.16)  30 MAR 2007 16:21
+**q
+(/usr/share/texmf/tex/latex/tools/q.tex{/usr/share/texmf/pdftex/config/pdftex.c
+fg}
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, b
+asque, italian, portuges, russian, spanish, nohyphenation, loaded.
+File ignored
+)
+! Emergency stop.
+<*> q
+     
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 6 strings out of 95386
+ 125 string characters out of 1186005
+ 46893 words of memory out of 4000001
+ 3111 multiletter control sequences out of 10000+50000
+ 3640 words of font info for 14 fonts, out of 500000 for 1000
+ 26 hyphenation exceptions out of 1000
+ 5i,0n,1p,81b,7s stack positions out of 3000i,1500n,5000p,200000b,15000s
+ 0 PDF objects out of 300000
+ 0 named destinations out of 131072
+ 0 words of extra memory for PDF output out of 65536
+No pages of output.

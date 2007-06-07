@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of az_dh_dx</title>
+  <meta name="keywords" content="az_dh_dx">
+  <meta name="description" content="AZ_DH_DX Measurement derivative function for EKF.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">bot_demo</a> &gt; az_dh_dx.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/bot_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>az_dh_dx
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>AZ_DH_DX Measurement derivative function for EKF.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function dY = az_dh_dx(x,s) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">AZ_DH_DX Measurement derivative function for EKF.
+
+  dh_dx = -(y-sy) / (x-sx)^2 * 1 / (1 + (y-sy)^2 / (x-sx)^2)
+        = -(y-sy) / ((x-sx)^2 + (y-sy)^2)
+  dh_dy = 1 / (x-sx) * 1 / (1 + (y-sy)^2 / (x-sx)^2)
+        = (x-sx) / ((x-sx)^2 + (y-sy)^2)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="bot_demo_all.html" class="code" title="">bot_demo_all</a>	Bearings Only Tracking (BOT demonstration with EKF1,EKF2 and UKF</li><li><a href="ekfs_bot_demo.html" class="code" title="">ekfs_bot_demo</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%AZ_DH_DX Measurement derivative function for EKF.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">%  dh_dx = -(y-sy) / (x-sx)^2 * 1 / (1 + (y-sy)^2 / (x-sx)^2)</span>
+0004 <span class="comment">%        = -(y-sy) / ((x-sx)^2 + (y-sy)^2)</span>
+0005 <span class="comment">%  dh_dy = 1 / (x-sx) * 1 / (1 + (y-sy)^2 / (x-sx)^2)</span>
+0006 <span class="comment">%        = (x-sx) / ((x-sx)^2 + (y-sy)^2)</span>
+0007 <span class="comment">%</span>
+0008 
+0009 <span class="comment">% Copyright (C) 2003 Simo Särkkä</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% $Id: az_dh_dx.m,v 1.1 2006/09/26 21:32:31 ssarkka Exp $</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% This software is distributed under the GNU General Public</span>
+0014 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0015 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0016 
+0017 <a name="_sub0" href="#_subfunctions" class="code">function dY = az_dh_dx(x,s)</a>
+0018   <span class="comment">% Reserve space for the Jacobian.</span>
+0019   dY = zeros(size(s,2),size(x,1));
+0020   
+0021   <span class="comment">% Loop through sensors</span>
+0022   <span class="keyword">for</span> i=1:size(s,2)
+0023     dh = [-(x(2)-s(2,i)) / ((x(1)-s(1,i))^2 + (x(2)-s(2,i))^2);<span class="keyword">...</span>
+0024        (x(1)-s(1,i)) / ((x(1)-s(1,i))^2 + (x(2)-s(2,i))^2);<span class="keyword">...</span>
+0025       zeros(size(x,1)-2,1)]';
+0026     dY(i,:) = dh; 
+0027   <span class="keyword">end</span>
+0028</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of urts_smooth2</title>
+  <meta name="keywords" content="urts_smooth2">
+  <meta name="description" content="URTS_SMOOTH2  Augmented form Unscented Rauch-Tung-Striebel smoother">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; urts_smooth2.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>urts_smooth2
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>URTS_SMOOTH2  Augmented form Unscented Rauch-Tung-Striebel smoother</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">URTS_SMOOTH2  Augmented form Unscented Rauch-Tung-Striebel smoother
+
+ Syntax:
+   [M,P,S] = URTS_SMOOTH2(M,P,a,Q,[param,alpha,beta,kappa,mat,same_p])
+
+ In:
+   M - NxK matrix of K mean estimates from Unscented Kalman filter
+   P - NxNxK matrix of K state covariances from Unscented Kalman Filter
+   a - Dynamic model function as inline function,
+       function handle or name of function in
+       form a([x;w],param)
+   Q - Non-singular covariance of process noise w
+   param - Parameters of a. Parameters should be a single cell array,
+           vector or a matrix containing the same parameters for each
+           step, or if different parameters are used on each step they
+           must be a cell array of the format { param_1, param_2, ...},
+           where param_x contains the parameters for step x as a cell array,
+           a vector or a matrix.   (optional, default empty)
+   alpha - Transformation parameter      (optional)
+   beta  - Transformation parameter      (optional)
+   kappa - Transformation parameter      (optional)
+   mat   - If 1 uses matrix form         (optional, default 0)
+   same_p - If 1 uses the same parameters 
+            on every time step      (optional, default 1)   
+
+ Out:
+   K - Smoothed state mean sequence
+   P - Smoothed state covariance sequence
+   D - Smoother gain sequence
+   
+ Description:
+   Unscented Rauch-Tung-Striebel smoother algorithm. Calculate
+   &quot;smoothed&quot; sequence from given Kalman filter output sequence by
+   conditioning all steps to all measurements.
+
+ Example:
+   [...]
+
+ See also:
+   <a href="urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">URTS_SMOOTH1</a>, <a href="ukf_predict2.html" class="code" title="function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)">UKF_PREDICT2</a>, <a href="ukf_update2.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)">UKF_UPDATE2</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>	UT_TRANSFORM  Perform unscented transform</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/dreentry_demo/dreentry_demo.html" class="code" title="">dreentry_demo</a>	Discrete-time reentry demonstration using EKF and UKF.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%URTS_SMOOTH2  Augmented form Unscented Rauch-Tung-Striebel smoother</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [M,P,S] = URTS_SMOOTH2(M,P,a,Q,[param,alpha,beta,kappa,mat,same_p])</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% In:</span>
+0007 <span class="comment">%   M - NxK matrix of K mean estimates from Unscented Kalman filter</span>
+0008 <span class="comment">%   P - NxNxK matrix of K state covariances from Unscented Kalman Filter</span>
+0009 <span class="comment">%   a - Dynamic model function as inline function,</span>
+0010 <span class="comment">%       function handle or name of function in</span>
+0011 <span class="comment">%       form a([x;w],param)</span>
+0012 <span class="comment">%   Q - Non-singular covariance of process noise w</span>
+0013 <span class="comment">%   param - Parameters of a. Parameters should be a single cell array,</span>
+0014 <span class="comment">%           vector or a matrix containing the same parameters for each</span>
+0015 <span class="comment">%           step, or if different parameters are used on each step they</span>
+0016 <span class="comment">%           must be a cell array of the format { param_1, param_2, ...},</span>
+0017 <span class="comment">%           where param_x contains the parameters for step x as a cell array,</span>
+0018 <span class="comment">%           a vector or a matrix.   (optional, default empty)</span>
+0019 <span class="comment">%   alpha - Transformation parameter      (optional)</span>
+0020 <span class="comment">%   beta  - Transformation parameter      (optional)</span>
+0021 <span class="comment">%   kappa - Transformation parameter      (optional)</span>
+0022 <span class="comment">%   mat   - If 1 uses matrix form         (optional, default 0)</span>
+0023 <span class="comment">%   same_p - If 1 uses the same parameters</span>
+0024 <span class="comment">%            on every time step      (optional, default 1)</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% Out:</span>
+0027 <span class="comment">%   K - Smoothed state mean sequence</span>
+0028 <span class="comment">%   P - Smoothed state covariance sequence</span>
+0029 <span class="comment">%   D - Smoother gain sequence</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% Description:</span>
+0032 <span class="comment">%   Unscented Rauch-Tung-Striebel smoother algorithm. Calculate</span>
+0033 <span class="comment">%   &quot;smoothed&quot; sequence from given Kalman filter output sequence by</span>
+0034 <span class="comment">%   conditioning all steps to all measurements.</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% Example:</span>
+0037 <span class="comment">%   [...]</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">% See also:</span>
+0040 <span class="comment">%   URTS_SMOOTH1, UKF_PREDICT2, UKF_UPDATE2</span>
+0041 
+0042 <span class="comment">% Copyright (C) 2006 Simo Särkkä</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">% $Id: urts_smooth2.m,v 1.1 2006/10/10 20:18:58 ssarkka Exp $</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">% This software is distributed under the GNU General Public</span>
+0047 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0048 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0049 
+0050 <a name="_sub0" href="#_subfunctions" class="code">function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)</a>
+0051 
+0052   <span class="comment">%</span>
+0053   <span class="comment">% Check which arguments are there</span>
+0054   <span class="comment">%</span>
+0055   <span class="keyword">if</span> nargin &lt; 4
+0056     error(<span class="string">'Too few arguments'</span>);
+0057   <span class="keyword">end</span>
+0058   <span class="keyword">if</span> nargin &lt; 5
+0059     param = [];
+0060   <span class="keyword">end</span>
+0061   <span class="keyword">if</span> nargin &lt; 6
+0062     alpha = [];
+0063   <span class="keyword">end</span>
+0064   <span class="keyword">if</span> nargin &lt; 7
+0065     beta = [];
+0066   <span class="keyword">end</span>
+0067   <span class="keyword">if</span> nargin &lt; 8
+0068     kappa = [];
+0069   <span class="keyword">end</span>
+0070   <span class="keyword">if</span> nargin &lt; 9
+0071     mat = [];
+0072   <span class="keyword">end</span>
+0073   <span class="keyword">if</span> nargin &lt; 10
+0074     same_p = 1;
+0075   <span class="keyword">end</span>
+0076 
+0077   <span class="comment">%</span>
+0078   <span class="comment">% Apply defaults</span>
+0079   <span class="comment">%</span>
+0080   <span class="keyword">if</span> isempty(mat)
+0081     mat = 0;
+0082   <span class="keyword">end</span>
+0083   
+0084   <span class="comment">%</span>
+0085   <span class="comment">% Run the smoother</span>
+0086   <span class="comment">%</span>
+0087   D = zeros(size(M,1),size(M,1),size(M,2));
+0088   <span class="keyword">for</span> k=(size(M,2)-1):-1:1
+0089     <span class="keyword">if</span> isempty(param)
+0090         params = [];
+0091     <span class="keyword">elseif</span> same_p
+0092         params = param;
+0093     <span class="keyword">else</span>
+0094         params = param{k};
+0095     <span class="keyword">end</span>
+0096       
+0097     MA = [M(:,k);zeros(size(Q,1),1)];
+0098     PA = zeros(size(P,1)+size(Q,1));
+0099     PA(1:size(P,1),1:size(P,1)) = P(:,:,k);
+0100     PA(1+size(P,1):<span class="keyword">end</span>,1+size(P,1):end) = Q;
+0101     
+0102     [m_pred,P_pred,C] = <span class="keyword">...</span>
+0103     <a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>(MA,PA,a,params,alpha,beta,kappa);
+0104     C = C(1:size(M,1),:);
+0105     
+0106     D(:,:,k) = C / P_pred;
+0107     M(:,k)   = M(:,k) + D(:,:,k) * (M(:,k+1) - m_pred);
+0108     P(:,:,k) = P(:,:,k) + D(:,:,k) * (P(:,:,k+1) - P_pred) * D(:,:,k)';
+0109   <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

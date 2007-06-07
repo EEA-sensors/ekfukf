@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lti_int</title>
+  <meta name="keywords" content="lti_int">
+  <meta name="description" content="LTI_INT  Integrate LTI ODE with Gaussian Noise">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; lti_int.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>lti_int
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>LTI_INT  Integrate LTI ODE with Gaussian Noise</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [x,P,A] = lti_int(x,P,F,L,Q,T) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">LTI_INT  Integrate LTI ODE with Gaussian Noise
+
+ Syntax:
+   [x,P,A] = lti_int(x,P,F,L,Q,T)
+
+ Author:
+   Simo Särkkä, 2002
+
+ Description:
+   Integrates LTI differential equation
+
+     x' = F*x + L*w  , w ~ N(0,Q)
+
+   from t0=0 to t1=T or over given steps t0,t1,t2,t3,...
+   Initial conditions can be in form
+
+     x(t0) = x0
+
+   or
+
+     x(t0) ~ N(x0,P0)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="lti_int.html" class="code" title="function [x,P,A] = lti_int(x,P,F,L,Q,T)">lti_int</a>	LTI_INT  Integrate LTI ODE with Gaussian Noise</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="lti_int.html" class="code" title="function [x,P,A] = lti_int(x,P,F,L,Q,T)">lti_int</a>	LTI_INT  Integrate LTI ODE with Gaussian Noise</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%LTI_INT  Integrate LTI ODE with Gaussian Noise</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [x,P,A] = lti_int(x,P,F,L,Q,T)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Author:</span>
+0007 <span class="comment">%   Simo Särkkä, 2002</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Description:</span>
+0010 <span class="comment">%   Integrates LTI differential equation</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%     x' = F*x + L*w  , w ~ N(0,Q)</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   from t0=0 to t1=T or over given steps t0,t1,t2,t3,...</span>
+0015 <span class="comment">%   Initial conditions can be in form</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%     x(t0) = x0</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   or</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%     x(t0) ~ N(x0,P0)</span>
+0022 
+0023 <span class="comment">% History:</span>
+0024 <span class="comment">%   20.11.2002  The first official version.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% Copyright (C) 2002 Simo Särkkä</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">% $Id: lti_int.m,v 1.1 2005/08/02 11:10:47 ssarkka Exp $</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% This software is distributed under the GNU General Public</span>
+0031 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0032 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0033 
+0034 <a name="_sub0" href="#_subfunctions" class="code">function [x,P,A] = lti_int(x,P,F,L,Q,T)</a>
+0035 
+0036   <span class="comment">%</span>
+0037   <span class="comment">% Check number of arguments</span>
+0038   <span class="comment">%</span>
+0039   <span class="keyword">if</span> nargin &lt; 3
+0040     error(<span class="string">'Too few arguments'</span>);
+0041   <span class="keyword">end</span>
+0042   <span class="keyword">if</span> nargin &lt; 4
+0043     L = [];
+0044   <span class="keyword">end</span>
+0045   <span class="keyword">if</span> nargin &lt; 5
+0046     Q = [];
+0047   <span class="keyword">end</span>
+0048   <span class="keyword">if</span> nargin &lt; 6
+0049     T = [];
+0050   <span class="keyword">end</span>
+0051 
+0052   <span class="comment">%</span>
+0053   <span class="comment">% Integrate one or many steps</span>
+0054   <span class="comment">%</span>
+0055   <span class="keyword">if</span> length(T) &gt; 1
+0056     <span class="comment">%</span>
+0057     <span class="comment">% Handle multiple time steps recursively</span>
+0058     <span class="comment">%</span>
+0059     <span class="keyword">if</span> isempty(P)
+0060       <span class="keyword">if</span> isempty(x)
+0061         <span class="comment">%</span>
+0062         <span class="comment">% No x or P given, return only A's</span>
+0063         <span class="comment">%</span>
+0064         tA = eye(size(x,1));
+0065         A = zeros(size(x,1),size(x,1),length(T));
+0066         A(:,:,1) = tA;
+0067         <span class="keyword">for</span> i=2:length(T)
+0068           [tx,tP,tA] = <a href="lti_int.html" class="code" title="function [x,P,A] = lti_int(x,P,F,L,Q,T)">lti_int</a>([],[],F,L,Q,T(i)-T(i-1));
+0069           A(:,:,i) = tA;
+0070         <span class="keyword">end</span>
+0071       <span class="keyword">else</span>
+0072         <span class="comment">%</span>
+0073         <span class="comment">% Only x given, returns x's and A's</span>
+0074         <span class="comment">%</span>
+0075         tx = x;
+0076         tA = eye(size(x,1));
+0077         x = zeros(size(x,1),length(T));
+0078         A = zeros(size(x,1),size(x,1),length(T));
+0079         x(:,1)   = tx;
+0080         A(:,:,1) = tA;
+0081         <span class="keyword">for</span> i=2:length(T)
+0082           [tx,tP,tA] = <a href="lti_int.html" class="code" title="function [x,P,A] = lti_int(x,P,F,L,Q,T)">lti_int</a>(tx,[],F,L,Q,T(i)-T(i-1));
+0083           x(:,i)   = tx;
+0084           A(:,:,i) = tA;
+0085         <span class="keyword">end</span>
+0086       <span class="keyword">end</span>
+0087     <span class="keyword">else</span>
+0088       <span class="comment">%</span>
+0089       <span class="comment">% Both x and P given, return all</span>
+0090       <span class="comment">%</span>
+0091       tx = x;
+0092       tP = P;
+0093       tA = eye(size(x,1));
+0094       x = zeros(size(x,1),length(T));
+0095       P = zeros(size(x,1),size(x,1),length(T));
+0096       A = zeros(size(x,1),size(x,1),length(T));
+0097       x(:,1)   = tx;
+0098       P(:,:,1) = tP;
+0099       A(:,:,1) = tA;
+0100       <span class="keyword">for</span> i=2:length(T)
+0101         [tx,tP,tA] = <a href="lti_int.html" class="code" title="function [x,P,A] = lti_int(x,P,F,L,Q,T)">lti_int</a>(tx,tP,F,L,Q,T(i)-T(i-1));
+0102         x(:,i)   = tx;
+0103         P(:,:,i) = tP;
+0104         A(:,:,i) = tA;
+0105       <span class="keyword">end</span>
+0106     <span class="keyword">end</span>
+0107 
+0108   <span class="keyword">else</span>
+0109     <span class="comment">%</span>
+0110     <span class="comment">% One step integration from 0 to T</span>
+0111     <span class="comment">%</span>
+0112     <span class="keyword">if</span> isempty(L)
+0113       L = eye(size(x,1));
+0114     <span class="keyword">end</span>
+0115     <span class="keyword">if</span> isempty(Q)
+0116       Q = zeros(size(x,1),size(x,1));
+0117     <span class="keyword">end</span>
+0118     <span class="keyword">if</span> isempty(T)
+0119       T = 1;
+0120     <span class="keyword">end</span>
+0121 
+0122     <span class="comment">%</span>
+0123     <span class="comment">% Closed form integration of mean</span>
+0124     <span class="comment">%</span>
+0125     A = expm(F*T);
+0126     x = A*x;
+0127 
+0128     <span class="comment">%</span>
+0129     <span class="comment">% Runge-Kutta Integration of Covariance</span>
+0130     <span class="comment">%</span>
+0131     <span class="keyword">if</span> ~isempty(P) &amp; (nargout &gt; 1)
+0132       f = inline(<span class="string">'F*P+P*F''+L*Q*L'</span>,<span class="string">'P'</span>,<span class="string">'t'</span>,<span class="string">'F'</span>,<span class="string">'L'</span>,<span class="string">'Q'</span>);
+0133       P = rk(f,P,0,T,F,L,Q);
+0134     <span class="keyword">end</span>
+0135   <span class="keyword">end</span>
+0136</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

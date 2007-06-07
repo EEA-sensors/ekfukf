@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ekfs_bot_demo</title>
+  <meta name="keywords" content="ekfs_bot_demo">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">bot_demo</a> &gt; ekfs_bot_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/bot_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>ekfs_bot_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+     Extended Kalman Filter / Smoother demonstration
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="az_d2h_dx2.html" class="code" title="function dY = az_d2h_dx2(x,s)">az_d2h_dx2</a>	AZ_D2H_DX2 2nd order derivatives of the measurement function for 2nd order EKF</li><li><a href="az_dh_dx.html" class="code" title="function dY = az_dh_dx(x,s)">az_dh_dx</a>	AZ_DH_DX Measurement derivative function for EKF.</li><li><a href="az_h.html" class="code" title="function Y = az_h(x,s)">az_h</a>	AZ_H Azimuth measurement function for EKF/UKF.</li><li><a href="../../../src/der_check.html" class="code" title="function [D0,D1] = der_check(f,df,index,varargin)">der_check</a>	DER_CHECK  Check derivatives using finite differences</li><li><a href="../../../src/efbf_smooth1.html" class="code" title="function [M,P] = efbf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)">efbf_smooth1</a>	EFBF_SMOOTH  Extended Forward-Backward Filtering Based Smoother</li><li><a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>	EKF_PREDICT  1st order Extended Kalman Filter prediction step</li><li><a href="../../../src/ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>	EKF_UPDATE  1st order Extended Kalman Filter update step</li><li><a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>	ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother</li><li><a href="../../../src/lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">lti_disc</a>	LTI_DISC  Discretize LTI ODE with Gaussian Noise</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">%     Extended Kalman Filter / Smoother demonstration</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0006 
+0007 <span class="comment">% Copyright (C) 2002 Simo Särkkä</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% $Id: ekfs_demo1.m,v 1.6 2006/10/10 20:18:51 ssarkka Exp $</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% This software is distributed under the GNU General Public</span>
+0012 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0013 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0014 
+0015   keep_trajectory = 0;
+0016   silent = 0;
+0017   
+0018   <span class="comment">%</span>
+0019   <span class="comment">% Measurement mean and derivative</span>
+0020   <span class="comment">%</span>
+0021   h_func = @<a href="az_h.html" class="code" title="function Y = az_h(x,s)">az_h</a>;
+0022   dh_dx_func = @<a href="az_dh_dx.html" class="code" title="function dY = az_dh_dx(x,s)">az_dh_dx</a>;
+0023   d2h_dx2_func = @<a href="az_d2h_dx2.html" class="code" title="function dY = az_d2h_dx2(x,s)">az_d2h_dx2</a>;
+0024   <span class="comment">%</span>
+0025   <span class="comment">% Create a bit curved trajectory and angle</span>
+0026   <span class="comment">% measurements from two sensors</span>
+0027   <span class="comment">%</span>
+0028   S1 = [-1;-2];
+0029   S2 = [1;1];
+0030   sd = 0.05;
+0031   dt = 0.01;
+0032   <span class="keyword">if</span> ~keep_trajectory
+0033     a = zeros(1,500);
+0034     a(1,50:100)  = pi/2/51/dt + 0.01*randn(1,51);
+0035     a(1,200:250) = pi/2/51/dt + 0.01*randn(1,51);
+0036     a(1,350:400) = pi/2/51/dt + 0.01*randn(1,51);
+0037     x = [0;0;1;0];
+0038     t = 0;
+0039     X = [];
+0040     Y = [];
+0041     T = [];
+0042     <span class="keyword">for</span> i=1:500
+0043       F = [0 0  1    0;<span class="keyword">...</span>
+0044            0 0  0    1;<span class="keyword">...</span>
+0045            0 0  0   a(i);<span class="keyword">...</span>
+0046            0 0 -a(i) 0];
+0047       x = expm(F*dt)*x;
+0048       y1 = atan2(x(2)-S1(2), x(1)-S1(1)) + sd * randn;
+0049       y2 = atan2(x(2)-S2(2), x(1)-S2(1)) + sd * randn;
+0050       t  = t + dt;
+0051       X = [X x];
+0052       T = [T t];
+0053       Y = [Y [y1;y2]];
+0054     <span class="keyword">end</span>
+0055   <span class="keyword">end</span>
+0056   
+0057   plot(1:size(Y,2),Y(1,:),<span class="string">'.'</span>,1:size(Y,2),Y(2,:),<span class="string">'.'</span>);
+0058   legend(<span class="string">'Sensor 1'</span>, <span class="string">'Sensor 2'</span>);
+0059   title(<span class="string">'Measurements from sensors in radians'</span>);
+0060   print -dpsc bot_demo_measurements.ps
+0061 
+0062   <span class="comment">%</span>
+0063   <span class="comment">% Initialize EKF to values</span>
+0064   <span class="comment">%</span>
+0065   <span class="comment">%   x = 0</span>
+0066   <span class="comment">%   y = 0,</span>
+0067   <span class="comment">%   dx/dt = 0</span>
+0068   <span class="comment">%   dy/dt = 0</span>
+0069   <span class="comment">%</span>
+0070   <span class="comment">% with great uncertainty in velocity</span>
+0071   <span class="comment">%</span>
+0072   M = [0;0;0;0];
+0073   P = diag([4 4 4 4]);
+0074   R = sd^2;
+0075   <span class="keyword">if</span> ~silent
+0076     <a href="../../../src/der_check.html" class="code" title="function [D0,D1] = der_check(f,df,index,varargin)">der_check</a>(h_func, dh_dx_func, 1, M, S1);
+0077     <a href="../../../src/der_check.html" class="code" title="function [D0,D1] = der_check(f,df,index,varargin)">der_check</a>(h_func, dh_dx_func, 1, M, S2);
+0078   <span class="keyword">end</span>
+0079   qx = 0.1;
+0080   qy = 0.1;
+0081   F = [0 0 1 0;
+0082        0 0 0 1;
+0083        0 0 0 0;
+0084        0 0 0 0];
+0085   [A,Q] = <a href="../../../src/lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">lti_disc</a>(F,[],diag([0 0 qx qy]),dt);
+0086 
+0087   <span class="comment">%</span>
+0088   <span class="comment">% Track and animate</span>
+0089   <span class="comment">%</span>
+0090   MM = zeros(size(M,1),size(Y,2));
+0091   PP = zeros(size(M,1),size(M,1),size(Y,2));
+0092   ME = zeros(size(M,1),1);
+0093   <span class="keyword">for</span> k=1:size(Y,2)
+0094     <span class="comment">%</span>
+0095     <span class="comment">% Track with EKF</span>
+0096     <span class="comment">%</span>
+0097     [M,P] = <a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>(M,P,A,Q);
+0098 
+0099     [M,P] = <a href="../../../src/ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>(M,P,Y(:,k),dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
+0100     <span class="comment">%[M,P] = ekf_update2(M,P,Y(:,k),dh_dx_func,d2h_dx2_func,R*eye(2),h_func,[],[S1 S2]);</span>
+0101     
+0102     MM(:,k)   = M;
+0103     PP(:,:,k) = P;
+0104     ME(k) = P(1,1) + P(2,2);
+0105     
+0106     <span class="comment">%</span>
+0107     <span class="comment">% Confidence ellipse</span>
+0108     <span class="comment">%</span>
+0109     tt = (0:0.01:1)*2*pi;
+0110     cc = repmat(M(1:2),1,length(tt)) + <span class="keyword">...</span>
+0111      2*chol(P(1:2,1:2))'*[cos(tt);sin(tt)];
+0112 
+0113     <span class="comment">%</span>
+0114     <span class="comment">% Animate</span>
+0115     <span class="comment">%</span>
+0116     <span class="keyword">if</span> ~silent
+0117       <span class="keyword">if</span> rem(k,10) == 1
+0118         len = 2.5;
+0119         dx1 = len*cos(Y(1,k));
+0120         dy1 = len*sin(Y(1,k));
+0121         dx2 = len*cos(Y(2,k));
+0122         dy2 = len*sin(Y(2,k));
+0123         plot(X(1,:),X(2,:),<span class="string">'r-'</span>,<span class="keyword">...</span>
+0124              M(1),M(2),<span class="string">'bo'</span>,<span class="keyword">...</span>
+0125              MM(1,1:k),MM(2,1:k),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0126              cc(1,:),cc(2,:),<span class="string">'g-'</span>,<span class="keyword">...</span>
+0127              [S1(1);S1(1)+dx1],[S1(2);S1(2)+dy1],<span class="string">'k--'</span>,<span class="keyword">...</span>
+0128              [S2(1);S2(1)+dx2],[S2(2);S2(2)+dy2],<span class="string">'k--'</span>,<span class="keyword">...</span>
+0129              S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0130         axis([-1.5 1.5 -2.5 1]);
+0131         drawnow;
+0132         pause;
+0133       <span class="keyword">end</span>
+0134     <span class="keyword">end</span>
+0135   <span class="keyword">end</span>
+0136 
+0137  
+0138   
+0139   <span class="comment">%</span>
+0140   <span class="comment">% Calculate RMSE</span>
+0141   <span class="comment">%</span>
+0142   ekf_rmse = sqrt(mean((X(1,:)-MM(1,:)).^2+(X(2,:)-MM(2,:)).^2));
+0143   fprintf(<span class="string">'EKF-RMSE  = %.3f  [%.3f]\n'</span>,ekf_rmse,sqrt(mean(ME)));
+0144 
+0145   <span class="comment">%</span>
+0146   <span class="comment">% Smoother 1</span>
+0147   <span class="comment">%</span>
+0148   [SM1,SP1] = <a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>(MM,PP,A,Q);
+0149   eks_rmse1 = sqrt(mean((X(1,:)-SM1(1,:)).^2+(X(2,:)-SM1(2,:)).^2));
+0150   ME1 = squeeze(SP1(1,1,:)+SP1(2,2,:));
+0151   fprintf(<span class="string">'EKS-RMSE1 = %.4f [%.4f]\n'</span>,eks_rmse1,sqrt(mean(ME1)));
+0152 
+0153   <span class="comment">%</span>
+0154   <span class="comment">% Smoother 2</span>
+0155   <span class="comment">%</span>
+0156   [SM2,SP2] = <a href="../../../src/efbf_smooth1.html" class="code" title="function [M,P] = efbf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)">efbf_smooth1</a>(MM,PP,Y,A,Q,[],[],[],<span class="keyword">...</span>
+0157              dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
+0158   eks_rmse2 = sqrt(mean((X(1,:)-SM2(1,:)).^2+(X(2,:)-SM2(2,:)).^2));
+0159   ME2 = squeeze(SP2(1,1,:)+SP2(2,2,:));
+0160   fprintf(<span class="string">'EKS-RMSE2 = %.4f [%.4f]\n'</span>,eks_rmse2,sqrt(mean(ME2)));
+0161 
+0162   EST = [];
+0163   <span class="keyword">for</span> k=size(Y,2):-1:1
+0164     M = SM1(:,k);  
+0165     P = SP1(:,:,k);
+0166     EST = [EST M];
+0167 
+0168     <span class="comment">% Confidence ellipse</span>
+0169     tt = (0:0.01:1)*2*pi;
+0170     cc = repmat(M(1:2),1,length(tt)) + <span class="keyword">...</span>
+0171      2*chol(P(1:2,1:2))'*[cos(tt);sin(tt)];
+0172 
+0173     <span class="comment">% Animate</span>
+0174     len = 1.5;
+0175     <span class="keyword">if</span> ~silent
+0176         <span class="keyword">if</span> rem(k,10) == 1
+0177             plot(X(1,:),X(2,:),<span class="string">'r-'</span>,<span class="keyword">...</span>
+0178             M(1),M(2),<span class="string">'o'</span>,<span class="keyword">...</span>
+0179             EST(1,:),EST(2,:),<span class="string">'--'</span>,<span class="keyword">...</span>
+0180         cc(1,:),cc(2,:),<span class="string">'g-'</span>,<span class="keyword">...</span>
+0181             MM(1,:),MM(2,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0182             S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0183             <span class="comment">%Y(1,:),Y(2,:),'.',...</span>
+0184             drawnow;
+0185             pause;
+0186         <span class="keyword">end</span>
+0187      <span class="keyword">end</span>
+0188   <span class="keyword">end</span>
+0189   
+0190 
+0191   <span class="comment">%</span>
+0192   <span class="comment">% Plot</span>
+0193   <span class="comment">%</span>
+0194   <span class="keyword">if</span> ~silent
+0195     plot(X(1,:),X(2,:),<span class="string">'k-'</span>,<span class="keyword">...</span>
+0196          MM(1,:),MM(2,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0197          SM1(1,:),SM1(2,:),<span class="string">'r-.'</span>,<span class="keyword">...</span>
+0198          SM2(1,:),SM2(2,:),<span class="string">'g-.'</span>,<span class="keyword">...</span>
+0199          S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0200     axis([-1.5 1.5 -2.5 1]);
+0201     legend(<span class="string">'Real trajectory'</span>,<span class="keyword">...</span>
+0202            <span class="string">'EKF1 estimate'</span>,<span class="keyword">...</span>
+0203            <span class="string">'ERTS estimate'</span>,<span class="keyword">...</span>
+0204            <span class="string">'EFBF estimate'</span>,<span class="keyword">...</span>
+0205            <span class="string">'Positions of sensors'</span>,<span class="keyword">...</span>
+0206            <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>);
+0207     title(<span class="string">'Filtering and smoothing result with 1st order EKF'</span>);
+0208     print -dpsc bot_demo_ekf1.ps
+0209   <span class="keyword">end</span>
+0210   
+0211   EMM = MM;
+0212   ESM1 = SM1;
+0213   ESM2 = SM2;
+0214 
+0215</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

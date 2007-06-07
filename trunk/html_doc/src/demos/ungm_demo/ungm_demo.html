@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ungm_demo</title>
+  <meta name="keywords" content="ungm_demo">
+  <meta name="description" content="Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">ungm_demo</a> &gt; ungm_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/ungm_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>ungm_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.
+
+ Copyright (C) 2007 Jouni Hartikainen
+
+ This software is distributed under the GNU General Public 
+ Licence (version 2 or later); please refer to the file 
+ Licence.txt, included with the software, for details.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ungm_d2f_dx2.html" class="code" title="function d = ungm_d2f_dx2(x,param)">ungm_d2f_dx2</a>	</li><li><a href="ungm_d2h_dx2.html" class="code" title="function d = ungm_d2h_dx2(x,param)">ungm_d2h_dx2</a>	</li><li><a href="ungm_df_dx.html" class="code" title="function df = ungm_df_dx(x,param)">ungm_df_dx</a>	Jacobian of the state transition function for the UNGM-model.</li><li><a href="ungm_dh_dx.html" class="code" title="function dh = ungm_dh_dx(x,param)">ungm_dh_dx</a>	Jacobian of the measurement model function for the UNGM-model.</li><li><a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>	State transition function for the UNGM-model.</li><li><a href="ungm_h.html" class="code" title="function y_n = ungm_h(x_n,param)">ungm_h</a>	Measurement model function for the UNGM-model.</li><li><a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>	EKF_PREDICT  1st order Extended Kalman Filter prediction step</li><li><a href="../../../src/ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>	EKF_UPDATE  1st order Extended Kalman Filter update step</li><li><a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>	ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother</li><li><a href="../../../src/gauss_pdf.html" class="code" title="function [P,E] = gauss_pdf(X,M,S)">gauss_pdf</a>	GAUSS_PDF  Multivariate Gaussian PDF</li><li><a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>	GAUSS_RND  Multivariate Gaussian random variables</li><li><a href="../../../src/resampstr.html" class="code" title="function s = resampstr(p);">resampstr</a>	RESAMPSTR Stratified resampling</li><li><a href="../../../src/ukf_predict1.html" class="code" title="function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict1</a>	UKF_PREDICT1  Additive form Unscented Kalman Filter prediction step</li><li><a href="../../../src/ukf_predict3.html" class="code" title="function [M,P,X,w] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)">ukf_predict3</a>	UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step</li><li><a href="../../../src/ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>	UKF_UPDATE1 -  Additive form Unscented Kalman Filter update step</li><li><a href="../../../src/ukf_update3.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)">ukf_update3</a>	UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step</li><li><a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>	URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Copyright (C) 2007 Jouni Hartikainen</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This software is distributed under the GNU General Public</span>
+0006 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0007 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0008 
+0009 silent = 0;
+0010 
+0011 <span class="comment">% Derivatives</span>
+0012 f_func = @<a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>;
+0013 h_func = @<a href="ungm_h.html" class="code" title="function y_n = ungm_h(x_n,param)">ungm_h</a>;
+0014 df_func = @<a href="ungm_df_dx.html" class="code" title="function df = ungm_df_dx(x,param)">ungm_df_dx</a>;
+0015 dh_func = @<a href="ungm_dh_dx.html" class="code" title="function dh = ungm_dh_dx(x,param)">ungm_dh_dx</a>;
+0016 d2f_func = @<a href="ungm_d2f_dx2.html" class="code" title="function d = ungm_d2f_dx2(x,param)">ungm_d2f_dx2</a>;
+0017 d2h_func = @<a href="ungm_d2h_dx2.html" class="code" title="function d = ungm_d2h_dx2(x,param)">ungm_d2h_dx2</a>;
+0018 
+0019 n = 500;
+0020 x_0 = .1;
+0021 P_0 = 1;
+0022 
+0023 Y = zeros(1,n);
+0024 
+0025 u_n = 1;
+0026 v_n = 1;
+0027 
+0028 <span class="comment">% Generate the true states with process noise</span>
+0029 X = zeros(1,n);
+0030 X(1) = <a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>(x_0,1) + <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>(0,u_n,1);
+0031 <span class="keyword">for</span> i = 2:n
+0032     X(i) = feval(f_func,X(i-1),i) + <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>(0,u_n,1);
+0033 <span class="keyword">end</span>
+0034     
+0035 <span class="comment">% Generate the observations with measurement noise</span>
+0036 <span class="keyword">for</span> i = 1:n
+0037     Y(i) = feval(h_func,X(i)) + <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>(0,v_n,1);
+0038 <span class="keyword">end</span>
+0039 
+0040 Y_r = feval(h_func,X);
+0041 
+0042 <span class="comment">% Parameters for dynamic model. Used by smoothers.</span>
+0043 params = cell(size(Y,2));
+0044 <span class="keyword">for</span> i = 1:size(Y,2)
+0045    params{i} = i+1; 
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="comment">% Filtering with non-augmented UKF</span>
+0049 M = x_0;
+0050 P = P_0;
+0051 
+0052 MM_UKF1 = zeros(size(M,1),size(Y,2));
+0053 PP_UKF1 = zeros(size(M,1),size(M,1),size(Y,2));
+0054 
+0055 <span class="comment">% Filtering loop for UKF1</span>
+0056 <span class="keyword">for</span> k = 1:size(Y,2)
+0057    [M,P] = <a href="../../../src/ukf_predict1.html" class="code" title="function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict1</a>(M,P,f_func,u_n,k);
+0058    [M,P] = <a href="../../../src/ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>(M,P,Y(:,k),h_func,v_n);
+0059    MM_UKF1(:,k)   = M;
+0060    PP_UKF1(:,:,k) = P;    
+0061 <span class="keyword">end</span>
+0062 [MMS_URTS1, PPS_URTS1] = <a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>(MM_UKF1,PP_UKF1,f_func,u_n,params,[],[],[],[],0);
+0063 
+0064 <span class="comment">% MSE for UKF1</span>
+0065 UKF1_MSE = sum((X-MM_UKF1).^2)/n;
+0066 fprintf(<span class="string">'UKF1-MSE = %.4f\n'</span>,UKF1_MSE);
+0067 UKS1_MSE = sum((X-MMS_URTS1).^2)/n;
+0068 fprintf(<span class="string">'UKS1-MSE = %.4f\n'</span>,UKS1_MSE);
+0069 
+0070 
+0071 <span class="comment">% Filtering with augmented UKF</span>
+0072 M = x_0;
+0073 P = P_0;
+0074 
+0075 MM_UKF2 = zeros(size(M,1),size(Y,2));
+0076 PP_UKF2 = zeros(size(M,1),size(M,1),size(Y,2));
+0077 
+0078 <span class="comment">% Filtering loop for UKF2</span>
+0079 <span class="keyword">for</span> k = 1:size(Y,2)
+0080     <span class="comment">% Augmented UKF</span>
+0081    [M,P,X_s,w] = <a href="../../../src/ukf_predict3.html" class="code" title="function [M,P,X,w] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)">ukf_predict3</a>(M,P,f_func,u_n,v_n,k);
+0082    [M,P] = <a href="../../../src/ukf_update3.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)">ukf_update3</a>(M,P,Y(:,k),h_func,v_n,X_s,w,[]);
+0083    MM_UKF2(:,k)   = M;
+0084    PP_UKF2(:,:,k) = P;    
+0085 <span class="keyword">end</span>
+0086 
+0087 [MMS_URTS2, PPS_URTS2] = <a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>(MM_UKF2,PP_UKF2,f_func,u_n,params,[],[],[],[],0);
+0088 
+0089 <span class="comment">% MSE for UKF2</span>
+0090 UKF2_MSE = sum((X-MM_UKF2).^2)/n;
+0091 fprintf(<span class="string">'UKF2-MSE = %.4f\n'</span>,UKF2_MSE);
+0092 UKS2_MSE = sum((X-MMS_URTS2).^2)/n;
+0093 fprintf(<span class="string">'UKS2-MSE = %.4f\n'</span>,UKS2_MSE);
+0094 
+0095 <span class="comment">% Filtering with EKF</span>
+0096 M = x_0;
+0097 P = P_0;
+0098 
+0099 MM_EKF = zeros(size(M,1),size(Y,2));
+0100 PP_EKF = zeros(size(M,1),size(M,1),size(Y,2));
+0101 
+0102 <span class="comment">% Filtering loop for EKF</span>
+0103 <span class="keyword">for</span> k = 1:size(Y,2)
+0104    [M,P] = <a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>(M,P,df_func,u_n,f_func,[],k);
+0105    [M,P] = <a href="../../../src/ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>(M,P,Y(:,k),dh_func,v_n,h_func,[],[]);
+0106    MM_EKF(:,k)   = M;
+0107    PP_EKF(:,:,k) = P;    
+0108 <span class="keyword">end</span>
+0109 
+0110 params = cell(size(Y,2));
+0111 <span class="keyword">for</span> i = 1:size(Y,2)
+0112    params{i} = i+1; 
+0113 <span class="keyword">end</span>
+0114 
+0115 [MMS_ERTS,PPS_ERTS] = <a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>(MM_EKF,PP_EKF,df_func,u_n,f_func,[],params,0);
+0116 
+0117 
+0118 EKF_MSE = sum((X-MM_EKF).^2)/n;
+0119 fprintf(<span class="string">'EKF-MSE = %.4f\n'</span>,EKF_MSE);
+0120 ERTS_MSE = sum((X-MMS_ERTS).^2)/n;
+0121 fprintf(<span class="string">'ERTS-MSE = %.4f\n'</span>,ERTS_MSE);
+0122 
+0123 <span class="comment">% Filtering with bootstrap filter</span>
+0124 M = x_0;
+0125 P = P_0;
+0126 n_particles = 1000;
+0127 SX = <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>(M,P,n_particles);
+0128 
+0129 MM_BS = zeros(size(M,1),size(Y,2));
+0130 PP_BS = zeros(size(M,1),size(M,1),size(Y,2));
+0131 
+0132 <span class="comment">% Filtering loop for bootstrap filter</span>
+0133 <span class="keyword">for</span> k = 1:size(Y,2)
+0134    SX = <a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>(SX,k) + <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>(0,1,size(SX,2));
+0135    W  = <a href="../../../src/gauss_pdf.html" class="code" title="function [P,E] = gauss_pdf(X,M,S)">gauss_pdf</a>(Y(:,k),<a href="ungm_h.html" class="code" title="function y_n = ungm_h(x_n,param)">ungm_h</a>(SX,k),1);
+0136    ind = <a href="../../../src/resampstr.html" class="code" title="function s = resampstr(p);">resampstr</a>(W);
+0137    SX = SX(:,ind);
+0138    M = mean(SX);
+0139    P = var(SX);
+0140    MM_BS(:,k)   = M;
+0141    PP_BS(:,:,k) = P;    
+0142 <span class="keyword">end</span>
+0143 
+0144 BS_MSE = sum((X-MM_BS).^2)/n;
+0145 fprintf(<span class="string">'BS-MSE = %.4f\n'</span>,BS_MSE);
+0146 
+0147 <span class="keyword">if</span> ~silent
+0148   subplot(3,1,1);
+0149   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_UKF2(1:100),<span class="string">'--bo'</span>)
+0150   title(<span class="string">'UKF2 filtering result'</span>);
+0151   xlim([0 100]);
+0152   ylim([-20 20]);
+0153   legend(<span class="string">'Real signal'</span>, <span class="string">'UKF2 filtered estimate'</span>);
+0154 
+0155   subplot(3,1,2);
+0156   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_EKF(1:100),<span class="string">'--bo'</span>)
+0157   title(<span class="string">'EKF filtering result'</span>);
+0158   xlim([0 100]);
+0159   ylim([-20 20]);
+0160   legend(<span class="string">'Real signal'</span>, <span class="string">'EKF filtered estimate'</span>);
+0161 
+0162   subplot(3,1,3);
+0163   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_BS(1:100),<span class="string">'--bo'</span>)
+0164   title(<span class="string">'Bootstrap filtering result'</span>)
+0165   xlim([0 100]);
+0166   ylim([-20 20]);
+0167   legend(<span class="string">'Real signal'</span>,<span class="string">'Filtered estimates'</span>)
+0168 
+0169   <span class="comment">%print -dpsc ungm_states.ps</span>
+0170 
+0171   pause;
+0172   
+0173   subplot(2,1,1);
+0174   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_UKF1(1:100),<span class="string">'--bo'</span>)
+0175   title(<span class="string">'UKF1 filtering result'</span>);
+0176   xlim([0 100]);
+0177   ylim([-20 20]);
+0178   legend(<span class="string">'Real signal'</span>, <span class="string">'UKF1 filtered estimate'</span>);
+0179   
+0180   subplot(2,1,2);
+0181   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_UKF2(1:100),<span class="string">'--bo'</span>)
+0182   title(<span class="string">'UKF2 filtering result'</span>);
+0183   xlim([0 100]);
+0184   ylim([-20 20]);
+0185   legend(<span class="string">'Real signal'</span>, <span class="string">'UKF2 filtered estimate'</span>);
+0186   
+0187   <span class="comment">%print -dpsc ungm_ukf_comp.ps</span>
+0188   
+0189   pause
+0190 
+0191   subplot(3,1,1);
+0192   E = X-MM_UKF2;
+0193   PP_UKF2 = squeeze(PP_UKF2);
+0194   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>);
+0195   title(<span class="string">'UKF2 error'</span>);
+0196   legend(<span class="string">'Estimation error of UKF2'</span>,<span class="string">'3\sigma interval'</span>)
+0197 
+0198   subplot(3,1,2);
+0199   E = X-MM_EKF;
+0200   PP_EKF = squeeze(PP_EKF);
+0201   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_EKF(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_EKF(1:100))',<span class="string">'--r'</span>);
+0202   title(<span class="string">'EKF error'</span>);
+0203   legend(<span class="string">'Estimation error of EKF'</span>,<span class="string">'3\sigma interval'</span>);
+0204 
+0205   subplot(3,1,3);
+0206   E = X-MM_BS;
+0207   PP_BS = squeeze(PP_BS);
+0208   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_BS(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_BS(1:100))',<span class="string">'--r'</span>);
+0209   title(<span class="string">'Bootstrap filtering error'</span>);
+0210   legend(<span class="string">'Estimation error with BS'</span>,<span class="string">'3\sigma interval'</span>)
+0211 
+0212   <span class="comment">%print -dpsc ungm_c_errors.ps</span>
+0213   
+0214   pause
+0215 
+0216   subplot(2,1,1);
+0217   E = X-MM_UKF1;
+0218   PP_UKF1 = squeeze(PP_UKF1);
+0219   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_UKF1(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_UKF1(1:100))',<span class="string">'--r'</span>);
+0220   title(<span class="string">'UKF1 error'</span>);
+0221   legend(<span class="string">'Estimation error of UKF1'</span>,<span class="string">'3\sigma interval'</span>)
+0222 
+0223   subplot(2,1,2);
+0224   E = X-MM_UKF2;
+0225   PP_UKF2 = squeeze(PP_UKF2);
+0226   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>);
+0227   title(<span class="string">'UKF2 error'</span>);
+0228   legend(<span class="string">'Estimation error of UKF2'</span>,<span class="string">'3\sigma interval'</span>)
+0229   
+0230   <span class="comment">%print -dpsc ungm_ukf_comp_error.ps</span>
+0231 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

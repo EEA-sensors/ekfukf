@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ekf_sine_demo</title>
+  <meta name="keywords" content="ekf_sine_demo">
+  <meta name="description" content="Demonstration for EKF using a random sine signal model.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">ekf_sine_demo</a> &gt; ekf_sine_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/ekf_sine_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>ekf_sine_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Demonstration for EKF using a random sine signal model.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Demonstration for EKF using a random sine signal model. 
+
+ A Very simple demonstration for extended Kalman filter (EKF), which is
+ used to track a random single-component sinusoid signal,
+ which is modelled as x_k = a_k*sin(\theta_k), dtheta/dt = omega_k.
+ The signal is also filtered with unscented Kalman filter (UKF) for
+ comparison.
+
+ Copyright (C) 2007 Jouni Hartikainen
+
+ This software is distributed under the GNU General Public 
+ Licence (version 2 or later); please refer to the file 
+ Licence.txt, included with the software, for details.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ekf_sine_d2h_dx2.html" class="code" title="function df = ekf_sine_d2h_dx2(x,param)">ekf_sine_d2h_dx2</a>	</li><li><a href="ekf_sine_dh_dx.html" class="code" title="function dY = ekf_sine_dh_dx(x,param)">ekf_sine_dh_dx</a>	</li><li><a href="ekf_sine_f.html" class="code" title="function x_n = ekf_demo1_f(x,param)">ekf_sine_f</a>	</li><li><a href="ekf_sine_h.html" class="code" title="function Y = ekf_demo1_h(x,param)">ekf_sine_h</a>	</li><li><a href="../../../src/der_check.html" class="code" title="function [D0,D1] = der_check(f,df,index,varargin)">der_check</a>	DER_CHECK  Check derivatives using finite differences</li><li><a href="../../../src/efbf_smooth1.html" class="code" title="function [M,P] = efbf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)">efbf_smooth1</a>	EFBF_SMOOTH  Extended Forward-Backward Filtering Based Smoother</li><li><a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>	EKF_PREDICT  1st order Extended Kalman Filter prediction step</li><li><a href="../../../src/ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>	EKF_UPDATE  1st order Extended Kalman Filter update step</li><li><a href="../../../src/ekf_update2.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update2(M,P,y,H,H_xx,R,h,V,param)">ekf_update2</a>	EKF_UPDATE  2nd order Extended Kalman Filter update step</li><li><a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>	ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother</li><li><a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>	GAUSS_RND  Multivariate Gaussian random variables</li><li><a href="../../../src/lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">lti_disc</a>	LTI_DISC  Discretize LTI ODE with Gaussian Noise</li><li><a href="../../../src/ukf_predict3.html" class="code" title="function [M,P,X,w] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)">ukf_predict3</a>	UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step</li><li><a href="../../../src/ukf_update3.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)">ukf_update3</a>	UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step</li><li><a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>	URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Demonstration for EKF using a random sine signal model.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% A Very simple demonstration for extended Kalman filter (EKF), which is</span>
+0004 <span class="comment">% used to track a random single-component sinusoid signal,</span>
+0005 <span class="comment">% which is modelled as x_k = a_k*sin(\theta_k), dtheta/dt = omega_k.</span>
+0006 <span class="comment">% The signal is also filtered with unscented Kalman filter (UKF) for</span>
+0007 <span class="comment">% comparison.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Copyright (C) 2007 Jouni Hartikainen</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% This software is distributed under the GNU General Public</span>
+0012 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0013 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0014 
+0015 clc;
+0016 disp(<span class="string">'Filtering the signal with EKF...'</span>);
+0017 
+0018 <span class="comment">% Measurement model and it's derivative</span>
+0019 f_func = @<a href="ekf_sine_f.html" class="code" title="function x_n = ekf_demo1_f(x,param)">ekf_sine_f</a>;
+0020 h_func = @<a href="ekf_sine_h.html" class="code" title="function Y = ekf_demo1_h(x,param)">ekf_sine_h</a>;
+0021 dh_dx_func = @<a href="ekf_sine_dh_dx.html" class="code" title="function dY = ekf_sine_dh_dx(x,param)">ekf_sine_dh_dx</a>;
+0022 d2h_dx2_func = @<a href="ekf_sine_d2h_dx2.html" class="code" title="function df = ekf_sine_d2h_dx2(x,param)">ekf_sine_d2h_dx2</a>;
+0023 
+0024 <span class="comment">% Initial values for the signal.</span>
+0025 f = 0;
+0026 w = 10;
+0027 a = 1;
+0028   
+0029 <span class="comment">% Number of samples and stepsize.</span>
+0030 d = 5;
+0031 n = 500;
+0032 dt = d/n;
+0033 x = 1:n;
+0034 
+0035 <span class="comment">% Check the derivative of the measurement function.</span>
+0036 <a href="../../../src/der_check.html" class="code" title="function [D0,D1] = der_check(f,df,index,varargin)">der_check</a>(h_func, dh_dx_func, 1, [f w a]');
+0037 
+0038 <span class="comment">% Dynamic state transition matrix in continous-time domain.</span>
+0039 F = [0 1 0;
+0040      0 0 0;
+0041      0 0 0];
+0042   
+0043 <span class="comment">% Noise effect matrix in continous-time domain.</span>
+0044 L = [0 0;
+0045      1 0;
+0046      0 1];
+0047   
+0048 <span class="comment">% Spectral power density of the white noise.</span>
+0049 q1 = 0.2;
+0050 q2 = 0.1;
+0051 Qc = diag([q1 q2]);
+0052   
+0053 <span class="comment">% Discretize the plant equation.</span>
+0054 [A,Q] = <a href="../../../src/lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">lti_disc</a>(F,L,Qc,dt);
+0055   
+0056 <span class="comment">% Generate the real signal.</span>
+0057 X = zeros(3, n);
+0058 X(:,1) = [f w a]';
+0059 <span class="keyword">for</span> i = 2:n
+0060    X(:,i) = A*X(:,i-1) + <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>([0 0 0]', Q);
+0061 <span class="keyword">end</span>  
+0062   
+0063 <span class="comment">% Generate the observations with Gaussian noise.</span>
+0064 sd = 1;
+0065 R = sd^2;
+0066 
+0067 Y = zeros(1,n);
+0068 Y_real = feval(h_func,X);     
+0069 Y = Y_real + <a href="../../../src/gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">gauss_rnd</a>(0,R,n);
+0070   
+0071 plot(x,Y,<span class="string">'.'</span>,x,Y_real)
+0072   
+0073 <span class="comment">% Initial guesses for the state mean and covariance.</span>
+0074 M = [f w a]';
+0075 P = diag([3 3 3]);    
+0076   
+0077 <span class="comment">% Reserve space for estimates.</span>
+0078 MM = zeros(size(M,1),size(Y,2));
+0079 PP = zeros(size(M,1),size(M,1),size(Y,2));
+0080 
+0081 <span class="comment">% Estimate with EKF</span>
+0082 <span class="keyword">for</span> k=1:size(Y,2)
+0083    [M,P] = <a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>(M,P,A,Q);
+0084    [M,P] = <a href="../../../src/ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>(M,P,Y(:,k),dh_dx_func,R*eye(1),h_func);
+0085    MM(:,k)   = M;
+0086    PP(:,:,k) = P;
+0087 <span class="keyword">end</span>
+0088 
+0089 <span class="comment">% Initial guesses for the state mean and covariance.</span>
+0090 M = [f w a]';
+0091 P = diag([3 3 3]);    
+0092   
+0093 <span class="comment">% Reserve space for estimates.</span>
+0094 MM2 = zeros(size(M,1),size(Y,2));
+0095 PP2 = zeros(size(M,1),size(M,1),size(Y,2));
+0096 
+0097 <span class="comment">% Estimate with EKF</span>
+0098 <span class="keyword">for</span> k=1:size(Y,2)
+0099    [M,P] = <a href="../../../src/ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">ekf_predict1</a>(M,P,A,Q);
+0100    [M,P] = <a href="../../../src/ekf_update2.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update2(M,P,y,H,H_xx,R,h,V,param)">ekf_update2</a>(M,P,Y(:,k),dh_dx_func,d2h_dx2_func,R*eye(1),h_func);
+0101    MM2(:,k)   = M;
+0102    PP2(:,:,k) = P;
+0103 <span class="keyword">end</span>
+0104 
+0105 clf; clc;
+0106 disp(<span class="string">'The filtering results using the 1st order EKF is now displayed'</span>)
+0107 
+0108 <span class="comment">% Project the estimates to measurement space</span>
+0109 Y_m = feval(h_func, MM);
+0110 Y_m2 = feval(h_func, MM2);
+0111 plot(x,Y,<span class="string">'.'</span>, x,Y_real,<span class="string">'--'</span>,x,Y_m);
+0112 legend(<span class="string">'Measurements'</span>,<span class="string">'Real signal'</span>, <span class="string">'Filtered estimate'</span>);
+0113 xlim([0 ceil(max(x))]);
+0114 title(<span class="string">'Estimating a random Sine signal with extended Kalman filter.'</span>);
+0115 
+0116 <span class="comment">% Uncomment if you want to save an image</span>
+0117 <span class="comment">% print -dpsc demo2_f1.ps</span>
+0118 
+0119 clc;
+0120 disp(<span class="string">'The filtering result using the 1st order EKF is now displayed.'</span>);
+0121 fprintf(<span class="string">'Smoothing the estimates using the RTS smoother...'</span>);
+0122 
+0123 [SM1,SP1] = <a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>(MM,PP,A,Q);
+0124 
+0125 [SM2,SP2] = <a href="../../../src/efbf_smooth1.html" class="code" title="function [M,P] = efbf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)">efbf_smooth1</a>(MM,PP,Y,A,Q,[],[],[],<span class="keyword">...</span>
+0126                          dh_dx_func,R*eye(1),h_func);  
+0127 
+0128 [SM1_2,SP1_2] = <a href="../../../src/erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>(MM2,PP2,A,Q);
+0129 
+0130 [SM2_2,SP2_2] = <a href="../../../src/efbf_smooth1.html" class="code" title="function [M,P] = efbf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)">efbf_smooth1</a>(MM2,PP2,Y,A,Q,[],[],[],<span class="keyword">...</span>
+0131                          dh_dx_func,R*eye(1),h_func);  
+0132 
+0133 fprintf(<span class="string">'ready.\n'</span>);
+0134 disp(<span class="string">' '</span>);
+0135 disp(<span class="string">'Push any button to display the smoothing results.'</span>);
+0136 pause
+0137 
+0138 Y_s1 = feval(h_func, SM1);
+0139 plot(x,Y,<span class="string">'.'</span>, x, Y_real,<span class="string">'--'</span>,x,Y_s1);
+0140 legend(<span class="string">'Measurements'</span>,<span class="string">'Real signal'</span>,<span class="string">'Smoothed estimate'</span>);
+0141 xlim([0 ceil(max(x))]);
+0142 title([<span class="string">'Smoothing a random Sine signal with extended '</span>,<span class="keyword">...</span>
+0143        <span class="string">'Kalman (RTS) smoother.'</span>]);
+0144 
+0145 <span class="comment">% Uncomment if you want to save an image</span>
+0146 <span class="comment">% print -dpsc demo2_f2.ps</span>
+0147 
+0148 clc;
+0149 disp(<span class="string">'The smoothing results using the ERTS smoother is now displayed.'</span>);
+0150 disp(<span class="string">' '</span>);
+0151 disp(<span class="string">'Push any button to see the smoothing results of a EFBF smoother.'</span>);
+0152 pause
+0153   
+0154 Y_s2 = feval(h_func, SM2);
+0155 plot(x,Y,<span class="string">'.'</span>, x, Y_real,<span class="string">'--'</span>,x,Y_s2);
+0156 legend(<span class="string">'Measurements'</span>,<span class="string">'Real signal'</span>,<span class="string">'Smoothed estimate'</span>);
+0157 title([<span class="string">'Smoothing a random Sine signal with extended '</span>,<span class="keyword">...</span>
+0158        <span class="string">'Kalman (Forward-Backward) smoother.'</span>]);
+0159 xlim([0 ceil(max(x))]);
+0160 
+0161 <span class="comment">% Uncomment if you want to save an image</span>
+0162 <span class="comment">%print -dpsc demo2_f3.ps</span>
+0163 
+0164 clc;
+0165 disp(<span class="string">'The smoothing results using the EFBF smoother is now displayed.'</span>);
+0166 
+0167 
+0168 Y_s1_2 = feval(h_func, SM1_2);
+0169 Y_s2_2 = feval(h_func, SM2_2);
+0170 <span class="comment">% Errors.</span>
+0171 EMM_Y = sum((Y_m-Y_real).^2)/n;
+0172 EMM_Y2 = sum((Y_m2-Y_real).^2)/n;
+0173 ESM1_Y = sum((Y_s1-Y_real).^2)/n;
+0174 ESM2_Y = sum((Y_s2-Y_real).^2)/n;
+0175 ESM1_2_Y = sum((Y_s1_2-Y_real).^2)/n;
+0176 ESM2_2_Y = sum((Y_s2_2-Y_real).^2)/n;
+0177   
+0178 disp(<span class="string">' '</span>);
+0179 fprintf(<span class="string">'Filtering now with UKF...'</span>);
+0180 
+0181 <span class="comment">% In the rest the signal is filtered with UKF for comparison.</span>
+0182 
+0183 <span class="comment">% Initial guesses for the state mean and covariance.</span>
+0184 M = [f w a]';
+0185 P = diag([3 3 3]);    
+0186   
+0187 <span class="comment">% Reserve space for estimates.</span>
+0188 U_MM = zeros(size(M,1),size(Y,2));
+0189 U_PP = zeros(size(M,1),size(M,1),size(Y,2));
+0190 
+0191 <span class="comment">% Estimate with UKF</span>
+0192 <span class="keyword">for</span> k=1:size(Y,2)
+0193    [M,P,X_s,w] = <a href="../../../src/ukf_predict3.html" class="code" title="function [M,P,X,w] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)">ukf_predict3</a>(M,P,f_func,Q,R*eye(1),dt);
+0194    [M,P] = <a href="../../../src/ukf_update3.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)">ukf_update3</a>(M,P,Y(:,k),h_func,R*eye(1),X_s,w,[]);
+0195    U_MM(:,k)   = M;
+0196    U_PP(:,:,k) = P;
+0197 <span class="keyword">end</span>
+0198 [U_SM, U_SP] = <a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>(U_MM,U_PP,f_func,Q,dt);
+0199 
+0200 fprintf(<span class="string">'ready.\n'</span>)
+0201 disp(<span class="string">' '</span>);
+0202 disp(<span class="string">'Push any button to see the filtering results.'</span>);
+0203 pause
+0204 
+0205 Y_m_u = feval(h_func, U_MM);
+0206 plot(x,Y,<span class="string">'.'</span>, x, Y_real,<span class="string">'--'</span>,x,Y_m_u);
+0207 legend(<span class="string">'Measurements'</span>,<span class="string">'Real signal'</span>, <span class="string">'Filtered estimate'</span>);
+0208 xlim([0 ceil(max(x))]);
+0209 title(<span class="string">'Estimating a random Sine signal with unscented Kalman filter.'</span>);
+0210 
+0211 clc;
+0212 disp(<span class="string">'The filtering results of a UKF are now displayed.'</span>)
+0213 disp(<span class="string">' '</span>);
+0214 disp(<span class="string">'Push any button to display the smoothing results.'</span>);
+0215 pause
+0216   
+0217 Y_m_su = feval(h_func, U_SM);
+0218 plot(x,Y,<span class="string">'.'</span>, x, Y_real,<span class="string">'--'</span>,x,Y_m_su);
+0219 legend(<span class="string">'Measurements'</span>,<span class="string">'Real signal'</span>, <span class="string">'Filtered estimate'</span>);
+0220 xlim([0 ceil(max(x))]);
+0221 title(<span class="string">'Estimating a random Sine signal with unscented Kalman smoother (RTS).'</span>);
+0222 
+0223 clc;
+0224 disp(<span class="string">'The smoothing results of a ERTS smoother are now displayed'</span>);
+0225 
+0226 UKF_EMM_Y = sum((Y_m_u-Y_real).^2)/n;
+0227 URTS_EMM_Y = sum((Y_m_su-Y_real).^2)/n;
+0228 
+0229 disp(<span class="string">' '</span>);
+0230 disp(<span class="string">'Mean square errors of all estimates:'</span>);
+0231 fprintf(<span class="string">'EKF1-MSE = %.4f\n'</span>,sqrt(EMM_Y));
+0232 fprintf(<span class="string">'ERTS-MSE = %.4f\n'</span>,sqrt(ESM1_Y));
+0233 fprintf(<span class="string">'EFBF-MSE = %.4f\n'</span>,sqrt(ESM2_Y));
+0234 fprintf(<span class="string">'EKF2-MSE = %.4f\n'</span>,sqrt(EMM_Y2));
+0235 fprintf(<span class="string">'ERTS2-MSE = %.4f\n'</span>,sqrt(ESM1_2_Y));
+0236 fprintf(<span class="string">'EFBF2-MSE = %.4f\n'</span>,sqrt(ESM2_2_Y));
+0237 fprintf(<span class="string">'UKF-RMSE = %.4f\n'</span>,sqrt(UKF_EMM_Y));
+0238 fprintf(<span class="string">'URTS-RMSE = %.4f\n'</span>,sqrt(URTS_EMM_Y));
+0239</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of erts_smooth1</title>
+  <meta name="keywords" content="erts_smooth1">
+  <meta name="description" content="ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; erts_smooth1.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>erts_smooth1
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother
+
+ Syntax:
+   [M,P,S] = ERTS_SMOOTH1(M,P,A,Q,[a,W,param,same_p])
+
+ In:
+   M - NxK matrix of K mean estimates from Unscented Kalman filter
+   P - NxNxK matrix of K state covariances from Unscented Kalman Filter
+   A - Derivative of a() with respect to state as
+       matrix, inline function, function handle or
+       name of function in form A(x,k,param)       (optional, default eye())
+   Q - Process noise of discrete model             (optional, default zero)
+   a - Mean prediction E[a(x[k-1],q=0)] as vector,
+       inline function, function handle or name
+       of function in form a(x,k,param)            (optional, default A(x)*X)
+   W - Derivative of a() with respect to noise q
+       as matrix, inline function, function handle
+       or name of function in form W(x,k,param)    (optional, default identity)
+   param - Parameters of a. Parameters should be a single cell array, vector or a matrix
+           containing the same parameters for each step or if different parameters
+           are used on each step they must be a cell array of the format
+           { param_1, param_2, ...}, where param_x contains the parameters for
+           step x as a cell array, a vector or a matrix.   (optional, default empty)
+   same_p - 1 if the same parameters should be
+            used on every time step                (optional, default 1)                            
+                                   
+                         
+
+ Out:
+   K - Smoothed state mean sequence
+   P - Smoothed state covariance sequence
+   D - Smoother gain sequence
+   
+ Description:
+   Extended Rauch-Tung-Striebel smoother algorithm. Calculate
+   &quot;smoothed&quot; sequence from given Kalman filter output sequence by
+   conditioning all steps to all measurements.
+
+ Example:
+
+ See also:
+   <a href="ekf_predict1.html" class="code" title="function [M,P] = ekf_predict1(M,P,A,Q,a,W,param)">EKF_PREDICT1</a>, <a href="ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">EKF_UPDATE1</a>
+
+ History:
+   04.05.2007 JH Added the possibility to pass different parameters for a and h
+                 for each step.
+   2006       SS Initial version.
+
+ Copyright (C) 2006 Simo Särkkä
+
+ $Id: <a href="erts_smooth1.html" class="code" title="function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)">erts_smooth1</a>.m,v 1.3 2006/09/28 18:56:00 ssarkka Exp $
+
+ This software is distributed under the GNU General Public
+ Licence (version 2 or later); please refer to the file
+ Licence.txt, included with the software, for details.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/bot_demo/bot_demo_all.html" class="code" title="">bot_demo_all</a>	Bearings Only Tracking (BOT demonstration with EKF1,EKF2 and UKF</li><li><a href="../src/demos/bot_demo/ekfs_bot_demo.html" class="code" title="">ekfs_bot_demo</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../src/demos/dreentry_demo/dreentry_demo.html" class="code" title="">dreentry_demo</a>	Discrete-time reentry demonstration using EKF and UKF.</li><li><a href="../src/demos/ekf_sine_demo/ekf_sine_demo.html" class="code" title="">ekf_sine_demo</a>	Demonstration for EKF using a random sine signal model.</li><li><a href="../src/demos/ungm_demo/ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</li><li><a href="ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [M,P,S] = ERTS_SMOOTH1(M,P,A,Q,[a,W,param,same_p])</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% In:</span>
+0007 <span class="comment">%   M - NxK matrix of K mean estimates from Unscented Kalman filter</span>
+0008 <span class="comment">%   P - NxNxK matrix of K state covariances from Unscented Kalman Filter</span>
+0009 <span class="comment">%   A - Derivative of a() with respect to state as</span>
+0010 <span class="comment">%       matrix, inline function, function handle or</span>
+0011 <span class="comment">%       name of function in form A(x,k,param)       (optional, default eye())</span>
+0012 <span class="comment">%   Q - Process noise of discrete model             (optional, default zero)</span>
+0013 <span class="comment">%   a - Mean prediction E[a(x[k-1],q=0)] as vector,</span>
+0014 <span class="comment">%       inline function, function handle or name</span>
+0015 <span class="comment">%       of function in form a(x,k,param)            (optional, default A(x)*X)</span>
+0016 <span class="comment">%   W - Derivative of a() with respect to noise q</span>
+0017 <span class="comment">%       as matrix, inline function, function handle</span>
+0018 <span class="comment">%       or name of function in form W(x,k,param)    (optional, default identity)</span>
+0019 <span class="comment">%   param - Parameters of a. Parameters should be a single cell array, vector or a matrix</span>
+0020 <span class="comment">%           containing the same parameters for each step or if different parameters</span>
+0021 <span class="comment">%           are used on each step they must be a cell array of the format</span>
+0022 <span class="comment">%           { param_1, param_2, ...}, where param_x contains the parameters for</span>
+0023 <span class="comment">%           step x as a cell array, a vector or a matrix.   (optional, default empty)</span>
+0024 <span class="comment">%   same_p - 1 if the same parameters should be</span>
+0025 <span class="comment">%            used on every time step                (optional, default 1)</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% Out:</span>
+0030 <span class="comment">%   K - Smoothed state mean sequence</span>
+0031 <span class="comment">%   P - Smoothed state covariance sequence</span>
+0032 <span class="comment">%   D - Smoother gain sequence</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">% Description:</span>
+0035 <span class="comment">%   Extended Rauch-Tung-Striebel smoother algorithm. Calculate</span>
+0036 <span class="comment">%   &quot;smoothed&quot; sequence from given Kalman filter output sequence by</span>
+0037 <span class="comment">%   conditioning all steps to all measurements.</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">% Example:</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">% See also:</span>
+0042 <span class="comment">%   EKF_PREDICT1, EKF_UPDATE1</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">% History:</span>
+0045 <span class="comment">%   04.05.2007 JH Added the possibility to pass different parameters for a and h</span>
+0046 <span class="comment">%                 for each step.</span>
+0047 <span class="comment">%   2006       SS Initial version.</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% Copyright (C) 2006 Simo Särkkä</span>
+0050 <span class="comment">%</span>
+0051 <span class="comment">% $Id: erts_smooth1.m,v 1.3 2006/09/28 18:56:00 ssarkka Exp $</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">% This software is distributed under the GNU General Public</span>
+0054 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0055 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0056 
+0057 <a name="_sub0" href="#_subfunctions" class="code">function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)</a>
+0058 
+0059   <span class="comment">%</span>
+0060   <span class="comment">% Check which arguments are there</span>
+0061   <span class="comment">%</span>
+0062   <span class="keyword">if</span> nargin &lt; 3
+0063     A = [];
+0064   <span class="keyword">end</span>
+0065   <span class="keyword">if</span> nargin &lt; 4
+0066     Q = [];
+0067   <span class="keyword">end</span>
+0068   <span class="keyword">if</span> nargin &lt; 5
+0069     a = [];
+0070   <span class="keyword">end</span>
+0071   <span class="keyword">if</span> nargin &lt; 6
+0072     W = [];
+0073   <span class="keyword">end</span>
+0074   <span class="keyword">if</span> nargin &lt; 7
+0075     param = [];
+0076   <span class="keyword">end</span>
+0077   <span class="keyword">if</span> nargin &lt; 8
+0078     same_p = [];
+0079   <span class="keyword">end</span>
+0080   
+0081   <span class="comment">%</span>
+0082   <span class="comment">% Apply defaults</span>
+0083   <span class="comment">%</span>
+0084   <span class="keyword">if</span> isempty(A)
+0085     A = eye(size(M,1));
+0086   <span class="keyword">end</span>
+0087   <span class="keyword">if</span> isempty(Q)
+0088     Q = zeros(size(M,1));
+0089   <span class="keyword">end</span>
+0090   <span class="keyword">if</span> isempty(W)
+0091     W = eye(size(M,1),size(Q,2));
+0092   <span class="keyword">end</span>
+0093   <span class="keyword">if</span> isempty(same_p)
+0094     same_p = 1;
+0095   <span class="keyword">end</span>
+0096 
+0097   <span class="comment">%</span>
+0098   <span class="comment">% Extend Q if NxN matrix</span>
+0099   <span class="comment">%</span>
+0100   <span class="keyword">if</span> size(Q,3)==1
+0101     Q = repmat(Q,[1 1 size(M,2)]);
+0102   <span class="keyword">end</span>
+0103 
+0104   <span class="comment">%</span>
+0105   <span class="comment">% Run the smoother</span>
+0106   <span class="comment">%</span>
+0107   D = zeros(size(M,1),size(M,1),size(M,2));
+0108   <span class="keyword">for</span> k=(size(M,2)-1):-1:1
+0109     <span class="keyword">if</span> isempty(param)
+0110       params = [];  
+0111     <span class="keyword">elseif</span> same_p
+0112         params = param;
+0113     <span class="keyword">else</span>
+0114         params = param{k};
+0115     <span class="keyword">end</span>
+0116 
+0117     <span class="comment">%</span>
+0118     <span class="comment">% Perform prediction</span>
+0119     <span class="comment">%</span>
+0120     <span class="keyword">if</span> isempty(a)
+0121       m_pred = A*M(:,k);
+0122     <span class="keyword">elseif</span> isnumeric(a)
+0123       m_pred = a;
+0124     <span class="keyword">elseif</span> isstr(a) | strcmp(class(a),<span class="string">'function_handle'</span>)
+0125       m_pred = feval(a,M(:,k),params);
+0126     <span class="keyword">else</span>
+0127       m_pred = a(M(:,k),params);
+0128     <span class="keyword">end</span>
+0129     
+0130     <span class="keyword">if</span> isnumeric(A)
+0131       F = A;
+0132     <span class="keyword">elseif</span> isstr(A) | strcmp(class(A),<span class="string">'function_handle'</span>)
+0133       F = feval(A,M(:,k),params);
+0134     <span class="keyword">else</span>
+0135       F = A(M(:,k),params);
+0136     <span class="keyword">end</span>
+0137     
+0138     <span class="keyword">if</span> isnumeric(W)
+0139       B = W;
+0140     <span class="keyword">elseif</span> isstr(W) | strcmp(class(W),<span class="string">'function_handle'</span>)
+0141       B = feval(W,M(:,k),params);
+0142     <span class="keyword">else</span>
+0143       B = W(M(:,k),params);
+0144     <span class="keyword">end</span>
+0145 
+0146     P_pred = F * P(:,:,k) * F' + B * Q(:,:,k) * B';
+0147     C = P(:,:,k) * F';
+0148     
+0149     D(:,:,k) = C / P_pred;
+0150     M(:,k)   = M(:,k) + D(:,:,k) * (M(:,k+1) - m_pred);
+0151     P(:,:,k) = P(:,:,k) + D(:,:,k) * (P(:,:,k+1) - P_pred) * D(:,:,k)';
+0152   <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

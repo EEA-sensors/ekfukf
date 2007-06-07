@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of gauss_pdf</title>
+  <meta name="keywords" content="gauss_pdf">
+  <meta name="description" content="GAUSS_PDF  Multivariate Gaussian PDF">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; gauss_pdf.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>gauss_pdf
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>GAUSS_PDF  Multivariate Gaussian PDF</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [P,E] = gauss_pdf(X,M,S) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">GAUSS_PDF  Multivariate Gaussian PDF
+
+ Syntax:
+   P = GAUSS_PDF(X,M,S)
+
+ In:
+   X - Dx1 value or N values as DxN matrix
+   M - Dx1 mean of distibution or N values as DxN matrix.
+   S - DxD covariance matrix
+
+ Out:
+   P - Probability of X. 
+   
+ Description:
+   Calculate values of PDF (Probability Density
+   Function) of multivariate Gaussian distribution
+
+    N(X | M, S)
+
+   Function returns probability of X in PDF. If multiple
+   X's or M's are given (as multiple columns), function
+   returns probabilities for each of them. X's and M's are
+   repeated to match each other, S must be the same for all.
+
+ See also:
+   <a href="gauss_rnd.html" class="code" title="function X = gauss_rnd(M,S,N)">GAUSS_RND</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/ungm_demo/ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</li><li><a href="ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">ekf_update1</a>	EKF_UPDATE  1st order Extended Kalman Filter update step</li><li><a href="ekf_update2.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update2(M,P,y,H,H_xx,R,h,V,param)">ekf_update2</a>	EKF_UPDATE  2nd order Extended Kalman Filter update step</li><li><a href="kf_lhood.html" class="code" title="function LH = kf_lhood(m,P,y,H,R)">kf_lhood</a>	KF_LHOOD  Kalman Filter measurement likelihood</li><li><a href="kf_update.html" class="code" title="function [X,P,K,IM,IS,LH] = kf_update(X,P,y,H,R)">kf_update</a>	KF_UPDATE  Kalman Filter update step</li><li><a href="ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>	UKF_UPDATE1 -  Additive form Unscented Kalman Filter update step</li><li><a href="ukf_update2.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update2</a>	UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step</li><li><a href="ukf_update3.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)">ukf_update3</a>	UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step</li><li><a href="ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%GAUSS_PDF  Multivariate Gaussian PDF</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   P = GAUSS_PDF(X,M,S)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% In:</span>
+0007 <span class="comment">%   X - Dx1 value or N values as DxN matrix</span>
+0008 <span class="comment">%   M - Dx1 mean of distibution or N values as DxN matrix.</span>
+0009 <span class="comment">%   S - DxD covariance matrix</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Out:</span>
+0012 <span class="comment">%   P - Probability of X.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% Description:</span>
+0015 <span class="comment">%   Calculate values of PDF (Probability Density</span>
+0016 <span class="comment">%   Function) of multivariate Gaussian distribution</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%    N(X | M, S)</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%   Function returns probability of X in PDF. If multiple</span>
+0021 <span class="comment">%   X's or M's are given (as multiple columns), function</span>
+0022 <span class="comment">%   returns probabilities for each of them. X's and M's are</span>
+0023 <span class="comment">%   repeated to match each other, S must be the same for all.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% See also:</span>
+0026 <span class="comment">%   GAUSS_RND</span>
+0027 
+0028 <span class="comment">% Copyright (C) 2002 Simo Särkkä</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% $Id: gauss_pdf.m,v 1.1 2006/10/29 14:42:57 ssarkka Exp $</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% This software is distributed under the GNU General Public</span>
+0033 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0034 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0035 
+0036 <a name="_sub0" href="#_subfunctions" class="code">function [P,E] = gauss_pdf(X,M,S)</a>
+0037 
+0038   <span class="keyword">if</span> size(M,2) == 1
+0039     DX = X-repmat(M,1,size(X,2));  
+0040     E = 0.5*sum(DX.*(S\DX),1);
+0041     d = size(M,1);
+0042     E = E + 0.5 * d * log(2*pi) + 0.5 * log(det(S));
+0043     P = exp(-E);
+0044   <span class="keyword">elseif</span> size(X,2) == 1
+0045     DX = repmat(X,1,size(M,2))-M;  
+0046     E = 0.5*sum(DX.*(S\DX),1);
+0047     d = size(M,1);
+0048     E = E + 0.5 * d * log(2*pi) + 0.5 * log(det(S));
+0049     P = exp(-E);
+0050   <span class="keyword">else</span>
+0051     DX = X-M;  
+0052     E = 0.5*DX'*(S\DX);
+0053     d = size(M,1);
+0054     E = E + 0.5 * d * log(2*pi) + 0.5 * log(det(S));
+0055     P = exp(-E);
+0056   <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

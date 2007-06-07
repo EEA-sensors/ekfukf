@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of der_check</title>
+  <meta name="keywords" content="der_check">
+  <meta name="description" content="DER_CHECK  Check derivatives using finite differences">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; der_check.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>der_check
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>DER_CHECK  Check derivatives using finite differences</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [D0,D1] = der_check(f,df,index,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">DER_CHECK  Check derivatives using finite differences
+
+ Syntax:
+   [D0,D1] = DER_CHECK(F,DF,INDEX,[P1,P2,P3,...])
+
+ Author:
+   Simo Särkkä, 2002
+
+ In:
+   F  - Name of actual function or inline function
+        in form F(P1,P2,...)
+   DF - Derivative value as matrix, name of derivative
+        function or inline function in form DF(P1,P2,...).
+   INDEX - Index of parameter of interest. DF should
+        Calculate the derivative with recpect to parameter
+        Pn, where n is the index.
+
+ Out:
+   D0 - Actual derivative
+   D1 - Estimated derivative
+
+ Description:
+   Evaluates function derivative analytically and
+   using finite differences. If no output arguments
+   are given, issues a warning if these two values
+   differ too much.
+
+   Function is intended to checking that derivatives
+   of transition and measurement equations of EKF are
+   bug free.
+ 
+ See also:
+   EKF_PREDICT, EKF_UPDATE</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/bot_demo/bot_demo_all.html" class="code" title="">bot_demo_all</a>	Bearings Only Tracking (BOT demonstration with EKF1,EKF2 and UKF</li><li><a href="../src/demos/bot_demo/ekfs_bot_demo.html" class="code" title="">ekfs_bot_demo</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../src/demos/dreentry_demo/dreentry_demo.html" class="code" title="">dreentry_demo</a>	Discrete-time reentry demonstration using EKF and UKF.</li><li><a href="../src/demos/ekf_sine_demo/ekf_sine_demo.html" class="code" title="">ekf_sine_demo</a>	Demonstration for EKF using a random sine signal model.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%DER_CHECK  Check derivatives using finite differences</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [D0,D1] = DER_CHECK(F,DF,INDEX,[P1,P2,P3,...])</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Author:</span>
+0007 <span class="comment">%   Simo Särkkä, 2002</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% In:</span>
+0010 <span class="comment">%   F  - Name of actual function or inline function</span>
+0011 <span class="comment">%        in form F(P1,P2,...)</span>
+0012 <span class="comment">%   DF - Derivative value as matrix, name of derivative</span>
+0013 <span class="comment">%        function or inline function in form DF(P1,P2,...).</span>
+0014 <span class="comment">%   INDEX - Index of parameter of interest. DF should</span>
+0015 <span class="comment">%        Calculate the derivative with recpect to parameter</span>
+0016 <span class="comment">%        Pn, where n is the index.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% Out:</span>
+0019 <span class="comment">%   D0 - Actual derivative</span>
+0020 <span class="comment">%   D1 - Estimated derivative</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% Description:</span>
+0023 <span class="comment">%   Evaluates function derivative analytically and</span>
+0024 <span class="comment">%   using finite differences. If no output arguments</span>
+0025 <span class="comment">%   are given, issues a warning if these two values</span>
+0026 <span class="comment">%   differ too much.</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%   Function is intended to checking that derivatives</span>
+0029 <span class="comment">%   of transition and measurement equations of EKF are</span>
+0030 <span class="comment">%   bug free.</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% See also:</span>
+0033 <span class="comment">%   EKF_PREDICT, EKF_UPDATE</span>
+0034 
+0035 <span class="comment">% History:</span>
+0036 <span class="comment">%   12.03.2003  SS  Support for function handles</span>
+0037 <span class="comment">%   27.11.2002  SS  The first official version.</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">% Copyright (C) 2002 Simo Särkkä</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">% $Id: der_check.m,v 1.1 2005/08/02 11:10:44 ssarkka Exp $</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">% This software is distributed under the GNU General Public</span>
+0044 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0045 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0046 
+0047 <a name="_sub0" href="#_subfunctions" class="code">function [D0,D1] = der_check(f,df,index,varargin)</a>
+0048   <span class="comment">%</span>
+0049   <span class="comment">% Calculate function value and derivative</span>
+0050   <span class="comment">%</span>
+0051   <span class="keyword">if</span> isstr(f) | strcmp(class(f),<span class="string">'function_handle'</span>)
+0052     y0 = feval(f,varargin{:});
+0053   <span class="keyword">else</span>
+0054     y0 = f(varargin{:});
+0055   <span class="keyword">end</span>
+0056   <span class="keyword">if</span> isnumeric(df)
+0057     D0 = df;
+0058   <span class="keyword">elseif</span> isstr(df) | strcmp(class(df),<span class="string">'function_handle'</span>)
+0059     D0 = feval(df,varargin{:});
+0060   <span class="keyword">else</span>
+0061     D0 = df(varargin{:});
+0062   <span class="keyword">end</span>
+0063 
+0064   <span class="comment">%</span>
+0065   <span class="comment">% Calculate numerical derivative</span>
+0066   <span class="comment">%</span>
+0067   h = 0.0000001;
+0068   D1 = [];
+0069   X = varargin{index};
+0070   <span class="keyword">for</span> r=1:size(X,1)
+0071     <span class="keyword">for</span> c=1:size(X,2)
+0072       H = zeros(size(X,1),size(X,2));
+0073       H(r,c) = h;
+0074       varargin{index} = X+H;
+0075       <span class="keyword">if</span> isstr(f) | strcmp(class(f),<span class="string">'function_handle'</span>)
+0076         y1 = feval(f,varargin{:});
+0077       <span class="keyword">else</span>
+0078         y1 = f(varargin{:});
+0079       <span class="keyword">end</span>
+0080       d1 = (y1-y0)/h;
+0081       <span class="keyword">if</span> size(d1,1)&gt;1
+0082         D1 = [D1 d1];
+0083       <span class="keyword">else</span>
+0084         D1(r,c) = d1;
+0085       <span class="keyword">end</span>
+0086     <span class="keyword">end</span>
+0087   <span class="keyword">end</span>
+0088 
+0089   <span class="keyword">if</span> nargout == 0
+0090     d = abs(D1(:)-D0(:));
+0091     <span class="keyword">if</span> max(d) &gt; 0.001
+0092       warning(<span class="string">'Derivatives differ too much'</span>);
+0093       D0
+0094       D1
+0095     <span class="keyword">else</span>
+0096       fprintf(<span class="string">'Derivative check passed.\n'</span>);
+0097     <span class="keyword">end</span>
+0098   <span class="keyword">end</span>
+0099</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

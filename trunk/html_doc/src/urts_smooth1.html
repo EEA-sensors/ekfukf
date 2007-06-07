@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of urts_smooth1</title>
+  <meta name="keywords" content="urts_smooth1">
+  <meta name="description" content="URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; urts_smooth1.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>urts_smooth1
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother
+
+ Syntax:
+   [M,P,D] = URTS_SMOOTH1(M,P,a,Q,[param,alpha,beta,kappa,mat,same_p])
+
+ In:
+   M - NxK matrix of K mean estimates from Unscented Kalman filter
+   P - NxNxK matrix of K state covariances from Unscented Kalman Filter
+   a - Dynamic model function as a matrix A defining
+       linear function a(x) = A*x, inline function,
+       function handle or name of function in
+       form a(x,param)                   (optional, default eye())
+   Q - NxN process noise covariance matrix or NxNxK matrix
+       of K state process noise covariance matrices for each step.
+   param - Parameters of a. Parameters should be a single cell array,
+           vector or a matrix containing the same parameters for each
+           step, or if different parameters are used on each step they
+           must be a cell array of the format { param_1, param_2, ...},
+           where param_x contains the parameters for step x as a cell array,
+           a vector or a matrix.   (optional, default empty)
+   alpha - Transformation parameter      (optional)
+   beta  - Transformation parameter      (optional)
+   kappa - Transformation parameter      (optional)
+   mat   - If 1 uses matrix form         (optional, default 0)
+   same_p - If 1 uses the same parameters 
+            on every time step      (optional, default 1)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>	UT_TRANSFORM  Perform unscented transform</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/bot_demo/bot_demo_all.html" class="code" title="">bot_demo_all</a>	Bearings Only Tracking (BOT demonstration with EKF1,EKF2 and UKF</li><li><a href="../src/demos/bot_demo/ukfs_bot_demo.html" class="code" title="">ukfs_bot_demo</a>	Bearings Only Tracking (BOT) demonstration with UKF.</li><li><a href="../src/demos/dreentry_demo/dreentry_demo.html" class="code" title="">dreentry_demo</a>	Discrete-time reentry demonstration using EKF and UKF.</li><li><a href="../src/demos/ekf_sine_demo/ekf_sine_demo.html" class="code" title="">ekf_sine_demo</a>	Demonstration for EKF using a random sine signal model.</li><li><a href="../src/demos/ungm_demo/ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</li><li><a href="ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [M,P,D] = URTS_SMOOTH1(M,P,a,Q,[param,alpha,beta,kappa,mat,same_p])</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% In:</span>
+0007 <span class="comment">%   M - NxK matrix of K mean estimates from Unscented Kalman filter</span>
+0008 <span class="comment">%   P - NxNxK matrix of K state covariances from Unscented Kalman Filter</span>
+0009 <span class="comment">%   a - Dynamic model function as a matrix A defining</span>
+0010 <span class="comment">%       linear function a(x) = A*x, inline function,</span>
+0011 <span class="comment">%       function handle or name of function in</span>
+0012 <span class="comment">%       form a(x,param)                   (optional, default eye())</span>
+0013 <span class="comment">%   Q - NxN process noise covariance matrix or NxNxK matrix</span>
+0014 <span class="comment">%       of K state process noise covariance matrices for each step.</span>
+0015 <span class="comment">%   param - Parameters of a. Parameters should be a single cell array,</span>
+0016 <span class="comment">%           vector or a matrix containing the same parameters for each</span>
+0017 <span class="comment">%           step, or if different parameters are used on each step they</span>
+0018 <span class="comment">%           must be a cell array of the format { param_1, param_2, ...},</span>
+0019 <span class="comment">%           where param_x contains the parameters for step x as a cell array,</span>
+0020 <span class="comment">%           a vector or a matrix.   (optional, default empty)</span>
+0021 <span class="comment">%   alpha - Transformation parameter      (optional)</span>
+0022 <span class="comment">%   beta  - Transformation parameter      (optional)</span>
+0023 <span class="comment">%   kappa - Transformation parameter      (optional)</span>
+0024 <span class="comment">%   mat   - If 1 uses matrix form         (optional, default 0)</span>
+0025 <span class="comment">%   same_p - If 1 uses the same parameters</span>
+0026 <span class="comment">%            on every time step      (optional, default 1)</span>
+0027 <span class="comment">%</span>
+0028 
+0029 <span class="comment">% Out:</span>
+0030 <span class="comment">%   K - Smoothed state mean sequence</span>
+0031 <span class="comment">%   P - Smoothed state covariance sequence</span>
+0032 <span class="comment">%   D - Smoother gain sequence</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">% Description:</span>
+0035 <span class="comment">%   Unscented Rauch-Tung-Striebel smoother algorithm. Calculate</span>
+0036 <span class="comment">%   &quot;smoothed&quot; sequence from given Kalman filter output sequence by</span>
+0037 <span class="comment">%   conditioning all steps to all measurements.</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">% Example:</span>
+0040 <span class="comment">%   m = m0;</span>
+0041 <span class="comment">%   P = P0;</span>
+0042 <span class="comment">%   MM = zeros(size(m,1),size(Y,2));</span>
+0043 <span class="comment">%   PP = zeros(size(m,1),size(m,1),size(Y,2));</span>
+0044 <span class="comment">%   for k=1:size(Y,2)</span>
+0045 <span class="comment">%     [m,P] = ukf_predict1(m,P,a,Q);</span>
+0046 <span class="comment">%     [m,P] = ukf_update1(m,P,Y(:,k),h,R);</span>
+0047 <span class="comment">%     MM(:,k) = m;</span>
+0048 <span class="comment">%     PP(:,:,k) = P;</span>
+0049 <span class="comment">%   end</span>
+0050 <span class="comment">%   [SM,SP] = urts_smooth(MM,PP,a,Q);</span>
+0051 <span class="comment">%</span>
+0052 <span class="comment">% See also:</span>
+0053 <span class="comment">%   UKF_PREDICT1, UKF_UPDATE1</span>
+0054 
+0055 <span class="comment">% Copyright (C) 2006 Simo Särkkä</span>
+0056 <span class="comment">%</span>
+0057 <span class="comment">% $Id: urts_smooth1.m,v 1.3 2006/10/10 20:18:57 ssarkka Exp $</span>
+0058 <span class="comment">%</span>
+0059 <span class="comment">% This software is distributed under the GNU General Public</span>
+0060 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0061 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0062 
+0063 <a name="_sub0" href="#_subfunctions" class="code">function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)</a>
+0064 
+0065   <span class="comment">%</span>
+0066   <span class="comment">% Check which arguments are there</span>
+0067   <span class="comment">%</span>
+0068   <span class="keyword">if</span> nargin &lt; 4
+0069     error(<span class="string">'Too few arguments'</span>);
+0070   <span class="keyword">end</span>
+0071   <span class="keyword">if</span> nargin &lt; 5
+0072     param = [];
+0073   <span class="keyword">end</span>
+0074   <span class="keyword">if</span> nargin &lt; 6
+0075     alpha = [];
+0076   <span class="keyword">end</span>
+0077   <span class="keyword">if</span> nargin &lt; 7
+0078     beta = [];
+0079   <span class="keyword">end</span>
+0080   <span class="keyword">if</span> nargin &lt; 8
+0081     kappa = [];
+0082   <span class="keyword">end</span>
+0083   <span class="keyword">if</span> nargin &lt; 9
+0084     mat = [];
+0085   <span class="keyword">end</span>
+0086   <span class="keyword">if</span> nargin &lt; 10
+0087     same_p = 1;
+0088   <span class="keyword">end</span>
+0089 
+0090   <span class="comment">%</span>
+0091   <span class="comment">% Apply defaults</span>
+0092   <span class="comment">%</span>
+0093   <span class="keyword">if</span> isempty(a)
+0094     a = eye(size(M,1));
+0095   <span class="keyword">end</span>
+0096   <span class="keyword">if</span> isempty(Q)
+0097     Q = zeros(size(M,1));
+0098   <span class="keyword">end</span>
+0099   <span class="keyword">if</span> isempty(mat)
+0100     mat = 0;
+0101   <span class="keyword">end</span>
+0102 
+0103   <span class="comment">%</span>
+0104   <span class="comment">% Extend Q if NxN matrix</span>
+0105   <span class="comment">%</span>
+0106   <span class="keyword">if</span> size(Q,3)==1
+0107     Q = repmat(Q,[1 1 size(M,2)]);
+0108   <span class="keyword">end</span>
+0109 
+0110   <span class="comment">%</span>
+0111   <span class="comment">% Run the smoother</span>
+0112   <span class="comment">%</span>
+0113   D = zeros(size(M,1),size(M,1),size(M,2));
+0114   <span class="keyword">for</span> k=(size(M,2)-1):-1:1
+0115     <span class="keyword">if</span> isempty(param)
+0116         params = [];
+0117     <span class="keyword">elseif</span> same_p
+0118         params = param;
+0119     <span class="keyword">else</span>
+0120         params = param{k};
+0121     <span class="keyword">end</span>
+0122     [m_pred,P_pred,C] = <span class="keyword">...</span>
+0123     <a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>(M(:,k),P(:,:,k),a,params,alpha,beta,kappa);
+0124     P_pred = P_pred + Q(:,:,k);
+0125     D(:,:,k) = C / P_pred;
+0126     M(:,k)   = M(:,k) + D(:,:,k) * (M(:,k+1) - m_pred);
+0127     P(:,:,k) = P(:,:,k) + D(:,:,k) * (P(:,:,k+1) - P_pred) * D(:,:,k)';
+0128   <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

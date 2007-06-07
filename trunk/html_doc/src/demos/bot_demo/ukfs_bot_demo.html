@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ukfs_bot_demo</title>
+  <meta name="keywords" content="ukfs_bot_demo">
+  <meta name="description" content="Bearings Only Tracking (BOT) demonstration with UKF.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">bot_demo</a> &gt; ukfs_bot_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/bot_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>ukfs_bot_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Bearings Only Tracking (BOT) demonstration with UKF.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Bearings Only Tracking (BOT) demonstration with UKF.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="az_h.html" class="code" title="function Y = az_h(x,s)">az_h</a>	AZ_H Azimuth measurement function for EKF/UKF.</li><li><a href="../../../src/lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">lti_disc</a>	LTI_DISC  Discretize LTI ODE with Gaussian Noise</li><li><a href="../../../src/ufbf_smooth1.html" class="code" title="function [M,P] = ufbf_smooth1(M,P,Y,ia,Q,aparam,h,R,hparam,alpha,beta,kappa,mat,same_p_a,same_p_h)">ufbf_smooth1</a>	UFBF_SMOOTH1  Unscented Forward-Backward Filtering Based Smoother</li><li><a href="../../../src/ukf_predict1.html" class="code" title="function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict1</a>	UKF_PREDICT1  Additive form Unscented Kalman Filter prediction step</li><li><a href="../../../src/ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>	UKF_UPDATE1 -  Additive form Unscented Kalman Filter update step</li><li><a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>	URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Bearings Only Tracking (BOT) demonstration with UKF.</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2002, 2003 Simo Särkkä</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% $Id: ukfs_demo1.m,v 1.5 2006/10/10 20:18:54 ssarkka Exp $</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This software is distributed under the GNU General Public</span>
+0008 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0009 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0010 
+0011   keep_trajectory = 0;
+0012   silent = 0;
+0013 
+0014   <span class="comment">%</span>
+0015   <span class="comment">% Measurement mean and derivative</span>
+0016   <span class="comment">%</span>
+0017   <span class="comment">%  h = atan((y-sy) / (x-sx))</span>
+0018   <span class="comment">%</span>
+0019   h_func = @<a href="az_h.html" class="code" title="function Y = az_h(x,s)">az_h</a>;
+0020 
+0021   <span class="comment">%</span>
+0022   <span class="comment">% Create a bit curved trajectory and angle</span>
+0023   <span class="comment">% measurements from two sensors</span>
+0024   <span class="comment">%</span>
+0025   S1 = [-1;-2];
+0026   S2 = [1;1];
+0027   sd = 0.05;
+0028   dt = 0.01;
+0029   <span class="keyword">if</span> ~keep_trajectory
+0030     a = zeros(1,500);
+0031     a(1,50:100)  = pi/2/51/dt + 0.01*randn(1,51);
+0032     a(1,200:250) = pi/2/51/dt + 0.01*randn(1,51);
+0033     a(1,350:400) = pi/2/51/dt + 0.01*randn(1,51);
+0034     x = [0;0;1;0];
+0035     t = 0;
+0036     X = [];
+0037     Y = [];
+0038     T = [];
+0039     <span class="keyword">for</span> i=1:500
+0040       F = [0 0  1    0;<span class="keyword">...</span>
+0041            0 0  0    1;<span class="keyword">...</span>
+0042            0 0  0   a(i);<span class="keyword">...</span>
+0043            0 0 -a(i) 0];
+0044       x = expm(F*dt)*x;
+0045       y1 = atan2(x(2)-S1(2), x(1)-S1(1)) + sd * randn;
+0046       y2 = atan2(x(2)-S2(2), x(1)-S2(1)) + sd * randn;
+0047       t  = t + dt;
+0048       X = [X x];
+0049       T = [T t];
+0050       Y = [Y [y1;y2]];
+0051     <span class="keyword">end</span>
+0052   <span class="keyword">end</span>
+0053 
+0054   <span class="comment">%</span>
+0055   <span class="comment">% Initialize UKF to values</span>
+0056   <span class="comment">%</span>
+0057   <span class="comment">%   x = 0</span>
+0058   <span class="comment">%   y = 0,</span>
+0059   <span class="comment">%   dx/dt = 0</span>
+0060   <span class="comment">%   dy/dt = 0</span>
+0061   <span class="comment">%</span>
+0062   <span class="comment">% with great uncertainty in velocity</span>
+0063   <span class="comment">%</span>
+0064   M = [0;0;0;0];
+0065   P = diag([0.1 0.1 10 10]);
+0066   R = sd^2;
+0067   qx = 0.1;
+0068   qy = 0.1;
+0069   F = [0 0 1 0;
+0070        0 0 0 1;
+0071        0 0 0 0;
+0072        0 0 0 0];
+0073   [A,Q] = <a href="../../../src/lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">lti_disc</a>(F,[],diag([0 0 qx qy]),dt);
+0074 
+0075   <span class="comment">%</span>
+0076   <span class="comment">% Track and animate</span>
+0077   <span class="comment">%</span>
+0078   MM = zeros(size(M,1),size(Y,2));
+0079   PP = zeros(size(M,1),size(M,1),size(Y,2));
+0080   ME = zeros(size(M,1),1);
+0081   <span class="keyword">for</span> k=1:size(Y,2)
+0082     <span class="comment">%</span>
+0083     <span class="comment">% Track with UKF</span>
+0084     <span class="comment">%</span>
+0085     [M,P] = <a href="../../../src/ukf_predict1.html" class="code" title="function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict1</a>(M,P,A,Q);
+0086 
+0087 <span class="comment">%    [M,P] = ukf_update1(M,P,Y(1,k),h_func,R,S1);</span>
+0088 <span class="comment">%    [M,P] = ukf_update1(M,P,Y(2,k),h_func,R,S2);</span>
+0089 
+0090     [M,P] = <a href="../../../src/ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>(M,P,Y(:,k),h_func,R*eye(2),[S1 S2]);
+0091 
+0092     MM(:,k)   = M;
+0093     PP(:,:,k) = P;
+0094     ME(k) = P(1,1) + P(2,2);
+0095 
+0096     <span class="comment">%</span>
+0097     <span class="comment">% Confidence ellipse</span>
+0098     <span class="comment">%</span>
+0099     tt = (0:0.01:1)*2*pi;
+0100     cc = repmat(M(1:2),1,length(tt)) + <span class="keyword">...</span>
+0101      2*chol(P(1:2,1:2))'*[cos(tt);sin(tt)];
+0102 
+0103     <span class="comment">%</span>
+0104     <span class="comment">% Animate</span>
+0105     <span class="comment">%</span>
+0106     <span class="keyword">if</span> ~silent
+0107       <span class="keyword">if</span> rem(k,10) == 1
+0108         len = 2.5;
+0109         dx1 = len*cos(Y(1,k));
+0110         dy1 = len*sin(Y(1,k));
+0111         dx2 = len*cos(Y(2,k));
+0112         dy2 = len*sin(Y(2,k));
+0113         plot(X(1,:),X(2,:),<span class="string">'r-'</span>,<span class="keyword">...</span>
+0114              M(1),M(2),<span class="string">'bo'</span>,<span class="keyword">...</span>
+0115              MM(1,1:k),MM(2,1:k),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0116              cc(1,:),cc(2,:),<span class="string">'g-'</span>,<span class="keyword">...</span>
+0117              [S1(1);S1(1)+dx1],[S1(2);S1(2)+dy1],<span class="string">'k--'</span>,<span class="keyword">...</span>
+0118              [S2(1);S2(1)+dx2],[S2(2);S2(2)+dy2],<span class="string">'k--'</span>);
+0119         axis([-1.5 1.5 -2.5 1]);
+0120         drawnow;
+0121       <span class="keyword">end</span>
+0122     <span class="keyword">end</span>
+0123   <span class="keyword">end</span>
+0124 
+0125   <span class="comment">%</span>
+0126   <span class="comment">% Calculate RMSE</span>
+0127   <span class="comment">%</span>
+0128   ukf_rmse = sqrt(mean((X(1,:)-MM(1,:)).^2+(X(2,:)-MM(2,:)).^2));
+0129   fprintf(<span class="string">'UKF-RMSE  = %.3f  [%.3f]\n'</span>,ukf_rmse,sqrt(mean(ME)));
+0130 
+0131   <span class="comment">%</span>
+0132   <span class="comment">% Smoother 1</span>
+0133   <span class="comment">%</span>
+0134   [SM1,SP1] = <a href="../../../src/urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>(MM,PP,A,Q);
+0135   uks_rmse1 = sqrt(mean((X(1,:)-SM1(1,:)).^2+(X(2,:)-SM1(2,:)).^2));
+0136   ME1 = squeeze(SP1(1,1,:)+SP1(2,2,:));
+0137   fprintf(<span class="string">'UKS-RMSE1 = %.4f [%.4f]\n'</span>,uks_rmse1,sqrt(mean(ME1)));  
+0138   
+0139   <span class="comment">%</span>
+0140   <span class="comment">% Smoother 2</span>
+0141   <span class="comment">%</span>
+0142   IAW = inv(A)*[eye(size(A,1)) eye(size(A,1))];
+0143   [SM2,SP2] = <a href="../../../src/ufbf_smooth1.html" class="code" title="function [M,P] = ufbf_smooth1(M,P,Y,ia,Q,aparam,h,R,hparam,alpha,beta,kappa,mat,same_p_a,same_p_h)">ufbf_smooth1</a>(MM,PP,Y,IAW,Q,[],<span class="keyword">...</span>
+0144              h_func,R*eye(2),[S1 S2]);
+0145 
+0146   uks_rmse2 = sqrt(mean((X(1,:)-SM2(1,:)).^2+(X(2,:)-SM2(2,:)).^2));
+0147   ME2 = squeeze(SP2(1,1,:)+SP2(2,2,:));
+0148   fprintf(<span class="string">'UKS-RMSE2 = %.4f [%.4f]\n'</span>,uks_rmse2,sqrt(mean(ME2)));
+0149 
+0150   <span class="comment">%</span>
+0151   <span class="comment">% Plot</span>
+0152   <span class="comment">%</span>
+0153   <span class="keyword">if</span> ~silent
+0154     plot(X(1,:),X(2,:),<span class="string">'k-'</span>,<span class="keyword">...</span>
+0155          MM(1,:),MM(2,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0156          SM1(1,:),SM1(2,:),<span class="string">'r-.'</span>,<span class="keyword">...</span>
+0157          SM2(1,:),SM2(2,:),<span class="string">'g-.'</span>,<span class="keyword">...</span>
+0158          S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0159     axis([-1.5 1.5 -2.5 1]);
+0160     legend(<span class="string">'Real trajectory'</span>,<span class="keyword">...</span>
+0161            <span class="string">'EKF1 estimate'</span>,<span class="keyword">...</span>
+0162            <span class="string">'ERTS estimate'</span>,<span class="keyword">...</span>
+0163            <span class="string">'EFBF estimate'</span>,<span class="keyword">...</span>
+0164            <span class="string">'Positions of sensors'</span>,<span class="keyword">...</span>
+0165            <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>);
+0166     title(<span class="string">'Filtering and smoothing result with 1st order EKF'</span>);
+0167     print -dpsc bot_demo_ukf.ps
+0168   <span class="keyword">end</span>
+0169   
+0170   UMM = MM;
+0171   USM1 = SM1;
+0172   USM2 = SM2;
+0173 
+0174</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

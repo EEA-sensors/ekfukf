@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ut_weights</title>
+  <meta name="keywords" content="ut_weights">
+  <meta name="description" content="UT_WEIGHTS - Generate unscented transformation weights">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; ut_weights.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ut_weights
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>UT_WEIGHTS - Generate unscented transformation weights</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [WM,WC,c] = ut_weights(n,alpha,beta,kappa) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">UT_WEIGHTS - Generate unscented transformation weights
+
+ Syntax:
+   [WM,WC,c] = ut_weights(n,alpha,beta,kappa)
+
+ In:
+   n     - Dimensionality of random variable
+   alpha - Transformation parameter  (optional, default 0.5)
+   beta  - Transformation parameter  (optional, default 2)
+   kappa - Transformation parameter  (optional, default 3-n)
+
+ Out:
+   WM - Weights for mean calculation
+   WC - Weights for covariance calculation
+    c - Scaling constant
+
+ Description:
+   Computes unscented transformation weights.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_mweights.html" class="code" title="function [WM,W,c] = ut_mweights(n,alpha,beta,kappa)">ut_mweights</a>	UT_MWEIGHTS - Generate matrix form unscented transformation weights</li><li><a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>	UT_TRANSFORM  Perform unscented transform</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%UT_WEIGHTS - Generate unscented transformation weights</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Syntax:</span>
+0004 <span class="comment">%   [WM,WC,c] = ut_weights(n,alpha,beta,kappa)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% In:</span>
+0007 <span class="comment">%   n     - Dimensionality of random variable</span>
+0008 <span class="comment">%   alpha - Transformation parameter  (optional, default 0.5)</span>
+0009 <span class="comment">%   beta  - Transformation parameter  (optional, default 2)</span>
+0010 <span class="comment">%   kappa - Transformation parameter  (optional, default 3-n)</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Out:</span>
+0013 <span class="comment">%   WM - Weights for mean calculation</span>
+0014 <span class="comment">%   WC - Weights for covariance calculation</span>
+0015 <span class="comment">%    c - Scaling constant</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% Description:</span>
+0018 <span class="comment">%   Computes unscented transformation weights.</span>
+0019 <span class="comment">%</span>
+0020 
+0021 <span class="comment">% Copyright (C) 2006 Simo Särkkä</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% $Id: ut_weights.m,v 1.1 2006/09/26 21:32:43 ssarkka Exp $</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">% This software is distributed under the GNU General Public</span>
+0026 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0027 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0028 
+0029 <a name="_sub0" href="#_subfunctions" class="code">function [WM,WC,c] = ut_weights(n,alpha,beta,kappa)</a>
+0030 
+0031 <span class="comment">%</span>
+0032 <span class="comment">% Check which arguments are there</span>
+0033 <span class="comment">%</span>
+0034 <span class="keyword">if</span> nargin &lt; 1
+0035   error(<span class="string">'At least dimensionality n required.'</span>);
+0036 <span class="keyword">end</span>
+0037 <span class="keyword">if</span> nargin &lt; 2
+0038   alpha = [];
+0039 <span class="keyword">end</span>
+0040 <span class="keyword">if</span> nargin &lt; 3
+0041   beta = [];
+0042 <span class="keyword">end</span>
+0043 <span class="keyword">if</span> nargin &lt; 4
+0044   kappa = [];
+0045 <span class="keyword">end</span>
+0046 
+0047 <span class="comment">%</span>
+0048 <span class="comment">% Apply default values</span>
+0049 <span class="comment">%</span>
+0050 <span class="keyword">if</span> isempty(alpha)
+0051   alpha = 0.5;
+0052 <span class="keyword">end</span>
+0053 <span class="keyword">if</span> isempty(beta)
+0054   beta = 2;
+0055 <span class="keyword">end</span>
+0056 <span class="keyword">if</span> isempty(kappa)
+0057   kappa = 3 - n;
+0058 <span class="keyword">end</span>
+0059       
+0060 <span class="comment">%</span>
+0061 <span class="comment">% Compute the normal weights</span>
+0062 <span class="comment">%</span>
+0063 lambda = alpha^2 * (n + kappa) - n;
+0064       
+0065 WM = zeros(2*n+1,1);
+0066 WC = zeros(2*n+1,1);
+0067 <span class="keyword">for</span> j=1:2*n+1
+0068   <span class="keyword">if</span> j==1
+0069     wm = lambda / (n + lambda);
+0070     wc = lambda / (n + lambda) + (1 - alpha^2 + beta);
+0071   <span class="keyword">else</span>
+0072     wm = 1 / (2 * (n + lambda));
+0073     wc = wm;
+0074   <span class="keyword">end</span>
+0075   WM(j) = wm;
+0076   WC(j) = wc;
+0077 <span class="keyword">end</span>
+0078 
+0079 c = n + lambda;</pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

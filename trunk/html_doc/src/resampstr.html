@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of resampstr</title>
+  <meta name="keywords" content="resampstr">
+  <meta name="description" content="RESAMPSTR Stratified resampling">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; resampstr.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>resampstr
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>RESAMPSTR Stratified resampling</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function s = resampstr(p); </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">RESAMPSTR Stratified resampling
+   S = RESAMPSTR(P) returns a new set of indices according to 
+   the probabilities P. P is array of probabilities, which are
+   not necessarily normalized, though they must be non-negative,
+   and not all zero. The size of S is the size of P.
+
+   Default is to use no-sort resampling. For sorted resampling use
+    [PS,PI]=SORT(P);
+    S=PI(RESAMPSTR(PS));
+   Sorted re-sampling is slower but has slightly smaller variance.
+   Stratified resampling is unbiased, almost as fast as
+   deterministic resampling (RESAMPDET), and has only slightly
+   larger variance.
+
+   In stratified resampling indices are sampled using random
+   numbers u_j~U[(j-1)/n,j/n], where n is length of P. Compare
+   this to simple random resampling where u_j~U[0,1]. See,
+   Kitagawa, G., Monte Carlo Filter and Smoother for
+   Non-Gaussian Nonlinear State Space Models, Journal of
+   Computational and Graphical Statistics, 5(1):1-25, 1996. 
+
+   See also RESAMPSIM, RESAMPRES, RESAMPDET</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../src/demos/ungm_demo/ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</li><li><a href="ungm_demo.html" class="code" title="">ungm_demo</a>	Demonstration of univariate nonstationary growth model (UNGM) using</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function s = resampstr(p);</a>
+0002 <span class="comment">%RESAMPSTR Stratified resampling</span>
+0003 <span class="comment">%   S = RESAMPSTR(P) returns a new set of indices according to</span>
+0004 <span class="comment">%   the probabilities P. P is array of probabilities, which are</span>
+0005 <span class="comment">%   not necessarily normalized, though they must be non-negative,</span>
+0006 <span class="comment">%   and not all zero. The size of S is the size of P.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%   Default is to use no-sort resampling. For sorted resampling use</span>
+0009 <span class="comment">%    [PS,PI]=SORT(P);</span>
+0010 <span class="comment">%    S=PI(RESAMPSTR(PS));</span>
+0011 <span class="comment">%   Sorted re-sampling is slower but has slightly smaller variance.</span>
+0012 <span class="comment">%   Stratified resampling is unbiased, almost as fast as</span>
+0013 <span class="comment">%   deterministic resampling (RESAMPDET), and has only slightly</span>
+0014 <span class="comment">%   larger variance.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%   In stratified resampling indices are sampled using random</span>
+0017 <span class="comment">%   numbers u_j~U[(j-1)/n,j/n], where n is length of P. Compare</span>
+0018 <span class="comment">%   this to simple random resampling where u_j~U[0,1]. See,</span>
+0019 <span class="comment">%   Kitagawa, G., Monte Carlo Filter and Smoother for</span>
+0020 <span class="comment">%   Non-Gaussian Nonlinear State Space Models, Journal of</span>
+0021 <span class="comment">%   Computational and Graphical Statistics, 5(1):1-25, 1996.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%   See also RESAMPSIM, RESAMPRES, RESAMPDET</span>
+0024 
+0025 <span class="comment">% Copyright (c) 2003-2004 Aki Vehtari</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% This software is distributed under the GNU General Public</span>
+0028 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0029 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0030 
+0031 [m,n]=size(p);
+0032 mn=m.*n;
+0033 pn=p./sum(p(:)).*mn;
+0034 fpn=floor(pn);
+0035 s=zeros(m,n);
+0036 r=rand(1,mn);
+0037 k=0;
+0038 c=0;
+0039 <span class="keyword">for</span> i=1:mn
+0040   c=c+pn(i);
+0041   <span class="keyword">if</span> c&gt;=1
+0042     a=floor(c);
+0043     c=c-a;
+0044     s(k+[1:a])=i;
+0045     k=k+a;
+0046   <span class="keyword">end</span>
+0047   <span class="keyword">if</span> k&lt;mn &amp;&amp; c&gt;=r(k+1)
+0048     c=c-1;
+0049     k=k+1;
+0050     s(k)=i;
+0051   <span class="keyword">end</span>
+0052 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 07-Jun-2007 14:54:42 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
