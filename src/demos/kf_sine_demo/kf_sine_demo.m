@@ -46,6 +46,13 @@
   MM = zeros(size(M,1),size(Y,2));
   PP = zeros(size(M,1),size(M,1),size(Y,2));
   clf;
+  clc;
+  disp('In this demonstration we estimate a stationary sine signal from noisy measurements by using the classical Kalman filter.');
+  disp(' ');
+  disp('The filtering results are now displayed sequantially for 10 time step at a time.');
+  disp(' ');
+  disp('<push any key to proceed to next time steps>');
+  
   for k=1:size(Y,2)
     %
     % Track with KF
@@ -64,11 +71,21 @@
            T,Y,'ro',...
            T(k),M(1),'k*',...
            T(1:k),MM(1,1:k),'k-');
+      legend('Real signal','Measurements','Latest estimate','Filtered estimate')
+      title('Estimating a noisy sine signal with Kalman filter.');
       drawnow;
+      
       pause;
     end
   end
 
+  clc;
+  disp('In this demonstration we estimate a stationary sine signal from noisy measurements by using the classical Kalman filter.');
+  disp(' ');
+  disp('The filtering results are now displayed sequantially for 10 time step at a time.');
+  disp(' ');
+  disp('<push any key to see the filtered and smoothed results together>')
+  pause;  
   %
   % Apply Kalman smoother
   %
@@ -76,10 +93,16 @@
   plot(T,X,'b--',...
        T,MM(1,:),'k-',...
        T,SM(1,:),'r-');
-
+  legend('Real signal','Filtered estimate','Smoothed estimate') 
+  title('Filtered and smoothed estimate of the original signal');
+  
+  clc;
+  disp('The filtered and smoothed estimates of the signal are now displayed.')
+  disp(' ');
+  disp('RMS errors:');
   %
   % Errors
   %
-  fprintf('kf_rmse = %.3f\nks_rmse = %.3f\n',...
+  fprintf('KF = %.3f\nRTS = %.3f\n',...
           sqrt(mean((MM(1,:)-X(1,:)).^2)),...
           sqrt(mean((SM(1,:)-X(1,:)).^2)));

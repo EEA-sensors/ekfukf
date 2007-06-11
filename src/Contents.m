@@ -37,8 +37,8 @@
 %   UKF_UPDATE1   Nonaugmented UKF update step
 %   UKF_PREDICT2  Augmented (state and process noise) UKF prediction step 
 %   UKF_UPDATE2   Augmented (state and measurement noise) UKF update step 
-%   UKF_PREDICT3  Augmented (state,process and measurement noise) UKF prediction step
-%   UKF_UPDATE3   Augmented (state,process and measurement noise) UKF update step
+%   UKF_PREDICT3  Augmented (state, process and measurement noise) UKF prediction step
+%   UKF_UPDATE3   Augmented (state, process and measurement noise) UKF update step
 %
 % Misc.
 %   GAUSS_PDF  Multivariate Gaussian PDF
@@ -50,6 +50,13 @@
 %   SCHOL      Positive semidefinite matrix Cholesky factorization
 %
 % Demos 
+%
+%   KF_CWPA_DEMO  - CWPA model demonstration with Kalman filter
+%      KF_CWPA_DEMO        CWPA model demonstration
+%
+%   KF_SINE_DEMO  - Sine Signal demonstration with Kalman filter   
+%      KF_SINE_DEMO        Sine signal demonstration
+%
 %   BOT_DEMO - Bearings Only Tracking demonstration
 %      AZ_H                Measurement model function
 %      AZ_DH_DX            1st order derivative of the measurement model 
@@ -75,11 +82,6 @@
 %      EKF_SINE_D2H_DX2    2nd order derivative of the measurement model
 %      EKF_SINE_DEMO       Random Sine Signal demonstration
 %
-%   KF_CWPA_DEMO  - CWPA model demonstration with Kalman filter
-%      KF_CWPA_DEMO        CWPA model demonstration
-%
-%   KF_SINE_DEMO  - Sine Signal demonstration with Kalman filter   
-%      KF_SINE_DEMO        Sine signal demonstration
 %
 %   UNGM_DEMO     - UNGM model demonstration
 %      UNGM_F              Dynamic model function

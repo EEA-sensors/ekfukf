@@ -1,4 +1,4 @@
-% Discrete-time reentry demonstration using EKF and UKF. 
+% Discrete-time reentry dynamics demonstration with EKF and UKF. 
 
 % Copyright (C) 2006 Simo Särkkä
 %               2007 Jouni Hartikainen
@@ -13,28 +13,36 @@
   make_dreentry_data;
 
   silent = 0;
-  
-  %
-  % Estimate with EKF
-  %
-  m = m0;
-  P = P0;
-  Q = L*Qc*L'*dt;
+
+  % Handles to dynamic and measurement model functions,
+  % and to their derivatives.
   func_a  = @dreentry_a;
   func_ia = @dreentry_ia;
   func_da = @dreentry_da;
   func_h  = @dreentry_h;
   func_dh = @dreentry_dh;
-
+  
+  % Initial values and space for EKF
+  m = m0;
+  P = P0;
+  Q = L*Qc*L'*dt;
+  
   MM_EKF = zeros(size(m,1),size(Y,2));
   PP_EKF = zeros(size(m,1),size(m,1),size(Y,2));
   VV_EKF = zeros(size(m,1),size(Y,2));
   EE_EKF = zeros(size(m,1),size(Y,2));
   
-  der_check(func_a, func_da, 1, m0, {dt,b0,H0,Gm0,R0});
-  der_check(func_h, func_dh, 1, m0, {xr,yr});
+  % Check derivatives (should be OK)
+  %der_check(func_a, func_da, 1, m0, {dt,b0,H0,Gm0,R0});
+  %der_check(func_h, func_dh, 1, m0, {xr,yr});
 
-  fprintf('[Running EKF...]\n'); 
+  clf; clc; 
+  disp(['This is a demonstration for tracking a reentry vehicle ',...
+        'using 1st order EKF and augmented UKF.'])
+  disp(' ');
+  
+  fprintf('Running EKF...'); 
+  % Filtering with EKF
   for k=1:size(Y,2)
     [m,P] = ekf_predict1(m,P,func_da,Q,func_a,[],{dt,b0,H0,Gm0,R0});
     [m,P] = ekf_update1(m,P,Y(:,k),func_dh,diag([vr va]),func_h,[],{xr,yr});
@@ -49,8 +57,9 @@
   %
   ekf_rmse = sqrt(mean(sum((X(1:2,:)-MM_EKF(1:2,:)).^2)));
   ME_EKF = squeeze(PP_EKF(1,1,:)+PP_EKF(2,2,:));
-  fprintf('EKF-RMSE = %.6f [%.6f]\n',ekf_rmse,sqrt(mean(ME_EKF)));
+  fprintf('Done!\n')
 
+  fprintf('Running smoothers...');
   %
   % Smoother 1
   %
@@ -58,7 +67,7 @@
                           {dt,b0,H0,Gm0,R0});
   eks_rmse1 = sqrt(mean(sum((X(1:2,:)-SM_ERTS(1:2,:)).^2)));
   ME_ERTS = squeeze(SP_ERTS(1,1,:)+SP_ERTS(2,2,:));
-  fprintf('ERTS-RMSE = %.6f [%.6f]\n',eks_rmse1,sqrt(mean(ME_ERTS)));
+
 
   SV_ERTS = zeros(size(m,1),size(Y,2));
   SE_ERTS = zeros(size(m,1),size(Y,2));
@@ -76,10 +85,10 @@
   
   eks_rmse2 = sqrt(mean(sum((X(1:2,:)-SM_EFBF(1:2,:)).^2)));
   ME_EFBF = squeeze(SP_EFBF(1,1,:)+SP_EFBF(2,2,:));
-  fprintf('EFBF-RMSE = %.6f [%.6f]\n',eks_rmse2,sqrt(mean(ME_EFBF)));
+  fprintf('Done!\n');
   
 
-  % UKF
+  % Initial values and space for (augmented) UKF 
   m = m0;
   P = P0;
   MM_UKF = zeros(size(m,1),size(Y,2));
@@ -87,7 +96,7 @@
   VV_UKF = zeros(size(m,1),size(Y,2));
   EE_UKF = zeros(size(m,1),size(Y,2));
   
-  fprintf('[Running UKF...]\n'); 
+  fprintf('Running UKF...'); 
 
   % Filtering with UKF
   for k=1:size(Y,2)
@@ -99,7 +108,7 @@
     
     %[m,P] = ukf_update1(m,P,Y(:,k),func_h,diag([vr va]),{xr,yr});
     
-    % Augmented UKF with same sigma points for predict and update
+    % Augmented UKF with same sigma points for predict and update steps
     [m,P,X_s,w] = ukf_predict3(m,P,func_a,Qc*dt,diag([vr va]),d_param);  
     [m,P] = ukf_update3(m,P,Y(:,k),func_h,diag([vr va]),X_s,w,h_param,h_param);    
 
@@ -114,15 +123,16 @@
   %
   ukf_rmse = sqrt(mean(sum((X(1:2,:)-MM_UKF(1:2,:)).^2)));
   ME_UKF = squeeze(PP_UKF(1,1,:)+PP_UKF(2,2,:));
-  fprintf('UKF-RMSE = %.6f [%.6f]\n',ukf_rmse,sqrt(mean(ME_UKF)));
+  fprintf('Done!\n');
   
+  fprintf('Running smoothers...');
   % 
   % Smoother 1
   %
   [SM_URTS,SP_URTS] = urts_smooth1(MM_UKF,PP_UKF,func_a,Q,d_param);
   uks_rmse1 = sqrt(mean(sum((X(1:2,:)-SM_URTS(1:2,:)).^2)));
   ME_URTS = squeeze(SP_URTS(1,1,:)+SP_URTS(2,2,:));
-  fprintf('URTS-RMSE = %.6f [%.6f]\n',uks_rmse1,sqrt(mean(ME_URTS)));
+
 
   SV_URTS = zeros(size(m,1),size(Y,2));
   SE_URTS = zeros(size(m,1),size(Y,2));
@@ -134,7 +144,6 @@
   [SM_URTSb,SP_URTSb] = urts_smooth2(MM_UKF,PP_UKF,func_a,Qc*dt,d_param);
   uks_rmse1b = sqrt(mean(sum((X(1:2,:)-SM_URTSb(1:2,:)).^2)));
   ME_URTSb = squeeze(SP_URTSb(1,1,:)+SP_URTSb(2,2,:));
-  fprintf('URTS-RMSEb = %.6f [%.6f]\n',uks_rmse1b,sqrt(mean(ME_URTSb)));
 
   %
   % Smoother 2
@@ -145,8 +154,9 @@
   
   uks_rmse2 = sqrt(mean(sum((X(1:2,:)-SM_UFBF(1:2,:)).^2)));
   ME_UFBF = squeeze(SP_UFBF(1,1,:)+SP_UFBF(2,2,:));
-  fprintf('UFBF-RMSE2 = %.6f [%.6f]\n',uks_rmse2,sqrt(mean(ME_UFBF)));
 
+  fprintf('Done!\n');
+  
   %
   % Plot
   %
@@ -158,7 +168,11 @@
     plot(xr,yr,'ko',cx,cy,'r-',X(1,:),X(2,:),'g-',...
          MM_EKF(1,:),MM_EKF(2,:),'k--');
     legend('Radar','Earth','True','Estimate');
-    disp('Press any key to proceed.');
+    title('Filtering result with EKF');
+    disp(' ');
+    disp('Filtering result with EKF is now displayed.');
+    disp(' ');
+    disp('<press any key to see the estimation error of x_1>');    
     pause;
   
     % Error for x_1 with EKF
@@ -167,7 +181,10 @@
     legend('EKF-RMSE','EKF-STDE',...
 	   'ERTS-RMSE1','ERTS-STDE1');  
     title('RMSE of estimating x_1 with EKF and ERTS')
-    disp('Press any key to proceed.');
+    clc;
+    disp('RMSE of estimating x_1 with EKF and ERTS is now displayed.');
+    disp(' ');
+    disp('<press any key to see the estimation error of x_5>');
     pause  
     
     % Error for x_5 with EKF
@@ -176,14 +193,20 @@
     legend('EKF-RMSE','EKF-STDE',...
 	   'ERTS-RMSE1','ERTS-STDE1');
     title('RMSE of estimating x_5 with EKF and ERTS')
-    disp('Press any key to proceed.');
+    clc;
+    disp('RMSE of estimating x_5 with EKF and ERTS is now displayed.');
+    disp(' ');
+    disp('<press any key to see the estimation error of x_5>');
     pause  
     
     % Plot UKF estimate
     plot(xr,yr,'ko',cx,cy,'r-',X(1,:),X(2,:),'g-',...
          MM_UKF(1,:),MM_UKF(2,:),'k--');
     legend('Radar','Earth','True','Estimate');
-    disp('Press any key to proceed.');
+    clc;
+    disp('Filtering result with UKF is now displayed.');
+    disp(' ');
+    disp('<press any key to see the estimation error of x_1>');    
     pause;
   
     % Error for x_1 with UKF
@@ -191,7 +214,10 @@
              T,SE_URTS(1,:),'r-',T,SV_URTS(1,:),'k--');
     legend('UKF-RMSE','UKF-STDE','URTS-RMSE','URTS-STDE');
     title('RMSE of estimating x_1 with UKF and URTS')    
-    disp('Press any key to proceed.');
+    clc;
+    disp('RMSE of estimating x_1 with EKF and ERTS is now displayed.');
+    disp(' ');
+    disp('<press any key to see the estimation error of x_5>');
     pause;
   
     % Error for x_5 with UKF
@@ -199,4 +225,18 @@
              T,SE_URTS(5,:),'r-',T,SV_URTS(5,:),'k--');
     legend('UKF-RMSE','UKF-STDE','URTS-RMSE','URTS-STDE');
     title('RMSE of estimating x_5 with UKF and URTS')
+    clc;
+    disp('RMSE of estimating x_5 with EKF and ERTS is now displayed.');
   end
+
+  disp(' ');
+  disp('RMS errors:');
+  fprintf('EKF-RMSE = %.6f [%.6f]\n',ekf_rmse,sqrt(mean(ME_EKF)));
+  fprintf('ERTS-RMSE = %.6f [%.6f]\n',eks_rmse1,sqrt(mean(ME_ERTS)));
+  fprintf('EFBF-RMSE = %.6f [%.6f]\n',eks_rmse2,sqrt(mean(ME_EFBF)));
+  fprintf('UKF-RMSE = %.6f [%.6f]\n',ukf_rmse,sqrt(mean(ME_UKF)));
+  fprintf('URTS1-RMSE = %.6f [%.6f]\n',uks_rmse1,sqrt(mean(ME_URTS)));
+  fprintf('URTS2-RMSE = %.6f [%.6f]\n',uks_rmse1b,sqrt(mean(ME_URTSb)));
+  fprintf('UFBF-RMSE = %.6f [%.6f]\n',uks_rmse2,sqrt(mean(ME_UFBF)));
+
+  

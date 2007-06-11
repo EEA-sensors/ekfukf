@@ -108,7 +108,7 @@ end
 
 fprintf('ready.\n');
 disp(' ');
-disp('Push any button to see the results.');
+disp('<push any button to see the results>');
 pause
 
 subplot(1,2,1);
@@ -136,7 +136,7 @@ disp(['The filtering results are displayed now. In the left panel the ',...
       'estimated path is shown, and, for comparison, in the right panel ',...
       'the estimated velocity is shown.']);
 disp(' ')
-disp('Push any key to see the smoothing results of a RTS smoother');
+disp('<push any key to see the smoothing results of a RTS smoother>');
 
 pause
 subplot(1,2,1);
@@ -163,7 +163,7 @@ disp(['The smoothing results are displayed now. In the left panel the ',...
       'estimated path is shown, and, for comparison, in the right panel ',...
       'the estimated velocity is shown.']);
 disp(' ')
-disp('Push any key to see the filtering results sequentially.');
+disp('<push any key to see the filtering results sequentially>');
 
 pause
 subplot(1,2,1);
@@ -195,7 +195,7 @@ disp(['The observations are displayed as green dots and ',...
      'step. The predicted position on next step is displayed ',...
      'as a red circle']);
 disp(' ');
-disp('Press any to proceed to next step');
+disp('<push any key to proceed to next step>');
 
 clf
 EST = [];
@@ -232,7 +232,7 @@ disp(['The observations are displayed as green dots and the ',...
      'The covariance in each step is displayed as a green',...
      'ellipse around the mean (black circle) on each step.']);
 disp(' ');
-disp('Press any to proceed to next step');
+disp('<push any key to proceed to next step>');
 
 EST = [];
 for k=size(Y,2):-1:1

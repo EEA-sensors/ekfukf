@@ -1,4 +1,4 @@
-% Bearings Only Tracking (BOT demonstration with EKF1,EKF2 and UKF
+% Bearings Only Tracking (BOT) demonstration with EKF1,EKF2 and UKF
 
 % Copyright (C) 2002, 2003 Simo Särkkä
 %                     2007 Jouni Hartikainen
@@ -10,7 +10,7 @@
 % Licence.txt, included with the software, for details.
 
   silent = 0;
-  save_plots = 1;
+  save_plots = 0;
   
   % Measurement mean and derivative
   %
@@ -70,17 +70,22 @@
        0 0 0 0];
   [A,Q] = lti_disc(F,[],diag([0 0 qx qy]),dt);
 
-
+  clc;  clf;
+  disp(['In this demonstration we track a moving object with two sensors, ',...
+        'which gives only bearings of the object with respect to sensors position. ',...
+       'The state of the system is estimated with 1st and 2nd order EKF, and UKF.'])
+  disp(' ');
+  fprintf('Running 1st order EKF...')
   % 
   % Initialize EKF1
   %
   M = M_0;
   P = P_0;
   R = sd^2;
-  if ~silent
-    der_check(h_func, dh_dx_func, 1, M, S1);
-    der_check(h_func, dh_dx_func, 1, M, S2);
-  end
+  %if ~silent
+  %  der_check(h_func, dh_dx_func, 1, M, S1);
+  %  der_check(h_func, dh_dx_func, 1, M, S2);
+  %end
   
   MM_EKF1 = zeros(size(M,1),size(Y,2));
   PP_EKF1 = zeros(size(M,1),size(M,1),size(Y,2));
@@ -97,20 +102,20 @@
   
   % RMSE for EKF1
   ekf1_rmse = sqrt(mean((X(1,:)-MM_EKF1(1,:)).^2+(X(2,:)-MM_EKF1(2,:)).^2));
-  fprintf('EKF1-RMSE  = %.3f  [%.3f]\n',ekf1_rmse,sqrt(mean(ME_EKF1)));
 
+  fprintf('Done!\n')
+  fprintf('Running smoothers...');
   % ERTS smoother
   [SM1_EKF1,SP1_EKF1] = erts_smooth1(MM_EKF1,PP_EKF1,A,Q);
   eks1_rmse1 = sqrt(mean((X(1,:)-SM1_EKF1(1,:)).^2+(X(2,:)-SM1_EKF1(2,:)).^2));
   ME1_EKF1 = squeeze(SP1_EKF1(1,1,:)+SP1_EKF1(2,2,:));
-  fprintf('EKS1-RMSE1 = %.4f [%.4f]\n',eks1_rmse1,sqrt(mean(ME1_EKF1)));
 
   % EFBF smoother
   [SM2_EKF1,SP2_EKF1] = efbf_smooth1(MM_EKF1,PP_EKF1,Y,A,Q,[],[],[],...
 		        dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
   eks1_rmse2 = sqrt(mean((X(1,:)-SM2_EKF1(1,:)).^2+(X(2,:)-SM2_EKF1(2,:)).^2));
   ME2_EKF1 = squeeze(SP2_EKF1(1,1,:)+SP2_EKF1(2,2,:));
-  fprintf('EKS-RMSE2 = %.4f [%.4f]\n',eks1_rmse2,sqrt(mean(ME2_EKF1)));
+  fprintf('Done!\n');
   
   % Plot the results 
   if ~silent
@@ -132,6 +137,10 @@
     end
   end
   
+  disp(' ');
+  disp('1st order filtering and smoothing results are now displayed');
+  disp(' ');
+  disp('<push any key to filter and smooth with 2nd order EKF>');
   pause
   
   %
@@ -149,6 +158,8 @@
   PP_EKF2 = zeros(size(M,1),size(M,1),size(Y,2));
   ME_EKF2 = zeros(size(M,1),1);
   
+  clc; 
+  fprintf('Running 2nd order EKF...');
   % Filter with EKF2
   for k = 1:size(Y,2) 
     [M,P] = ekf_predict1(M,P,A,Q);
@@ -157,17 +168,16 @@
     PP_EKF2(:,:,k) = P;
     ME_EKF2(k) = P(1,1) + P(2,2);
   end
-  
   ekf2_rmse = sqrt(mean((X(1,:)-MM_EKF2(1,:)).^2+(X(2,:)-MM_EKF2(2,:)).^2));
-  fprintf('EKF2-RMSE  = %.3f  [%.3f]\n',ekf2_rmse,sqrt(mean(ME_EKF2)));
-
+  fprintf('Done!\n');
+  
+  fprintf('Running smoothers...');
   %
   % Smoother 1
   %
   [SM1_EKF2,SP1_EKF2] = erts_smooth1(MM_EKF2,PP_EKF2,A,Q);
   eks2_rmse1 = sqrt(mean((X(1,:)-SM1_EKF2(1,:)).^2+(X(2,:)-SM1_EKF2(2,:)).^2));
   ME1_EKF2 = squeeze(SP1_EKF2(1,1,:)+SP1_EKF2(2,2,:));
-  fprintf('EKS2-RMSE1 = %.4f [%.4f]\n',eks2_rmse1,sqrt(mean(ME1_EKF2)));
 
   %
   % Smoother 2
@@ -176,7 +186,7 @@
 		        dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
   eks2_rmse2 = sqrt(mean((X(1,:)-SM2_EKF2(1,:)).^2+(X(2,:)-SM2_EKF2(2,:)).^2));
   ME2_EKF2 = squeeze(SP2_EKF2(1,1,:)+SP2_EKF2(2,2,:));
-  fprintf('EKS2-RMSE2 = %.4f [%.4f]\n',eks2_rmse2,sqrt(mean(ME2_EKF2)));
+  fprintf('Done!\n');
   
   if ~silent
     plot(X(1,:),X(2,:),'k-',...
@@ -197,8 +207,14 @@
     end
   end
   
+  disp(' ');
+  disp('2nd order filtering and smoothing results are now displayed.');
+  disp(' ');
+  disp('<push any key to filter and smooth with uscented filter and smoothers>')
   pause
   
+  clc;
+  fprintf('Running UKF...');
   % Initialize UKF
   M = M_0;
   P = P_0;
@@ -215,26 +231,26 @@
     ME_UKF(k) = P(1,1) + P(2,2);
   end
   
-  % Calculate RMSE
+  % Calculate RMSE of EKF
   ukf_rmse = sqrt(mean((X(1,:)-MM_UKF(1,:)).^2+(X(2,:)-MM_UKF(2,:)).^2));
-  fprintf('UKF-RMSE  = %.3f  [%.3f]\n',ukf_rmse,sqrt(mean(ME_UKF)));
 
+  fprintf('Done!\n');
+
+  fprintf('Running smoothers...');  
   % URTS Smoother   
   [SM1_UKF,SP1_UKF] = urts_smooth1(MM_UKF,PP_UKF,A,Q);
   uks_rmse1 = sqrt(mean((X(1,:)-SM1_UKF(1,:)).^2+(X(2,:)-SM1_UKF(2,:)).^2));
   ME1_UKF = squeeze(SP1_UKF(1,1,:)+SP1_UKF(2,2,:));
-  fprintf('UKS-RMSE1 = %.4f [%.4f]\n',uks_rmse1,sqrt(mean(ME1_UKF)));  
   
   % UFBF Smoother
   IAW = inv(A)*[eye(size(A,1)) eye(size(A,1))];
   [SM2_UKF,SP2_UKF] = ufbf_smooth1(MM_UKF,PP_UKF,Y,IAW,Q,[],...
 		                   h_func,R*eye(2),[S1 S2]);
-
   uks_rmse2 = sqrt(mean((X(1,:)-SM2_UKF(1,:)).^2+(X(2,:)-SM2_UKF(2,:)).^2));
   ME2_UKF = squeeze(SP2_UKF(1,1,:)+SP2_UKF(2,2,:));
-  fprintf('UKS-RMSE2 = %.4f [%.4f]\n',uks_rmse2,sqrt(mean(ME2_UKF)));
   
-  % Plot
+  fprintf('Done!\n');
+  % Plot EKF, ERTS and EFBF
   if ~silent
     plot(X(1,:),X(2,:),'k-',...
          MM_UKF(1,:),MM_UKF(2,:),'b--',...
@@ -253,3 +269,19 @@
       print -dpsc bot_demo_ukf.ps
     end
   end
+  
+  disp(' ');
+  disp('Unscented filtering and smoothing results are now displayed.')
+  disp(' ');
+  
+  % Print errors
+  disp('RMS errors:')
+  fprintf('EKF1-RMSE  = %.3f  [%.3f]\n',ekf1_rmse,sqrt(mean(ME_EKF1)));
+  fprintf('ERTS1-RMSE = %.4f [%.4f]\n',eks1_rmse1,sqrt(mean(ME1_EKF1)));
+  fprintf('EFBF1-RMSE = %.4f [%.4f]\n',eks1_rmse2,sqrt(mean(ME2_EKF1)));
+  fprintf('EKF2-RMSE  = %.3f  [%.3f]\n',ekf2_rmse,sqrt(mean(ME_EKF2)));
+  fprintf('ERTS2-RMSE = %.4f [%.4f]\n',eks2_rmse1,sqrt(mean(ME1_EKF2)));
+  fprintf('EFBF2-RMSE = %.4f [%.4f]\n',eks2_rmse2,sqrt(mean(ME2_EKF2)));  
+  fprintf('UKF-RMSE  = %.3f  [%.3f]\n',ukf_rmse,sqrt(mean(ME_UKF)));
+  fprintf('URTS-RMSE = %.4f [%.4f]\n',uks_rmse1,sqrt(mean(ME1_UKF)));    
+  fprintf('UFBF-RMSE = %.4f [%.4f]\n',uks_rmse2,sqrt(mean(ME2_UKF)));
