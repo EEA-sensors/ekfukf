@@ -346,13 +346,16 @@ where
   
 \item $\vec{y}_k \in \spc{R}^m$ is the measurement on the time step $k$.
 
-\item $p(\vec{x}_k\,|\,\vec{x}_{k-1})$ is the model which describes the stochastic dynamics of the
-  system. The dynamic model can be a
-  probability density, a counting measure or combination of them depending on if
-  the state $\vec{x}_k$ is continuous, discrete or hybrid.
+\item $p(\vec{x}_k\,|\,\vec{x}_{k-1})$ is the dynamic model which charaterizes
+  the dynamic behaviour of the system. Usually the model is a
+  probability density (continous state), but it can also be a counting
+  measure (discrete state), or a combination of them, if the state is
+  both continuous and discrete.
 %
 \item $p(\vec{y}_k\,|\,\vec{x}_k)$ is the model for measurements,
-  which describes how the measurements are distributed given the state.
+  which describes how the measurements are distributed given the
+  state. This model characterizes how the dynamic model is perceived
+  by the observers.
 \end{itemize}
 
 A system defined this way has the so called \emph{Markov}-property, which means that the state
@@ -364,7 +367,7 @@ p(\vec{x}_k\,|\,\vec{x}_{1:k-1},\vec{y}_{1:k-1})
 = p(\vec{x}_k\,|\,\vec{x}_{k-1}).
 \end{equation}
 %
-Also the past is independent of the future given the present, which is the same as
+The past doesn't depend on the future given the present, which is the same as
 %
 \begin{equation}
 p(\vec{x}_{k-1}\,|\,\vec{x}_{k:T},\vec{y}_{k:T})
@@ -1185,7 +1188,8 @@ As discussed in, for example, (Julier and Uhlmann, 2004) the EKF has a
 few serious drawbacks, which should be kept in mind when it's used:
 %
 \begin{enumerate}
-\item The linear and quadratic transformations produces realiable results only
+\item As we shall see in some of the later demonstrations, the linear
+  and quadratic transformations produces realiable results only
   when the error propagation can be well approximated by a linear or a
   quadratic function. If this condition is not met, the performance of the 
   filter can be extremely poor. At worst, its estimates can diverge altogether.
@@ -1193,13 +1197,18 @@ few serious drawbacks, which should be kept in mind when it's used:
   filters) need to exist so that the transformation can be
   applied. However, there are cases, where this isn't true. For
   example, the system might be jump-linear, in which the parameters can
-  change abruptly. 
+  change abruptly (Julier and Uhlmann, 2004). 
 \item In many cases the calculation of Jacobian and Hessian matrices can be a very
   difficult process, and its also prone to human errors (both
   derivation and programming). These errors are usually very hard to
   debug, as its hard to see which parts of the system produces the
   errors by looking at the estimates, especially as
-  usually we don't know which kind of performance we should expect.
+  usually we don't know which kind of performance we should
+  expect. For example, in the last demonstration (Reentry Vehicle
+  Tracking) the first order derivatives were quite troublesome to
+  calcute, even though the equations themselves were relatively
+  simple. The second order derivatives would have even taken many more
+  times of work.  
 \end{enumerate}
 %
 \label{page:ekf_problems}
@@ -1925,9 +1934,8 @@ Using the matrix form of UT described above the {\it prediction} and
 \end{equation}
 %
 
-Then compute the filter gain $\mat{K}_k$ and the state mean
-$\vec{m}_k$ and covariance $\mat{P}_k$, conditional to the measurement
-$\vec{y}_k$ (i.e., the updated mean and covariance):
+Then compute the filter gain $\mat{K}_k$ and the updated state mean
+$\vec{m}_k$ and covariance $\mat{P}_k$:
 %
 \begin{equation}
 \begin{split}
@@ -2038,9 +2046,8 @@ function $\vec{f}$ also the measurement function $\vec{h}$ is now
 augmented to incorporate the effect of measurement noise, which is
 passed as a second parameter to the function.
 
-Then compute the filter gain $\mat{K}_k$ and the state mean
-$\vec{m}_k$ and covariance $\mat{P}_k$, conditional to the measurement
-$\vec{y}_k$ (i.e., the updated mean and covariance):
+Then compute the filter gain $\mat{K}_k$ and the updated state mean
+$\vec{m}_k$ and covariance $\mat{P}_k$:
 %
 \begin{equation}
 \begin{split}
@@ -2066,7 +2073,7 @@ respectively. These functions concatenates the state variables,
 process and measurements noises to the augmented variables, as was
 done above. 
 
-It is also possible to separately concatenate only state variables and process
+It is also possible to separately concatenate only the state variables and process
 noises during prediction step and state variables and measurement noises
 during update step. Filtering solution based on this formulation can
 be computed with functions \texttt{ukf\_predict2} and \texttt{ukf\_update2}. However,
@@ -2321,12 +2328,13 @@ those samples, which were mentioned above.
 
 The make a comparison between nonaugmented and augmented UKF we have
 plotted 100 first samples of their filtering results in figure
-\ref{fig:ungm_ukf_comp}. Results are very surprising. The reason why
+\ref{fig:ungm_ukf_comp}. Results are very surprising (although same as
+in (Wu et al, 2005)). The reason why
 nonaugmented UKF gave so bad results is not clear. However, the
 better performance of augmented form UKF can be explained by the fact,
 that the process noise is taken into account more effectively when the
 sigma points are propagated through nonlinearity. In this case it
-seems to be very crucial, as the model is highly nonlinear.
+seems to be very crucial, as the model is highly nonlinear and multi-modal.
 
 \begin{figure}
 \begin{center}

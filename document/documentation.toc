@@ -11,14 +11,14 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Extended Kalman filter}{13}{subsubsection.2.2.2}
 \contentsline {subsubsection}{\numberline {2.2.3}Extended Kalman smoother}{15}{subsubsection.2.2.3}
 \contentsline {subsubsection}{\numberline {2.2.4}Demonstration: Tracking a random sine signal}{16}{subsubsection.2.2.4}
-\contentsline {subsubsection}{\numberline {2.2.5}Unscented Transform}{22}{subsubsection.2.2.5}
+\contentsline {subsubsection}{\numberline {2.2.5}Unscented Transform}{20}{subsubsection.2.2.5}
 \contentsline {subsubsection}{\numberline {2.2.6}Unscented Kalman filter}{24}{subsubsection.2.2.6}
 \contentsline {subsubsection}{\numberline {2.2.7}Unscented Kalman smoother}{26}{subsubsection.2.2.7}
 \contentsline {subsubsection}{\numberline {2.2.8}Demonstration: UNGM-model}{27}{subsubsection.2.2.8}
-\contentsline {subsubsection}{\numberline {2.2.9}Demonstration: Bearings Only Tracking}{30}{subsubsection.2.2.9}
+\contentsline {subsubsection}{\numberline {2.2.9}Demonstration: Bearings Only Tracking}{31}{subsubsection.2.2.9}
 \contentsline {subsubsection}{\numberline {2.2.10}Demonstration: Reentry Vehicle Tracking}{34}{subsubsection.2.2.10}
-\contentsline {section}{\numberline {3}Functions in the toolbox}{42}{section.3}
-\contentsline {subsection}{\numberline {3.1}Discrete-time state space estimation}{43}{subsection.3.1}
-\contentsline {subsubsection}{\numberline {3.1.1}Linear models}{43}{subsubsection.3.1.1}
-\contentsline {subsubsection}{\numberline {3.1.2}Nonlinear models}{44}{subsubsection.3.1.2}
-\contentsline {subsection}{\numberline {3.2}Other functions}{53}{subsection.3.2}
+\contentsline {section}{\numberline {3}Functions in the toolbox}{43}{section.3}
+\contentsline {subsection}{\numberline {3.1}Discrete-time state space estimation}{44}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Linear models}{44}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Nonlinear models}{45}{subsubsection.3.1.2}
+\contentsline {subsection}{\numberline {3.2}Other functions}{54}{subsection.3.2}
