@@ -180,10 +180,10 @@
        'The green ellipse around the current estimate (little blue circle) reflects the filters ',...
        'confidence intervals of the position estimate.']);
   disp(' ');
-  disp('<push any key to smooth the estimates with ERTS and EFBF>');
+  disp('<push any key to smooth the estimates with ERTS and ETF>');
   pause;
   clc;
-  fprintf('Smoothing with ERTS and EFBF...');
+  fprintf('Smoothing with ERTS and ETF...');
 
   %
   % Smoother 1
@@ -196,7 +196,7 @@
   %
   % Smoother 2
   %
-  [SM2,SP2] = efbf_smooth1(MM,PP,Y,A,Q,[],[],[],...
+  [SM2,SP2] = etf_smooth1(MM,PP,Y,A,Q,[],[],[],...
 		     dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
   eks_rmse2 = sqrt(mean((X(1,:)-SM2(1,:)).^2+(X(2,:)-SM2(2,:)).^2));
   ME2 = squeeze(SP2(1,1,:)+SP2(2,2,:));
@@ -261,7 +261,7 @@
     legend('Real trajectory',...
            'EKF1 estimate',...
            'ERTS estimate',...
-           'EFBF estimate',...
+           'ETF estimate',...
            'Positions of sensors',...
            'Location', 'NorthWest');
     title('Filtering and smoothing result with 1st order EKF');

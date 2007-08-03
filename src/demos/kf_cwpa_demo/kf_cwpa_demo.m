@@ -104,7 +104,7 @@ end
 
 % Smoothing step.
 [SM,SP] = rts_smooth(MM,PP,A,Q);
-[SM2,SP2] = fbf_smooth(MM,PP,Y,A,Q,H,R,1);
+[SM2,SP2] = tf_smooth(MM,PP,Y,A,Q,H,R,1);
 
 fprintf('ready.\n');
 disp(' ');
@@ -170,7 +170,7 @@ subplot(1,2,1);
 plot(X_r(1,:), X_r(2,:),'--', SM2(1,:), SM2(2,:),X_r(1,1),...
      X_r(2,1),'ro','MarkerSize',12);
 legend('Real trajectory', 'Smoothed');
-title('Position estimation with FBF smoother.');
+title('Position estimation with TF smoother.');
 xlabel('x');
 ylabel('y');
 
@@ -178,7 +178,7 @@ subplot(1,2,2);
 plot(X_r(3,:), X_r(4,:),'--', SM2(3,:), SM2(4,:),X_r(3,1),...
      X_r(4,1),'ro','MarkerSize',12);
 legend('Real velocity', 'Smoothed');
-title('Velocity estimation with FBF smoother.');
+title('Velocity estimation with TF smoother.');
 xlabel('x^.');
 ylabel('y^.');
 
@@ -265,14 +265,14 @@ MSE_RTS1 = mean((X_r(1,:)-SM(1,:)).^2);
 MSE_RTS2 = mean((X_r(2,:)-SM(2,:)).^2);
 MSE_RTS = 1/2*(MSE_RTS1 + MSE_RTS2);
 
-MSE_FBF1 = mean((X_r(1,:)-SM2(1,:)).^2);
-MSE_FBF2 = mean((X_r(2,:)-SM2(2,:)).^2);
-MSE_FBF = 1/2*(MSE_FBF1 + MSE_FBF2);
+MSE_TF1 = mean((X_r(1,:)-SM2(1,:)).^2);
+MSE_TF2 = mean((X_r(2,:)-SM2(2,:)).^2);
+MSE_TF = 1/2*(MSE_TF1 + MSE_TF2);
 
 clc;
 fprintf('Mean square errors of position estimates:\n');
 fprintf('KF-RMSE = %.4f\n',MSE_KF);
 fprintf('RTS-RMSE = %.4f\n',MSE_RTS);
-fprintf('FBF-RMSE = %.4f\n\n',MSE_FBF);
+fprintf('TF-RMSE = %.4f\n\n',MSE_TF);
 
 

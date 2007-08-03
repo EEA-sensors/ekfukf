@@ -122,12 +122,12 @@ fprintf('Smoothing the estimates using the RTS smoother...');
 
 [SM1,SP1] = erts_smooth1(MM,PP,A,Q);
 
-[SM2,SP2] = efbf_smooth1(MM,PP,Y,A,Q,[],[],[],...
+[SM2,SP2] = etf_smooth1(MM,PP,Y,A,Q,[],[],[],...
                          dh_dx_func,R*eye(1),h_func);  
 
 [SM1_2,SP1_2] = erts_smooth1(MM2,PP2,A,Q);
 
-[SM2_2,SP2_2] = efbf_smooth1(MM2,PP2,Y,A,Q,[],[],[],...
+[SM2_2,SP2_2] = etf_smooth1(MM2,PP2,Y,A,Q,[],[],[],...
                          dh_dx_func,R*eye(1),h_func);  
 
 fprintf('ready.\n');
@@ -148,7 +148,7 @@ title(['Smoothing a random Sine signal with extended ',...
 clc;
 disp('The smoothing results using the ERTS smoother is now displayed.');
 disp(' ');
-disp('Push any button to see the smoothing results of a EFBF smoother.');
+disp('Push any button to see the smoothing results of a ETF smoother.');
 pause
   
 Y_s2 = feval(h_func, SM2);
@@ -162,7 +162,7 @@ xlim([0 ceil(max(x))]);
 %print -dpsc demo2_f3.ps
 
 clc;
-disp('The smoothing results using the EFBF smoother is now displayed.');
+disp('The smoothing results using the ETF smoother is now displayed.');
 
 
 Y_s1_2 = feval(h_func, SM1_2);
@@ -230,10 +230,10 @@ disp(' ');
 disp('Mean square errors of all estimates:');
 fprintf('EKF1-MSE = %.4f\n',sqrt(EMM_Y));
 fprintf('ERTS-MSE = %.4f\n',sqrt(ESM1_Y));
-fprintf('EFBF-MSE = %.4f\n',sqrt(ESM2_Y));
+fprintf('ETF-MSE = %.4f\n',sqrt(ESM2_Y));
 fprintf('EKF2-MSE = %.4f\n',sqrt(EMM_Y2));
 fprintf('ERTS2-MSE = %.4f\n',sqrt(ESM1_2_Y));
-fprintf('EFBF2-MSE = %.4f\n',sqrt(ESM2_2_Y));
+fprintf('ETF2-MSE = %.4f\n',sqrt(ESM2_2_Y));
 fprintf('UKF-RMSE = %.4f\n',sqrt(UKF_EMM_Y));
 fprintf('URTS-RMSE = %.4f\n',sqrt(URTS_EMM_Y));
 

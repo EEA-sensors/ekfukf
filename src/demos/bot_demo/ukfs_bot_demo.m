@@ -162,19 +162,19 @@
        'The green ellipse around the current estimate (little blue circle) reflects the filters ',...
        'confidence intervals of the position estimate.']);
   disp(' ');
-  disp('<push any key to smooth the estimates with URTS and UFBF>');
+  disp('<push any key to smooth the estimates with URTS and UTF>');
   pause;
   clc;
-  fprintf('Smoothing with URTS and UFBF...');
+  fprintf('Smoothing with URTS and UTF...');
 
   % Smoothing with URTS
   [SM1,SP1] = urts_smooth1(MM,PP,A,Q);
   uks_rmse1 = sqrt(mean((X(1,:)-SM1(1,:)).^2+(X(2,:)-SM1(2,:)).^2));
   ME1 = squeeze(SP1(1,1,:)+SP1(2,2,:));
   
-  % Smoothing with UFBF
+  % Smoothing with UTF
   IAW = inv(A)*[eye(size(A,1)) eye(size(A,1))];
-  [SM2,SP2] = ufbf_smooth1(MM,PP,Y,IAW,Q,[],...
+  [SM2,SP2] = utf_smooth1(MM,PP,Y,IAW,Q,[],...
 		     h_func,R*eye(2),[S1 S2]);
   uks_rmse2 = sqrt(mean((X(1,:)-SM2(1,:)).^2+(X(2,:)-SM2(2,:)).^2));
   ME2 = squeeze(SP2(1,1,:)+SP2(2,2,:));
@@ -240,10 +240,10 @@
     legend('Real trajectory',...
            'UKF estimate',...
            'URTS estimate',...
-           'UFBF estimate',...
+           'UTF estimate',...
            'Positions of sensors',...
            'Location', 'NorthWest');
-    title('Filtering and smoothing result with UKF, URTS and UFBF.');
+    title('Filtering and smoothing result with UKF, URTS and UTF.');
     % Uncomment if you want to save an image
     %print -dpsc bot_demo_ukf.ps
   end
@@ -253,4 +253,4 @@
   disp('RMS errors:');
   fprintf('UKF-RMSE  = %.3f  [%.3f]\n',ukf_rmse,sqrt(mean(ME)));  
   fprintf('URTS-RMSE = %.4f [%.4f]\n',uks_rmse1,sqrt(mean(ME1)));  
-  fprintf('UFBF-RMSE = %.4f [%.4f]\n',uks_rmse2,sqrt(mean(ME2)));
+  fprintf('UTF-RMSE = %.4f [%.4f]\n',uks_rmse2,sqrt(mean(ME2)));

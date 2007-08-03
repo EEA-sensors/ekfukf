@@ -1,11 +1,13 @@
 % UKF/EKF toolbox for Matlab 7.x
-% Version 0.1, February 19 2007
+% Version 1, October 2. 2007
 %
 % Copyright (C) 2005 Simo Särkkä, <simo.sarkka@hut.fi>
 %               2007 Jouni Hartikainen <jmjharti@cc.hut.fi>
 % History:      
+%   02.08.2007 JH Changed the dreenty -> reentry.
 %   07.06.2007 JH Initial version for the toolbox. Modified from the SS's
 %                 previous work.
+%   02.08.2007 JH Updated for version 1.0
 %         
 %
 % This software is distributed under the GNU General Public
@@ -18,7 +20,7 @@
 %   KF_UPDATE     Kalman Filter update step
 %   KF_LHOOD      Kalman Filter measurement likelihood
 %   RTS_SMOOTH    Rauch-Tung-Striebel Smoother
-%   FBF_SMOOTH    Forward-Backward Smoother
+%   TF_SMOOTH    Forward-Backward Smoother
 %
 % Extended Kalman filtering
 %   EKF_PREDICT1  1st order Extended Kalman Filter prediction step
@@ -26,7 +28,7 @@
 %   EKF_PREDICT2  2nd order Extended Kalman Filter prediction step
 %   EKF_UPDATE2   2nd order Extended Kalman Filter update step
 %   ERTS_SMOOTH1  1st order Extended RTS Smoother
-%   EFBF_SMOOTH1  1st order Forward-Backward Smoother            
+%   ETF_SMOOTH1  1st order Forward-Backward Smoother            
 %
 % Unscented transform / Unscented Kalman filtering
 %   UT_WEIGHTS    Generate weights for sigma points using the summation form
@@ -39,6 +41,9 @@
 %   UKF_UPDATE2   Augmented (state and measurement noise) UKF update step 
 %   UKF_PREDICT3  Augmented (state, process and measurement noise) UKF prediction step
 %   UKF_UPDATE3   Augmented (state, process and measurement noise) UKF update step
+%   URTS_SMOOTH1
+%   URTS_SMOOTH
+%   UTF_SMOOTH
 %
 % Misc.
 %   GAUSS_PDF  Multivariate Gaussian PDF
@@ -49,7 +54,7 @@
 %   DER_CHECK  Check derivatives using finite differences
 %   SCHOL      Positive semidefinite matrix Cholesky factorization
 %
-% Demos 
+% Demos (Contents of /demos/ directory)
 %
 %   KF_CWPA_DEMO  - CWPA model demonstration with Kalman filter
 %      KF_CWPA_DEMO        CWPA model demonstration
@@ -65,15 +70,15 @@
 %      EKFS_BOT_DEMO       BOT demo with EKF
 %      UKFS_BOT_DEMO       BOT demo with UKF
 %
-%   DREENTRY - Reentry Vehicle Tracking demonstration
-%      DREENTRY_A          Dynamic model function
-%      DREENTRY_DA         Derivative of the dynamic model
-%      DREENTRY_H          Measurement model function
-%      DREENTRY_DH         Derivative of the measurement model
-%      DREENTRY_IA         Inverse prediction of the dynamic model
-%      DREENTRY_COND       Generates condition numbers for simulation data
-%      MAKE_DREENTRY_DATA  Generates the simulation data for reentry dynamics 
-%      DREENTRY_DEMO       Reentry demonstration
+%   REENTRY - Reentry Vehicle Tracking demonstration
+%      REENTRY_A          Dynamic model function
+%      REENTRY_DA         Derivative of the dynamic model
+%      REENTRY_H          Measurement model function
+%      REENTRY_DH         Derivative of the measurement model
+%      REENTRY_IA         Inverse prediction of the dynamic model
+%      REENTRY_COND       Generates condition numbers for simulation data
+%      MAKE_REENTRY_DATA  Generates the simulation data for reentry dynamics 
+%      REENTRY_DEMO       Reentry demonstration
 %
 %   EKF_SINE_DEMO - Random Sine Signal Tracking demonstration   
 %      EKF_SINE_F          Dynamic model function (needed by the augmented UKF)
@@ -81,7 +86,6 @@
 %      EKF_SINE_DH_DX      1st order derivative of the measurement model
 %      EKF_SINE_D2H_DX2    2nd order derivative of the measurement model
 %      EKF_SINE_DEMO       Random Sine Signal demonstration
-%
 %
 %   UNGM_DEMO     - UNGM model demonstration
 %      UNGM_F              Dynamic model function
