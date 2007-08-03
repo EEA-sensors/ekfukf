@@ -384,18 +384,43 @@ p(\vec{y}_k\,|\,\vec{x}_{1:k},\vec{y}_{1:k-1})
 
 In actual application problems, we are interested in predicting and estimating dynamic system's
 state given the measurements obtained so far. In probabilistic terms, we are interested in the
-marginal posterior distribution for the state at the next time step (prediction)  
+predictive distribution for the state at the next time step  
 %
 \begin{equation}
   p(\vec{x}_{k}\,|\,\vec{y}_{1:k-1}),
 \end{equation}
 %
-and in the marginal posterior distribution for the state at the current time step (filtering)
+and in the marginal posterior distribution for the state at the current time step
 %
 \begin{equation}
   p(\vec{x}_{k}\,|\,\vec{y}_{1:k}).
 \end{equation}
 %
+The formal solutions for these distribution are given by the following
+recursive Bayesian filtering equations (e.g. Särkkä, 2006b):
+%
+\begin{equation}
+    p(\vec{x}_k\,|\,\vec{y}_{1:k-1})
+    = \int p(\vec{x}_k\,|\,\vec{x}_{k-1})
+       \, p(\vec{x}_{k-1}\,|\,\vec{y}_{1:k-1}) \, \diff\vec{x}_{k-1}.
+\label{eq:bayesf_p}
+\end{equation}
+and
+\begin{equation}
+    p(\vec{x}_k\,|\,\vec{y}_{1:k})
+    = \frac{1}{Z_k} p(\vec{y}_k\,|\,\vec{x}_k)
+       \, p(\vec{x}_k\,|\,\vec{y}_{1:k-1}),
+\label{eq:bayesf_u}
+\end{equation}
+where the normalization constant $Z_k$ is given as
+ %
+\begin{equation}
+  Z_k = \int p(\vec{y}_k\,|\,\vec{x}_k)
+          \, p(\vec{x}_k\,|\,\vec{y}_{1:k-1}) \, \diff\vec{x}_k.
+\label{eq:zk}
+\end{equation}
+%
+
 In many cases we are also interested in smoothed state estimates of previous time steps given the
 measurements obtained so far. In other words, we are interested in the marginal posterior
 distribution 
@@ -404,12 +429,31 @@ distribution
   p(\vec{x}_{k}\,|\,\vec{y}_{1:T}),
 \end{equation}
 %
-where $T > k$.
+where $T > k$. As with the filtering equations above also in this case
+we can express the formal solution as a set of recursive Bayesian
+equations (e.g. Särkkä, 2006b):
+%
+\begin{equation}
+\begin{split}
+  p(\vec{x}_{k+1}\,|\,\vec{y}_{1:k})
+  &= \int p(\vec{x}_{k+1}\,|\,\vec{x}_k) \,
+          p(\vec{x}_k\,|\,\vec{y}_{1:k}) \, \diff\vec{x}_k \\
+  p(\vec{x}_k\,|\,\vec{y}_{1:T})                          
+  &= p(\vec{x}_k\,|\,\vec{y}_{1:k})
+     \int \left[ \frac{p(\vec{x}_{k+1}\,|\,\vec{x}_k)
+                 \, p(\vec{x}_{k+1}\,|\,\vec{y}_{1:T})}
+                 {p(\vec{x}_{k+1}\,|\,\vec{y}_{1:k})} \right]
+         \diff \vec{x}_{k+1}.
+\end{split}
+\end{equation}
+%
 
 
 
-The formal solutions for these marginal distributions are not described here,
-but interested readers should see, for example, (Särkkä, 2006b) for more details.
+
+
+%The formal solutions for these marginal distributions are not described here,
+%but interested readers should see, for example, (Särkkä, 2006b) for more details.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -467,7 +511,7 @@ The model can also be equivalently expressed in probabilistic terms with distrib
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-\subsubsection{Discretization of continous-time linear time-invariant systems}
+\subsubsection{Discretization of continuous-time linear time-invariant systems}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -535,8 +579,9 @@ following matrix fraction decomposition:
   %
 The matrix $\mat{Q}_k$ is then given as $\mat{Q}_k = \mat{C}_k \mat{D}_k^{-1}$.
 
-In this toolbox the matrix fractional decomposition can be calculated with the
-function \texttt{lti\_disc}, which is described on page \pageref{page:lti_disc}.
+In this toolbox the discretization can be done with the
+function \texttt{lti\_disc} (see page \pageref{page:lti_disc}), which
+uses the matrix fractional decomposition.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -546,7 +591,7 @@ function \texttt{lti\_disc}, which is described on page \pageref{page:lti_disc}.
 
 The classical Kalman filter was first introduced by Rudolph E. Kalman in his
 seminal paper (Kalman, 1960). The purpose of the discrete-time Kalman filter
-is to provide the closed form recursive solution for linear discrete-time dynamic
+is to provide the closed form recursive solution for estimation of linear discrete-time dynamic
 systems, which can be described by equations of the form (\ref{eq:kalman_model}).
 
 Kalman filter has two steps: the prediction step, where the next state of the
@@ -575,7 +620,7 @@ Bar-Shalom et al.,2001, for derivation):
   \vec{S}_{k} &= \mat{H}_{k} \, \mat{P}^-_{k} \, \mat{H}_{k}^T + \vec{R}_{k} \\
   \vec{K}_{k} &= \mat{P}^-_{k} \, \mat{H}^T_{k} \, \vec{S}^{-1}_{k} \\
   \vec{m}_{k} &= \vec{m}^-_{k} + \vec{K}_{k} \, \vec{v}_k \\
-  \mat{P}_{k} &= \mat{P}^-_{k} - \vec{K}_{k} \, \vec{S}_{k} \, \vec{K}^T_{k}. \\
+  \mat{P}_{k} &= \mat{P}^-_{k} - \vec{K}_{k} \, \vec{S}_{k} \, \vec{K}^T_{k}, \\
 \end{split}
 \label{eq:dkf_update}
 \end{equation}
@@ -673,7 +718,7 @@ an smoothed estimate for the state, which has lower mean square error than any o
 (Gelb, 1974). With linear models the forward-backward smoother gives the same error as the RTS-smoother,
 but in non-linear cases the error behaves differently in some
 situations. In this toolbox forward-backward smoothing solution can be
-calculated with function \texttt{fbf\_smooth} (see page \pageref{page:fbf_smooth}).
+calculated with function \texttt{tf\_smooth} (see page \pageref{page:tf_smooth}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -682,18 +727,18 @@ calculated with function \texttt{fbf\_smooth} (see page \pageref{page:fbf_smooth
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Let's now consider a very simple case, where we track a object moving
+Let's now consider a very simple case, where we track an object moving
 in two dimensional space with a sensor, which gives measurements of
 target's position in cartesian coordinates $x$ and $y$. In addition to
 position target also has state variables for its velocities and accelerations toward both coordinate
-axes, $\dot{x}$,$\dot{y}$, $\ddot{x}$ and $\ddot{y}$. In other words, the state of a
+axes, $\dot{x}$, $\dot{y}$, $\ddot{x}$ and $\ddot{y}$. In other words, the state of a
 moving object on time step $k$ can be expressed as a vector
 %
 \begin{equation}
 \vec{x}_k = 
 \begin{pmatrix}
 x_k & y_k & \dot{x}_k & \dot{y}_k & \ddot{x}_k & \ddot{y}_k
-\end{pmatrix}^T
+\end{pmatrix}^T.
 %
 \end{equation}
 %
@@ -701,27 +746,43 @@ In continous case the dynamics of the target's motion can be modelled as a linea
 %
 \begin{equation}
 %
-\frac{d \vec{x}(t)}{dt} = \begin{pmatrix}
+\frac{d \vec{x}(t)}{dt} = \underbrace{\begin{pmatrix}
 0 & 0 & 1 & 0 & 0 & 0 \\
 0 & 0 & 0 & 1 & 0 & 0 \\
 0 & 0 & 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 0 & 0 & 1 \\
 0 & 0 & 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 & 0 & 0 
-\end{pmatrix}\vec{x}(t)
+\end{pmatrix}}_{\mat{F}} \vec{x}(t)
 +
-\begin{pmatrix}
+\underbrace{\begin{pmatrix}
 0 & 0 \\
 0 & 0 \\
 0 & 0 \\
 0 & 0 \\
 1 & 0 \\
 0 & 1 \\
-\end{pmatrix}\vec{w}(t), \label{eq:cwpa_cont_model}
+\end{pmatrix}}_{\mat{L}}\vec{w}(t), \label{eq:cwpa_cont_model}
 %
 \end{equation}
 %
-where $\vec{x}(t)$ is the target's state on the time $t$ and $\vec{w}(t)$ is a white noise process. As can be seen from the equation the acceleration of the object is perturbed with a white noise process
+where $\vec{x}(t)$ is the target's state on the time $t$ and
+$\vec{w}(t)$ is a white noise process with power spectral density
+%
+\begin{equation}
+\mat{Q}_c = 
+\begin{pmatrix}
+q & 0 \\
+0   & q
+\end{pmatrix}
+= 
+\begin{pmatrix}
+0.2 & 0 \\
+0   & 0.2
+\end{pmatrix}.
+\end{equation}
+%
+As can be seen from the equation the acceleration of the object is perturbed with a white noise process
 and hence this model has the name continous Wiener process acceleration (CWPA) model. There is also
 other models similar to this, as for example the continous white noise acceleration (CWNA) model (Bar-Shalom et al., 2001),
 where the velocity is perturbed with a white noise process.
@@ -730,7 +791,7 @@ The measurement matrix is set to
 %
 \begin{equation}
 %
-H = \begin{pmatrix}
+\mat{H} = \begin{pmatrix}
 1 & 0 & 0 & 0 & 0 & 0 \\
 0 & 1 & 0 & 0 & 0 & 0 \\
 \end{pmatrix},
@@ -738,7 +799,6 @@ H = \begin{pmatrix}
 \end{equation}
 %
 which means that the observe only the position of the moving object.
-
 To be able to estimate this system with a discrete-time Kalman filter the differential equation defined
 above must be discretized somehow to get a discrete-time state equation of the form (\ref{eq:kalman_model}). It
 turns out, that the matrices $\mat{A}$ and $\mat{Q}$ can be calculated analytically with equations (\ref{eq:ode_ak})
@@ -761,11 +821,12 @@ and (\ref{eq:ode_qk}) to give the following:
 0 & \frac{1}{8}\dt^4 & 0 & \frac{1}{6}\dt^3 & 0 & \frac{1}{2}\dt^2 \\
 \frac{1}{6}\dt^3 & 0 & \frac{1}{2}\dt^2 & 0 & \dt & 0 \\
 0 & \frac{1}{6}\dt^3 & 0 & \frac{1}{2}\dt^2 & 0 & \dt 
-\end{pmatrix}q
+\end{pmatrix}q,
 %
 \end{align}
 %
-These matrices can also calculated using the function \texttt{lti\_disc}
+where the stepsize is set to $\dt = 0.5$. These matrices can also
+calculated using the function \texttt{lti\_disc}
 introduced in section $2.1$ with the following code line:
 %
 \begin{verbatim}
@@ -773,23 +834,7 @@ introduced in section $2.1$ with the following code line:
 \end{verbatim}
 % 
 where matrices \texttt{F} and \texttt{L} are assumed to contain the matrices from equation
-(\ref{eq:cwpa_cont_model}). In this demonstration the power spectral density of the white
-noise $\vec{w}(t)$ is set to 
-%
-\begin{equation}
-Q_c = 
-\begin{pmatrix}
-q & 0 \\
-0   & q
-\end{pmatrix}
-= 
-\begin{pmatrix}
-0.2 & 0 \\
-0   & 0.2
-\end{pmatrix}
-\end{equation}
-%
-and the stepsize to $\dt = 0.5$.
+(\ref{eq:cwpa_cont_model}). 
 
 The object starts from origo with zero velocity and acceleration
 and the process is simulated 50 steps. The variance for the measurements is set to
@@ -867,7 +912,7 @@ the smoothed and filtered estimated would be smaller, if the measurements were
 more accurate, as now the filter performs rather badly due to the great
 uncertaintity in the measurements. The smoothing results of a
 forward-backward smoother are not plotted here, as the result are
-exaclty the same as with the RTS smoother. 
+exactly the same as with the RTS smoother. 
 
 As one would expect the estimates for object's velocity are clearly less
 accurate than the estimates for the object's position as the positions are
@@ -889,7 +934,7 @@ more accurate, but also the position ones as well.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In many cases interesting dynamic systems are not by nature linear, so the
+In many cases interesting dynamic systems are not linear by nature, so the
 traditional Kalman filter cannot be applied in estimating the state of such a
 system. In these kind of systems, both the dynamics and the measurement processes
 can be nonlinear, or only one them. In this section, we describe two extensions
@@ -913,7 +958,7 @@ of a Gaussian random variable $\vec{x}$ as follows:
 \begin{equation}
 \begin{split}
   \vec{x} &\sim \N(\vec{m},\mat{P}) \\
-  \vec{y} &= \vec{g}(\vec{x}).
+  \vec{y} &= \vec{g}(\vec{x}),
 \end{split}
 \label{eq:trans_g}
 \end{equation}
@@ -1109,6 +1154,9 @@ matrices $\mat{A}_k$ and $\mat{H}_k$ in KF are replaced with Jacobian
 matrices $\mat{F}_{\vec{x}}(\vec{m}_{k-1},k-1)$ and
 $\mat{H}_{\vec{x}}(\vec{m}_k^-,k)$ in EKF. Predicted mean
 $\vec{m}_k^-$ and residual of prediction $\vec{v}_k$ are also calculated differently in the EKF.  
+In this toolbox the prediction and update steps of the first order EKF can be computed
+with functions \texttt{ekf\_predict1} and \texttt{ekf\_update1} (see
+page \pageref{page:ekf_predict1}), respectively. 
 
 \subsubsection*{Second Order Extended Kalman Filter}
 
@@ -1247,7 +1295,7 @@ Thus, the equations for the extended Kalman smoother can be written as
 %
 First order smoothing solutiong with a RTS type smoother can be computed with function
 \texttt{erts\_smooth1}, and with forward-backward type smoother the
-computation can be done with function \texttt{efbf\_smooth1}.
+computation can be done with function \texttt{etf\_smooth1}.
 
 Higher order smoothers are also possible, but not described here, as they are not
 currently implemented in this toolbox.
@@ -1573,7 +1621,7 @@ With the extended forward-backward smoother the smoothing is done with
 the following function call:
 %
 \begin{verbatim}
-[SM2,SP2] = efbf_smooth1(MM,PP,Y,A,Q,[],[],[],...
+[SM2,SP2] = etf_smooth1(MM,PP,Y,A,Q,[],[],[],...
                          dh_dx_func,R*eye(1),h_func);
 \end{verbatim}
 %
@@ -1591,7 +1639,7 @@ Y_m = feval(h_func, MM);
 \end{verbatim}
 %
 The filtered and smoothed estimates of the signals using the first
-order EKF, ERTS and EFBF are plotted in
+order EKF, ERTS and ETF are plotted in
 figures \ref{fig:example2_1}, \ref{fig:example2_2} and
 \ref{fig:example2_3}, respectively. The estimates produced by second order EKF are
 not plotted as they do not differ much from first order ones.
@@ -1618,11 +1666,11 @@ hidden state variables. The following methods were used:
 \begin{itemize}
 \item EKF1: First order extended Kalman filter.
 \item ERTS1: First order extended Rauch-Tung-Striebel smoother.
-\item EFBF1: First order extended Forward-Backward smoother.
+\item ETF1: First order extended Forward-Backward smoother.
 \item EKF2: Second order extended Kalman filter.
 \item ERTS2: First order extended Rauch-Tung-Striebel smoother applied
   to second order EKF estimates.
-\item EFBF2: First order extended Forward-Backward smoother applied to
+\item ETF2: First order extended Forward-Backward smoother applied to
   second order EKF estimates.
 \item UKF: unscented Kalman filter.
 \item URTS: unscented Rauch-Tung-Striebel smoother.
@@ -1630,7 +1678,7 @@ hidden state variables. The following methods were used:
 %
 From the errors we can see that with filters EKF2 gives clearly the lowest
 errors with variables $\theta$ and $a$. Due to this also with
-smoothers ERTS2 and EFBF2 give clearly lower errors than others. 
+smoothers ERTS2 and ETF2 give clearly lower errors than others. 
 On the other hand EKF1 gives the lowest estimation error
 with variable $\omega$. Furthermore, with filters EKF1 also gives lowest error in
 measurement space. Each smoother, however, gives approximately the
@@ -1669,7 +1717,8 @@ and $a$ are closer to real ones on average.
 \begin{figure}
 \begin{center}
 \includegraphics[width=11cm]{pics/demo2_f3}
-\caption{Smoothed estimate of the sine signal using the extended Kalman (Forward-Backward) smoother.}
+\caption{Smoothed estimate of the sine signal using a combination of
+  two extended Kalman filters.}
 \label{fig:example2_3}
 \end{center}
 \end{figure}
@@ -1684,10 +1733,10 @@ and $a$ are closer to real ones on average.
 \hline
 EKF1 & 0.64 & 0.53 & 0.40 & 0.24 \\
 ERTS1& 0.52 & 0.31 & 0.33 & 0.15 \\
-EFBF1& 0.53 & 0.31 & 0.34 & 0.15 \\
+ETF1& 0.53 & 0.31 & 0.34 & 0.15 \\
 EKF2 & 0.34 & 0.54 & 0.31 & 0.29 \\
 ERTS2& 0.24 & 0.30 & 0.18 & 0.15 \\
-EFBF2& 0.24 & 0.30 & 0.18 & 0.15 \\
+ETF2& 0.24 & 0.30 & 0.18 & 0.15 \\
 UKF  & 0.59 & 0.56 & 0.39 & 0.27 \\
 URTS & 0.45 & 0.30 & 0.30 & 0.15 \\ 
 \hline   
@@ -2079,7 +2128,7 @@ during update step. Filtering solution based on this formulation can
 be computed with functions \texttt{ukf\_predict2} and \texttt{ukf\_update2}. However,
 these functions create new sigma points during the update step in
 addition to ones created during prediction step, and hence the higher
-moments might might get captured so effectively in cases, where the
+moments might not get captured so effectively in cases, where the
 noise terms are additive. 
 
 
@@ -2178,10 +2227,10 @@ sigma points $\tilde{\mat{X}}_{k+1}^-$, which corresponds to $\vec{x}_k$.
 %
 
 The smoothing solution of this augmented type RTS smoother can be
-computed with function \texttt{erts\_smooth2}. Also a nonaugmented
+computed with function \texttt{urts\_smooth2}. Also a nonaugmented
 version of this type smoother has been implemented, and a smoothing
 solution with that can be computed with function
-\texttt{erts\_smooth1}.
+\texttt{urts\_smooth1}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2350,7 +2399,7 @@ of 100 Monte Carlo runs. Average of those errors are listed in table
 \ref{table:ungm_errors}. Here is a discussion for the results:
 %
 \begin{itemize}
-\item It is surprising that the unaugmented UKF seems to be better
+\item It is surprising that the nonaugmented UKF seems to be better
   than EKF, while in above figures we have shown, that the nonaugmented UKF gives very bad
 results. Reason for this is simple: the variance of the actual signal
 is approximately 100, which means that by simply guessing zero
@@ -2372,7 +2421,7 @@ less) right answers, whereas UKF were practically always wrong.
   the estimates worse. This is most likely due to the multi-modality of
   the filtering problem.
 \item Bootstrap filtering solution was clearly superior over all other
-  tested methods. The result had been even better, if greater
+  tested methods. The results had been even better, if greater
   amount of particles had been used.
 \end{itemize}
 
@@ -2586,7 +2635,7 @@ starting location. After that the estimates are fairly similar.
 In table \ref{table:bot_rmse} we have listed the root mean square errors (mean
 of position errors) of all
 tested methods (same as in random sine signal example
-on page \pageref{page:sine_rmse} with the addition of UFBF) over 1000
+on page \pageref{page:sine_rmse} with the addition of UTF) over 1000
 Monte Carlo runs. The numbers prove the previous observations, that
 the EKF1 and UKF give almost identical performances. Same observations
 apply also to smoothers. Had the prior distribution for the starting
@@ -2601,13 +2650,13 @@ between EKF2 and other methods would have been smaller, but still noticable.
 \hline
 EKF1 & 0.114 \\
 ERTS1& 0.054 \\
-EFBF1& 0.054 \\
+ETF1& 0.054 \\
 EKF2 & 0.202 \\
 ERTS2& 0.074 \\
-EFBF2& 0.063 \\
+ETF2& 0.063 \\
 UKF  & 0.113 \\
 URTS & 0.055 \\
-UFBF & 0.055 \\ 
+UTF & 0.055 \\ 
 \hline   
 \end{tabular}
 \caption{RMSEs of estimating the position in Bearings Only Tracking
@@ -2716,9 +2765,9 @@ equations were discretized using a simple Euler integration scheme, to give
 %
 x_1(k+1) & = x_1(k) + \dt x_3(k) \\
 x_2(k+1) & = x_2(k) + \dt x_4(k) \\
-x_3(k+1) & = x_3(k) + \dt (D(k)x_3(k) + G(k)x_1(k)) + w_1(k+1) \\
-x_4(k+1) & = x_4(k) + \dt (D(k)x_4(k) + G(k)x_2(k)) + w_2(k+1) \\
-x_5(k+1) & = x_5(k) + w_3(k+1),
+x_3(k+1) & = x_3(k) + \dt (D(k)x_3(k) + G(k)x_1(k)) + w_1(k) \\
+x_4(k+1) & = x_4(k) + \dt (D(k)x_4(k) + G(k)x_2(k)) + w_2(k) \\
+x_5(k+1) & = x_5(k) + w_3(k),
 %
 \end{split}
 \end{equation}
@@ -2813,7 +2862,7 @@ related terms with respect to state variables can be computed as
 \end{split}
 \end{equation}
 %
-The prior distribution for the state were set to multivariate
+The prior distribution for the state was set to multivariate
 Gaussian, with mean and covariance (same as in (Julier and Uhlmann, 2004b))
 %
 \begin{equation}
@@ -2913,13 +2962,13 @@ position estimates with tested methods, which were
 sigma points.
 \item URTS2: unscented Rauch-Tung-Striebel smoother with augmented
 sigma points.
-\item UFBF: unscented Forward-Backward smoother.
+\item UTF: unscented Forward-Backward smoother.
 %
 \end{itemize}
 %
 Extended Forward-Backward smoother was also tested, but it produced
-in many cases divergent estimates, so it were left out from
-comparison. Second order EKF were also left out, because
+in many cases divergent estimates, so it was left out from
+comparison. Second order EKF was also left out, because
 evaluating the Hessians would have taken too much work while considering the
 fact, that the estimates might have gotten even worse.  
 
@@ -2937,7 +2986,7 @@ estimates for positions and velocities, but for $x_5$ the errors are
 practically the same after $\sim 45$ seconds. This also shows that both methods are pessimistic
 in estimating $x_5$, because variances were bigger than the true
 errors. Figures for $x_2$ and $x_4$ are not shown, because
-they very similar to the ones of $x_1$ and $x_3$. Also by using UKF and URTS the
+they are very similar to the ones of $x_1$ and $x_3$. Also by using UKF and URTS the
 resulting figures were in practically identical, and therefore left out.
 % 
 %  
@@ -2952,7 +3001,7 @@ ERTS & 0.0043 \\
 UKF   & 0.0083 \\
 URTS1 & 0.0043 \\
 URTS2 & 0.0043 \\ 
-UFBF  & 0.0044 \\
+UTF  & 0.0044 \\
 \hline 
 \end{tabular}
 \caption{Average RMSEs of estimating the position in Reentry Vehicle
@@ -2998,14 +3047,14 @@ Function & Page\\
 \texttt{kf\_predict} & \pageref{page:kf_predict}\\
 \texttt{kf\_update} & \pageref{page:kf_update}\\
 \texttt{rts\_smooth} & \pageref{page:rts_smooth}\\
-\texttt{fbf\_smooth} & \pageref{page:fbf_smooth}\\
+\texttt{tf\_smooth} & \pageref{page:tf_smooth}\\
 \hline
 \texttt{ekf\_predict1} & \pageref{page:ekf_predict1}\\
 \texttt{ekf\_update1} & \pageref{page:ekf_update1}\\
 \texttt{ekf\_predict2} & \pageref{page:ekf_predict2}\\
 \texttt{ekf\_update2} & \pageref{page:ekf_update2}\\
 \texttt{erts\_smooth1} & \pageref{page:erts_smooth1}\\
-\texttt{efbf\_smooth1} & \pageref{page:efbf_smooth1}\\
+\texttt{etf\_smooth1} & \pageref{page:etf_smooth1}\\
 \hline
 \texttt{ut\_weights} & \pageref{page:ut_weights}\\
 \texttt{ut\_mweights} & \pageref{page:ut_mweights}\\
@@ -3019,7 +3068,7 @@ Function & Page\\
 \texttt{ukf\_update3} & \pageref{page:ukf_update1}\\
 \texttt{urts\_smooth1} & \pageref{page:urts_smooth1}\\
 \texttt{urts\_smooth2} & \pageref{page:urts_smooth2}\\
-\texttt{ufbf\_smooth1} & \pageref{page:ufbf_smooth1}\\
+\texttt{utf\_smooth1} & \pageref{page:utf_smooth1}\\
 \hline
 \texttt{der\_check} & \pageref{page:der_check}\\
 \texttt{gauss\_pdf} & \pageref{page:gauss_pdf}\\
@@ -3225,22 +3274,22 @@ Computes {\bf The smoothed estimate} for the state mean and covariance using {\b
 \hline
 \end{tabular}
 
-%{\bf The smoothed estimate} for the state mean and covariance using {\bf the FBF smoother}
-%can be calculated with function \texttt{fbf\_smooth}:\\
+%{\bf The smoothed estimate} for the state mean and covariance using {\bf the TF smoother}
+%can be calculated with function \texttt{tf\_smooth}:\\
 
-\label{page:fbf_smooth}
+\label{page:tf_smooth}
 
 \noindent \begin{tabular}{|l|}
 \hline
 
-{\bf \texttt{fbf\_smooth}} \\
+{\bf \texttt{tf\_smooth}} \\
 
-Calculates the {\bf The smoothed estimate} for the state mean and covariance using {\bf the FBF smoother}.\\
+Calculates the {\bf The smoothed estimate} for the state mean and covariance using {\bf the TF smoother}.\\
 
 \hline
 
 {\bf Syntax:} 
-\texttt{[M,P] = fbf\_smooth(M,P,Y,A,Q,H,R,use\_inf)} \\
+\texttt{[M,P] = tf\_smooth(M,P,Y,A,Q,H,R,use\_inf)} \\
 
 \hline
 {\bf Input:}
@@ -3541,21 +3590,21 @@ function, & \\ & function handle or name of the function in form
 \hline
 \end{tabular}
 
-\label{page:efbf_smooth1}
+\label{page:etf_smooth1}
 
 \noindent \begin{tabular}{|l|}
 \hline
 
-{\bf \texttt{efbf\_smooth1}} \\
+{\bf \texttt{etf\_smooth1}} \\
 
 Calculates {\bf The smoothed estimate} for the state mean and covariance using
-{\bf the extended FBF smoother}.\\
+{\bf the extended TF smoother}.\\
 
 \hline
 
 {\bf Syntax:}
 %
-\texttt{[M,P] = efbf\_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,s\_p\_a,s\_p\_h)}\\
+\texttt{[M,P] = etf\_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,s\_p\_a,s\_p\_h)}\\
 
 \hline
 {\bf Input:}
@@ -4173,22 +4222,22 @@ covariances produced & \\ & by the EKF\\
 \hline
 \end{tabular}
 
-\label{page:ufbf_smooth1}
+\label{page:utf_smooth1}
 
 
 \noindent \begin{tabular}{|l|}
 \hline
 
-{\bf \texttt{ufbf\_smooth1}} \\
+{\bf \texttt{utf\_smooth1}} \\
 
 Calculates {\bf The smoothed estimate} for the state mean and covariance using
-{\bf the unscented FBF smoother}.\\
+{\bf the unscented TF smoother}.\\
 
 \hline
 
 {\bf Syntax:}
 %
-\texttt{[M,P] = ufbf\_smooth1(M,P,Y,[ia,Q,ap,h,R,hp,aa,bb,kk,mat,s\_p\_a,s\_p\_h])}\\
+\texttt{[M,P] = utf\_smooth1(M,P,Y,[ia,Q,ap,h,R,hp,aa,bb,kk,mat,s\_p\_a,s\_p\_h])}\\
 
 \hline
 {\bf Input:}
