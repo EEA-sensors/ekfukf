@@ -30,7 +30,7 @@
 %   bug free.
 % 
 % See also:
-%   EKF_PREDICT, EKF_UPDATE
+%   EKF_PREDICT1, EKF_UPDATE1, EKF_PREDICT2, EKF_UPDATE2
 
 % History:
 %   12.03.2003  SS  Support for function handles

@@ -21,6 +21,7 @@
 %   P - Updated state covariance
 %   X - Sigma points of x
 %   w - Weights as cell array {mean-weights,cov-weights,c}
+% 
 % Description:
 %   Perform augmented form Unscented Kalman Filter prediction step
 %   for model
@@ -31,6 +32,10 @@
 %   DxN matrix of N sigma Dx1 points and it returns 
 %   the corresponding predictions for each sigma
 %   point. 
+%
+% See also:
+%   UKF_PREDICT1, UKF_UPDATE1, UKF_PREDICT2, UKF_UPDATE2, UKF_UPDATE3
+%   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS 
 
 % Copyright (C) 2003-2006 Simo Särkkä
 %

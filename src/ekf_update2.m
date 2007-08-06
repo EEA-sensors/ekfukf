@@ -37,7 +37,8 @@
 %     y[k] = h(x[k],r),   r ~ N(0,R)
 %
 % See also:
-%   EKF_PREDICT1, KF_UPDATE, KF_PREDICT
+%   EKF_PREDICT1, EKF_UPDATE1, EKF_PREDICT2, DER_CHECK, LTI_DISC, 
+%   KF_UPDATE, KF_PREDICT
 
 % Copyright (C) 2002-2006 Simo Särkkä
 %

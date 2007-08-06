@@ -1,4 +1,4 @@
-% Dynamical model for reentry problem
+% Dynamical model function for reentry problem.
 % Discretization is done using a simple Euler
 % time integration.
 
@@ -6,13 +6,11 @@
 % Copyright (C) 2005-2006 Simo Särkkä
 %               2007      Jouni Hartikainen
 %
-% $Id: ukfs_demo2.m,v 1.7 2006/10/10 20:18:55 ssarkka Exp $
-%
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function x = dreentry_a(xw,param)
+function x = reentry_a(xw,param)
 
   dt  = param{1};
   b0  = param{2};

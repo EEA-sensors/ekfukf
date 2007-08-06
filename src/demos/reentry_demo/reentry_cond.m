@@ -2,6 +2,12 @@
   % Compute condition numbers of transition matrices
   % for re-entry simulation with no noise.
   %
+  
+  % Copyright (C) 2005-2006 Simo Särkkä
+  %
+  % This software is distributed under the GNU General Public 
+  % Licence (version 2 or later); please refer to the file 
+  % Licence.txt, included with the software, for details.
   fprintf('[Generating data...]\n');
   
   nsteps = round(200/dt);

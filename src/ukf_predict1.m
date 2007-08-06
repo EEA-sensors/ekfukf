@@ -28,6 +28,10 @@
 %   DxN matrix of N sigma Dx1 points and it returns 
 %   the corresponding predictions for each sigma
 %   point. 
+%
+% See also:
+%   UKF_UPDATE1, UKF_PREDICT2, UKF_UPDATE2, UKF_PREDICT3, UKF_UPDATE3,
+%   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS
 
 % Copyright (C) 2003-2006 Simo Särkkä
 %

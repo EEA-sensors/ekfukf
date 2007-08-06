@@ -17,6 +17,8 @@
 % Description:
 %   Computes unscented transformation weights.
 %
+% See also UT_MWEIGHTS UT_TRANSFORM UT_SIGMAS
+% 
 
 % Copyright (C) 2006 Simo Särkkä
 %

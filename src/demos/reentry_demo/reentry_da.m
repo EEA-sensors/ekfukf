@@ -1,5 +1,14 @@
-function da = dreentry_da(x,param)
-% da = dreentry_da(x,param)
+% Jacobian of the state transition function in reentry demo.
+
+% 
+% Copyright (C) 2005-2006 Simo Särkkä
+%               2007      Jouni Hartikainen
+%
+% This software is distributed under the GNU General Public 
+% Licence (version 2 or later); please refer to the file 
+% Licence.txt, included with the software, for details.
+
+function da = reentry_da(x,param)
 
   dt  = param{1};
   b0  = param{2};

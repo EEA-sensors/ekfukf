@@ -1,4 +1,4 @@
-0% Bearings Only Tracking (BOT) demonstration with UKF. 
+% Bearings Only Tracking (BOT) demonstration with UKF. 
 
 % Copyright (C) 2002, 2003 Simo Särkkä
 %               2007       Jouni Hartikainen

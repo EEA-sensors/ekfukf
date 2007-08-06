@@ -1,3 +1,5 @@
+% Jacobian of the measurement model function in the random sine signal demo
+
 function dY = ekf_sine_dh_dx(x,param)
 f = x(1,:);
 w = x(2,:);

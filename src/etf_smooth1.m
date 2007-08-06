@@ -52,8 +52,8 @@
 %   [...]
 %
 % See also:
-%   KF_PREDICT, KF_UPDATE
-%
+%   ERTS_SMOOTH1, EKF_PREDICT1, EKF_UPDATE1, EKF_PREDICT2, EKF_UPDATE2
+
 % History:
 %   02.08.2007 JH Changed the name to etf_smooth1
 %   04.05.2007 JH Added the possibility to pass different parameters for a and h

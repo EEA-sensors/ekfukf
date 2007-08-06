@@ -35,16 +35,15 @@
 %   end
 %   [SM,SP] = tf_smooth(MM,PP,A,Q,H,R,Y);
 %
+% See also:
+%   KF_PREDICT, KF_UPDATE
+
 % History:
 %   
 %   02.8.2007 JH Changed the name to tf_smooth
 %   26.3.2007 JH Fixed a bug in backward filter with observations having
 %                having more than one dimension.
 %             
-%
-% See also:
-%   KF_PREDICT, KF_UPDATE
-
 % Copyright (C) 2006 Simo Särkkä
 %               2007 Jouni Hartikainen
 %

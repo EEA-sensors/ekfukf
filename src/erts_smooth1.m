@@ -40,7 +40,7 @@
 %
 % See also:
 %   EKF_PREDICT1, EKF_UPDATE1
-%
+
 % History:
 %   04.05.2007 JH Added the possibility to pass different parameters for a and h
 %                 for each step.

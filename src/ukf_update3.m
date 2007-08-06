@@ -45,9 +45,10 @@
 %   [M2,P2] = ukf_update2(M1,P1,Y,h,R,S);
 %
 % See also:
-%   UKF_PREDICT1, UKF_PREDICT2, UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS,
-%   UT_SIGMAS
+%   UKF_PREDICT1, UKF_UPDATE1, UKF_PREDICT2, UKF_UPDATE2, UKF_PREDICT3
+%   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS
 %
+
 % History:
 %   04.05.2007 JH Initial version. Modified from ukf_update1.m
 %              originally created by SS.
@@ -55,7 +56,7 @@
 % 
 % References:
 %   [1] Wan, Merwe: The Unscented Kalman Filter
-
+%
 % Copyright (C) 2007 Jouni Hartikainen, Simo Särkkä
 %
 % $Id: ukf_update1.m,v 1.1 2006/09/26 21:32:41 ssarkka Exp $

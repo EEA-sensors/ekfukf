@@ -30,7 +30,7 @@
 %   For default values of parameters, see UT_WEIGHTS.
 %
 % See also
-%   UT_WEIGHTS
+%   UT_WEIGHTS UT_MWEIGHTS UT_SIGMAS
 
 % Copyright (C) 2006 Simo Särkkä
 %

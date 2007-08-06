@@ -16,7 +16,7 @@
 %   initial distribution N(M,P). For default values of parameters
 %   alpha, beta and kappa see UT_WEIGHTS.
 %
-% See also UT_WEIGHTS
+% See also UT_WEIGHTS UT_TRANSFORM UT_SIGMAS
 %
 
 % Copyright (C) 2006 Simo Särkkä

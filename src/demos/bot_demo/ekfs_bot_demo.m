@@ -1,8 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%     Extended Kalman Filter / Smoother demonstration
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bearings Only Tracking (BOT) demonstration with EKF
 
 % Copyright (C) 2002 Simo Särkkä
 %               2007 Jouni Hartikainen

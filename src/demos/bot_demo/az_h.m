@@ -1,11 +1,9 @@
-%AZ_H Azimuth measurement function for EKF/UKF.
+% Azimuth measurement function for EKF/UKF.
 %
 %  h = atan((y-sy) / (x-sx))
 %
 
 % Copyright (C) 2003 Simo Särkkä
-%
-% $Id: az_h.m,v 1.1 2006/09/26 21:32:32 ssarkka Exp $
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

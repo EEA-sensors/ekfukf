@@ -32,7 +32,8 @@
 %   Perform Extended Kalman Filter prediction step.
 %
 % See also:
-%   EKF_UPDATE1, LTI_DISC, KF_PREDICT, KF_UPDATE
+%   EKF_PREDICT1, EKF_UPDATE1, EKF_UPDATE2, DER_CHECK, LTI_DISC, 
+%   KF_PREDICT, KF_UPDATE
 
 % History:
 %   22.5.07  JH Initial version. Modified from ekf_predict1.m

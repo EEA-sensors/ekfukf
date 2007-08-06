@@ -1,4 +1,4 @@
-%AZ_DH_DX Measurement derivative function for EKF.
+% Jacobian of the measurement model function in BOT demo.
 %
 %  dh_dx = -(y-sy) / (x-sx)^2 * 1 / (1 + (y-sy)^2 / (x-sx)^2)
 %        = -(y-sy) / ((x-sx)^2 + (y-sy)^2)

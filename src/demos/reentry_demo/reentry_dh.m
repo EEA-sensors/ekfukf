@@ -1,5 +1,14 @@
-function dy = dreentry_dh(x,param)
-% dy = dreentry_dh(x,param)
+% Jacobian of the measurement model function in reentry demo.
+
+% 
+% Copyright (C) 2005-2006 Simo Särkkä
+%               2007      Jouni Hartikainen
+%
+% This software is distributed under the GNU General Public 
+% Licence (version 2 or later); please refer to the file 
+% Licence.txt, included with the software, for details.
+
+function dy = reentry_dh(x,param)
 
   xr = param{1};
   yr = param{2};

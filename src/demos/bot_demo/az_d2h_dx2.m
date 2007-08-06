@@ -1,4 +1,4 @@
-%AZ_D2H_DX2 2nd order derivatives of the measurement function for 2nd order EKF
+% Hessian of the measurement function in BOT-demo.
 
 % Copyright (C) 2007 Jouni Hartikainen
 %

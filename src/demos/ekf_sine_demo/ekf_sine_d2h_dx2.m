@@ -1,3 +1,5 @@
+% Hessian of the measurement model function in the random sine signal demo
+
 function df = ekf_sine_d2h_dx2(x,param)
 f = x(1);
 a = x(3);

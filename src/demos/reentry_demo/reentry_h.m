@@ -1,5 +1,14 @@
-function y = dreentry_h2(x,param)
-% y = dreentry_h(x,param)
+% Measurement model function for reentry demo.
+
+% 
+% Copyright (C) 2005-2006 Simo Särkkä
+%               2007      Jouni Hartikainen
+%
+% This software is distributed under the GNU General Public 
+% Licence (version 2 or later); please refer to the file 
+% Licence.txt, included with the software, for details.
+
+function y = reentry_h(x,param)
 
   xr = param{1};
   yr = param{2};

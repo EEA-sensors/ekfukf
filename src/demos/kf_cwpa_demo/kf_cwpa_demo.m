@@ -1,11 +1,12 @@
-% A very simple demo for the classical Kalman filter and smoother
-% using the continous Wiener process acceleration (CWPA) model. 
+% Demonstration for Kalman filter and smoother using a 2D CWPA model
 %
 % Copyright (C) 2007 Jouni Hartikainen
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
+
+function kf_cwpa_demo
 
 % Transition matrix for the continous-time system.
 F = [0 0 1 0 0 0;
@@ -35,16 +36,11 @@ Qc = diag([q q]);
 
 % Measurement model.
 H = [1 0 0 0 0 0;
-     0 1 0 0 0 0;
-     0 0 1 0 0 0;
-     0 0 0 1 0 0];
-
-H = [1 0 0 0 0 0;
      0 1 0 0 0 0];
+
 % Variance in the measurements.
 r1 = 10;
 r2 = 5;
-R = diag([r1 r1 r2 r2]);
 R = diag([r1 r1]);
 
 % Generate the data.
