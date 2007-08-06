@@ -6,7 +6,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function dY = az_d2h_dx2(x,s)
+function dY = bot_d2h_dx2(x,s)
   % Space for Hessians. Note that we need a Hessian for
   % each dimension in the measurement space, that is we need
   % a Hessian for each sensor in this case.     

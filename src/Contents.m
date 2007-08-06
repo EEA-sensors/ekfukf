@@ -55,27 +55,6 @@
 %   /KF_CWPA_DEMO/             
 %      KF_CWPA_DEMO       CWPA model demonstration with Kalman filter
 %
-%   /KF_SINE_DEMO/           
-%      KF_SINE_DEMO       Sine signal demonstration with Kalman filter
-%
-%   /BOT_DEMO/            
-%      AZ_H               Measurement model function
-%      AZ_DH_DX           1st order derivative of the measurement model 
-%      AZ_D2H_DX2         2nd order derivative of the measurement model  
-%      BOT_DEMO_ALL       BOT demo with EKF and UKF
-%      EKFS_BOT_DEMO      BOT demo with EKF
-%      UKFS_BOT_DEMO      BOT demo with UKF
-%
-%   /REENTRY_DEMO/        
-%      REENTRY_A          Dynamic model function
-%      REENTRY_DA         Derivative of the dynamic model
-%      REENTRY_H          Measurement model function
-%      REENTRY_DH         Derivative of the measurement model
-%      REENTRY_IA         Inverse prediction of the dynamic model
-%      REENTRY_COND       Generates condition numbers for simulation data
-%      MAKE_REENTRY_DATA  Generates the simulation data for reentry dynamics 
-%      REENTRY_DEMO       Reentry Vehicle Tracking demonstration
-%
 %   /EKF_SINE_DEMO/          
 %      EKF_SINE_F         Dynamic model function (needed by the augmented UKF)
 %      EKF_SINE_H         Measurement model function
@@ -91,3 +70,27 @@
 %      UNGM_DH_DX         1st order derivative of the measurement model
 %      UNGM_D2H_DX2       2nd order derivative of the measurement model (not used)
 %      UNGM_DEMO          UNGM model demonstration
+%
+%   /BOT_DEMO/            
+%      BOT_H               Measurement model function
+%      BOT_DH_DX           1st order derivative of the measurement model 
+%      BOT_D2H_DX2         2nd order derivative of the measurement model  
+%      BOT_DEMO_ALL       BOT demo with EKF and UKF
+%      EKFS_BOT_DEMO      BOT demo with EKF
+%      UKFS_BOT_DEMO      BOT demo with UKF
+%
+%   /REENTRY_DEMO/        
+%      REENTRY_F          Dynamic model function
+%      REENTRY_DF         Derivative of the dynamic model
+%      REENTRY_H          Measurement model function
+%      REENTRY_DH         Derivative of the measurement model
+%      REENTRY_IF         Inverse prediction of the dynamic model
+%      REENTRY_COND       Generates condition numbers for simulation data
+%      MAKE_REENTRY_DATA  Generates the simulation data for reentry dynamics 
+%      REENTRY_DEMO       Reentry Vehicle Tracking demonstration
+%
+%
+% Demos currently included in the toolbox, but not documented:
+%
+% /KF_SINE_DEMO/           
+%      KF_SINE_DEMO       Sine signal demonstration with Kalman filter

@@ -8,7 +8,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function dy = reentry_dh(x,param)
+function dy = reentry_dh_dx(x,param)
 
   xr = param{1};
   yr = param{2};

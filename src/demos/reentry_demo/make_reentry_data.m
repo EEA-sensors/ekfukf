@@ -19,11 +19,11 @@ t = 0;
 for k=1:nsteps
     ddt = dt / sim_iter;
     for i=1:sim_iter
-        x = dreentry_a(x,{ddt,b0,H0,Gm0,R0});
+        x = reentry_f(x,{ddt,b0,H0,Gm0,R0});
         x = x + L * sqrt(ddt * true_Qc) * randn(3,1);
     end
     
-    y = dreentry_h(x,{xr,yr}) + diag([sqrt(vr) sqrt(va)]) * randn(2,1);
+    y = reentry_h(x,{xr,yr}) + diag([sqrt(vr) sqrt(va)]) * randn(2,1);
     t = t + dt;
     X(:,k) = x;
     Y(:,k) = y;

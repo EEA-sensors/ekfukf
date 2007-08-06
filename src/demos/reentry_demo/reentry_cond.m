@@ -21,8 +21,8 @@
   for k=1:nsteps
     ddt = dt / sim_iter;
     for i=1:sim_iter
-      A = dreentry_da(x,{ddt,b0,H0,Gm0,R0});
-      x = dreentry_a(x,{ddt,b0,H0,Gm0,R0});
+      A = reentry_df_dx(x,{ddt,b0,H0,Gm0,R0});
+      x = reentry_f(x,{ddt,b0,H0,Gm0,R0});
     end
     c = cond(A)
     

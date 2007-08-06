@@ -8,7 +8,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function da = reentry_da(x,param)
+function da = reentry_df_dx(x,param)
 
   dt  = param{1};
   b0  = param{2};

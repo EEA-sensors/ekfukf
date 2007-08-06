@@ -3,8 +3,6 @@
 % Copyright (C) 2002 Simo Särkkä
 %               2007 Jouni Hartikainen
 %
-% $Id: ekfs_demo1.m,v 1.6 2006/10/10 20:18:51 ssarkka Exp $
-%
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
@@ -16,9 +14,9 @@
   steps = 2;
   
   % Handles to measurement model function and it's derivatives
-  h_func = @az_h;
-  dh_dx_func = @az_dh_dx;
-  d2h_dx2_func = @az_d2h_dx2;
+  h_func = @bot_h;
+  dh_dx_func = @bot_dh_dx;
+  d2h_dx2_func = @bot_d2h_dx2;
 
   % Create a bit curved trajectory and angle
   % measurements from two sensors

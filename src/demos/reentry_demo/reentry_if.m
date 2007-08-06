@@ -7,8 +7,8 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function x = reentry_ia(x,param)
+function x = reentry_if(x,param)
 
-  y = dreentry_a(x,param);
+  y = reentry_f(x,param);
   x = 2 * x(1:size(y,1)) - y;
 

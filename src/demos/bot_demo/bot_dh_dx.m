@@ -8,13 +8,11 @@
 
 % Copyright (C) 2003 Simo Särkkä
 %
-% $Id: az_dh_dx.m,v 1.1 2006/09/26 21:32:31 ssarkka Exp $
-%
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function dY = az_dh_dx(x,s)
+function dY = bot_dh_dx(x,s)
   % Reserve space for the Jacobian. 
   dY = zeros(size(s,2),size(x,1));
   

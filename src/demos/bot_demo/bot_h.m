@@ -9,7 +9,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function Y = az_h(x,s)
+function Y = bot_h(x,s)
   Y = zeros(size(s,2),size(x,2));
 
   for i=1:size(s,2)

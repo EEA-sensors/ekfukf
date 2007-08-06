@@ -1,4 +1,4 @@
-% Hessian of the state transition function for the UNGM-model.
+% Hessian of the state transition function in UNGM-model.
 
 % Copyright (C) 2007 Jouni Hartikainen
 %

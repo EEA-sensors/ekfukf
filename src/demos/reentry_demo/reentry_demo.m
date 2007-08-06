@@ -3,11 +3,10 @@
 % Copyright (C) 2006 Simo Särkkä
 %               2007 Jouni Hartikainen
 %
-% $Id: ekfs_demo2.m,v 1.5 2006/10/01 22:26:02 ssarkka Exp $
-%
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
+  function reentry_demo
 
   reentry_param;
   make_reentry_data;
@@ -16,11 +15,11 @@
 
   % Handles to dynamic and measurement model functions,
   % and to their derivatives.
-  func_a  = @reentry_a;
-  func_ia = @reentry_ia;
-  func_da = @reentry_da;
+  func_f  = @reentry_f;
+  func_if = @reentry_if;
+  func_df = @reentry_df_dx;
   func_h  = @reentry_h;
-  func_dh = @reentry_dh;
+  func_dh = @reentry_dh_dx;
   
   % Initial values and space for EKF
   m = m0;
@@ -44,7 +43,7 @@
   fprintf('Running EKF...'); 
   % Filtering with EKF
   for k=1:size(Y,2)
-    [m,P] = ekf_predict1(m,P,func_da,Q,func_a,[],{dt,b0,H0,Gm0,R0});
+    [m,P] = ekf_predict1(m,P,func_df,Q,func_f,[],{dt,b0,H0,Gm0,R0});
     [m,P] = ekf_update1(m,P,Y(:,k),func_dh,diag([vr va]),func_h,[],{xr,yr});
     MM_EKF(:,k) = m;
     PP_EKF(:,:,k) = P;
@@ -63,7 +62,7 @@
   %
   % Smoother 1
   %
-  [SM_ERTS,SP_ERTS] = erts_smooth1(MM_EKF,PP_EKF,func_da,Qc*dt,func_a,L,...
+  [SM_ERTS,SP_ERTS] = erts_smooth1(MM_EKF,PP_EKF,func_df,Qc*dt,func_f,L,...
                           {dt,b0,H0,Gm0,R0});
   eks_rmse1 = sqrt(mean(sum((X(1:2,:)-SM_ERTS(1:2,:)).^2)));
   ME_ERTS = squeeze(SP_ERTS(1,1,:)+SP_ERTS(2,2,:));
@@ -80,7 +79,7 @@
   % Smoother 2
   %
   [SM_ETF,SP_ETF] = etf_smooth1(MM_EKF,PP_EKF,Y,...
-	func_da,Qc*dt,func_ia,L,{dt,b0,H0,Gm0,R0},...
+	func_df,Qc*dt,func_if,L,{dt,b0,H0,Gm0,R0},...
 	func_dh,diag([vr va]),func_h,[],{xr,yr});
   
   eks_rmse2 = sqrt(mean(sum((X(1:2,:)-SM_ETF(1:2,:)).^2)));
@@ -109,7 +108,7 @@
     %[m,P] = ukf_update1(m,P,Y(:,k),func_h,diag([vr va]),{xr,yr});
     
     % Augmented UKF with same sigma points for predict and update steps
-    [m,P,X_s,w] = ukf_predict3(m,P,func_a,Qc*dt,diag([vr va]),d_param);  
+    [m,P,X_s,w] = ukf_predict3(m,P,func_f,Qc*dt,diag([vr va]),d_param);  
     [m,P] = ukf_update3(m,P,Y(:,k),func_h,diag([vr va]),X_s,w,h_param,h_param);    
 
     MM_UKF(:,k) = m;
@@ -129,7 +128,7 @@
   % 
   % Smoother 1
   %
-  [SM_URTS,SP_URTS] = urts_smooth1(MM_UKF,PP_UKF,func_a,Q,d_param);
+  [SM_URTS,SP_URTS] = urts_smooth1(MM_UKF,PP_UKF,func_f,Q,d_param);
   uks_rmse1 = sqrt(mean(sum((X(1:2,:)-SM_URTS(1:2,:)).^2)));
   ME_URTS = squeeze(SP_URTS(1,1,:)+SP_URTS(2,2,:));
 
@@ -141,7 +140,7 @@
     SE_URTS(:,k) = (X(:,k) - SM_URTS(:,k)).^2;
   end
   
-  [SM_URTSb,SP_URTSb] = urts_smooth2(MM_UKF,PP_UKF,func_a,Qc*dt,d_param);
+  [SM_URTSb,SP_URTSb] = urts_smooth2(MM_UKF,PP_UKF,func_f,Qc*dt,d_param);
   uks_rmse1b = sqrt(mean(sum((X(1:2,:)-SM_URTSb(1:2,:)).^2)));
   ME_URTSb = squeeze(SP_URTSb(1,1,:)+SP_URTSb(2,2,:));
 
@@ -149,7 +148,7 @@
   % Smoother 2
   %
   [SM_UTF,SP_UTF] = utf_smooth1(MM_UKF,PP_UKF,Y,...
-	func_ia,Qc*dt,d_param,...
+	func_if,Qc*dt,d_param,...
 	func_h,diag([vr va]),h_param);
   
   uks_rmse2 = sqrt(mean(sum((X(1:2,:)-SM_UTF(1:2,:)).^2)));

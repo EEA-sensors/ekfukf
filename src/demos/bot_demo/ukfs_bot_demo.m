@@ -3,8 +3,6 @@
 % Copyright (C) 2002, 2003 Simo Särkkä
 %               2007       Jouni Hartikainen
 %
-% $Id: ukfs_demo1.m,v 1.5 2006/10/10 20:18:54 ssarkka Exp $
-%
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
@@ -16,7 +14,7 @@
   steps = 2;
   
   % Handle to measurement model function
-  h_func = @az_h;
+  h_func = @bot_h;
 
   % Create a bit curved trajectory and angle
   % measurements from two sensors
