@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2006.6.27)  12 JUN 2007 11:14
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2006.6.27)  2 AUG 2007 16:19
 entering extended mode
 **documentation.tex
 (./documentation.tex
@@ -418,132 +418,129 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 287.
  [4]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 416.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 460.
  [5]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 539.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 583.
 
 (/usr/share/texmf/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-Overfull \hbox (7.9278pt too wide) in paragraph at lines 538--540
-[]\T1/ptm/m/n/10 In this tool-box the ma-trix frac-tional de-com-po-si-tion can
- be cal-cu-lated with the func-tion \T1/pcr/m/n/10 lti_disc\T1/ptm/m/n/10 ,
- []
-
-[6]
-Overfull \hbox (6.45897pt too wide) in paragraph at lines 612--615
+) [6]
+Overfull \hbox (6.45897pt too wide) in paragraph at lines 657--660
 []\T1/ptm/m/n/10 The pre-dic-tion and up-date steps can be cal-cu-lated with fu
 nc-tions \T1/pcr/m/n/10 kf_predict \T1/ptm/m/n/10 and \T1/pcr/m/n/10 kf_update\
 T1/ptm/m/n/10 ,
  []
 
 
-Overfull \hbox (3.45752pt too wide) in paragraph at lines 618--622
+Overfull \hbox (3.45752pt too wide) in paragraph at lines 663--667
 \T1/ptm/m/n/10 The discrete-time Kalman smoother, also known as the Rauch-Tung-
 Striebel-smoother (RTS), (Rauch
  []
 
-[7] [8] <pics/demo1_f1.pdf, id=230, 483.8075pt x 388.45125pt>
+[7]
+
+LaTeX Warning: Reference `page:tf_smooth' on page 8 undefined on input line 721
+.
+
+[8] <pics/demo1_f1.pdf, id=232, 483.8075pt x 388.45125pt>
 File: pics/demo1_f1.pdf Graphic file (type pdf)
 
 <use pics/demo1_f1.pdf> [9]
-Underfull \hbox (badness 10000) in paragraph at lines 833--845
+Underfull \hbox (badness 10000) in paragraph at lines 878--890
 
  []
 
-<pics/demo1_f2.pdf, id=246, 499.8675pt x 407.5225pt>
+<pics/demo1_f2.pdf, id=250, 499.8675pt x 407.5225pt>
 File: pics/demo1_f2.pdf Graphic file (type pdf)
  <use pics/demo1_f2.pdf>
 [10 <./pics/demo1_f1.pdf>]
-<pics/demo1_f3.pdf, id=263, 499.8675pt x 407.5225pt>
+<pics/demo1_f3.pdf, id=267, 499.8675pt x 407.5225pt>
 File: pics/demo1_f3.pdf Graphic file (type pdf)
  <use pics/demo1_f3.pdf>
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [11 <./pics/demo1_f2.pdf>] [12 <./pics/demo1_f3.pdf>] [13] [14] [15]
-Overfull \hbox (29.92761pt too wide) in paragraph at lines 1246--1251
+[11 <./pics/demo1_f2.pdf>] [12 <./pics/demo1_f3.pdf>] [13] [14] [15]
+Overfull \hbox (29.92761pt too wide) in paragraph at lines 1294--1299
 \T1/ptm/m/n/10 First or-der smooth-ing so-lu-tiong with a RTS type smoother can
  be com-puted with func-tion \T1/pcr/m/n/10 erts_smooth1\T1/ptm/m/n/10 ,
  []
 
 
-Overfull \hbox (15.35881pt too wide) in paragraph at lines 1246--1251
+Overfull \hbox (9.35881pt too wide) in paragraph at lines 1294--1299
 \T1/ptm/m/n/10 and with forward-backward type smoother the com-pu-ta-tion can b
-e done with func-tion \T1/pcr/m/n/10 efbf_smooth1\T1/ptm/m/n/10 . 
+e done with func-tion \T1/pcr/m/n/10 etf_smooth1\T1/ptm/m/n/10 . 
  []
 
 [16] [17]
-Overfull \hbox (41.52013pt too wide) in paragraph at lines 1490--1495
+Overfull \hbox (41.52013pt too wide) in paragraph at lines 1538--1543
 \T1/ptm/m/n/10 These func-tions are de-fined in files \T1/pcr/m/n/10 efk_sine_h
 .m\T1/ptm/m/n/10 , \T1/pcr/m/n/10 ekf_sine_dh_dx.m \T1/ptm/m/n/10 and \T1/pcr/m
 /n/10 ekf_sine_d2h_dx2.m\T1/ptm/m/n/10 ,
  []
 
 
-Overfull \hbox (58.61766pt too wide) in paragraph at lines 1490--1495
+Overfull \hbox (58.61766pt too wide) in paragraph at lines 1538--1543
 \T1/ptm/m/n/10 re-spec-tively. The han-dles of these func-tions are saved in th
 e ac-tual demon-stra-tion script file (\T1/pcr/m/n/10 ekf_sine_demo.m\T1/ptm/m/
 n/10 )
  []
 
-[18] [19] <pics/demo2_f1.pdf, id=376, 503.8825pt x 389.455pt>
+[18] [19] <pics/demo2_f1.pdf, id=381, 503.8825pt x 389.455pt>
 File: pics/demo2_f1.pdf Graphic file (type pdf)
 
-<use pics/demo2_f1.pdf> <pics/demo2_f2.pdf, id=377, 503.8825pt x 389.455pt>
+<use pics/demo2_f1.pdf> <pics/demo2_f2.pdf, id=382, 503.8825pt x 389.455pt>
 File: pics/demo2_f2.pdf Graphic file (type pdf)
 
-<use pics/demo2_f2.pdf> <pics/demo2_f3.pdf, id=378, 503.8825pt x 389.455pt>
+<use pics/demo2_f2.pdf> <pics/demo2_f3.pdf, id=383, 503.8825pt x 389.455pt>
 File: pics/demo2_f3.pdf Graphic file (type pdf)
 
 <use pics/demo2_f3.pdf> [20] [21 <./pics/demo2_f1.pdf> <./pics/demo2_f2.pdf>]
 [22 <./pics/demo2_f3.pdf>] [23] [24] [25]
-Overfull \hbox (34.64804pt too wide) in paragraph at lines 2070--2075
+Overfull \hbox (34.64804pt too wide) in paragraph at lines 2118--2123
 []\T1/ptm/m/n/10 The pre-dic-tion and up-date steps of the aug-mented UKF can b
 e com-puted with func-tions \T1/pcr/m/n/10 ukf_predict3
  []
 
 [26]
-Overfull \hbox (3.43701pt too wide) in paragraph at lines 2193--2201
+Overfull \hbox (3.43701pt too wide) in paragraph at lines 2241--2249
 \T1/ptm/m/n/10 To il-lus-trate some of the ad-van-tages of UKF over EKF and aug
 -mented form UKF over non-augmented
  []
 
 
-Overfull \hbox (9.66142pt too wide) in paragraph at lines 2222--2222
+Overfull \hbox (9.66142pt too wide) in paragraph at lines 2270--2270
 []\T1/pcr/m/n/10 x_n = 0.5*x(1,:) + 25*x(1,:)./(1+x(1,:).*x(1,:)) + 8*cos(1.2*(
 n-1));[] 
  []
 
-[27] <pics/ungm_states.pdf, id=485, 480.79625pt x 388.45125pt>
+[27] <pics/ungm_states.pdf, id=490, 480.79625pt x 388.45125pt>
 File: pics/ungm_states.pdf Graphic file (type pdf)
 
 <use pics/ungm_states.pdf> [28]
-<pics/ungm_c_errors.pdf, id=496, 486.81876pt x 388.45125pt>
+<pics/ungm_c_errors.pdf, id=501, 486.81876pt x 388.45125pt>
 File: pics/ungm_c_errors.pdf Graphic file (type pdf)
 
 <use pics/ungm_c_errors.pdf>
-<pics/ungm_ukf_comp.pdf, id=497, 480.79625pt x 388.45125pt>
+<pics/ungm_ukf_comp.pdf, id=502, 480.79625pt x 388.45125pt>
 File: pics/ungm_ukf_comp.pdf Graphic file (type pdf)
 
 <use pics/ungm_ukf_comp.pdf> [29 <./pics/ungm_states.pdf>] [30 <./pics/ungm_c_e
 rrors.pdf> <./pics/ungm_ukf_comp.pdf>]
-<pics/ungm_mse.pdf, id=541, 480.79625pt x 388.45125pt>
+<pics/ungm_mse.pdf, id=546, 480.79625pt x 388.45125pt>
 File: pics/ungm_mse.pdf Graphic file (type pdf)
  <use pics/ungm_mse.pdf>
 [31 <./pics/ungm_mse.pdf>]
-<pics/bot_demo_measurements.pdf, id=554, 483.8075pt x 388.45125pt>
+<pics/bot_demo_measurements.pdf, id=559, 483.8075pt x 388.45125pt>
 File: pics/bot_demo_measurements.pdf Graphic file (type pdf)
 
 <use pics/bot_demo_measurements.pdf> [32] [33 <./pics/bot_demo_measurements.pdf
->] <pics/bot_demo_ekf1.pdf, id=584, 481.8pt x 388.45125pt>
+>] <pics/bot_demo_ekf1.pdf, id=589, 481.8pt x 388.45125pt>
 File: pics/bot_demo_ekf1.pdf Graphic file (type pdf)
 
 <use pics/bot_demo_ekf1.pdf>
-<pics/bot_demo_ekf2.pdf, id=585, 481.8pt x 388.45125pt>
+<pics/bot_demo_ekf2.pdf, id=590, 481.8pt x 388.45125pt>
 File: pics/bot_demo_ekf2.pdf Graphic file (type pdf)
 
 <use pics/bot_demo_ekf2.pdf>
-<pics/bot_demo_ukf.pdf, id=586, 481.8pt x 388.45125pt>
+<pics/bot_demo_ukf.pdf, id=591, 481.8pt x 388.45125pt>
 File: pics/bot_demo_ukf.pdf Graphic file (type pdf)
 
 <use pics/bot_demo_ukf.pdf> [34] [35 <./pics/bot_demo_ekf1.pdf> <./pics/bot_dem
@@ -557,34 +554,46 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [39]
-<pics/reentry_trajectory.pdf, id=656, 488.82625pt x 377.41pt>
+<pics/reentry_trajectory.pdf, id=661, 488.82625pt x 377.41pt>
 File: pics/reentry_trajectory.pdf Graphic file (type pdf)
 
 <use pics/reentry_trajectory.pdf>
-<pics/reentry_errors.pdf, id=657, 503.8825pt x 406.51875pt>
+<pics/reentry_errors.pdf, id=662, 503.8825pt x 406.51875pt>
 File: pics/reentry_errors.pdf Graphic file (type pdf)
 
 <use pics/reentry_errors.pdf> [40] [41 <./pics/reentry_trajectory.pdf>]
 [42 <./pics/reentry_errors.pdf>]
+
+LaTeX Warning: Reference `page:tf_smooth' on page 43 undefined on input line 30
+49.
+
+
+LaTeX Warning: Reference `page:etf_smooth1' on page 43 undefined on input line 
+3056.
+
+
+LaTeX Warning: Reference `page:utf_smooth1' on page 43 undefined on input line 
+3070.
+
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 3052.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 3100.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [43
 
 ]
-Overfull \hbox (24.89424pt too wide) in paragraph at lines 3103--3139
+Overfull \hbox (24.89424pt too wide) in paragraph at lines 3151--3187
 [] 
  []
 
 
-Overfull \hbox (5.96446pt too wide) in paragraph at lines 3145--3185
+Overfull \hbox (5.96446pt too wide) in paragraph at lines 3193--3233
 [] 
  []
 
 
-Overfull \hbox (38.6575pt too wide) in paragraph at lines 3193--3227
+Overfull \hbox (38.6575pt too wide) in paragraph at lines 3241--3275
 [] 
  []
 
@@ -592,17 +601,17 @@ Overfull \hbox (38.6575pt too wide) in paragraph at lines 3193--3227
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [44]
-Overfull \hbox (19.45169pt too wide) in paragraph at lines 3233--3272
+Overfull \hbox (19.45169pt too wide) in paragraph at lines 3281--3320
 [] 
  []
 
 
-Overfull \hbox (54.33473pt too wide) in paragraph at lines 3288--3327
+Overfull \hbox (54.33473pt too wide) in paragraph at lines 3336--3375
 [] 
  []
 
 
-Overfull \hbox (33.11893pt too wide) in paragraph at lines 3336--3382
+Overfull \hbox (33.11893pt too wide) in paragraph at lines 3384--3430
 [] 
  []
 
@@ -610,12 +619,12 @@ Overfull \hbox (33.11893pt too wide) in paragraph at lines 3336--3382
 Underfull \vbox (badness 3189) has occurred while \output is active []
 
  [45]
-Overfull \hbox (89.5676pt too wide) in paragraph at lines 3385--3428
+Overfull \hbox (89.5676pt too wide) in paragraph at lines 3433--3476
 [] 
  []
 
 
-Overfull \hbox (71.7389pt too wide) in paragraph at lines 3431--3480
+Overfull \hbox (71.7389pt too wide) in paragraph at lines 3479--3528
 [] 
  []
 
@@ -623,12 +632,12 @@ Overfull \hbox (71.7389pt too wide) in paragraph at lines 3431--3480
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [46]
-Underfull \hbox (badness 10000) in paragraph at lines 3489--3495
+Underfull \hbox (badness 10000) in paragraph at lines 3537--3543
 
  []
 
 
-Overfull \hbox (80.5868pt too wide) in paragraph at lines 3498--3543
+Overfull \hbox (80.5868pt too wide) in paragraph at lines 3546--3591
 [] 
  []
 
@@ -636,12 +645,12 @@ Overfull \hbox (80.5868pt too wide) in paragraph at lines 3498--3543
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [47]
-Overfull \hbox (92.16814pt too wide) in paragraph at lines 3546--3605
+Overfull \hbox (92.16814pt too wide) in paragraph at lines 3594--3653
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3616--3650
+Underfull \hbox (badness 10000) in paragraph at lines 3664--3698
 
  []
 
@@ -649,32 +658,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 3616--3650
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [48]
-Underfull \hbox (badness 10000) in paragraph at lines 3657--3692
+Underfull \hbox (badness 10000) in paragraph at lines 3705--3740
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3699--3730
+Underfull \hbox (badness 10000) in paragraph at lines 3747--3778
 
  []
 
 
-Overfull \hbox (39.5412pt too wide) in paragraph at lines 3739--3782
+Overfull \hbox (39.5412pt too wide) in paragraph at lines 3787--3830
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3739--3782
+Underfull \hbox (badness 10000) in paragraph at lines 3787--3830
 
  []
 
 
-Overfull \hbox (44.68185pt too wide) in paragraph at lines 3785--3825
+Overfull \hbox (44.68185pt too wide) in paragraph at lines 3833--3873
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3785--3825
+Underfull \hbox (badness 10000) in paragraph at lines 3833--3873
 
  []
 
@@ -682,17 +691,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 3785--3825
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [49]
-Overfull \hbox (63.5412pt too wide) in paragraph at lines 3828--3876
+Overfull \hbox (63.5412pt too wide) in paragraph at lines 3876--3924
 [] 
  []
 
 
-Overfull \hbox (47.46605pt too wide) in paragraph at lines 3878--3920
+Overfull \hbox (47.46605pt too wide) in paragraph at lines 3926--3968
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3878--3920
+Underfull \hbox (badness 10000) in paragraph at lines 3926--3968
 
  []
 
@@ -700,17 +709,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 3878--3920
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [50]
-Overfull \hbox (63.5412pt too wide) in paragraph at lines 3924--3973
+Overfull \hbox (63.5412pt too wide) in paragraph at lines 3972--4021
 [] 
  []
 
 
-Overfull \hbox (57.65701pt too wide) in paragraph at lines 3976--4021
+Overfull \hbox (57.65701pt too wide) in paragraph at lines 4024--4069
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3976--4021
+Underfull \hbox (badness 10000) in paragraph at lines 4024--4069
 
  []
 
@@ -718,12 +727,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 3976--4021
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [51]
-Overfull \hbox (87.5412pt too wide) in paragraph at lines 4025--4078
+Overfull \hbox (87.5412pt too wide) in paragraph at lines 4073--4126
 [] 
  []
 
 
-Overfull \hbox (51.5412pt too wide) in paragraph at lines 4082--4126
+Overfull \hbox (51.5412pt too wide) in paragraph at lines 4130--4174
 [] 
  []
 
@@ -731,12 +740,12 @@ Overfull \hbox (51.5412pt too wide) in paragraph at lines 4082--4126
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [52]
-Overfull \hbox (53.46605pt too wide) in paragraph at lines 4129--4175
+Overfull \hbox (53.46605pt too wide) in paragraph at lines 4177--4223
 [] 
  []
 
 
-Overfull \hbox (63.5412pt too wide) in paragraph at lines 4179--4234
+Overfull \hbox (57.5412pt too wide) in paragraph at lines 4227--4282
 [] 
  []
 
@@ -744,17 +753,17 @@ Overfull \hbox (63.5412pt too wide) in paragraph at lines 4179--4234
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [53]
-Underfull \hbox (badness 10000) in paragraph at lines 4242--4275
+Underfull \hbox (badness 10000) in paragraph at lines 4290--4323
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4280--4313
+Underfull \hbox (badness 10000) in paragraph at lines 4328--4361
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 4316--4359
+Underfull \hbox (badness 10000) in paragraph at lines 4364--4407
 
  []
 
@@ -762,7 +771,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4316--4359
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [54]
-Overfull \hbox (21.63754pt too wide) in paragraph at lines 4363--4417
+Overfull \hbox (21.63754pt too wide) in paragraph at lines 4411--4465
 [][] 
  []
 
@@ -770,31 +779,38 @@ Overfull \hbox (21.63754pt too wide) in paragraph at lines 4363--4417
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [55]
-[56] [57] (./documentation.aux) ) 
+[56] [57] (./documentation.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 6587 strings out of 94500
- 84939 string characters out of 1170409
- 153420 words of memory out of 4000000
- 9344 multiletter control sequences out of 10000+50000
+ 6597 strings out of 94500
+ 85072 string characters out of 1170409
+ 154599 words of memory out of 4000000
+ 9350 multiletter control sequences out of 10000+50000
  48173 words of font info for 79 fonts, out of 500000 for 2000
  580 hyphenation exceptions out of 1000
  27i,22n,42p,277b,314s stack positions out of 3000i,1500n,5000p,200000b,15000s
 PDF statistics:
- 843 PDF objects out of 300000
- 256 named destinations out of 131072
+ 844 PDF objects out of 300000
+ 260 named destinations out of 131072
  281 words of extra memory for PDF output out of 65536
-{/usr/share/texmf/fonts/enc/dvips/psnfss/8r.en
-c}</usr/share/texmf/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf/fonts/
-type1/bluesky/cm/cmr5.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy5.pfb></
-usr/share/texmf/fonts/type1/bluesky/cm/cmbx7.pfb></usr/share/texmf/fonts/type1/
-bluesky/cm/cmmib10.pfb></usr/share/texmf/fonts/type1/urw/courier/ucrr8a.pfb></u
-sr/share/texmf/fonts/type1/bluesky/cm/cmmi5.pfb></usr/share/texmf/fonts/type1/b
-luesky/cm/cmex10.pfb></usr/share/texmf/fonts/type1/bluesky/symbols/msbm10.pfb><
-/usr/share/texmf/fonts/type1/bluesky/cm/cmr7.pfb></usr/share/texmf/fonts/type1/
-bluesky/cm/cmsy7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/s
-hare/texmf/fonts/type1/bluesky/cm/cmmi10.pfb></usr/share/texmf/fonts/type1/blue
-sky/cm/cmmi7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx10.pfb></usr/shar
-e/texmf/fonts/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/urw/tim
-es/utmb8a.pfb></usr/share/texmf/fonts/type1/urw/times/utmri8a.pfb></usr/share/t
-exmf/fonts/type1/urw/times/utmr8a.pfb>
-Output written on documentation.pdf (57 pages, 799964 bytes).
+{/usr/share/texmf/fonts/enc/dvips/psnfss/8r.enc}</usr/share/texmf/fonts/type1
+/urw/courier/ucrb8a.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr5.pfb></usr
+/share/texmf/fonts/type1/bluesky/cm/cmsy5.pfb></usr/share/texmf/fonts/type1/blu
+esky/cm/cmmib10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx7.pfb></usr/sh
+are/texmf/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf/fonts/type1/blue
+sky/cm/cmmi5.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmex10.pfb></usr/shar
+e/texmf/fonts/type1/bluesky/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/bl
+uesky/cm/cmr7.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy7.pfb></usr/shar
+e/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/
+cm/cmmi10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmmi7.pfb></usr/share/te
+xmf/fonts/type1/bluesky/cm/cmbx10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/
+cmsy10.pfb></usr/share/texmf/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf
+/fonts/type1/urw/times/utmri8a.pfb></usr/share/texmf/fonts/type1/urw/times/utmr
+8a.pfb>
+Output written on documentation.pdf (57 pages, 802283 bytes).

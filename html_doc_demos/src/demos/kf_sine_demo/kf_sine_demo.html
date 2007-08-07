@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of kf_sine_demo</title>
+  <meta name="keywords" content="kf_sine_demo">
+  <meta name="description" content="Kalman Filter demonstration with sine signal.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="#">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">kf_sine_demo</a> &gt; kf_sine_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/kf_sine_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>kf_sine_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Kalman Filter demonstration with sine signal.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Kalman Filter demonstration with sine signal.
+
+ History:
+    3.12.2002 SS  The first implementation
+
+ Copyright (C) 2002 Simo Särkkä
+
+ This software is distributed under the GNU General Public 
+ Licence (version 2 or later); please refer to the file 
+ Licence.txt, included with the software, for details.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Kalman Filter demonstration with sine signal.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% History:</span>
+0004 <span class="comment">%    3.12.2002 SS  The first implementation</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Copyright (C) 2002 Simo Särkkä</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% This software is distributed under the GNU General Public</span>
+0009 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0010 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0011 
+0012   <span class="comment">%</span>
+0013   <span class="comment">% Create sine function</span>
+0014   <span class="comment">%</span>
+0015   S1 = [0.2;1.0];
+0016   S2 = [1.0;-0.2];
+0017   sd = 0.1;
+0018   dt = 0.1;
+0019   w = 1;
+0020   T = (0:dt:30);
+0021   X = sin(w*T);
+0022   Y = X + sd*randn(size(X));
+0023 
+0024   <span class="comment">%</span>
+0025   <span class="comment">% Initialize KF to values</span>
+0026   <span class="comment">%</span>
+0027   <span class="comment">%   x = 0</span>
+0028   <span class="comment">%   dx/dt = 0</span>
+0029   <span class="comment">%</span>
+0030   <span class="comment">% with great uncertainty in derivative</span>
+0031   <span class="comment">%</span>
+0032   M = [0;0];
+0033   P = diag([0.1 2]);
+0034   R = sd^2;
+0035   H = [1 0];
+0036   q = 0.1;
+0037   F = [0 1;
+0038        0 0];
+0039   [A,Q] = lti_disc(F,[],diag([0 q]),dt);
+0040 
+0041   <span class="comment">%</span>
+0042   <span class="comment">% Track and animate</span>
+0043   <span class="comment">%</span>
+0044   MM = zeros(size(M,1),size(Y,2));
+0045   PP = zeros(size(M,1),size(M,1),size(Y,2));
+0046   clf;
+0047   clc;
+0048   disp(<span class="string">'In this demonstration we estimate a stationary sine signal from noisy measurements by using the classical Kalman filter.'</span>);
+0049   disp(<span class="string">' '</span>);
+0050   disp(<span class="string">'The filtering results are now displayed sequantially for 10 time step at a time.'</span>);
+0051   disp(<span class="string">' '</span>);
+0052   disp(<span class="string">'&lt;push any key to proceed to next time steps&gt;'</span>);
+0053   
+0054   <span class="keyword">for</span> k=1:size(Y,2)
+0055     <span class="comment">%</span>
+0056     <span class="comment">% Track with KF</span>
+0057     <span class="comment">%</span>
+0058     [M,P] = kf_predict(M,P,A,Q);
+0059     [M,P] = kf_update(M,P,Y(k),H,R);
+0060 
+0061     MM(:,k) = M;
+0062     PP(:,:,k) = P;
+0063 
+0064     <span class="comment">%</span>
+0065     <span class="comment">% Animate</span>
+0066     <span class="comment">%</span>
+0067     <span class="keyword">if</span> rem(k,10)==1
+0068       plot(T,X,<span class="string">'b--'</span>,<span class="keyword">...</span>
+0069            T,Y,<span class="string">'ro'</span>,<span class="keyword">...</span>
+0070            T(k),M(1),<span class="string">'k*'</span>,<span class="keyword">...</span>
+0071            T(1:k),MM(1,1:k),<span class="string">'k-'</span>);
+0072       legend(<span class="string">'Real signal'</span>,<span class="string">'Measurements'</span>,<span class="string">'Latest estimate'</span>,<span class="string">'Filtered estimate'</span>)
+0073       title(<span class="string">'Estimating a noisy sine signal with Kalman filter.'</span>);
+0074       drawnow;
+0075       
+0076       pause;
+0077     <span class="keyword">end</span>
+0078   <span class="keyword">end</span>
+0079 
+0080   clc;
+0081   disp(<span class="string">'In this demonstration we estimate a stationary sine signal from noisy measurements by using the classical Kalman filter.'</span>);
+0082   disp(<span class="string">' '</span>);
+0083   disp(<span class="string">'The filtering results are now displayed sequantially for 10 time step at a time.'</span>);
+0084   disp(<span class="string">' '</span>);
+0085   disp(<span class="string">'&lt;push any key to see the filtered and smoothed results together&gt;'</span>)
+0086   pause;  
+0087   <span class="comment">%</span>
+0088   <span class="comment">% Apply Kalman smoother</span>
+0089   <span class="comment">%</span>
+0090   SM = rts_smooth(MM,PP,A,Q);
+0091   plot(T,X,<span class="string">'b--'</span>,<span class="keyword">...</span>
+0092        T,MM(1,:),<span class="string">'k-'</span>,<span class="keyword">...</span>
+0093        T,SM(1,:),<span class="string">'r-'</span>);
+0094   legend(<span class="string">'Real signal'</span>,<span class="string">'Filtered estimate'</span>,<span class="string">'Smoothed estimate'</span>) 
+0095   title(<span class="string">'Filtered and smoothed estimate of the original signal'</span>);
+0096   
+0097   clc;
+0098   disp(<span class="string">'The filtered and smoothed estimates of the signal are now displayed.'</span>)
+0099   disp(<span class="string">' '</span>);
+0100   disp(<span class="string">'RMS errors:'</span>);
+0101   <span class="comment">%</span>
+0102   <span class="comment">% Errors</span>
+0103   <span class="comment">%</span>
+0104   fprintf(<span class="string">'KF = %.3f\nRTS = %.3f\n'</span>,<span class="keyword">...</span>
+0105           sqrt(mean((MM(1,:)-X(1,:)).^2)),<span class="keyword">...</span>
+0106           sqrt(mean((SM(1,:)-X(1,:)).^2)));</pre></div>
+<hr><address>Generated on Mon 06-Aug-2007 15:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

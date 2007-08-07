@@ -15,6 +15,8 @@
 clc;
 disp('Filtering the signal with EKF...');
 
+save_plots = 1;
+
 % Measurement model and it's derivative
 f_func = @ekf_sine_f;
 h_func = @ekf_sine_h;
@@ -113,8 +115,9 @@ legend('Measurements','Real signal', 'Filtered estimate');
 xlim([0 ceil(max(x))]);
 title('Estimating a random Sine signal with extended Kalman filter.');
 
-% Uncomment if you want to save an image
-% print -dpsc demo2_f1.ps 
+if save_plots
+    print -dpsc demo2_f1.ps 
+end
 
 clc;
 disp('The filtering result using the 1st order EKF is now displayed.');
@@ -142,8 +145,9 @@ xlim([0 ceil(max(x))]);
 title(['Smoothing a random Sine signal with extended ',...
        'Kalman (RTS) smoother.']);
 
-% Uncomment if you want to save an image
-% print -dpsc demo2_f2.ps
+if save_plots
+    print -dpsc demo2_f2.ps
+end
 
 clc;
 disp('The smoothing results using the ERTS smoother is now displayed.');
@@ -155,11 +159,12 @@ Y_s2 = feval(h_func, SM2);
 plot(x,Y,'.', x, Y_real,'--',x,Y_s2);
 legend('Measurements','Real signal','Smoothed estimate');
 title(['Smoothing a random Sine signal with extended ',...
-       'Kalman (Forward-Backward) smoother.']);
+       'Kalman (Two Filter) smoother.']);
 xlim([0 ceil(max(x))]);
 
-% Uncomment if you want to save an image
-%print -dpsc demo2_f3.ps
+if save_plots
+    print -dpsc demo2_f3.ps
+end
 
 clc;
 disp('The smoothing results using the ETF smoother is now displayed.');

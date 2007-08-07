@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ungm_demo</title>
+  <meta name="keywords" content="ungm_demo">
+  <meta name="description" content="Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="#">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">ungm_demo</a> &gt; ungm_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/ungm_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>ungm_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.
+
+ Copyright (C) 2007 Jouni Hartikainen
+
+ This software is distributed under the GNU General Public 
+ Licence (version 2 or later); please refer to the file 
+ Licence.txt, included with the software, for details.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ungm_d2f_dx2.html" class="code" title="function d = ungm_d2f_dx2(x,param)">ungm_d2f_dx2</a>	Hessian of the state transition function in UNGM-model.</li><li><a href="ungm_d2h_dx2.html" class="code" title="function d = ungm_d2h_dx2(x,param)">ungm_d2h_dx2</a>	Hessian of the measurement model function in UNGM-model.</li><li><a href="ungm_df_dx.html" class="code" title="function df = ungm_df_dx(x,param)">ungm_df_dx</a>	Jacobian of the state transition function for the UNGM-model.</li><li><a href="ungm_dh_dx.html" class="code" title="function dh = ungm_dh_dx(x,param)">ungm_dh_dx</a>	Jacobian of the measurement model function for the UNGM-model.</li><li><a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>	State transition function for the UNGM-model.</li><li><a href="ungm_h.html" class="code" title="function y_n = ungm_h(x_n,param)">ungm_h</a>	Measurement model function for the UNGM-model.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Copyright (C) 2007 Jouni Hartikainen</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This software is distributed under the GNU General Public</span>
+0006 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0007 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0008 
+0009 silent = 0;
+0010 
+0011 clf; clc;
+0012 disp(<span class="string">'This is a demonstration for EKF and UKF using the UNGM model.'</span>);
+0013 disp(<span class="string">' '</span>);
+0014 
+0015 <span class="comment">% Handles to dynamic and measurement model functions,</span>
+0016 <span class="comment">% and their derivatives</span>
+0017 f_func = @<a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>;
+0018 h_func = @<a href="ungm_h.html" class="code" title="function y_n = ungm_h(x_n,param)">ungm_h</a>;
+0019 df_func = @<a href="ungm_df_dx.html" class="code" title="function df = ungm_df_dx(x,param)">ungm_df_dx</a>;
+0020 dh_func = @<a href="ungm_dh_dx.html" class="code" title="function dh = ungm_dh_dx(x,param)">ungm_dh_dx</a>;
+0021 d2f_func = @<a href="ungm_d2f_dx2.html" class="code" title="function d = ungm_d2f_dx2(x,param)">ungm_d2f_dx2</a>;
+0022 d2h_func = @<a href="ungm_d2h_dx2.html" class="code" title="function d = ungm_d2h_dx2(x,param)">ungm_d2h_dx2</a>;
+0023 
+0024 <span class="comment">% Number of samples</span>
+0025 n = 500;
+0026 
+0027 <span class="comment">% Initial state and covariance</span>
+0028 x_0 = .1;
+0029 P_0 = 1;
+0030 
+0031 <span class="comment">% Space for measurements</span>
+0032 Y = zeros(1,n);
+0033 
+0034 <span class="comment">% Strengths of perturbations</span>
+0035 u_n = 1;
+0036 v_n = 1;
+0037 
+0038 fprintf(<span class="string">'Generating real states and measurements...'</span>);
+0039 <span class="comment">% Generate the true states with process noise</span>
+0040 X = zeros(1,n);
+0041 X(1) = <a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>(x_0,1) + gauss_rnd(0,u_n,1);
+0042 <span class="keyword">for</span> i = 2:n
+0043     X(i) = feval(f_func,X(i-1),i) + gauss_rnd(0,u_n,1);
+0044 <span class="keyword">end</span>
+0045     
+0046 <span class="comment">% Generate the observations with measurement noise</span>
+0047 <span class="keyword">for</span> i = 1:n
+0048     Y(i) = feval(h_func,X(i)) + gauss_rnd(0,v_n,1);
+0049 <span class="keyword">end</span>
+0050 
+0051 Y_r = feval(h_func,X);
+0052 
+0053 fprintf(<span class="string">'Done!\n'</span>);
+0054 
+0055 <span class="comment">% Parameters for dynamic model. Used by smoothers.</span>
+0056 params = cell(size(Y,2));
+0057 <span class="keyword">for</span> i = 1:size(Y,2)
+0058    params{i} = i+1; 
+0059 <span class="keyword">end</span>
+0060 
+0061 fprintf(<span class="string">'Filtering with UKF1...'</span>);
+0062 
+0063 <span class="comment">% Initial values and space for non-augmented UKF (UKF1)</span>
+0064 M = x_0;
+0065 P = P_0;
+0066 MM_UKF1 = zeros(size(M,1),size(Y,2));
+0067 PP_UKF1 = zeros(size(M,1),size(M,1),size(Y,2));
+0068 
+0069 <span class="comment">% Filtering loop for UKF1</span>
+0070 <span class="keyword">for</span> k = 1:size(Y,2)
+0071    [M,P] = ukf_predict1(M,P,f_func,u_n,k);
+0072    [M,P] = ukf_update1(M,P,Y(:,k),h_func,v_n);
+0073    MM_UKF1(:,k)   = M;
+0074    PP_UKF1(:,:,k) = P;    
+0075 <span class="keyword">end</span>
+0076 [MMS_URTS1, PPS_URTS1] = urts_smooth1(MM_UKF1,PP_UKF1,f_func,u_n,params,[],[],[],[],0);
+0077 
+0078 <span class="comment">% MSE for UKF1</span>
+0079 UKF1_MSE = sum((X-MM_UKF1).^2)/n;
+0080 UKS1_MSE = sum((X-MMS_URTS1).^2)/n;
+0081 
+0082 fprintf(<span class="string">'Done!\n'</span>);
+0083 fprintf(<span class="string">'Filtering with UKF2...'</span>);
+0084 
+0085 <span class="comment">% Initial valuesand space for augmented UKF (UKF2)</span>
+0086 M = x_0;
+0087 P = P_0;
+0088 MM_UKF2 = zeros(size(M,1),size(Y,2));
+0089 PP_UKF2 = zeros(size(M,1),size(M,1),size(Y,2));
+0090 
+0091 <span class="comment">% Filtering loop for UKF2</span>
+0092 <span class="keyword">for</span> k = 1:size(Y,2)
+0093    [M,P,X_s,w] = ukf_predict3(M,P,f_func,u_n,v_n,k);
+0094    [M,P] = ukf_update3(M,P,Y(:,k),h_func,v_n,X_s,w,[]);
+0095    MM_UKF2(:,k)   = M;
+0096    PP_UKF2(:,:,k) = P;    
+0097 <span class="keyword">end</span>
+0098 
+0099 [MMS_URTS2, PPS_URTS2] = urts_smooth1(MM_UKF2,PP_UKF2,f_func,u_n,params,[],[],[],[],0);
+0100 
+0101 <span class="comment">% MSE for UKF2</span>
+0102 UKF2_MSE = sum((X-MM_UKF2).^2)/n;
+0103 UKS2_MSE = sum((X-MMS_URTS2).^2)/n;
+0104 
+0105 fprintf(<span class="string">'Done!\n'</span>);
+0106 
+0107 fprintf(<span class="string">'Filtering with EKF...'</span>);
+0108 
+0109 <span class="comment">% Filtering with EKF</span>
+0110 M = x_0;
+0111 P = P_0;
+0112 
+0113 MM_EKF = zeros(size(M,1),size(Y,2));
+0114 PP_EKF = zeros(size(M,1),size(M,1),size(Y,2));
+0115 
+0116 <span class="comment">% Filtering loop for EKF</span>
+0117 <span class="keyword">for</span> k = 1:size(Y,2)
+0118    [M,P] = ekf_predict1(M,P,df_func,u_n,f_func,[],k);
+0119    [M,P] = ekf_update1(M,P,Y(:,k),dh_func,v_n,h_func,[],[]);
+0120    MM_EKF(:,k)   = M;
+0121    PP_EKF(:,:,k) = P;    
+0122 <span class="keyword">end</span>
+0123 
+0124 [MMS_ERTS,PPS_ERTS] = erts_smooth1(MM_EKF,PP_EKF,df_func,u_n,f_func,[],params,0);
+0125 
+0126 EKF_MSE = sum((X-MM_EKF).^2)/n;
+0127 ERTS_MSE = sum((X-MMS_ERTS).^2)/n;
+0128 
+0129 fprintf(<span class="string">'Done!\n'</span>);
+0130 
+0131 fprintf(<span class="string">'Filtering with bootstrap filter...'</span>);
+0132 
+0133 <span class="comment">% Filtering with bootstrap filter</span>
+0134 M = x_0;
+0135 P = P_0;
+0136 n_particles = 1000;
+0137 SX = gauss_rnd(M,P,n_particles);
+0138 
+0139 MM_BS = zeros(size(M,1),size(Y,2));
+0140 PP_BS = zeros(size(M,1),size(M,1),size(Y,2));
+0141 
+0142 <span class="comment">% Filtering loop for bootstrap filter</span>
+0143 <span class="keyword">for</span> k = 1:size(Y,2)
+0144    SX = <a href="ungm_f.html" class="code" title="function x_n = ungm_f(x,param)">ungm_f</a>(SX,k) + gauss_rnd(0,1,size(SX,2));
+0145    W  = gauss_pdf(Y(:,k),<a href="ungm_h.html" class="code" title="function y_n = ungm_h(x_n,param)">ungm_h</a>(SX,k),1);
+0146    ind = resampstr(W);
+0147    SX = SX(:,ind);
+0148    M = mean(SX);
+0149    P = var(SX);
+0150    MM_BS(:,k)   = M;
+0151    PP_BS(:,:,k) = P;    
+0152 <span class="keyword">end</span>
+0153 
+0154 BS_MSE = sum((X-MM_BS).^2)/n;
+0155 
+0156 fprintf(<span class="string">'Done!\n'</span>);
+0157 
+0158 <span class="keyword">if</span> ~silent
+0159   subplot(3,1,1);
+0160   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_UKF2(1:100),<span class="string">'--bo'</span>)
+0161   title(<span class="string">'UKF2 filtering result'</span>);
+0162   xlim([0 100]);
+0163   ylim([-20 20]);
+0164   legend(<span class="string">'Real signal'</span>, <span class="string">'UKF2 filtered estimate'</span>);
+0165 
+0166   subplot(3,1,2);
+0167   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_EKF(1:100),<span class="string">'--bo'</span>)
+0168   title(<span class="string">'EKF filtering result'</span>);
+0169   xlim([0 100]);
+0170   ylim([-20 20]);
+0171   legend(<span class="string">'Real signal'</span>, <span class="string">'EKF filtered estimate'</span>);
+0172 
+0173   subplot(3,1,3);
+0174   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_BS(1:100),<span class="string">'--bo'</span>)
+0175   title(<span class="string">'Bootstrap filtering result'</span>)
+0176   xlim([0 100]);
+0177   ylim([-20 20]);
+0178   legend(<span class="string">'Real signal'</span>,<span class="string">'Filtered estimates'</span>)
+0179   <span class="comment">% Uncomment if you want to print images</span>
+0180   <span class="comment">%print -dpsc ungm_states.ps</span>
+0181 
+0182   disp(<span class="string">' '</span>);
+0183   disp([<span class="string">'First 100 values of the filtering results with UKF2, EKF and BS are now displayed.'</span>,<span class="keyword">...</span>
+0184         <span class="string">'Notice how the BS gives clearly better performance than UKF2 and EKF.'</span>]);
+0185   disp(<span class="string">' '</span>);
+0186   disp(<span class="string">'&lt;press any key to see the estimation error of UKF2, EKF and BS&gt;'</span>);
+0187   
+0188   pause;
+0189 
+0190   subplot(3,1,1);
+0191   E = X-MM_UKF2;
+0192   PP_UKF2 = squeeze(PP_UKF2);
+0193   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>);
+0194   title(<span class="string">'UKF2 error'</span>);
+0195   legend(<span class="string">'Estimation error of UKF2'</span>,<span class="string">'3\sigma interval'</span>)
+0196 
+0197   subplot(3,1,2);
+0198   E = X-MM_EKF;
+0199   PP_EKF = squeeze(PP_EKF);
+0200   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_EKF(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_EKF(1:100))',<span class="string">'--r'</span>);
+0201   title(<span class="string">'EKF error'</span>);
+0202   legend(<span class="string">'Estimation error of EKF'</span>,<span class="string">'3\sigma interval'</span>);
+0203 
+0204   subplot(3,1,3);
+0205   E = X-MM_BS;
+0206   PP_BS = squeeze(PP_BS);
+0207   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_BS(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_BS(1:100))',<span class="string">'--r'</span>);
+0208   title(<span class="string">'Bootstrap filtering error'</span>);
+0209   legend(<span class="string">'Estimation error with BS'</span>,<span class="string">'3\sigma interval'</span>)
+0210   <span class="comment">% Uncomment if you want to print images</span>
+0211   <span class="comment">%print -dpsc ungm_c_errors.ps</span>
+0212   clc;
+0213   disp([<span class="string">'The estimation errors of UKF2, EKF and BS are now displayed.'</span>,<span class="keyword">...</span>
+0214         <span class="string">'The superiority of BS can easily be seen also from this.'</span>]);
+0215   disp(<span class="string">' '</span>);
+0216   disp(<span class="string">'&lt;press any key to see the filtering results of UKF1 and UKF2&gt;'</span>);  
+0217   pause;  
+0218   
+0219   subplot(2,1,1);
+0220   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_UKF1(1:100),<span class="string">'--bo'</span>)
+0221   title(<span class="string">'UKF1 filtering result'</span>);
+0222   xlim([0 100]);
+0223   ylim([-20 20]);
+0224   legend(<span class="string">'Real signal'</span>, <span class="string">'UKF1 filtered estimate'</span>);
+0225   
+0226   subplot(2,1,2);
+0227   plot(1:100,X(1:100),<span class="string">'-kx'</span>,1:100,MM_UKF2(1:100),<span class="string">'--bo'</span>)
+0228   title(<span class="string">'UKF2 filtering result'</span>);
+0229   xlim([0 100]);
+0230   ylim([-20 20]);
+0231   legend(<span class="string">'Real signal'</span>, <span class="string">'UKF2 filtered estimate'</span>);
+0232   <span class="comment">% Uncomment if you want to print images</span>
+0233   <span class="comment">%print -dpsc ungm_ukf_comp.ps</span>
+0234   clc;
+0235   disp([<span class="string">'First 100 values of the filtering results with UKF1 and UKF2 are now displayed. '</span>,<span class="keyword">...</span>
+0236        <span class="string">'Clearly the non-augmented UKF is not applicable to this problem.'</span>]);
+0237   disp(<span class="string">' '</span>);
+0238   disp(<span class="string">'&lt;press any key to see the estimation errors of UKF1 and UKF2&gt;'</span>);
+0239   
+0240   pause
+0241 
+0242   subplot(2,1,1);
+0243   E = X-MM_UKF1;
+0244   PP_UKF1 = squeeze(PP_UKF1);
+0245   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_UKF1(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_UKF1(1:100))',<span class="string">'--r'</span>);
+0246   title(<span class="string">'UKF1 error'</span>);
+0247   legend(<span class="string">'Estimation error of UKF1'</span>,<span class="string">'3\sigma interval'</span>)
+0248 
+0249   subplot(2,1,2);
+0250   E = X-MM_UKF2;
+0251   PP_UKF2 = squeeze(PP_UKF2);
+0252   plot(1:100,E(1:100),<span class="string">'-kx'</span>,1:100,3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>,1:100,-3*sqrt(PP_UKF2(1:100))',<span class="string">'--r'</span>);
+0253   title(<span class="string">'UKF2 error'</span>);
+0254   legend(<span class="string">'Estimation error of UKF2'</span>,<span class="string">'3\sigma interval'</span>)
+0255   <span class="comment">% Uncomment if you want to print images</span>
+0256   <span class="comment">%print -dpsc ungm_ukf_comp_error.ps</span>
+0257   clc;
+0258   disp(<span class="string">'The absolute estimation errors of UKF1 and UKF2 are now displayed.'</span>);
+0259   disp(<span class="string">' '</span>);
+0260   
+0261 <span class="keyword">end</span>
+0262 
+0263 disp(<span class="string">'MS errors:'</span>);
+0264 fprintf(<span class="string">'UKF1-MSE = %.4f\n'</span>,UKF1_MSE);
+0265 fprintf(<span class="string">'UKS1-MSE = %.4f\n'</span>,UKS1_MSE);
+0266 fprintf(<span class="string">'UKF2-MSE = %.4f\n'</span>,UKF2_MSE);
+0267 fprintf(<span class="string">'UKS2-MSE = %.4f\n'</span>,UKS2_MSE);
+0268 fprintf(<span class="string">'EKF-MSE = %.4f\n'</span>,EKF_MSE);
+0269 fprintf(<span class="string">'ERTS-MSE = %.4f\n'</span>,ERTS_MSE);
+0270 fprintf(<span class="string">'BS-MSE = %.4f\n'</span>,BS_MSE);</pre></div>
+<hr><address>Generated on Mon 06-Aug-2007 15:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of bot_demo_all</title>
+  <meta name="keywords" content="bot_demo_all">
+  <meta name="description" content="Bearings Only Tracking (BOT) demonstration with EKF1,EKF2 and UKF">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="#">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">bot_demo</a> &gt; bot_demo_all.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/bot_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>bot_demo_all
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Bearings Only Tracking (BOT) demonstration with EKF1,EKF2 and UKF</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Bearings Only Tracking (BOT) demonstration with EKF1,EKF2 and UKF</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="bot_d2h_dx2.html" class="code" title="function dY = bot_d2h_dx2(x,s)">bot_d2h_dx2</a>	Hessian of the measurement function in BOT-demo.</li><li><a href="bot_dh_dx.html" class="code" title="function dY = bot_dh_dx(x,s)">bot_dh_dx</a>	Jacobian of the measurement model function in BOT demo.</li><li><a href="bot_h.html" class="code" title="function Y = bot_h(x,s)">bot_h</a>	Azimuth measurement function for EKF/UKF.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Bearings Only Tracking (BOT) demonstration with EKF1,EKF2 and UKF</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2002, 2003 Simo Särkkä</span>
+0004 <span class="comment">%                     2007 Jouni Hartikainen</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% This software is distributed under the GNU General Public</span>
+0007 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0008 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0009 
+0010   silent = 0;
+0011   save_plots = 0;
+0012   
+0013   <span class="comment">% Measurement mean and derivative</span>
+0014   <span class="comment">%</span>
+0015   <span class="comment">%  h = atan((y-sy) / (x-sx))</span>
+0016   h_func = @<a href="bot_h.html" class="code" title="function Y = bot_h(x,s)">bot_h</a>;
+0017   dh_dx_func = @<a href="bot_dh_dx.html" class="code" title="function dY = bot_dh_dx(x,s)">bot_dh_dx</a>;
+0018   d2h_dx2_func = @<a href="bot_d2h_dx2.html" class="code" title="function dY = bot_d2h_dx2(x,s)">bot_d2h_dx2</a>;
+0019   
+0020   <span class="comment">% Create a bit curved trajectory and angle</span>
+0021   <span class="comment">% measurements from two sensors</span>
+0022   S1 = [-1;-2];
+0023   S2 = [1;1];
+0024   sd = 0.05;
+0025   dt = 0.01;
+0026 
+0027   <span class="comment">% Acceleration for the target to have a curved trajectory</span>
+0028   a = zeros(1,500);
+0029   a(1,50:100)  = pi/2/51/dt + 0.01*randn(1,51);
+0030   a(1,200:250) = pi/2/51/dt + 0.01*randn(1,51);
+0031   a(1,350:400) = pi/2/51/dt + 0.01*randn(1,51);
+0032     
+0033   <span class="comment">% Starting state</span>
+0034   x = [0;0;1;0];
+0035   t = 0;
+0036   X = [];
+0037   Y = [];
+0038   T = [];
+0039   <span class="keyword">for</span> i=1:500
+0040     <span class="comment">% Dynamics in continous case</span>
+0041     F = [0 0  1    0;<span class="keyword">...</span>
+0042          0 0  0    1;<span class="keyword">...</span>
+0043          0 0  0   a(i);<span class="keyword">...</span>
+0044          0 0 -a(i) 0];
+0045     <span class="comment">% Discretization for the data generation</span>
+0046     x = expm(F*dt)*x;
+0047     <span class="comment">% Angular measurements for both sensors.</span>
+0048     y1 = atan2(x(2)-S1(2), x(1)-S1(1)) + sd * randn;
+0049     y2 = atan2(x(2)-S2(2), x(1)-S2(1)) + sd * randn;
+0050       
+0051     <span class="comment">% Save the data</span>
+0052     t  = t + dt;
+0053     X = [X x];
+0054     T = [T t];
+0055     Y = [Y [y1;y2]];
+0056   <span class="keyword">end</span>
+0057 
+0058   <span class="comment">% Prior for position and velocity</span>
+0059   M_0 = [0;0;0;0];
+0060   P_0 = diag([0.1 0.1 10 10]);
+0061 
+0062   <span class="comment">% Discretize the continous model</span>
+0063   qx = 0.1;
+0064   qy = 0.1;
+0065   F = [0 0 1 0;
+0066        0 0 0 1;
+0067        0 0 0 0;
+0068        0 0 0 0];
+0069   [A,Q] = lti_disc(F,[],diag([0 0 qx qy]),dt);
+0070 
+0071   clc;  clf;
+0072   disp([<span class="string">'In this demonstration we track a moving object with two sensors, '</span>,<span class="keyword">...</span>
+0073         <span class="string">'which gives only bearings of the object with respect to sensors position. '</span>,<span class="keyword">...</span>
+0074        <span class="string">'The state of the system is estimated with 1st and 2nd order EKF, and UKF.'</span>])
+0075   disp(<span class="string">' '</span>);
+0076   fprintf(<span class="string">'Running 1st order EKF...'</span>)
+0077   <span class="comment">%</span>
+0078   <span class="comment">% Initialize EKF1</span>
+0079   <span class="comment">%</span>
+0080   M = M_0;
+0081   P = P_0;
+0082   R = sd^2;
+0083   <span class="comment">%if ~silent</span>
+0084   <span class="comment">%  der_check(h_func, dh_dx_func, 1, M, S1);</span>
+0085   <span class="comment">%  der_check(h_func, dh_dx_func, 1, M, S2);</span>
+0086   <span class="comment">%end</span>
+0087   
+0088   MM_EKF1 = zeros(size(M,1),size(Y,2));
+0089   PP_EKF1 = zeros(size(M,1),size(M,1),size(Y,2));
+0090   ME_EKF1 = zeros(size(M,1),1);
+0091 
+0092   <span class="comment">% Filter with EKF1</span>
+0093   <span class="keyword">for</span> k = 1:size(Y,2) 
+0094     [M,P] = ekf_predict1(M,P,A,Q);
+0095     [M,P] = ekf_update1(M,P,Y(:,k),dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
+0096     MM_EKF1(:,k)   = M;
+0097     PP_EKF1(:,:,k) = P;
+0098     ME_EKF1(k) = P(1,1) + P(2,2);
+0099   <span class="keyword">end</span>
+0100   
+0101   <span class="comment">% RMSE for EKF1</span>
+0102   ekf1_rmse = sqrt(mean((X(1,:)-MM_EKF1(1,:)).^2+(X(2,:)-MM_EKF1(2,:)).^2));
+0103 
+0104   fprintf(<span class="string">'Done!\n'</span>)
+0105   fprintf(<span class="string">'Running smoothers...'</span>);
+0106   <span class="comment">% ERTS smoother</span>
+0107   [SM1_EKF1,SP1_EKF1] = erts_smooth1(MM_EKF1,PP_EKF1,A,Q);
+0108   eks1_rmse1 = sqrt(mean((X(1,:)-SM1_EKF1(1,:)).^2+(X(2,:)-SM1_EKF1(2,:)).^2));
+0109   ME1_EKF1 = squeeze(SP1_EKF1(1,1,:)+SP1_EKF1(2,2,:));
+0110 
+0111   <span class="comment">% ETF smoother</span>
+0112   [SM2_EKF1,SP2_EKF1] = etf_smooth1(MM_EKF1,PP_EKF1,Y,A,Q,[],[],[],<span class="keyword">...</span>
+0113                 dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
+0114   eks1_rmse2 = sqrt(mean((X(1,:)-SM2_EKF1(1,:)).^2+(X(2,:)-SM2_EKF1(2,:)).^2));
+0115   ME2_EKF1 = squeeze(SP2_EKF1(1,1,:)+SP2_EKF1(2,2,:));
+0116   fprintf(<span class="string">'Done!\n'</span>);
+0117   
+0118   <span class="comment">% Plot the results</span>
+0119   <span class="keyword">if</span> ~silent
+0120     plot(X(1,:),X(2,:),<span class="string">'k-'</span>,<span class="keyword">...</span>
+0121          MM_EKF1(1,:),MM_EKF1(2,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0122          SM1_EKF1(1,:),SM1_EKF1(2,:),<span class="string">'r-.'</span>,<span class="keyword">...</span>
+0123          SM2_EKF1(1,:),SM2_EKF1(2,:),<span class="string">'g-.'</span>,<span class="keyword">...</span>
+0124          S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0125     axis([-1.5 1.5 -2.5 1]);
+0126     legend(<span class="string">'Real trajectory'</span>,<span class="keyword">...</span>
+0127            <span class="string">'EKF1 estimate'</span>,<span class="keyword">...</span>
+0128            <span class="string">'ERTS estimate'</span>,<span class="keyword">...</span>
+0129            <span class="string">'ETF estimate'</span>,<span class="keyword">...</span>
+0130            <span class="string">'Positions of sensors'</span>,<span class="keyword">...</span>
+0131            <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>);
+0132     title(<span class="string">'Filtering and smoothing result with 1st order EKF'</span>);
+0133     <span class="keyword">if</span> save_plots
+0134       print -dpsc bot_demo_ekf1.ps
+0135     <span class="keyword">end</span>
+0136   <span class="keyword">end</span>
+0137   
+0138   disp(<span class="string">' '</span>);
+0139   disp(<span class="string">'1st order filtering and smoothing results are now displayed'</span>);
+0140   disp(<span class="string">' '</span>);
+0141   disp(<span class="string">'&lt;push any key to filter and smooth with 2nd order EKF&gt;'</span>);
+0142   pause
+0143   
+0144   <span class="comment">%</span>
+0145   <span class="comment">% Initialize EKF2</span>
+0146   <span class="comment">%</span>
+0147   M = M_0; 
+0148   P = P_0;
+0149   R = sd^2;
+0150   <span class="keyword">if</span> ~silent
+0151       <span class="comment">%der_check(dh_dx_func, d2h_dx2_func, 1, M, S1);</span>
+0152       <span class="comment">%der_check(dh_dx_func, d2h_dx2_func, 1, M, S2);</span>
+0153   <span class="keyword">end</span>
+0154   
+0155   MM_EKF2 = zeros(size(M,1),size(Y,2));
+0156   PP_EKF2 = zeros(size(M,1),size(M,1),size(Y,2));
+0157   ME_EKF2 = zeros(size(M,1),1);
+0158   
+0159   clc; 
+0160   fprintf(<span class="string">'Running 2nd order EKF...'</span>);
+0161   <span class="comment">% Filter with EKF2</span>
+0162   <span class="keyword">for</span> k = 1:size(Y,2) 
+0163     [M,P] = ekf_predict1(M,P,A,Q);
+0164     [M,P] = ekf_update2(M,P,Y(:,k),dh_dx_func,d2h_dx2_func,R*eye(2),h_func,[],[S1 S2]);
+0165     MM_EKF2(:,k)   = M;
+0166     PP_EKF2(:,:,k) = P;
+0167     ME_EKF2(k) = P(1,1) + P(2,2);
+0168   <span class="keyword">end</span>
+0169   ekf2_rmse = sqrt(mean((X(1,:)-MM_EKF2(1,:)).^2+(X(2,:)-MM_EKF2(2,:)).^2));
+0170   fprintf(<span class="string">'Done!\n'</span>);
+0171   
+0172   fprintf(<span class="string">'Running smoothers...'</span>);
+0173   <span class="comment">%</span>
+0174   <span class="comment">% Smoother 1</span>
+0175   <span class="comment">%</span>
+0176   [SM1_EKF2,SP1_EKF2] = erts_smooth1(MM_EKF2,PP_EKF2,A,Q);
+0177   eks2_rmse1 = sqrt(mean((X(1,:)-SM1_EKF2(1,:)).^2+(X(2,:)-SM1_EKF2(2,:)).^2));
+0178   ME1_EKF2 = squeeze(SP1_EKF2(1,1,:)+SP1_EKF2(2,2,:));
+0179 
+0180   <span class="comment">%</span>
+0181   <span class="comment">% Smoother 2</span>
+0182   <span class="comment">%</span>
+0183   [SM2_EKF2,SP2_EKF2] = etf_smooth1(MM_EKF2,PP_EKF2,Y,A,Q,[],[],[],<span class="keyword">...</span>
+0184                 dh_dx_func,R*eye(2),h_func,[],[S1 S2]);
+0185   eks2_rmse2 = sqrt(mean((X(1,:)-SM2_EKF2(1,:)).^2+(X(2,:)-SM2_EKF2(2,:)).^2));
+0186   ME2_EKF2 = squeeze(SP2_EKF2(1,1,:)+SP2_EKF2(2,2,:));
+0187   fprintf(<span class="string">'Done!\n'</span>);
+0188   
+0189   <span class="keyword">if</span> ~silent
+0190     plot(X(1,:),X(2,:),<span class="string">'k-'</span>,<span class="keyword">...</span>
+0191          MM_EKF2(1,:),MM_EKF2(2,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0192          SM1_EKF2(1,:),SM1_EKF2(2,:),<span class="string">'r-.'</span>,<span class="keyword">...</span>
+0193          SM2_EKF2(1,:),SM2_EKF2(2,:),<span class="string">'g-.'</span>,<span class="keyword">...</span>
+0194          S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0195     axis([-1.5 1.5 -2.5 1]);
+0196     legend(<span class="string">'Real trajectory'</span>,<span class="keyword">...</span>
+0197            <span class="string">'EKF2 estimate'</span>,<span class="keyword">...</span>
+0198            <span class="string">'ERTS estimate'</span>,<span class="keyword">...</span>
+0199            <span class="string">'ETF estimate'</span>,<span class="keyword">...</span>
+0200            <span class="string">'Positions of sensors'</span>,<span class="keyword">...</span>
+0201            <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>);
+0202     title(<span class="string">'Filtering and smoothing result with 2nd order EKF'</span>);
+0203     <span class="keyword">if</span> save_plots
+0204       print -dpsc bot_demo_ekf2.ps
+0205     <span class="keyword">end</span>
+0206   <span class="keyword">end</span>
+0207   
+0208   disp(<span class="string">' '</span>);
+0209   disp(<span class="string">'2nd order filtering and smoothing results are now displayed.'</span>);
+0210   disp(<span class="string">' '</span>);
+0211   disp(<span class="string">'&lt;push any key to filter and smooth with uscented filter and smoothers&gt;'</span>)
+0212   pause
+0213   
+0214   clc;
+0215   fprintf(<span class="string">'Running UKF...'</span>);
+0216   <span class="comment">% Initialize UKF</span>
+0217   M = M_0;
+0218   P = P_0;
+0219   MM_UKF = zeros(size(M,1),size(Y,2));
+0220   PP_UKF = zeros(size(M,1),size(M,1),size(Y,2));
+0221   ME_UKF = zeros(size(M,1),1);
+0222   
+0223   <span class="comment">% Filter with UKF</span>
+0224   <span class="keyword">for</span> k=1:size(Y,2)
+0225     [M,P] = ukf_predict1(M,P,A,Q);
+0226     [M,P] = ukf_update1(M,P,Y(:,k),h_func,R*eye(2),[S1 S2]);
+0227     MM_UKF(:,k)   = M;
+0228     PP_UKF(:,:,k) = P;
+0229     ME_UKF(k) = P(1,1) + P(2,2);
+0230   <span class="keyword">end</span>
+0231   
+0232   <span class="comment">% Calculate RMSE of EKF</span>
+0233   ukf_rmse = sqrt(mean((X(1,:)-MM_UKF(1,:)).^2+(X(2,:)-MM_UKF(2,:)).^2));
+0234 
+0235   fprintf(<span class="string">'Done!\n'</span>);
+0236 
+0237   fprintf(<span class="string">'Running smoothers...'</span>);  
+0238   <span class="comment">% URTS Smoother</span>
+0239   [SM1_UKF,SP1_UKF] = urts_smooth1(MM_UKF,PP_UKF,A,Q);
+0240   uks_rmse1 = sqrt(mean((X(1,:)-SM1_UKF(1,:)).^2+(X(2,:)-SM1_UKF(2,:)).^2));
+0241   ME1_UKF = squeeze(SP1_UKF(1,1,:)+SP1_UKF(2,2,:));
+0242   
+0243   <span class="comment">% UTF Smoother</span>
+0244   IAW = inv(A)*[eye(size(A,1)) eye(size(A,1))];
+0245   [SM2_UKF,SP2_UKF] = utf_smooth1(MM_UKF,PP_UKF,Y,IAW,Q,[],<span class="keyword">...</span>
+0246                            h_func,R*eye(2),[S1 S2]);
+0247   uks_rmse2 = sqrt(mean((X(1,:)-SM2_UKF(1,:)).^2+(X(2,:)-SM2_UKF(2,:)).^2));
+0248   ME2_UKF = squeeze(SP2_UKF(1,1,:)+SP2_UKF(2,2,:));
+0249   
+0250   fprintf(<span class="string">'Done!\n'</span>);
+0251   <span class="comment">% Plot EKF, ERTS and ETF</span>
+0252   <span class="keyword">if</span> ~silent
+0253     plot(X(1,:),X(2,:),<span class="string">'k-'</span>,<span class="keyword">...</span>
+0254          MM_UKF(1,:),MM_UKF(2,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0255          SM1_UKF(1,:),SM1_UKF(2,:),<span class="string">'r-.'</span>,<span class="keyword">...</span>
+0256          SM2_UKF(1,:),SM2_UKF(2,:),<span class="string">'g-.'</span>,<span class="keyword">...</span>
+0257          S1(1),S1(2),<span class="string">'k^'</span>,S2(1),S2(2),<span class="string">'k^'</span>);
+0258     axis([-1.5 1.5 -2.5 1]);
+0259     legend(<span class="string">'Real trajectory'</span>,<span class="keyword">...</span>
+0260            <span class="string">'UKF estimate'</span>,<span class="keyword">...</span>
+0261            <span class="string">'URTS estimate'</span>,<span class="keyword">...</span>
+0262            <span class="string">'UTF estimate'</span>,<span class="keyword">...</span>
+0263            <span class="string">'Positions of sensors'</span>,<span class="keyword">...</span>
+0264            <span class="string">'Location'</span>, <span class="string">'NorthWest'</span>);
+0265     title(<span class="string">'Filtering and smoothing result with UKF'</span>);
+0266     <span class="keyword">if</span> save_plots
+0267       print -dpsc bot_demo_ukf.ps
+0268     <span class="keyword">end</span>
+0269   <span class="keyword">end</span>
+0270   
+0271   disp(<span class="string">' '</span>);
+0272   disp(<span class="string">'Unscented filtering and smoothing results are now displayed.'</span>)
+0273   disp(<span class="string">' '</span>);
+0274   
+0275   <span class="comment">% Print errors</span>
+0276   disp(<span class="string">'RMS errors:'</span>)
+0277   fprintf(<span class="string">'EKF1-RMSE  = %.3f  [%.3f]\n'</span>,ekf1_rmse,sqrt(mean(ME_EKF1)));
+0278   fprintf(<span class="string">'ERTS1-RMSE = %.4f [%.4f]\n'</span>,eks1_rmse1,sqrt(mean(ME1_EKF1)));
+0279   fprintf(<span class="string">'ETF1-RMSE = %.4f [%.4f]\n'</span>,eks1_rmse2,sqrt(mean(ME2_EKF1)));
+0280   fprintf(<span class="string">'EKF2-RMSE  = %.3f  [%.3f]\n'</span>,ekf2_rmse,sqrt(mean(ME_EKF2)));
+0281   fprintf(<span class="string">'ERTS2-RMSE = %.4f [%.4f]\n'</span>,eks2_rmse1,sqrt(mean(ME1_EKF2)));
+0282   fprintf(<span class="string">'ETF2-RMSE = %.4f [%.4f]\n'</span>,eks2_rmse2,sqrt(mean(ME2_EKF2)));  
+0283   fprintf(<span class="string">'UKF-RMSE  = %.3f  [%.3f]\n'</span>,ukf_rmse,sqrt(mean(ME_UKF)));
+0284   fprintf(<span class="string">'URTS-RMSE = %.4f [%.4f]\n'</span>,uks_rmse1,sqrt(mean(ME1_UKF)));    
+0285   fprintf(<span class="string">'UTF-RMSE = %.4f [%.4f]\n'</span>,uks_rmse2,sqrt(mean(ME2_UKF)));</pre></div>
+<hr><address>Generated on Mon 06-Aug-2007 15:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

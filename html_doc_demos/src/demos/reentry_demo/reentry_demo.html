@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of reentry_demo</title>
+  <meta name="keywords" content="reentry_demo">
+  <meta name="description" content="Discrete-time reentry dynamics demonstration with EKF and UKF.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="#">src</a> &gt; <a href="#">demos</a> &gt; <a href="index.html">reentry_demo</a> &gt; reentry_demo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src/demos/reentry_demo&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>reentry_demo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Discrete-time reentry dynamics demonstration with EKF and UKF.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function reentry_demo </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Discrete-time reentry dynamics demonstration with EKF and UKF.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="make_reentry_data.html" class="code" title="">make_reentry_data</a>	Cenerate data of discrete-time re-entry mechanics</li><li><a href="reentry_df_dx.html" class="code" title="function da = reentry_df_dx(x,param)">reentry_df_dx</a>	Jacobian of the state transition function in reentry demo.</li><li><a href="reentry_dh_dx.html" class="code" title="function dy = reentry_dh_dx(x,param)">reentry_dh_dx</a>	Jacobian of the measurement model function in reentry demo.</li><li><a href="reentry_f.html" class="code" title="function x = reentry_f(xw,param)">reentry_f</a>	Dynamical model function for reentry problem.</li><li><a href="reentry_h.html" class="code" title="function y = reentry_h(x,param)">reentry_h</a>	Measurement model function for reentry demo.</li><li><a href="reentry_if.html" class="code" title="function x = reentry_if(x,param)">reentry_if</a>	Inverse dynamical function for reentry demo.</li><li><a href="reentry_param.html" class="code" title="">reentry_param</a>	The parameters for re-entry mechanics.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Discrete-time reentry dynamics demonstration with EKF and UKF.</span>
+0002 
+0003 <span class="comment">% Copyright (C) 2006 Simo Särkkä</span>
+0004 <span class="comment">%               2007 Jouni Hartikainen</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% This software is distributed under the GNU General Public</span>
+0007 <span class="comment">% Licence (version 2 or later); please refer to the file</span>
+0008 <span class="comment">% Licence.txt, included with the software, for details.</span>
+0009   <span class="keyword">function</span> reentry_demo
+0010 
+0011   <a href="reentry_param.html" class="code" title="">reentry_param</a>;
+0012   <a href="make_reentry_data.html" class="code" title="">make_reentry_data</a>;
+0013 
+0014   silent = 0;
+0015 
+0016   <span class="comment">% Handles to dynamic and measurement model functions,</span>
+0017   <span class="comment">% and to their derivatives.</span>
+0018   func_f  = @<a href="reentry_f.html" class="code" title="function x = reentry_f(xw,param)">reentry_f</a>;
+0019   func_if = @<a href="reentry_if.html" class="code" title="function x = reentry_if(x,param)">reentry_if</a>;
+0020   func_df = @<a href="reentry_df_dx.html" class="code" title="function da = reentry_df_dx(x,param)">reentry_df_dx</a>;
+0021   func_h  = @<a href="reentry_h.html" class="code" title="function y = reentry_h(x,param)">reentry_h</a>;
+0022   func_dh = @<a href="reentry_dh_dx.html" class="code" title="function dy = reentry_dh_dx(x,param)">reentry_dh_dx</a>;
+0023   
+0024   <span class="comment">% Initial values and space for EKF</span>
+0025   m = m0;
+0026   P = P0;
+0027   Q = L*Qc*L'*dt;
+0028   
+0029   MM_EKF = zeros(size(m,1),size(Y,2));
+0030   PP_EKF = zeros(size(m,1),size(m,1),size(Y,2));
+0031   VV_EKF = zeros(size(m,1),size(Y,2));
+0032   EE_EKF = zeros(size(m,1),size(Y,2));
+0033   
+0034   <span class="comment">% Check derivatives (should be OK)</span>
+0035   <span class="comment">%der_check(func_a, func_da, 1, m0, {dt,b0,H0,Gm0,R0});</span>
+0036   <span class="comment">%der_check(func_h, func_dh, 1, m0, {xr,yr});</span>
+0037 
+0038   clf; clc; 
+0039   disp([<span class="string">'This is a demonstration for tracking a reentry vehicle '</span>,<span class="keyword">...</span>
+0040         <span class="string">'using 1st order EKF and augmented UKF.'</span>])
+0041   disp(<span class="string">' '</span>);
+0042   
+0043   fprintf(<span class="string">'Running EKF...'</span>); 
+0044   <span class="comment">% Filtering with EKF</span>
+0045   <span class="keyword">for</span> k=1:size(Y,2)
+0046     [m,P] = ekf_predict1(m,P,func_df,Q,func_f,[],{dt,b0,H0,Gm0,R0});
+0047     [m,P] = ekf_update1(m,P,Y(:,k),func_dh,diag([vr va]),func_h,[],{xr,yr});
+0048     MM_EKF(:,k) = m;
+0049     PP_EKF(:,:,k) = P;
+0050     VV_EKF(:,k) = diag(P);
+0051     EE_EKF(:,k) = (X(:,k) - m).^2;
+0052   <span class="keyword">end</span>
+0053 
+0054   <span class="comment">%</span>
+0055   <span class="comment">% Calculate RMSE</span>
+0056   <span class="comment">%</span>
+0057   ekf_rmse = sqrt(mean(sum((X(1:2,:)-MM_EKF(1:2,:)).^2)));
+0058   ME_EKF = squeeze(PP_EKF(1,1,:)+PP_EKF(2,2,:));
+0059   fprintf(<span class="string">'Done!\n'</span>)
+0060 
+0061   fprintf(<span class="string">'Running smoothers...'</span>);
+0062   <span class="comment">%</span>
+0063   <span class="comment">% Smoother 1</span>
+0064   <span class="comment">%</span>
+0065   [SM_ERTS,SP_ERTS] = erts_smooth1(MM_EKF,PP_EKF,func_df,Qc*dt,func_f,L,<span class="keyword">...</span>
+0066                           {dt,b0,H0,Gm0,R0});
+0067   eks_rmse1 = sqrt(mean(sum((X(1:2,:)-SM_ERTS(1:2,:)).^2)));
+0068   ME_ERTS = squeeze(SP_ERTS(1,1,:)+SP_ERTS(2,2,:));
+0069 
+0070 
+0071   SV_ERTS = zeros(size(m,1),size(Y,2));
+0072   SE_ERTS = zeros(size(m,1),size(Y,2));
+0073   <span class="keyword">for</span> k=1:size(Y,2)
+0074     SV_ERTS(:,k) = diag(SP_ERTS(:,:,k));
+0075     SE_ERTS(:,k) = (X(:,k) - SM_ERTS(:,k)).^2;
+0076   <span class="keyword">end</span>
+0077 
+0078   <span class="comment">%</span>
+0079   <span class="comment">% Smoother 2</span>
+0080   <span class="comment">%</span>
+0081   [SM_ETF,SP_ETF] = etf_smooth1(MM_EKF,PP_EKF,Y,<span class="keyword">...</span>
+0082     func_df,Qc*dt,func_if,L,{dt,b0,H0,Gm0,R0},<span class="keyword">...</span>
+0083     func_dh,diag([vr va]),func_h,[],{xr,yr});
+0084   
+0085   eks_rmse2 = sqrt(mean(sum((X(1:2,:)-SM_ETF(1:2,:)).^2)));
+0086   ME_ETF = squeeze(SP_ETF(1,1,:)+SP_ETF(2,2,:));
+0087   fprintf(<span class="string">'Done!\n'</span>);
+0088   
+0089 
+0090   <span class="comment">% Initial values and space for (augmented) UKF</span>
+0091   m = m0;
+0092   P = P0;
+0093   MM_UKF = zeros(size(m,1),size(Y,2));
+0094   PP_UKF = zeros(size(m,1),size(m,1),size(Y,2));
+0095   VV_UKF = zeros(size(m,1),size(Y,2));
+0096   EE_UKF = zeros(size(m,1),size(Y,2));
+0097   
+0098   fprintf(<span class="string">'Running UKF...'</span>); 
+0099 
+0100   <span class="comment">% Filtering with UKF</span>
+0101   <span class="keyword">for</span> k=1:size(Y,2)
+0102     <span class="comment">% Non-augmented UKF</span>
+0103     <span class="comment">%[m,P] = ukf_predict1(m,P,func_a,Q,{dt,b0,H0,Gm0,R0});</span>
+0104 
+0105     <span class="comment">% Augmented UKF with separate sigma points</span>
+0106     <span class="comment">%[m,P] = ukf_predict2(m,P,func_a2,Qc*dt,{dt,b0,H0,Gm0,R0,L});</span>
+0107     
+0108     <span class="comment">%[m,P] = ukf_update1(m,P,Y(:,k),func_h,diag([vr va]),{xr,yr});</span>
+0109     
+0110     <span class="comment">% Augmented UKF with same sigma points for predict and update steps</span>
+0111     [m,P,X_s,w] = ukf_predict3(m,P,func_f,Qc*dt,diag([vr va]),d_param);  
+0112     [m,P] = ukf_update3(m,P,Y(:,k),func_h,diag([vr va]),X_s,w,h_param,h_param);    
+0113 
+0114     MM_UKF(:,k) = m;
+0115     PP_UKF(:,:,k) = P;
+0116     VV_UKF(:,k) = diag(P);
+0117     EE_UKF(:,k) = (X(:,k) - m).^2;
+0118   <span class="keyword">end</span>
+0119 
+0120   <span class="comment">%</span>
+0121   <span class="comment">% Calculate RMSE of UKF</span>
+0122   <span class="comment">%</span>
+0123   ukf_rmse = sqrt(mean(sum((X(1:2,:)-MM_UKF(1:2,:)).^2)));
+0124   ME_UKF = squeeze(PP_UKF(1,1,:)+PP_UKF(2,2,:));
+0125   fprintf(<span class="string">'Done!\n'</span>);
+0126   
+0127   fprintf(<span class="string">'Running smoothers...'</span>);
+0128   <span class="comment">%</span>
+0129   <span class="comment">% Smoother 1</span>
+0130   <span class="comment">%</span>
+0131   [SM_URTS,SP_URTS] = urts_smooth1(MM_UKF,PP_UKF,func_f,Q,d_param);
+0132   uks_rmse1 = sqrt(mean(sum((X(1:2,:)-SM_URTS(1:2,:)).^2)));
+0133   ME_URTS = squeeze(SP_URTS(1,1,:)+SP_URTS(2,2,:));
+0134 
+0135 
+0136   SV_URTS = zeros(size(m,1),size(Y,2));
+0137   SE_URTS = zeros(size(m,1),size(Y,2));
+0138   <span class="keyword">for</span> k=1:size(Y,2)
+0139     SV_URTS(:,k) = diag(SP_URTS(:,:,k));
+0140     SE_URTS(:,k) = (X(:,k) - SM_URTS(:,k)).^2;
+0141   <span class="keyword">end</span>
+0142   
+0143   [SM_URTSb,SP_URTSb] = urts_smooth2(MM_UKF,PP_UKF,func_f,Qc*dt,d_param);
+0144   uks_rmse1b = sqrt(mean(sum((X(1:2,:)-SM_URTSb(1:2,:)).^2)));
+0145   ME_URTSb = squeeze(SP_URTSb(1,1,:)+SP_URTSb(2,2,:));
+0146 
+0147   <span class="comment">%</span>
+0148   <span class="comment">% Smoother 2</span>
+0149   <span class="comment">%</span>
+0150   [SM_UTF,SP_UTF] = utf_smooth1(MM_UKF,PP_UKF,Y,<span class="keyword">...</span>
+0151     func_if,Qc*dt,d_param,<span class="keyword">...</span>
+0152     func_h,diag([vr va]),h_param);
+0153   
+0154   uks_rmse2 = sqrt(mean(sum((X(1:2,:)-SM_UTF(1:2,:)).^2)));
+0155   ME_UTF = squeeze(SP_UTF(1,1,:)+SP_UTF(2,2,:));
+0156 
+0157   fprintf(<span class="string">'Done!\n'</span>);
+0158   
+0159   <span class="comment">%</span>
+0160   <span class="comment">% Plot</span>
+0161   <span class="comment">%</span>
+0162   <span class="keyword">if</span> ~silent
+0163     aa = 0.02*(-1:0.1:4);
+0164     cx = R0 * cos(aa);
+0165     cy = R0 * sin(aa);
+0166     <span class="comment">% Plot EKF estimate</span>
+0167     plot(xr,yr,<span class="string">'ko'</span>,cx,cy,<span class="string">'r-'</span>,X(1,:),X(2,:),<span class="string">'g-'</span>,<span class="keyword">...</span>
+0168          MM_EKF(1,:),MM_EKF(2,:),<span class="string">'k--'</span>);
+0169     legend(<span class="string">'Radar'</span>,<span class="string">'Earth'</span>,<span class="string">'True'</span>,<span class="string">'Estimate'</span>);
+0170     title(<span class="string">'Filtering result with EKF'</span>);
+0171     disp(<span class="string">' '</span>);
+0172     disp(<span class="string">'Filtering result with EKF is now displayed.'</span>);
+0173     disp(<span class="string">' '</span>);
+0174     disp(<span class="string">'&lt;press any key to see the estimation error of x_1&gt;'</span>);    
+0175     pause;
+0176   
+0177     <span class="comment">% Error for x_1 with EKF</span>
+0178     semilogy(T,EE_EKF(1,:),<span class="string">'g-'</span>,T,VV_EKF(1,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0179          T,SE_ERTS(1,:),<span class="string">'r-'</span>,T,SV_ERTS(1,:),<span class="string">'k--'</span>);
+0180     legend(<span class="string">'EKF-RMSE'</span>,<span class="string">'EKF-STDE'</span>,<span class="keyword">...</span>
+0181        <span class="string">'ERTS-RMSE1'</span>,<span class="string">'ERTS-STDE1'</span>);  
+0182     title(<span class="string">'RMSE of estimating x_1 with EKF and ERTS'</span>)
+0183     clc;
+0184     disp(<span class="string">'RMSE of estimating x_1 with EKF and ERTS is now displayed.'</span>);
+0185     disp(<span class="string">' '</span>);
+0186     disp(<span class="string">'&lt;press any key to see the estimation error of x_5&gt;'</span>);
+0187     pause  
+0188     
+0189     <span class="comment">% Error for x_5 with EKF</span>
+0190     semilogy(T,EE_EKF(5,:),<span class="string">'g-'</span>,T,VV_EKF(5,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0191          T,SE_ERTS(5,:),<span class="string">'r-'</span>,T,SV_ERTS(5,:),<span class="string">'k--'</span>);
+0192     legend(<span class="string">'EKF-RMSE'</span>,<span class="string">'EKF-STDE'</span>,<span class="keyword">...</span>
+0193        <span class="string">'ERTS-RMSE1'</span>,<span class="string">'ERTS-STDE1'</span>);
+0194     title(<span class="string">'RMSE of estimating x_5 with EKF and ERTS'</span>)
+0195     clc;
+0196     disp(<span class="string">'RMSE of estimating x_5 with EKF and ERTS is now displayed.'</span>);
+0197     disp(<span class="string">' '</span>);
+0198     disp(<span class="string">'&lt;press any key to see the estimation error of x_5&gt;'</span>);
+0199     pause  
+0200     
+0201     <span class="comment">% Plot UKF estimate</span>
+0202     plot(xr,yr,<span class="string">'ko'</span>,cx,cy,<span class="string">'r-'</span>,X(1,:),X(2,:),<span class="string">'g-'</span>,<span class="keyword">...</span>
+0203          MM_UKF(1,:),MM_UKF(2,:),<span class="string">'k--'</span>);
+0204     legend(<span class="string">'Radar'</span>,<span class="string">'Earth'</span>,<span class="string">'True'</span>,<span class="string">'Estimate'</span>);
+0205     clc;
+0206     disp(<span class="string">'Filtering result with UKF is now displayed.'</span>);
+0207     disp(<span class="string">' '</span>);
+0208     disp(<span class="string">'&lt;press any key to see the estimation error of x_1&gt;'</span>);    
+0209     pause;
+0210   
+0211     <span class="comment">% Error for x_1 with UKF</span>
+0212     semilogy(T,EE_UKF(1,:),<span class="string">'g-'</span>,T,VV_UKF(1,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0213              T,SE_URTS(1,:),<span class="string">'r-'</span>,T,SV_URTS(1,:),<span class="string">'k--'</span>);
+0214     legend(<span class="string">'UKF-RMSE'</span>,<span class="string">'UKF-STDE'</span>,<span class="string">'URTS-RMSE'</span>,<span class="string">'URTS-STDE'</span>);
+0215     title(<span class="string">'RMSE of estimating x_1 with UKF and URTS'</span>)    
+0216     clc;
+0217     disp(<span class="string">'RMSE of estimating x_1 with EKF and ERTS is now displayed.'</span>);
+0218     disp(<span class="string">' '</span>);
+0219     disp(<span class="string">'&lt;press any key to see the estimation error of x_5&gt;'</span>);
+0220     pause;
+0221   
+0222     <span class="comment">% Error for x_5 with UKF</span>
+0223     semilogy(T,EE_UKF(5,:),<span class="string">'g-'</span>,T,VV_UKF(5,:),<span class="string">'b--'</span>,<span class="keyword">...</span>
+0224              T,SE_URTS(5,:),<span class="string">'r-'</span>,T,SV_URTS(5,:),<span class="string">'k--'</span>);
+0225     legend(<span class="string">'UKF-RMSE'</span>,<span class="string">'UKF-STDE'</span>,<span class="string">'URTS-RMSE'</span>,<span class="string">'URTS-STDE'</span>);
+0226     title(<span class="string">'RMSE of estimating x_5 with UKF and URTS'</span>)
+0227     clc;
+0228     disp(<span class="string">'RMSE of estimating x_5 with EKF and ERTS is now displayed.'</span>);
+0229   <span class="keyword">end</span>
+0230 
+0231   disp(<span class="string">' '</span>);
+0232   disp(<span class="string">'RMS errors:'</span>);
+0233   fprintf(<span class="string">'EKF-RMSE = %.6f [%.6f]\n'</span>,ekf_rmse,sqrt(mean(ME_EKF)));
+0234   fprintf(<span class="string">'ERTS-RMSE = %.6f [%.6f]\n'</span>,eks_rmse1,sqrt(mean(ME_ERTS)));
+0235   fprintf(<span class="string">'ETF-RMSE = %.6f [%.6f]\n'</span>,eks_rmse2,sqrt(mean(ME_ETF)));
+0236   fprintf(<span class="string">'UKF-RMSE = %.6f [%.6f]\n'</span>,ukf_rmse,sqrt(mean(ME_UKF)));
+0237   fprintf(<span class="string">'URTS1-RMSE = %.6f [%.6f]\n'</span>,uks_rmse1,sqrt(mean(ME_URTS)));
+0238   fprintf(<span class="string">'URTS2-RMSE = %.6f [%.6f]\n'</span>,uks_rmse1b,sqrt(mean(ME_URTSb)));
+0239   fprintf(<span class="string">'UTF-RMSE = %.6f [%.6f]\n'</span>,uks_rmse2,sqrt(mean(ME_UTF)));
+0240 
+0241</pre></div>
+<hr><address>Generated on Mon 06-Aug-2007 15:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

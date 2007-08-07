@@ -1,7 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}
 \BOOKMARK [1][-]{section.2}{Discrete-Time State Space Models}{}
 \BOOKMARK [2][-]{subsection.2.1}{Linear state space estimation}{section.2}
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Discretization of continous-time linear time-invariant systems}{subsection.2.1}
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Discretization of continuous-time linear time-invariant systems}{subsection.2.1}
 \BOOKMARK [3][-]{subsubsection.2.1.2}{Kalman filter}{subsection.2.1}
 \BOOKMARK [3][-]{subsubsection.2.1.3}{Kalman smoother}{subsection.2.1}
 \BOOKMARK [3][-]{subsubsection.2.1.4}{Demonstration: 2D CWPA-model}{subsection.2.1}
