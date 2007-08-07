@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ekf_predict1</title>
+  <meta name="keywords" content="ekf_predict1">
+  <meta name="description" content="EKF_PREDICT  1st order Extended Kalman Filter prediction step">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; ekf_predict1.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ekf_predict1
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>EKF_PREDICT  1st order Extended Kalman Filter prediction step</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [M,P] = ekf_predict1(M,P,A,Q,a,W,param) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">EKF_PREDICT  1st order Extended Kalman Filter prediction step
+
+ Syntax:
+   [M,P] = EKF_PREDICT1(M,P,[A,Q,a,W,param])
+
+ In:
+   M - Nx1 mean state estimate of previous step
+   P - NxN state covariance of previous step
+   A - Derivative of a() with respect to state as
+       matrix, inline function, function handle or
+       name of function in form A(x,k-1,param)       (optional, default eye())
+   Q - Process noise of discrete model               (optional, default zero)
+   a - Mean prediction E[a(x[k-1],q=0)] as vector,
+       inline function, function handle or name
+       of function in form a(x,k-1,param)            (optional, default A(x)*X)
+   W - Derivative of a() with respect to noise q
+       as matrix, inline function, function handle
+       or name of function in form W(x,k-1,param)    (optional, default identity)
+   param - Parameters of a                           (optional, default empty)
+
+ Out:
+   M - Updated state mean
+   P - Updated state covariance
+   
+ Description:
+   Perform Extended Kalman Filter prediction step.
+
+ See also:
+   <a href="ekf_update1.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)">EKF_UPDATE1</a>, <a href="ekf_predict2.html" class="code" title="function [M,P] = ekf_predict2(M,P,A,F,Q,a,W,param)">EKF_PREDICT2</a>, <a href="ekf_update2.html" class="code" title="function [M,P,K,IM,S,LH] = ekf_update2(M,P,y,H,H_xx,R,h,V,param)">EKF_UPDATE2</a>, <a href="der_check.html" class="code" title="function [D0,D1] = der_check(f,df,index,varargin)">DER_CHECK</a>,
+   <a href="lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">LTI_DISC</a>, <a href="kf_predict.html" class="code" title="function [x,P] = kf_predict(x,P,A,Q,B,u)">KF_PREDICT</a>, <a href="kf_update.html" class="code" title="function [X,P,K,IM,IS,LH] = kf_update(X,P,y,H,R)">KF_UPDATE</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="etf_smooth1.html" class="code" title="function [M,P] = etf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)">etf_smooth1</a>	ETF_SMOOTH  Smoother based on two extended Kalman filters</li></ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

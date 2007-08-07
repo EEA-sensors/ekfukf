@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ut_mweights</title>
+  <meta name="keywords" content="ut_mweights">
+  <meta name="description" content="UT_MWEIGHTS - Generate matrix form unscented transformation weights">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; ut_mweights.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ut_mweights
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>UT_MWEIGHTS - Generate matrix form unscented transformation weights</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [WM,W,c] = ut_mweights(n,alpha,beta,kappa) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">UT_MWEIGHTS - Generate matrix form unscented transformation weights
+
+ Syntax:
+   [WM,W,c] = ut_mweights(n,alpha,beta,kappa)
+
+ In:
+   n     - Dimensionality of random variable
+   alpha - Transformation parameter  (optional, default 0.5)
+   beta  - Transformation parameter  (optional, default 2)
+   kappa - Transformation parameter  (optional, default 3-size(X,1))
+
+ Out:
+   WM - Weight vector for mean calculation
+    W - Weight matrix for covariance calculation
+    c - Scaling constant
+
+ Description:
+   Computes matrix form unscented transformation weights.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_weights.html" class="code" title="function [WM,WC,c] = ut_weights(n,alpha,beta,kappa)">ut_weights</a>	UT_WEIGHTS - Generate unscented transformation weights</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>	UT_TRANSFORM  Perform unscented transform</li></ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

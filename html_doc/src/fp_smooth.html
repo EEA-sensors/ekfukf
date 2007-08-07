@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of fp_smooth</title>
+  <meta name="keywords" content="fp_smooth">
+  <meta name="description" content="FP_SMOOTH  Fixed-point Rauch-Tung-Striebel smoother">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; fp_smooth.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>fp_smooth
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>FP_SMOOTH  Fixed-point Rauch-Tung-Striebel smoother</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [ms,Ps,B] = fp_smooth(ms,Ps,B,om,oP,m,P,A,Q) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">FP_SMOOTH  Fixed-point Rauch-Tung-Striebel smoother
+
+ Syntax:
+   [MS,PS,B] = FP_SMOOTH(MS,PS,B,MP,PP,M,P,A,Q)
+
+ In:
+   MS - Current fixed-point smoothing mean, initialize
+        to filtered mean in the beginning
+   PS - Current fixed-point smoothing covariance, initialize
+        to filtered covariance in the beginning
+    B - Current smoothing gain, set to empty matrix or
+        to identity matrix to initialize
+   OM - Previous filtered state mean
+   OP - Previous filtered covariance
+    M - Current filtered state mean
+    P - Updated filtered covariance
+    A - NxN state transition matrix of transition to current step
+    Q - NxN process noise covariance matrix of transition to
+        current step
+
+ Out:
+   MS - Smoothed mean
+   PS - Smoothed covariance
+    B - New smoothing gain
+   
+ Description:
+   Fixed-point Rauch-Tung-Striebel smoother algorithm.
+   Calculate smoothed estimate of single time point.
+   by conditioning it to all measurements.
+
+ Example:
+   m = m0;
+   P = P0;
+   ms0 = m0;
+   Ps0 = P0;
+   B = [];
+   for k=1:size(Y,2)
+     old_m = m;
+     old_P = P;
+     [m,P] = kf_predict(m,P,A,Q);
+     [m,P] = kf_update(m,P,Y(:,k),H,R);
+     [ms0,Ps0,B] = fp_smooth(ms0,Ps0,B,old_m,old_P,m,P,A,Q)
+   end
+
+ See also:
+   <a href="rts_smooth.html" class="code" title="function [M,P,D] = rts_smooth(M,P,A,Q)">RTS_SMOOTH</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

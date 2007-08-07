@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of rk4</title>
+  <meta name="keywords" content="rk4">
+  <meta name="description" content="RK4  4th order Runge-Kutta integration">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; rk4.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>rk4
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>RK4  4th order Runge-Kutta integration</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [x,Y] = rk4(f,dt,x,P1,P2,P3,Y) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">RK4  4th order Runge-Kutta integration
+
+ Syntax:
+   [x,Y] = rk4(f,dt,x,[P1,P2,P3,Y])
+
+ In:
+    f - Name of function in form f(x,P(:)) or
+        inline function taking the same parameters.
+        In chained case the function should be f(x,y,P(:)).
+   dt - Delta time as scalar.
+    x - Value of x from the previous time step.
+   P1 - Values of parameters of the function at initial time t
+        as a cell array (or single plain value). Defaults to empty
+        array (no parameters).
+   P2 - Values of parameters of the function at time t+dt/2 as
+        a cell array (or single plain value). Defaults to P1 and
+        each empty (or missing) value in the cell array is replaced
+        with the corresponding value in P1.
+   P3 - Values of parameters of the function at time t+dt.
+        Defaults to P2 similarly to above.
+    Y - Cell array of partial results y1,y2,y3,y4 in the RK algorithm
+        of the second parameter in the interated function. This can be
+        used for chaining the integrators. Defaults to empty.
+ 
+ Out:
+    x - Next value of X
+    Y - Cell array of partial results in Runge-Kutta algorithm.
+
+ Description:
+   Perform one fourth order Runge-Kutta iteration step
+   for differential equation
+
+       dx/dt = f(x(t),P{:})
+
+   or in the chained case
+
+       dx/dt = f(x(t),y(t),P{:})
+       dy/dt = g(y(t),P{:})
+
+   - Example 1. Simple integration of model
+
+       dx/dt = tanh(x), x(0) = 1
+
+     can be done as follows:
+
+       X = [];
+       x = 1;
+       f = inline('tanh(x)','x');
+       for i=1:100
+         x = rk4(f,0.1,x);
+         X = [X x];
+       end
+
+   - Example 2. Chaining of integrators. Consider a
+     model of the form
+
+       dx/dt = x+y,     x(0)=1
+       dy/dt = tanh(y), y(0)=2
+
+     The equations can be now integrated as follows:
+
+       XY = [];
+       x = 1;
+       y = 2;
+       fx = inline('x+y','x','y');
+       fy = inline('tanh(y)','y');
+       for i=1:100
+         [y,YY] = rk4(fy,0.1,y);
+         x = rk4(fx,0.1,x,{},{},{},YY);
+         XY = [XY [x;y]];
+       end
+
+   which produces exactly the same result as
+
+      XY = [];
+      xy = [1;2];
+      fxy = inline('[xy(1)+xy(2);tanh(xy(2))]','xy');
+      for i=1:100
+         xy = rk4(fxy,0.1,xy);
+         XY = [XY xy];
+      end
+
+   This deterministic RK4-integrator can be chained with
+   the stochastic RK4-integrator.
+
+ Author:
+   Simo Särkkä, 2005</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

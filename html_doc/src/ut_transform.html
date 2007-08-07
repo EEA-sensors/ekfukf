@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ut_transform</title>
+  <meta name="keywords" content="ut_transform">
+  <meta name="description" content="UT_TRANSFORM  Perform unscented transform">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; ut_transform.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ut_transform
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>UT_TRANSFORM  Perform unscented transform</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">UT_TRANSFORM  Perform unscented transform
+
+ Syntax:
+   [mu,S,C,X,Y,w] = UT_TRANSFORM(M,P,g,[param,alpha,beta,kappa,mat],n,X,w)
+
+ In:
+   M - Random variable mean (Nx1 column vector)
+   P - Random variable covariance (NxN pos.def. matrix)
+   g - Transformation function of the form g(x,param) as
+       matrix, inline function, function name or function reference
+   param - Parameters of g               (optional, default empty)
+   alpha - Transformation parameter      (optional)
+   beta  - Transformation parameter      (optional)
+   kappa - Transformation parameter      (optional)
+   mat   - If 1 uses matrix form         (optional, default 0)
+   X - Sigma points of x
+   w - Weights as cell array {mean-weights,cov-weights,c}
+
+ Out:
+   mu - Estimated mean of y
+    S - Estimated covariance of y
+    C - Estimated cross-covariance of x and y
+    X - Sigma points of x
+    Y - Sigma points of y
+    w - Weights as cell array {mean-weights,cov-weights,c}
+
+ Description:
+   ...
+   For default values of parameters, see UT_WEIGHTS.
+
+ See also
+   <a href="ut_weights.html" class="code" title="function [WM,WC,c] = ut_weights(n,alpha,beta,kappa)">UT_WEIGHTS</a> <a href="ut_mweights.html" class="code" title="function [WM,W,c] = ut_mweights(n,alpha,beta,kappa)">UT_MWEIGHTS</a> <a href="ut_sigmas.html" class="code" title="function X = ut_sigmas(M,P,c);">UT_SIGMAS</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_mweights.html" class="code" title="function [WM,W,c] = ut_mweights(n,alpha,beta,kappa)">ut_mweights</a>	UT_MWEIGHTS - Generate matrix form unscented transformation weights</li><li><a href="ut_sigmas.html" class="code" title="function X = ut_sigmas(M,P,c);">ut_sigmas</a>	UT_SIGMAS - Generate Sigma Points for Unscented Transformation</li><li><a href="ut_weights.html" class="code" title="function [WM,WC,c] = ut_weights(n,alpha,beta,kappa)">ut_weights</a>	UT_WEIGHTS - Generate unscented transformation weights</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ukf_predict1.html" class="code" title="function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict1</a>	UKF_PREDICT1  Additive form Unscented Kalman Filter prediction step</li><li><a href="ukf_predict2.html" class="code" title="function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)">ukf_predict2</a>	UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step</li><li><a href="ukf_predict3.html" class="code" title="function [M,P,X,w] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)">ukf_predict3</a>	UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step</li><li><a href="ukf_update1.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update1</a>	UKF_UPDATE1 -  Additive form Unscented Kalman Filter update step</li><li><a href="ukf_update2.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)">ukf_update2</a>	UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step</li><li><a href="ukf_update3.html" class="code" title="function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)">ukf_update3</a>	UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step</li><li><a href="urts_smooth1.html" class="code" title="function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth1</a>	URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</li><li><a href="urts_smooth2.html" class="code" title="function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)">urts_smooth2</a>	URTS_SMOOTH2  Augmented form Unscented Rauch-Tung-Striebel smoother</li></ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

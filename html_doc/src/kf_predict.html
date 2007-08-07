@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of kf_predict</title>
+  <meta name="keywords" content="kf_predict">
+  <meta name="description" content="KF_PREDICT  Perform Kalman Filter prediction step">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; kf_predict.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>kf_predict
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>KF_PREDICT  Perform Kalman Filter prediction step</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [x,P] = kf_predict(x,P,A,Q,B,u) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">KF_PREDICT  Perform Kalman Filter prediction step
+
+ Syntax:
+   [X,P] = KF_PREDICT(X,P,A,Q,B,U)
+
+ Author:
+   Simo Särkkä &lt;simo.sarkka@hut.fi&gt;, 2002
+   Jouni Hartikainen &lt;jmjharti@cc.hut.fi&gt;, 2007
+
+ In:
+   X - Nx1 mean state estimate of previous step
+   P - NxN state covariance of previous step
+   A - Transition matrix of discrete model (optional, default identity)
+   Q - Process noise of discrete model     (optional, default zero)
+   B - Input effect matrix                 (optional, default identity)
+   U - Constant input                      (optional, default empty)
+
+ Out:
+   X - Predicted state mean
+   P - Predicted state covariance
+   
+ Description:
+   Perform Kalman Filter prediction step. The model is
+
+     x[k] = A*x[k-1] + B*u[k-1] + q,  q ~ N(0,Q).
+ 
+   The predicted state is distributed as follows:
+   
+     p(x[k] | x[k-1]) = N(x[k] | A*x[k-1] + B*u[k-1], Q[k-1])
+
+   The predicted mean x-[k] and covariance P-[k] are calculated
+   with the following equations:
+
+     m-[k] = A*x[k-1] + B*u[k-1]
+     P-[k] = A*P[k-1]*A' + Q.
+
+   If there is no input u present then the first equation reduces to
+     m-[k] = A*x[k-1]
+
+ History:
+
+   26.2.2007 JH Added the distribution model for the predicted state
+                and equations for calculating the predicted state mean and
+                covariance to the description section.
+  
+ See also:
+   <a href="kf_update.html" class="code" title="function [X,P,K,IM,IS,LH] = kf_update(X,P,y,H,R)">KF_UPDATE</a>, <a href="lti_disc.html" class="code" title="function [A,Q] = lti_disc(F,L,Q,dt)">LTI_DISC</a>, EKF_PREDICT, EKF_UPDATE</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="kf_loop.html" class="code" title="function [MM,PP] = kf_loop(X,P,H,R,Y,A,Q)">kf_loop</a>	KF_LOOP  Performs the prediction and update steps of the Kalman filter</li><li><a href="tf_smooth.html" class="code" title="function [M,P] = tf_smooth(M,P,Y,A,Q,H,R,use_inf)">tf_smooth</a>	TF_SMOOTH  Two filter based Smoother</li></ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

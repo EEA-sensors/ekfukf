@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of urts_smooth1</title>
+  <meta name="keywords" content="urts_smooth1">
+  <meta name="description" content="URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; urts_smooth1.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>urts_smooth1
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [M,P,D] = urts_smooth1(M,P,a,Q,param,alpha,beta,kappa,mat,same_p) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">URTS_SMOOTH1  Additive form Unscented Rauch-Tung-Striebel smoother
+
+ Syntax:
+   [M,P,D] = URTS_SMOOTH1(M,P,a,Q,[param,alpha,beta,kappa,mat,same_p])
+
+ In:
+   M - NxK matrix of K mean estimates from Unscented Kalman filter
+   P - NxNxK matrix of K state covariances from Unscented Kalman Filter
+   a - Dynamic model function as a matrix A defining
+       linear function a(x) = A*x, inline function,
+       function handle or name of function in
+       form a(x,param)                   (optional, default eye())
+   Q - NxN process noise covariance matrix or NxNxK matrix
+       of K state process noise covariance matrices for each step.
+   param - Parameters of a. Parameters should be a single cell array,
+           vector or a matrix containing the same parameters for each
+           step, or if different parameters are used on each step they
+           must be a cell array of the format { param_1, param_2, ...},
+           where param_x contains the parameters for step x as a cell array,
+           a vector or a matrix.   (optional, default empty)
+   alpha - Transformation parameter      (optional)
+   beta  - Transformation parameter      (optional)
+   kappa - Transformation parameter      (optional)
+   mat   - If 1 uses matrix form         (optional, default 0)
+   same_p - If 1 uses the same parameters 
+            on every time step      (optional, default 1)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ut_transform.html" class="code" title="function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)">ut_transform</a>	UT_TRANSFORM  Perform unscented transform</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Mon 06-Aug-2007 15:21:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
