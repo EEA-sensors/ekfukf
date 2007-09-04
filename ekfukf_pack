@@ -1,6 +1,0 @@
-mkdir ekfukf
-cp -r src/* ekfukf
-tar -cf ekfukf_$1.tar ekfukf/*
-gzip ekfukf_$1.tar
-zip -r ekfukf_$1.zip ekfukf/*
-rm -rf ekfukf
