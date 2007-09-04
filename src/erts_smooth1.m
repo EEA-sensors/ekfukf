@@ -8,21 +8,21 @@
 %   P - NxNxK matrix of K state covariances from Unscented Kalman Filter
 %   A - Derivative of a() with respect to state as
 %       matrix, inline function, function handle or
-%       name of function in form A(x,k,param)       (optional, default eye())
-%   Q - Process noise of discrete model             (optional, default zero)
+%       name of function in form A(x,param)                 (optional, default eye())
+%   Q - Process noise of discrete model                       (optional, default zero)
 %   a - Mean prediction E[a(x[k-1],q=0)] as vector,
 %       inline function, function handle or name
-%       of function in form a(x,k,param)            (optional, default A(x)*X)
+%       of function in form a(x,param)                        (optional, default A(x)*X)
 %   W - Derivative of a() with respect to noise q
 %       as matrix, inline function, function handle
-%       or name of function in form W(x,k,param)    (optional, default identity)
+%       or name of function in form W(x,param)                (optional, default identity)
 %   param - Parameters of a. Parameters should be a single cell array, vector or a matrix
 %           containing the same parameters for each step or if different parameters
 %           are used on each step they must be a cell array of the format
 %           { param_1, param_2, ...}, where param_x contains the parameters for
-%           step x as a cell array, a vector or a matrix.   (optional, default empty)
+%           step x as a cell array, a vector or a matrix.     (optional, default empty)
 %   same_p - 1 if the same parameters should be
-%            used on every time step                (optional, default 1)                            
+%            used on every time step                          (optional, default 1)                            
 %                                   
 %                         
 %

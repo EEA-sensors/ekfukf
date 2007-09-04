@@ -8,19 +8,19 @@
 %   P - NxN state covariance of previous step
 %   A - Derivative of a() with respect to state as
 %       matrix, inline function, function handle or
-%       name of function in form A(x,k-1,param)       (optional, default identity)
+%       name of function in form A(x,param)                 (optional, default identity)
 %   F - NxNxN Hessian matrix of the state transition function
 %       w.r.t. state variables as matrix, inline
 %       function, function handle or name of function
-%       in form F(x,k-1,param)                        (optional, default identity)
-%   Q - Process noise of discrete model               (optional, default zero)
+%       in form F(x,param)                                  (optional, default identity)
+%   Q - Process noise of discrete model                     (optional, default zero)
 %   a - Mean prediction E[a(x[k-1],q=0)] as vector,
 %       inline function, function handle or name
-%       of function in form a(x,k-1,param)            (optional, default A(x)*X)
+%       of function in form a(x,param)                      (optional, default A(x)*X)
 %   W - Derivative of a() with respect to noise q
 %       as matrix, inline function, function handle
-%       or name of function in form W(x,k-1,param)    (optional, default identity)
-%   param - Parameters of a               (optional, default empty)
+%       or name of function in form W(x,k-1,param)          (optional, default identity)
+%   param - Parameters of a                                 (optional, default empty)
 %
 %   
 %

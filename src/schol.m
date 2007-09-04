@@ -1,7 +1,7 @@
 %SCHOL  Cholesky factorization for positive semidefinite matrices
 %
 % Syntax:
-%   [L,def] = mychol(A)
+%   [L,def] = schol(A)
 %
 % In:
 %   A - Symmetric pos.semi.def matrix to be factorized

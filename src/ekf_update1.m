@@ -1,7 +1,7 @@
 %EKF_UPDATE  1st order Extended Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,IM,S,LH] = EKF_UPDATE1(M,P,Y,H,R,h,V,[param])
+%   [M,P,K,IM,S,LH] = EKF_UPDATE1(M,P,Y,H,R,h,V,param)
 %
 % In:
 %   M  - Nx1 mean state estimate after prediction step
@@ -9,15 +9,15 @@
 %   Y  - Dx1 measurement vector.
 %   H  - Derivative of h() with respect to state as matrix,
 %        inline function, function handle or name
-%        of function in form H(x,k,param)
+%        of function in form H(x,param)
 %   R  - Measurement noise covariance.
 %   h  - Mean prediction (innovation) as vector,
 %        inline function, function handle or name
-%        of function in form h(x,k,param).  (optional, default H(x)*X)
+%        of function in form h(x,param).               (optional, default H(x)*X)
 %   V  - Derivative of h() with respect to noise as matrix,
 %        inline function, function handle or name
-%        of function in form V(x,k,param).  (optional, default identity)
-%   param - Parameters of h               (optional, default empty)
+%        of function in form V(x,param).               (optional, default identity)
+%   param - Parameters of h                            (optional, default empty)
 %
 % Out:
 %   M  - Updated state mean
