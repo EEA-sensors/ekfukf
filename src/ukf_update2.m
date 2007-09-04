@@ -56,7 +56,7 @@
 %
 % Copyright (C) 2007 Jouni Hartikainen, Simo Särkkä
 %
-% $Id: ukf_update1.m,v 1.1 2006/09/26 21:32:41 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

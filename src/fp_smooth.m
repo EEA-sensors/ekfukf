@@ -47,7 +47,7 @@
 
 % Copyright (C) 2006 Simo Särkkä
 %
-% $Id: fp_smooth.m,v 1.1 2006/11/12 12:10:31 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

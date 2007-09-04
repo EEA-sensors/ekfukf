@@ -48,7 +48,7 @@
 %
 % Copyright (C) 2006 Simo Särkkä
 %
-% $Id: erts_smooth1.m,v 1.3 2006/09/28 18:56:00 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

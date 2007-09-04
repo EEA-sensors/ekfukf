@@ -38,7 +38,7 @@
 %
 % Copyright (C) 2002 Simo Särkkä
 %
-% $Id: der_check.m,v 1.1 2005/08/02 11:10:44 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

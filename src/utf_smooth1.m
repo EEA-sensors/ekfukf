@@ -52,7 +52,7 @@
 % Copyright (C) 2006 Simo Särkkä
 %               2007 Jouni Hartikainen
 %
-% $Id: ufbf_smooth1.m,v 1.4 2006/10/01 14:12:23 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

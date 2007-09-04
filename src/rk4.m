@@ -91,7 +91,7 @@
 %
 % Copyright (C) 2005 Simo Särkkä
 %
-% $Id: rk4.m,v 1.1 2006/03/01 16:56:44 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

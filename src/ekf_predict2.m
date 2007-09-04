@@ -41,7 +41,7 @@
 %
 % Copyright (C) 2007 Jouni Hartikainen, Simo Särkkä
 %
-% $Id: ekf_predict1.m,v 1.2 2006/09/27 07:44:30 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

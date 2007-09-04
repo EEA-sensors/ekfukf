@@ -37,7 +37,7 @@
 
 % Copyright (C) 2003-2006 Simo Särkkä
 %
-% $Id: ukf_predict2.m,v 1.1 2006/09/29 13:43:35 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public
 % Licence (version 2 or later); please refer to the file

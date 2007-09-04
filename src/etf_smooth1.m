@@ -63,7 +63,7 @@
 % Copyright (C) 2006 Simo Särkkä
 %               2007 Jouni Hartikainen
 %
-% $Id: efbf_smooth1.m,v 1.4 2006/09/29 13:43:32 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

@@ -21,7 +21,7 @@
 
 % Copyright (C) 2002-2006 Simo Särkkä
 %
-% $Id: gauss_rnd.m,v 1.2 2006/10/29 21:18:42 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

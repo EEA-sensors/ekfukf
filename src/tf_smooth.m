@@ -47,7 +47,7 @@
 % Copyright (C) 2006 Simo Särkkä
 %               2007 Jouni Hartikainen
 %
-% $Id: fbf_smooth.m,v 1.2 2006/09/28 18:56:01 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

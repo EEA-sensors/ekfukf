@@ -34,7 +34,7 @@
 
 % Copyright (C) 2006 Simo Särkkä
 %
-% $Id: ut_transform.m,v 1.2 2006/10/10 20:18:58 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

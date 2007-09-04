@@ -39,7 +39,7 @@
 
 % Copyright (C) 2003-2006 Simo Särkkä
 %
-% $Id: rts_smooth.m,v 1.2 2006/11/12 12:10:33 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 

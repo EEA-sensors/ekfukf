@@ -39,7 +39,7 @@
 
 % Copyright (C) 2002-2006 Simo Särkkä
 %
-% $Id: ekf_update1.m,v 1.2 2006/09/28 18:55:58 ssarkka Exp $
+% $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
