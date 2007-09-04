@@ -1,9 +1,10 @@
 % EKF/UKF toolbox for Matlab 7.x
-% Version 1.02, September 4. 2007
+% Version 1.1, September 4. 2007
 %
 % Copyright (C) 2005 Simo Särkkä, <simo.sarkka@hut.fi>
 %               2007 Jouni Hartikainen <jmjharti@cc.hut.fi>
 % History:      
+%   04.09.2007 JH & SS Updated for version 1.1
 %   06.08.2007 JH Updated for version 1.0
 %
 % This software is distributed under the GNU General Public

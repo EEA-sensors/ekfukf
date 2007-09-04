@@ -8,6 +8,9 @@ else
 
   mkdir ekfukf
   cp -r src/* ekfukf
+  rm -rf ekfukf/.svn
+  rm -rf ekfukf/*/.svn
+  rm -rf ekfukf/*/*/.svn
 
   echo Generating ekfukf_$1.tar.gz ...
   tar -cf ekfukf_$1.tar ekfukf/*
