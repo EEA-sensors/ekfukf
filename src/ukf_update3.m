@@ -8,9 +8,9 @@
 %   P  - State covariance after prediction step
 %   Y  - Measurement vector.
 %   h  - Measurement model function as a matrix H defining
-%        linear function h(x) = H*x, inline function,
+%        linear function h(x) = H*x+r, inline function,
 %        function handle or name of function in
-%        form h(x,param)
+%        form h([x;r],param)
 %   R  - Measurement covariance.
 %   X - Sigma points of x
 %   w - Weights as cell array {mean-weights,cov-weights,c}

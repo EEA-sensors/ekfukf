@@ -183,7 +183,7 @@
   \end{list}}
 
 \title{Optimal filtering with Kalman filters and smoothers -- a
-  Manual for Matlab toolbox}
+  Manual for Matlab toolbox EKF/UKF}
 \author{Jouni Hartikainen and Simo Särkkä\\
 Laboratory of Computational Engineering,\\
 Helsinki University of Technology,\\
@@ -2708,10 +2708,10 @@ high altitude and very high speed. Figure \ref{fig:reentry_traj} shows
 a sample trajectory of the vehicle with respect to earth and radar. 
 The dynamics of the vehicle are affected with three kinds of forces:
 aerodynamic drag, which is a
-function of of vehicle speed and has highly nonlinear variations in
+function of vehicle speed and has highly nonlinear variations in
 altitude. The second type of force is gravity, which causes the
 vehicle to accelerate toward the center of the earth. The third type
-of forces are random buffetting terms. The state space in this model
+of forces are random buffeting terms. The state space in this model
 consists of vehicles position ($x_1$ and $x_2$), its velocity ($x_3$
 and $x_4$) and a parameter of its aerodynamic properties ($x_5$).
 The dynamics in continuous case are defined as (Julier and Uhlmann, 2004b)
@@ -3454,7 +3454,7 @@ Calculates the {\bf The prediction step} of the {\bf second order extended Kalma
 \texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{A(x,param)} & default: identity\\
 \texttt{F} & $N\times N\times N$ Hessian matrix of the state
 transition w.r.t. state variables & \\ & as matrix, 
-function handle of name of function in form \texttt{F(x,k-1,param)} & default:
+function handle of name of function in form \texttt{F(x,param)} & default:
 identity \\
 \texttt{Q} & Process noise of the discrete model & default: zero\\
 \texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: $A(x)*M$\\
@@ -3503,7 +3503,7 @@ Calculates the {\bf The update step} of the {\bf second order extended Kalman fi
 \texttt{H} & Derivative of \texttt{h} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{H(x,param)}\\
 \texttt{H\_xx} & $D\times N \times N$ Hessian of \texttt{h} w.r.t. state
 variables as matrix, inline function, & \\ & function handle or name
-of function in form \texttt{H\_xx(x,k,param)} \\
+of function in form \texttt{H\_xx(x,param)} \\
 \texttt{R} & Measurement noise covariance\\
 \texttt{h} & Measurement model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{h(x,param)} & default: \texttt{H(x)*M}\\
 \texttt{V} & Derivative of \texttt{h} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
@@ -3947,7 +3947,7 @@ process noise terms together. \\
 \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
 \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
 \texttt{a} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{a([x q],param)} \\
+function handle or name of the function in form \texttt{a([x;q],param)} \\
 \texttt{Q} & Process noise of the discrete model & default: zero\\
 \texttt{param} & Parameters of function a & default: empty\\
 \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
@@ -3996,7 +3996,7 @@ information carried by process noise terms might get lost. \\
 & \\ & the prediction step\\
 \texttt{Y} & $D\times 1$ measurement vector \\
 \texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form \texttt{h([x r],param)} \\
+\\ & function handle or name of the function in form \texttt{h([x;r],param)} \\
 \texttt{R} & Measurement noise covariance\\
 \texttt{param} & Parameters of function h & default: empty\\
 \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
@@ -4046,7 +4046,7 @@ measurement noise terms together. \\
 \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
 \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
 \texttt{a} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{a([x q],param)} \\
+function handle or name of the function in form \texttt{a([x;q],param)} \\
 \texttt{Q} & Process noise of the discrete model & default: zero\\
 \texttt{param} & Parameters of function a & default: empty\\
 \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
@@ -4099,7 +4099,7 @@ odd-order moment information could get captured better.\\
 & \\ & the prediction step\\
 \texttt{Y} & $D\times 1$ measurement vector \\
 \texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form \texttt{h([x r],param)} \\
+\\ & function handle or name of the function in form \texttt{h([x;r],param)} \\
 \texttt{R} & Measurement noise covariance\\
 \texttt{X} & Sigma points of x\\
 \texttt{w} & Weights as cell array of form \texttt{\{mean-weights,cov-weights,c\}}\\
