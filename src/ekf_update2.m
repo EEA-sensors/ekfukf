@@ -1,7 +1,7 @@
-%EKF_UPDATE  2nd order Extended Kalman Filter update step
+%EKF_UPDATE2  2nd order Extended Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,IM,S,LH] = EKF_UPDATE2(M,P,Y,H,H_xx,R,h,V,param)
+%   [M,P,K,MU,S,LH] = EKF_UPDATE2(M,P,Y,H,H_xx,R,[h,V,param])
 %
 % In:
 %   M  - Nx1 mean state estimate after prediction step
@@ -41,6 +41,7 @@
 %   KF_UPDATE, KF_PREDICT
 
 % Copyright (C) 2002-2006 Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
 %

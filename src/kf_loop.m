@@ -2,20 +2,21 @@
 %         for a set of measurements.   
 %
 % Syntax:
-%  [MM,PP] = KF_LOOP(X,P,H,R,Y,A,Q)
+%   [MM,PP] = KF_LOOP(X,P,H,R,Y,A,Q)
 % 
-% Author:
-%  Jouni Hartikainen <jmjharti@cc.hut.fi>, 2007
-%
 % In:
-%  X - Nx1 initial estimate for the state mean 
-%  P - NxN initial estimate for the state covariance
-%  H - DxN measurement matrix
-%  R - DxD measurement noise covariance
-%  Y - DxM matrix containing all the measurements.
-%  A - Transition matrix of the discrete model (optional, default identity)
-%  Q - Process noise of the discrete model     (optional, default zero)
+%   X - Nx1 initial estimate for the state mean 
+%   P - NxN initial estimate for the state covariance
+%   H - DxN measurement matrix
+%   R - DxD measurement noise covariance
+%   Y - DxM matrix containing all the measurements.
+%   A - Transition matrix of the discrete model (optional, default identity)
+%   Q - Process noise of the discrete model     (optional, default zero)
 %   
+% Out:
+%   MM - Filtered state mean sequence
+%   PP - Filtered state covariance sequence
+%  
 %  Description:
 %    Calculates state estimates for a set measurements using the
 %    Kalman filter. This function is for convience, as it basically consists
@@ -23,14 +24,13 @@
 %    calls the predict and update steps of the KF for each time step in
 %    the measurements.  
 %  
+%  See also:
+%    KF_PREDICT, KF_UPDATE
+
 %  History:
 %   
 %    12.2.2007 JH Initial version.  
 %
-%  See also:
-%    KF_PREDICT, KF_UPDATE
-%
-
 % Copyright (C) 2007 Jouni Hartikainen
 %
 % This software is distributed under the GNU General Public 

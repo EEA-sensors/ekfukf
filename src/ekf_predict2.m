@@ -1,4 +1,4 @@
-%EKF_PREDICT  2nd order Extended Kalman Filter prediction step
+%EKF_PREDICT2  2nd order Extended Kalman Filter prediction step
 %
 % Syntax:
 %   [M,P] = EKF_PREDICT2(M,P,[A,F,Q,a,W,param])

@@ -3,9 +3,6 @@
 % Syntax:
 %   [x,P,A] = lti_int(x,P,F,L,Q,T)
 %
-% Author:
-%   Simo Särkkä, 2002
-%
 % Description:
 %   Integrates LTI differential equation
 %
@@ -19,6 +16,9 @@
 %   or
 %
 %     x(t0) ~ N(x0,P0)
+%
+% See also
+%   LTI_DISC
 
 % History:
 %   20.11.2002  The first official version.

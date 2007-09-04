@@ -49,6 +49,7 @@
 %   RK4           Runge-Kutta integration
 %   DER_CHECK     Check derivatives using finite differences
 %   SCHOL         Positive semidefinite matrix Cholesky factorization
+%   RESAMPSTR     Stratified resampling
 %
 % /DEMOS/ 
 %

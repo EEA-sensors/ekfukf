@@ -1,7 +1,7 @@
-%ETF_SMOOTH  Smoother based on two extended Kalman filters
+%ETF_SMOOTH1  Smoother based on two extended Kalman filters
 %
 % Syntax:
-%   [M,P] = ETF_SMOOTH(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)
+%   [M,P] = ETF_SMOOTH1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_p_h)
 %
 % In:
 %   M - NxK matrix of K mean estimates from Kalman filter
@@ -40,7 +40,7 @@
 %              on every time step for h    (optional, default 1) 
 %
 % Out:
-%   K - Smoothed state mean sequence
+%   M - Smoothed state mean sequence
 %   P - Smoothed state covariance sequence
 %   
 % Description:
@@ -61,7 +61,7 @@
 %   2006       SS Initial version.           
 %
 % Copyright (C) 2006 Simo Särkkä
-%               2007 Jouni Hartikainen
+% Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
 %

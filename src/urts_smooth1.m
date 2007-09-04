@@ -27,7 +27,7 @@
 %
 
 % Out:
-%   K - Smoothed state mean sequence
+%   M - Smoothed state mean sequence
 %   P - Smoothed state covariance sequence
 %   D - Smoother gain sequence
 %   

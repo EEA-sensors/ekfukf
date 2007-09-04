@@ -14,7 +14,7 @@
 %   use_inf - If information filter should be used (default 1)
 %
 % Out:
-%   K - Smoothed state mean sequence
+%   M - Smoothed state mean sequence
 %   P - Smoothed state covariance sequence
 %   
 % Description:

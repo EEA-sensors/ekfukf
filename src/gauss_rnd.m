@@ -1,7 +1,7 @@
 %GAUSS_RND  Multivariate Gaussian random variables
 %
 % Syntax:
-%   P = GAUSS_RND(M,S,N)
+%   X = GAUSS_RND(M,S,N)
 %
 % In:
 %   M - Dx1 mean of distibution or K values as DxK matrix.

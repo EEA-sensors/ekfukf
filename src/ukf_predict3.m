@@ -1,4 +1,4 @@
-%UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step
+%UKF_PREDICT3  Augmented (state, process and measurement noise) UKF prediction step
 %
 % Syntax:
 %   [M,P,X,w] = UKF_PREDICT3(M,P,a,Q,R,[param,alpha,beta,kappa])
@@ -10,6 +10,7 @@
 %       function handle or name of function in
 %       form a([x;w],param)
 %   Q - Non-singular covariance of process noise w
+%   R - Measurement covariance.
 %   param - Parameters of a               (optional, default empty)
 %   alpha - Transformation parameter      (optional)
 %   beta  - Transformation parameter      (optional)
@@ -38,6 +39,7 @@
 %   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS 
 
 % Copyright (C) 2003-2006 Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
 %

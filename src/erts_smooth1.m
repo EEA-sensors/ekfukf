@@ -1,7 +1,7 @@
 %ERTS_SMOOTH1  Extended Rauch-Tung-Striebel smoother
 %
 % Syntax:
-%   [M,P,S] = ERTS_SMOOTH1(M,P,A,Q,[a,W,param,same_p])
+%   [M,P,D] = ERTS_SMOOTH1(M,P,A,Q,[a,W,param,same_p])
 %
 % In:
 %   M - NxK matrix of K mean estimates from Unscented Kalman filter
@@ -22,7 +22,7 @@
 %           { param_1, param_2, ...}, where param_x contains the parameters for
 %           step x as a cell array, a vector or a matrix.     (optional, default empty)
 %   same_p - 1 if the same parameters should be
-%            used on every time step                          (optional, default 1)                            
+%            used on every time step                          (optional, default 1)
 %                                   
 %                         
 %
@@ -47,6 +47,7 @@
 %   2006       SS Initial version.  
 %
 % Copyright (C) 2006 Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
 %

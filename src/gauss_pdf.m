@@ -1,7 +1,7 @@
 %GAUSS_PDF  Multivariate Gaussian PDF
 %
 % Syntax:
-%   P = GAUSS_PDF(X,M,S)
+%   [P,E] = GAUSS_PDF(X,M,S)
 %
 % In:
 %   X - Dx1 value or N values as DxN matrix
@@ -10,6 +10,7 @@
 %
 % Out:
 %   P - Probability of X. 
+%   E - Negative logarithm of P
 %   
 % Description:
 %   Calculate values of PDF (Probability Density

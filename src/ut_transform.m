@@ -1,4 +1,3 @@
-
 %UT_TRANSFORM  Perform unscented transform
 %
 % Syntax:

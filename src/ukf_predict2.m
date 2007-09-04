@@ -1,4 +1,4 @@
-%UKF_PREDICT2  Augmented form Unscented Kalman Filter prediction step
+%UKF_PREDICT2  Augmented (state and process noise) UKF prediction step
 %
 % Syntax:
 %   [M,P] = UKF_PREDICT2(M,P,a,Q,[param,alpha,beta,kappa])

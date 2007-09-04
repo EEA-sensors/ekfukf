@@ -29,7 +29,7 @@
 %              on every time step for h   (optional, default 1) 
 %
 % Out:
-%   K - Smoothed state mean sequence
+%   M - Smoothed state mean sequence
 %   P - Smoothed state covariance sequence
 %   
 % Description:

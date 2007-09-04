@@ -11,12 +11,14 @@
 %   def - Value 1,0,-1 denoting that A was positive definite,
 %         positive semidefinite or negative definite, respectively.
 %
-%
 % Description:
 %   Compute lower triangular Cholesky factor L of symmetric positive
 %   semidefinite matrix A such that
 %
 %     A = L*L'
+%
+% See also
+%   CHOL
 
 % Copyright (C) 2006 Simo Särkkä
 %

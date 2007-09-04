@@ -3,9 +3,6 @@
 % Syntax:
 %   [D0,D1] = DER_CHECK(F,DF,INDEX,[P1,P2,P3,...])
 %
-% Author:
-%   Simo Särkkä, 2002
-%
 % In:
 %   F  - Name of actual function or inline function
 %        in form F(P1,P2,...)

@@ -3,9 +3,6 @@
 % Syntax:
 %   [X,P,K,IM,IS,LH] = KF_UPDATE(X,P,Y,H,R)
 %
-% Author:
-%   Simo Särkkä, 2002
-%
 % In:
 %   X - Nx1 mean state estimate after prediction step
 %   P - NxN state covariance after prediction step
@@ -17,8 +14,8 @@
 %   X  - Updated state mean
 %   P  - Updated state covariance
 %   K  - Computed Kalman gain
-%   IM - Mean of predictive distribution of Y (innovation mean).
-%   IS - Covariance or predictive mean of Y (innovation covariance).
+%   IM - Mean of predictive distribution of Y
+%   IS - Covariance or predictive mean of Y
 %   LH - Predictive probability (likelihood) of measurement.
 %   
 % Description:
@@ -74,6 +71,7 @@
 %   20.11.2002 SS The first official version.
 %
 % Copyright (C) 2002, 2003 Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
 %

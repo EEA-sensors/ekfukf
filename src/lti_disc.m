@@ -3,9 +3,6 @@
 % Syntax:
 %   [A,Q] = lti_disc(F,L,Qc,dt)
 %
-% Author:
-%   Simo Särkkä, 2002, 2003
-%
 % In:
 %   F  - NxN Feedback matrix
 %   L  - NxL Noise effect matrix        (optional, default identity)

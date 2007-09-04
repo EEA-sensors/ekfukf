@@ -79,12 +79,6 @@
 %         xy = rk4(fxy,0.1,xy);
 %         XY = [XY xy];
 %      end
-%
-%   This deterministic RK4-integrator can be chained with
-%   the stochastic RK4-integrator.
-%
-% Author:
-%   Simo Särkkä, 2005
 
 % History:
 %   14.10.2005  The first official version.

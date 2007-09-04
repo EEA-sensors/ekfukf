@@ -1,7 +1,7 @@
-%UKF_PREDICT1  Additive form Unscented Kalman Filter prediction step
+%UKF_PREDICT1  Nonaugmented (Additive) UKF prediction step
 %
 % Syntax:
-%   [M,P] = UKF_PREDICT1(M,P,a,Q,[param,alpha,beta,kappa,mat])
+%   [M,P] = UKF_PREDICT1(M,P,[a,Q,param,alpha,beta,kappa,mat])
 %
 % In:
 %   M - Nx1 mean state estimate of previous step

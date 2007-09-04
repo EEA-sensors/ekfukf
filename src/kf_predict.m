@@ -3,10 +3,6 @@
 % Syntax:
 %   [X,P] = KF_PREDICT(X,P,A,Q,B,U)
 %
-% Author:
-%   Simo Särkkä <simo.sarkka@hut.fi>, 2002
-%   Jouni Hartikainen <jmjharti@cc.hut.fi>, 2007
-%
 % In:
 %   X - Nx1 mean state estimate of previous step
 %   P - NxN state covariance of previous step
@@ -47,6 +43,7 @@
 %   KF_UPDATE, LTI_DISC, EKF_PREDICT, EKF_UPDATE
 
 % Copyright (C) 2002-2006 Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
 %

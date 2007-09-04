@@ -3,9 +3,6 @@
 % Syntax:
 %   LH = KF_LHOOD(X,P,Y,H,R)
 %
-% Author:
-%   Simo Särkkä, 2002
-%
 % In:
 %   X - Nx1 state mean
 %   P - NxN state covariance
