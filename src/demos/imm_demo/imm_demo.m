@@ -170,7 +170,9 @@ P_ip{2} = diag([0.1 0.1 0.1 0.1]);
 
 % Filtering steps.
 for i = 1:size(Y,2)
-   [m,P,x_ip,P_ip,mu_ip] = imm_kf_filter(x_ip,P_ip,mu_ip,p_ij,ind,dims,A,Q,R,H,Y(:,i));
+   [x_ip,P_ip,mu_ip,m,P] = imm_filter(x_ip,P_ip,mu_ip,p_ij,ind,dims,A,Q,Y(:,i),H,R);
+   %[x_p,P_p,c_j] = imm_predict(x_ip,P_ip,mu_ip,p_ij,ind,dims,A,Q);
+   %[x_ip,P_ip,mu,m,P] = imm_update(x_p,P_p,c_j,ind,dims,Y(:,i),H,R);
    MM(:,i)   = m;
    PP(:,:,i) = P;
    MU(:,i)   = mu_ip';
@@ -190,8 +192,6 @@ end
 %plot(MU');
 %pause
 
-st1 = find(mstate == 1);
-st2 = find(mstate == 2);
 %plot(MM(1,:),MM(2,:),'k-',X_r(1,:),X_r(2,:),'g-',...
 %     Y(1,:),Y(2,:),'.');
 
@@ -215,16 +215,3 @@ fprintf('IMM-RMSE = %.4f\n',MSE_IMM);
 fprintf('IMMS-RMSE = %.4f\n',MSE_IMMS);
 
 
-% $$$ hold on;
-% $$$ 
-% $$$ MM1 = zeros(6,n);
-% $$$ MM2 = zeros(6,n);
-% $$$ 
-% $$$ for i = 1:n
-% $$$     MM1(:,i) = SM3_i{1,i};
-% $$$     MM2(:,i) = SM3_i{2,i};
-% $$$ end
-% $$$ 
-% $$$ hold on
-% $$$ plot(MM1(1,:),MM1(2,:))
-% $$$ plot(MM2(1,:),MM2(2,:))
