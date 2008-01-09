@@ -1,7 +1,7 @@
-%IMM_PREDICT  Interacting Multiple Model (IMM) Filter prediction step
+%IMM_PREDICT  UKF based Interacting Multiple Model (IMM) Filter prediction step
 %
 % Syntax:
-%   [X_p,P_p,c_j,X,P] = IMM_PREDICT(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q)
+%   [X_p,P_p,c_j,X,P] = UIMM_PREDICT(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,a,param,Q)
 %
 % In:
 %   X_ip  - Cell array containing N^j x 1 mean state estimate vector for
@@ -9,24 +9,27 @@
 %   P_ip  - Cell array containing N^j x N^j state covariance matrix for 
 %           each model j after update step of previous time step
 %   MU_ip - Vector containing the model probabilities at previous time step
-%   p_ij  - Model transition probability matrix
-%   ind   - Indexes of state components for each model as a cell array
+%   p_ij  - Model transition matrix
+%   ind   - Indices of state components for each model as a cell array
 %   dims  - Total number of different state components in the combined system
-%   A     - State transition matrices for each model as a cell array.
+%   A     - Dynamic model matrices for each linear model as a cell array
+%   a     - Dynamic model functions for each non-linear model
+%   param - Parameters of a
 %   Q     - Process noise matrices for each model as a cell array.
 %
 % Out:
-%   X_p   - Predicted state mean for each model as a cell array
-%   P_p   - Predicted state covariance for each model as a cell array
-%   c_j   - Normalizing factors for mixing probabilities
-%   X     - Combined predicted state mean estimate
-%   P     - Combined predicted state covariance estimate
+%   X_p  - Predicted state mean for each model as a cell array
+%   P_p  - Predicted state covariance for each model as a cell array
+%   c_j  - Normalizing factors for mixing probabilities
+%   X    - Combined predicted state mean estimate
+%   P    - Combined predicted state covariance estimate
 %   
 % Description:
-%   IMM filter prediction step.
+%   IMM-UKF filter prediction step. If some of the models have linear
+%   dynamics standard Kalman filter prediction step is used for those.
 %
 % See also:
-%   IMM_UPDATE, IMM_SMOOTH, IMM_FILTER
+%   UIMM_UPDATE, UIMM_SMOOTH
 
 % History:
 %   01.11.2007 JH The first official version.
@@ -39,7 +42,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [X_p,P_p,c_j,X,P] = imm_predict(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q)
+function [X_p,P_p,c_j,X,P] = uimm_predict(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,a,param,Q)
     % Number of models 
     m = length(X_ip);
     
@@ -87,7 +90,11 @@ function [X_p,P_p,c_j,X,P] = imm_predict(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q)
 
     % Make predictions for each model
     for i = 1:m
-        [X_p{i}, P_p{i}] = kf_predict(X_0j{i}(ind{i}),P_0j{i}(ind{i},ind{i}),A{i},Q{i});
+        if isempty(a) | isempty(a{i})
+            [X_p{i}, P_p{i}] = kf_predict(X_0j{i}(ind{i}),P_0j{i}(ind{i},ind{i}),A{i},Q{i});
+        else
+            [X_p{i}, P_p{i}] = ukf_predict1(X_0j{i}(ind{i}),P_0j{i}(ind{i},ind{i}),a{i},Q{i},param{i});
+        end
     end
 
     % Output the combined predicted state mean and covariance, if wanted.
