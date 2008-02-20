@@ -45,7 +45,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)
+function [M,P,K,MU,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)
 
   %
   % Check which arguments are there
@@ -102,7 +102,7 @@ function [M,P,K,IM,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)
   
   %
   % update step
-  %
+  %  
   S = (V*R*V' + H*P*H');
   K = P*H'/S;
   M = M + K * (y-MU);

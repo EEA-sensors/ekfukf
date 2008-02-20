@@ -1,8 +1,8 @@
 % EKF/UKF toolbox for Matlab 7.x
-% Version 1.1, September 4. 2007
+% Version 1.2, February 8. 2008
 %
-% Copyright (C) 2005 Simo Särkkä, <simo.sarkka@hut.fi>
-%               2007 Jouni Hartikainen <jmjharti@cc.hut.fi>
+% Copyright (C) 2005-2008 Simo Särkkä, <simo.sarkka@hut.fi>
+%               2007-2008 Jouni Hartikainen <jmjharti@cc.hut.fi>
 % History:      
 %   04.09.2007 JH & SS Updated for version 1.1
 %   06.08.2007 JH Updated for version 1.0
@@ -42,6 +42,8 @@
 %   URTS_SMOOTH2  Augmented unscented RTS-smoother
 %   UTF_SMOOTH    Smoother based on combination of two unscented Kalman filters
 %
+% Multiple Model Filtering
+%
 % Misc.
 %   GAUSS_PDF     Multivariate Gaussian PDF
 %   GAUSS_RND     Multivariate Gaussian random variables
@@ -74,9 +76,9 @@
 %      UNGM_DEMO          UNGM model demonstration
 %
 %   /BOT_DEMO/            
-%      BOT_H               Measurement model function
-%      BOT_DH_DX           1st order derivative of the measurement model 
-%      BOT_D2H_DX2         2nd order derivative of the measurement model  
+%      BOT_H              Measurement model function
+%      BOT_DH_DX          1st order derivative of the measurement model 
+%      BOT_D2H_DX2        2nd order derivative of the measurement model  
 %      BOT_DEMO_ALL       BOT demo with EKF and UKF
 %      EKFS_BOT_DEMO      BOT demo with EKF
 %      UKFS_BOT_DEMO      BOT demo with UKF

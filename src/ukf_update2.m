@@ -1,7 +1,7 @@
 %UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,IM,IS,LH] = UKF_UPDATE2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
+%   [M,P,K,MU,IS,LH] = UKF_UPDATE2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
 %
 % In:
 %   M  - Mean state estimate after prediction step
@@ -47,6 +47,7 @@
 %   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS
 
 % History:
+%   08.02.2008 JH Fixed a typo in the syntax description. 
 %   04.05.2007 JH Initial version. Modified from ukf_update1.m
 %              originally created by SS.
 %   
@@ -107,10 +108,10 @@ function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
   %C = S(1:m,m+1:n);
   %S = S(m+1:n,m+1:n);
   K = C / S;
-  M = M + K * (Y - MU);
-  P = P - K * S * K';
-  M = M(1:m,:);
-  P = P(1:m,1:m);
+  MA = MA + K * (Y - MU);
+  PA = PA - K * S * K';
+  M = MA(1:m,:);
+  P = PA(1:m,1:m);
   if nargout > 5
     LH = gauss_pdf(Y,MU,S);
   end

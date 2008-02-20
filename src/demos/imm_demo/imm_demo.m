@@ -1,3 +1,19 @@
+%IMM_DEMO  Tracking a Target with Simple Manouvers demonstration
+% 
+% Simple demonstration for linear IMM using the following models:
+%  1. Standard Wiener process velocity model
+%  2. Standard Wiener process acceleration model
+%
+% The measurement model is linear, which gives noisy measurements 
+% of target's position.
+% 
+% Copyright (C) 2007-2008 Jouni Hartikainen
+%
+% This software is distributed under the GNU General Public 
+% Licence (version 2 or later); please refer to the file 
+% Licence.txt, included with the software, for details.
+
+
 % Simple demonstration for IMM using velocity and acceleration models
 
 % Save figures

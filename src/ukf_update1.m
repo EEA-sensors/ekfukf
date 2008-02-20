@@ -1,7 +1,7 @@
 %UKF_UPDATE1 -  Additive form Unscented Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,IM,S,LH] = UKF_UPDATE1(M,P,Y,h,R,param,alpha,beta,kappa,mat)
+%   [M,P,K,MU,S,LH] = UKF_UPDATE1(M,P,Y,h,R,param,alpha,beta,kappa,mat)
 %
 % In:
 %   M  - Mean state estimate after prediction step
@@ -47,6 +47,7 @@
 %   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS
 %
 % History:
+%   08.02.2008 JH Fixed a typo in the syntax description. 
 %   04.05.2007 JH Made corrections to the description.
 %   02.05.2007 JH Fixed a bug in likelihood calculation and added
 %              a "See also"-section. 

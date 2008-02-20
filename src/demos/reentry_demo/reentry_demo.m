@@ -103,9 +103,9 @@
     %[m,P] = ukf_predict1(m,P,func_a,Q,{dt,b0,H0,Gm0,R0});
 
     % Augmented UKF with separate sigma points
-    %[m,P] = ukf_predict2(m,P,func_a2,Qc*dt,{dt,b0,H0,Gm0,R0,L});
+    %[m,P] = ukf_predict2(m,P,func_f,Qc*dt,{dt,b0,H0,Gm0,R0,L});
     
-    %[m,P] = ukf_update1(m,P,Y(:,k),func_h,diag([vr va]),{xr,yr});
+    %[m,P] = ukf_update2(m,P,Y(:,k),func_h,diag([vr va]),{xr,yr});
     
     % Augmented UKF with same sigma points for predict and update steps
     [m,P,X_s,w] = ukf_predict3(m,P,func_f,Qc*dt,diag([vr va]),d_param);  

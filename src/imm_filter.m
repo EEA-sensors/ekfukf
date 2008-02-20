@@ -56,7 +56,6 @@ function [X_i,P_i,MU,X,P] = imm_filter(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q,Y,H,R)
     % Normalizing factors for mixing probabilities
     c_j = zeros(1,m);
     for j = 1:m
-        c_j(j) = 0;
         for i = 1:m
             c_j(j) = c_j(j) + p_ij(i,j).*MU_ip(i);
         end
@@ -103,7 +102,7 @@ function [X_i,P_i,MU,X,P] = imm_filter(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q,Y,H,R)
         [X_i{i}, P_i{i}, K, IM, IS] = kf_update(X_p{i},P_p{i},Y,H{i},R{i});
         
         % Calculate likelihoods
-        lambda(i) = kf_lhood(X_p{i},P_i{i},Y,H{i},R{i});
+        lambda(i) = kf_lhood(X_p{i},P_p{i},Y,H{i},R{i});
     end
     
      % Calculate the model probabilities   

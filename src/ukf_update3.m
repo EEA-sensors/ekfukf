@@ -1,7 +1,7 @@
 %UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,IM,IS,LH] = UKF_UPDATE3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat,sigmas)
+%   [M,P,K,MU,IS,LH] = UKF_UPDATE3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat,sigmas)
 %
 % In:
 %   M  - Mean state estimate after prediction step
@@ -50,6 +50,7 @@
 %
 
 % History:
+%   08.02.2008 JH Fixed a typo in the syntax description. 
 %   04.05.2007 JH Initial version. Modified from ukf_update1.m
 %              originally created by SS.
 %   
@@ -73,19 +74,19 @@ function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)
   if nargin < 5
     error('Too few arguments');
   end
-  if nargin < 9
+  if nargin < 8
     param = [];
   end
-  if nargin < 10
+  if nargin < 9
     alpha = [];
   end
-  if nargin < 11
+  if nargin < 10
     beta = [];
   end
-  if nargin < 12
+  if nargin < 11
     kappa = [];
   end
-  if nargin < 13
+  if nargin < 12
     mat = [];
   end
 
