@@ -7,6 +7,13 @@
 ####################################################################
 
 ---------------------------------------------
+  Version 1.2:  Mon Feb  25 2008
+---------------------------------------------
+	* Made few more minor corrections to function descriptions.
+	* Fixed ukf_update2
+	* Added functions and demos for IMM filters and smoothers
+
+---------------------------------------------
   Version 1.1:  Tue Sep  4 2007
 ---------------------------------------------
 	* Made minor corrections to function descriptions.

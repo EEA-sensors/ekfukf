@@ -14,19 +14,10 @@ function x_k = f_turn(x,param)
     dt = param{1};
     w = x(5);
     if w == 0
-% $$$         coswt = cos(w*dt);
-% $$$         coswto = cos(w*dt)-1;
-% $$$         coswtopw = 0;  
-% $$$         
-% $$$         sinwt = 0;
-% $$$         sinwtpw = dt;           
-        %coswt = 1;
-        %coswto = 0;
         coswt = cos(w*dt);
         coswto = cos(w*dt)-1;
         coswtopw = 0;  
         
-        %sinwt = 0;
         sinwt = sin(w*dt);
         sinwtpw = dt;
     else

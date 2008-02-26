@@ -43,6 +43,16 @@
 %   UTF_SMOOTH    Smoother based on combination of two unscented Kalman filters
 %
 % Multiple Model Filtering
+%   IMM_PREDICT   IMM filter prediction step
+%   IMM_UPDATE    IMM filter update step
+%   IMM_SMOOTH    IMM smoothing
+%   EIMM_PREDICT  IMM-EKF filter prediction step
+%   EIMM_UPDATE   IMM-EKF filter update step
+%   EIMM_SMOOTH   IMM-EKF smoothing
+%   UIMM_PREDICT  IMM-UKF filter prediction step
+%   UIMM_UPDATE   IMM-UKF filter update step
+%   UIMM_SMOOTH   IMM-UKF smoothing
+%
 %
 % Misc.
 %   GAUSS_PDF     Multivariate Gaussian PDF
@@ -92,7 +102,19 @@
 %      REENTRY_COND       Generates condition numbers for simulation data
 %      MAKE_REENTRY_DATA  Generates the simulation data for reentry dynamics 
 %      REENTRY_DEMO       Reentry Vehicle Tracking demonstration
+%  
+%   /IMM_DEMO/
+%      IMM_DEMO           Tracking a Target with Simple Manouvers demonstration
 %
+%   /EIMM_DEMO/
+%      F_TURN             Dynamic model function for the coordinated turn model
+%      F_TURN_DX          Jacobian of the coordinated turn model's dynamic model
+%      F_TURN_INV         Inverse dynamics of the coordinated turn model
+%      CT_DEMO            Coordinated Turn Model demonstration
+%      BOT_H              Measurement model function
+%      BOT_DH_DX          1st order derivative of the measurement model 
+%      BOT_D2H_DX2        2nd order derivative of the measurement model  
+%      BOTM_DEMO          Bearings Only Tracking of a Manouvering Target Demonstration
 %
 % Demos currently included in the toolbox, but not documented:
 %
