@@ -1,11 +1,29 @@
-% Bearings Only Tracking (BOT) demonstration with UKF. 
-
-% Copyright (C) 2002, 2003 Simo S�rkk�
-%               2007       Jouni Hartikainen
+%% Bearings Only Tracking (BOT) demonstration with GHKF
 %
-% This software is distributed under the GNU General Public 
-% Licence (version 2 or later); please refer to the file 
-% Licence.txt, included with the software, for details.
+%  Description:
+%    In this example the Gauss-Hermite Kalman filter and Gauss-Hermite 
+%    Rauch-Tung-Striebel smoother are used to estimate the position and 
+%    velocity of a moving object on a plane. Two sensors track the position
+%    of the object by returning noisy measurements of angular direction of  
+%    the target. 
+%
+%  References:
+%    Refer to the Toolbox documentation for details on the model.
+%
+%  See also:
+%    ghkf_predict, ghkf_update, ghrts_smooth
+%
+%  Author:
+%    Copyright (C) 2002, 2003 Simo Särkkä
+%                  2007       Jouni Hartikainen
+%                  2010       Arno Solin
+%
+%  Licence:
+%    This software is distributed under the GNU General Public 
+%    Licence (version 2 or later); please refer to the file 
+%    Licence.txt, included with the software, for details.
+
+%% Run the model
 
   keep_trajectory = 0;
   silent = 0;
@@ -49,7 +67,7 @@
   end
 
   %
-  % Initialize UKF to values
+  % Initialize GHKF to values
   %
   %   x = 0
   %   y = 0,
@@ -72,9 +90,9 @@
   clc;  clf;
   disp(['In this demonstration we track a moving object with two sensors, ',...
         'which gives only bearings of the object with respect to sensors position. ',...
-       'The state of the system is estimated with UKF.'])
+       'The state of the system is estimated with GHKF.'])
   disp(' ');
-  fprintf('Running UKF...')
+  fprintf('Running GHKF...')
   %
   % Track and animate
   %
@@ -82,14 +100,14 @@
   PP = zeros(size(M,1),size(M,1),size(Y,2));
   ME = zeros(size(M,1),1);
   for k=1:size(Y,2)
-    % Track with (nonaugmented) UKF
-    [M,P] = ukf_predict1(M,P,A,Q);
-    [M,P] = ukf_update1(M,P,Y(:,k),h_func,R*eye(2),[S1 S2]);
+    % Track with GHKF
+    [M,P] = ghkf_predict(M,P,A,Q,[],3);
+    [M,P] = ghkf_update(M,P,Y(:,k),h_func,R*eye(2),[S1 S2],3);
     MM(:,k)   = M;
     PP(:,:,k) = P;
     ME(k) = P(1,1) + P(2,2);
   end
-  ukf_rmse = sqrt(mean((X(1,:)-MM(1,:)).^2+(X(2,:)-MM(2,:)).^2));
+  ghkf_rmse = sqrt(mean((X(1,:)-MM(1,:)).^2+(X(2,:)-MM(2,:)).^2));
 
   fprintf('Done!\n')
   disp(' ');
@@ -118,7 +136,7 @@
                S2(1),S2(2),'k^');
       legend('Location','NorthWest','Real trajectory','Current estimate','Estimated trajectory',...
              'Confidence interval','Measurements from sensors','Positions of the sensors');
-      title('Bearings Only Tracking with UKF.')
+      title('Bearings Only Tracking with GHKF.')
       axis([-1.5 1.5 -2.5 1.5]);
       
       EST = [];
@@ -151,35 +169,29 @@
   clc;
   disp(['In this demonstration we track a moving object with two sensors, ',...
         'which gives only bearings of the object with respect to sensors position. ',...
-       'The state of the system is estimated with UKF.'])
+       'The state of the system is estimated with GHKF.'])
   disp(' ');
-  fprintf('Running UKF...Done!\n')
+  fprintf('Running GHKF...Done!\n')
   disp(' ');
   disp(['The filtering results are now displayed sequentially. ',...
        'Notice how the estimates gets more accurate when the filter gets on the right track. ',...
        'The green ellipse around the current estimate (little blue circle) reflects the filters ',...
        'confidence intervals of the position estimate.']);
   disp(' ');
-  disp('<push any key to smooth the estimates with URTS and UTF>');
-  if (~silent) pause; end;
+  disp('<push any key to smooth the estimates with GHRTS>');
+  if (~silent) pause; end
   clc;
-  fprintf('Smoothing with URTS and UTF...');
+  fprintf('Smoothing with GHRTS...');
 
   % Smoothing with URTS
-  [SM1,SP1] = urts_smooth1(MM,PP,A,Q);
-  uks_rmse1 = sqrt(mean((X(1,:)-SM1(1,:)).^2+(X(2,:)-SM1(2,:)).^2));
+  [SM1,SP1] = ghrts_smooth(MM,PP,A,Q,[],3);
+  ghks_rmse1 = sqrt(mean((X(1,:)-SM1(1,:)).^2+(X(2,:)-SM1(2,:)).^2));
   ME1 = squeeze(SP1(1,1,:)+SP1(2,2,:));
   
-  % Smoothing with UTF
-  IAW = inv(A)*[eye(size(A,1)) eye(size(A,1))];
-  [SM2,SP2] = utf_smooth1(MM,PP,Y,IAW,Q,[],...
-		     h_func,R*eye(2),[S1 S2]);
-  uks_rmse2 = sqrt(mean((X(1,:)-SM2(1,:)).^2+(X(2,:)-SM2(2,:)).^2));
-  ME2 = squeeze(SP2(1,1,:)+SP2(2,2,:));
 
   fprintf('Done!\n')
   disp(' ');
-  disp(['Smoothing results of URTS are now displayed sequentially. ',...
+  disp(['Smoothing results of GHRTS are now displayed sequentially. ',...
         'Notice how the confidence ellipse gets even smaller now.']);
   disp(' ');
   disp('<push any key to proceed>');
@@ -199,7 +211,7 @@
              S1(1),S1(2),'k^',S2(1),S2(2),'k^');
     legend('Location','NorthWest','Real trajectory','Current estimate','Smoothed trajectory',...
            'Confidence interval','Filter estimate','Positions of the sensors');
-    title('Bearings Only Tracking with URTS.')
+    title('Bearings Only Tracking with GHRTS.')
     axis([-1.5 1.5 -2.5 1.5]);
     EST = [];
     for k=size(Y,2):-steps:1
@@ -219,36 +231,34 @@
      end
   end
   
-  disp(' ')
-  disp('<push any key to display all estimates together>')
-  if (~silent) pause; end;
-  clc;
-  disp('All estimates are now displayed.')
-  
+
   %
   % Plot all the estimates together
   %
   if ~silent
+    disp(' ')
+    disp('<push any key to display all estimates together>')
+    pause;
+    clc;
+    disp('All estimates are now displayed.')
+  
     plot(X(1,:),X(2,:),'k-',...
          MM(1,:),MM(2,:),'b--',...
          SM1(1,:),SM1(2,:),'r-.',...
-         SM2(1,:),SM2(2,:),'g-.',...
          S1(1),S1(2),'k^',S2(1),S2(2),'k^');
     axis([-1.5 1.5 -2.5 1.5]);
     legend('Real trajectory',...
-           'UKF estimate',...
-           'URTS estimate',...
-           'UTF estimate',...
+           'GHKF estimate',...
+           'GHRTS estimate',...
            'Positions of sensors',...
            'Location', 'NorthWest');
-    title('Filtering and smoothing result with UKF, URTS and UTF.');
+    title('Filtering and smoothing result with GHKF and GHRTS.');
     % Uncomment if you want to save an image
-    %print -dpsc bot_demo_ukf.ps
+    %print -dpsc bot_demo_ghkf.ps
   end
   
   % Print RMSE
   disp(' ');
   disp('RMS errors:');
-  fprintf('UKF-RMSE  = %.3f  [%.3f]\n',ukf_rmse,sqrt(mean(ME)));  
-  fprintf('URTS-RMSE = %.4f [%.4f]\n',uks_rmse1,sqrt(mean(ME1)));  
-  fprintf('UTF-RMSE = %.4f [%.4f]\n',uks_rmse2,sqrt(mean(ME2)));
+  fprintf('GHKF-RMSE  = %.3f  [%.3f]\n',ghkf_rmse,sqrt(mean(ME)));  
+  fprintf('GHRTS-RMSE = %.4f [%.4f]\n',ghks_rmse1,sqrt(mean(ME1)));  

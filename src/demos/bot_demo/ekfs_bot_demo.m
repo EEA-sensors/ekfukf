@@ -1,6 +1,6 @@
 % Bearings Only Tracking (BOT) demonstration with EKF
 
-% Copyright (C) 2002 Simo Särkkä
+% Copyright (C) 2002 Simo Sï¿½rkkï¿½
 %               2007 Jouni Hartikainen
 %
 % This software is distributed under the GNU General Public 
@@ -175,7 +175,7 @@
        'confidence intervals of the position estimate.']);
   disp(' ');
   disp('<push any key to smooth the estimates with ERTS and ETF>');
-  pause;
+  if (~silent) pause; end;
   clc;
   fprintf('Smoothing with ERTS and ETF...');
 
@@ -238,7 +238,7 @@
   
   disp(' ')
   disp('<push any key to display all estimates together>')
-  pause;
+  if (~silent) pause; end;
   clc;
   disp('All estimates are now displayed.')
 
