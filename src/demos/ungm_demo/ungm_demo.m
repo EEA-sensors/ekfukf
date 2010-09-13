@@ -1,10 +1,35 @@
-% Demonstration of univariate nonstationary growth model (UNGM) using EKF and UKF.
+%% Demonstration of univariate nonstationary growth model (UNGM) 
 %
-% Copyright (C) 2007 Jouni Hartikainen
+%  Description:
+%    In this example various different non-linear filters and smoothers are
+%    applied to the univariate nonstationary growth model (UNGM). The 
+%    filters used in this demonstration are:
+%      * Extended Kalman filter
+%      * Unscented Kalman filter (augmented and non-augmented forms)
+%      * Bootstrap filter
+%      * Gauss-Hermite Kalman filter (degree 10)
+%      * Cubature Kalman filter
+%    Additionally, the corresponding Rauch-Tung-Striebel smoother results 
+%    are also presented.
 %
-% This software is distributed under the GNU General Public 
-% Licence (version 2 or later); please refer to the file 
-% Licence.txt, included with the software, for details.
+%  References:
+%    Refer to the Toolbox documentation for details on the model.
+%
+%  See also:
+%    ukf_predict1, ukf_update1, ukf_predict3, ukf_update3, urts_smooth1,
+%    ekf_predict1, ekf_update1, erts_smooth1, ghkf_predict, ghkf_update, 
+%    ghrts_smooth, ckf_predict, ckf_update, crts_smooth
+%
+%  Author:
+%    Copyright (C) 2007 Jouni Hartikainen,
+%    Updated by Arno Solin (2010).
+%
+%  Licence:
+%    This software is distributed under the GNU General Public 
+%    Licence (version 2 or later); please refer to the file 
+%    Licence.txt, included with the software, for details.
+
+%% Set up the model parameters
 
 silent = 0;
 
@@ -57,6 +82,9 @@ params = cell(size(Y,2));
 for i = 1:size(Y,2)
    params{i} = i+1; 
 end
+
+
+%% Run the various filters and smoothers
 
 fprintf('Filtering with UKF1...');
 
@@ -154,6 +182,55 @@ end
 BS_MSE = sum((X-MM_BS).^2)/n;
 
 fprintf('Done!\n');
+
+fprintf('Filtering with Gauss-Hermite Kalman filter...');
+
+% Filtering with GHKF
+M = x_0;
+P = P_0;
+
+MM_GHKF = zeros(size(M,1),size(Y,2));
+PP_GHKF = zeros(size(M,1),size(M,1),size(Y,2));
+
+% Filtering loop for GHKF
+for k = 1:size(Y,2)
+   [M,P] = ghkf_predict(M,P,f_func,u_n,k);
+   [M,P] = ghkf_update(M,P,Y(:,k),h_func,v_n);
+   MM_GHKF(:,k)   = M;
+   PP_GHKF(:,:,k) = P;    
+end
+[MMS_GHRTS, PPS_GHRTS] = ghrts_smooth(MM_GHKF,PP_GHKF,f_func,u_n,params,[],0);
+
+GHKF_MSE = sum((X-MM_GHKF).^2)/n;
+GHRTS_MSE = sum((X-MMS_GHRTS).^2)/n;
+
+fprintf('Done!\n');
+
+fprintf('Filtering with Cubature Kalman filter...');
+
+% Filtering with CKF
+M = x_0;
+P = P_0;
+
+MM_CKF = zeros(size(M,1),size(Y,2));
+PP_CKF = zeros(size(M,1),size(M,1),size(Y,2));
+
+% Filtering loop for CKF
+for k = 1:size(Y,2)
+   [M,P] = ckf_predict(M,P,f_func,u_n,k);
+   [M,P] = ckf_update(M,P,Y(:,k),h_func,v_n);
+   MM_CKF(:,k)   = M;
+   PP_CKF(:,:,k) = P;    
+end
+[MMS_CRTS, PPS_CRTS] = crts_smooth(MM_CKF,PP_CKF,f_func,u_n,params,0);
+
+CKF_MSE = sum((X-MM_CKF).^2)/n;
+CRTS_MSE = sum((X-MMS_CRTS).^2)/n;
+
+fprintf('Done!\n');
+
+
+%% Visualize results
 
 if ~silent
   subplot(3,1,1);
@@ -257,14 +334,44 @@ if ~silent
   clc;
   disp('The absolute estimation errors of UKF1 and UKF2 are now displayed.');
   disp(' ');
+  disp('<press any key to see the filtering results of GHKF and CKF>');
+  pause
+  
+  subplot(2,1,1);
+  plot(1:100,X(1:100),'-kx',1:100,MM_GHKF(1:100),'--bo')
+  title('GHKF filtering result');
+  xlim([0 100]);
+  ylim([-20 20]);
+  legend('Real signal', 'GHKF filtered estimate');
+  
+  subplot(2,1,2);
+  plot(1:100,X(1:100),'-kx',1:100,MM_CKF(1:100),'--bo')
+  title('CKF filtering result');
+  xlim([0 100]);
+  ylim([-20 20]);
+  legend('Real signal', 'CKF filtered estimate');
+  % Uncomment if you want to print images 
+  %print -dpsc ungm_ukf_comp.ps
+  clc;
+  disp(['First 100 values of the filtering results with GHKF (10 th degree) and CKF are now displayed. ',...
+       'Clearly the non-augmented UKF is not applicable to this problem.']);
+  disp(' ');
+  disp('<press any key to see MSE values for each method>');
+  
+  pause
   
 end
 
 disp('MS errors:');
-fprintf('UKF1-MSE = %.4f\n',UKF1_MSE);
-fprintf('UKS1-MSE = %.4f\n',UKS1_MSE);
-fprintf('UKF2-MSE = %.4f\n',UKF2_MSE);
-fprintf('UKS2-MSE = %.4f\n',UKS2_MSE);
-fprintf('EKF-MSE = %.4f\n',EKF_MSE);
-fprintf('ERTS-MSE = %.4f\n',ERTS_MSE);
-fprintf('BS-MSE = %.4f\n',BS_MSE);
+fprintf('UKF1-MSE  = %.4f\n',UKF1_MSE);
+fprintf('UKS1-MSE  = %.4f\n',UKS1_MSE);
+fprintf('UKF2-MSE  = %.4f\n',UKF2_MSE);
+fprintf('UKS2-MSE  = %.4f\n',UKS2_MSE);
+fprintf('EKF-MSE   = %.4f\n',EKF_MSE);
+fprintf('ERTS-MSE  = %.4f\n',ERTS_MSE);
+fprintf('BS-MSE    = %.4f\n',BS_MSE);
+% CKF and GHKF methods
+fprintf('GHKF-MSE  = %.4f\n',GHKF_MSE);
+fprintf('GHRTS-MSE = %.4f\n',GHRTS_MSE);
+fprintf('CKF-MSE   = %.4f\n',CKF_MSE);
+fprintf('CRTS-MSE  = %.4f\n',CRTS_MSE);
