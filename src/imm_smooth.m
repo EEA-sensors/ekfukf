@@ -174,6 +174,7 @@ function [x_sk,P_sk,x_sik,P_sik,mu_sk] = imm_smooth(MM,PP,MM_i,PP_i,MU,p_ij,mu_0
                 D_ijk = P_kp{i1} + PP2;
 
                 % Calculate the (approximate) conditional measurement likelihoods
+                %D_ijk = 0.01^2*eye(size(D_ijk));
                 lhood_ji(i2,i1) = gauss_pdf(d_ijk,0,D_ijk);                
             end
         end
@@ -205,13 +206,14 @@ function [x_sk,P_sk,x_sik,P_sik,mu_sk] = imm_smooth(MM,PP,MM_i,PP_i,MU,p_ij,mu_0
                 PP1 = PP_def;
                 PP1(ind{i2},ind{i2}) = PP_i{i2,k};
 
-                iPP1 = inv(PP1);
-                iPP2 = inv(P_kp{i1});
+                %iPP1 = inv(PP1);
+                %iPP2 = inv(P_kp{i1});
                 
                 % Covariance of the Gaussian product
-                P_jis{i2,i1} = inv(iPP1+iPP2);
+                %P_jis{i2,i1} = inv(iPP1+iPP2);
+                P_jis{i2,i1} = PP1/(PP1+P_kp{i1})*P_kp{i1};
                 % Mean of the Gaussian product
-                x_jis{i2,i1} = P_jis{i2,i1}*(iPP1*MM1 + iPP2*x_kp{i1});
+                x_jis{i2,i1} = P_jis{i2,i1}*(PP1\MM1 + PP2\x_kp{i1});
             end
         end
 

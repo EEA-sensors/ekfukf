@@ -193,10 +193,12 @@ P = diag([3 3 3]);
 U_MM = zeros(size(M,1),size(Y,2));
 U_PP = zeros(size(M,1),size(M,1),size(Y,2));
 
+alpha = 1; beta = 0; kappa = 0;
+
 % Estimate with UKF
 for k=1:size(Y,2)
-   [M,P,X_s,w] = ukf_predict3(M,P,f_func,Q,R*eye(1),dt);
-   [M,P] = ukf_update3(M,P,Y(:,k),h_func,R*eye(1),X_s,w,[]);
+   [M,P,X_s,w] = ukf_predict3(M,P,f_func,Q,R*eye(1),dt,alpha,beta,kappa);
+   [M,P] = ukf_update3(M,P,Y(:,k),h_func,R*eye(1),X_s,w,[],alpha,beta,kappa);
    U_MM(:,k)   = M;
    U_PP(:,:,k) = P;
 end

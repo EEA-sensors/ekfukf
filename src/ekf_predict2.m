@@ -39,14 +39,13 @@
 %   22.5.07  JH Initial version. Modified from ekf_predict1.m
 %            originally created by SS.
 %
-% Copyright (C) 2007 Jouni Hartikainen, Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen, Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
-
 function [M,P] = ekf_predict2(M,P,A,F,Q,a,W,param)
 
   %

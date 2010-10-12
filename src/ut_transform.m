@@ -1,20 +1,21 @@
 %UT_TRANSFORM  Perform unscented transform
 %
 % Syntax:
-%   [mu,S,C,X,Y,w] = UT_TRANSFORM(M,P,g,[param,alpha,beta,kappa,mat],n,X,w)
+%   [mu,S,C,X,Y,w] = UT_TRANSFORM(M,P,g,g_param,tr_param)
 %
 % In:
 %   M - Random variable mean (Nx1 column vector)
 %   P - Random variable covariance (NxN pos.def. matrix)
 %   g - Transformation function of the form g(x,param) as
 %       matrix, inline function, function name or function reference
-%   param - Parameters of g               (optional, default empty)
-%   alpha - Transformation parameter      (optional)
-%   beta  - Transformation parameter      (optional)
-%   kappa - Transformation parameter      (optional)
-%   mat   - If 1 uses matrix form         (optional, default 0)
-%   X - Sigma points of x
-%   w - Weights as cell array {mean-weights,cov-weights,c}
+%   g_param - Parameters of g               (optional, default empty)
+%   tr_param - Parameters of the transformation as:       
+%       alpha = tr_param{1} - Transformation parameter      (optional)
+%       beta  = tr_param{2} - Transformation parameter      (optional)
+%       kappa = tr_param{3} - Transformation parameter      (optional)
+%       mat   = tr_param{4} - If 1 uses matrix form         (optional, default 0)
+%       X     = tr_param{5} - Sigma points of x
+%       w     = tr_param{6} - Weights as cell array {mean-weights,cov-weights,c}
 %
 % Out:
 %   mu - Estimated mean of y
@@ -31,7 +32,8 @@
 % See also
 %   UT_WEIGHTS UT_MWEIGHTS UT_SIGMAS
 
-% Copyright (C) 2006 Simo Särkkä
+% Copyright (C) 2006 Simo Sï¿½rkkï¿½
+%               2010 Jouni Hartikainen
 %
 % $Id$
 %
@@ -39,41 +41,63 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)
+function [mu,S,C,X,Y,w] = ut_transform2(M,P,g,g_param,tr_param)
 
   if nargin < 4
-    param = [];
-  end
-  if nargin < 5
-    alpha = [];
-  end
-  if nargin < 6
-    beta = [];
-  end
-  if nargin < 7
-    kappa = [];
-  end
-  if nargin < 8
-    mat = [];
-  end
-  if nargin < 10
-    generate_sigmas = 1;
-  else
-    generate_sigmas = 0; 
+     g_param = [];
   end
   
+  if nargin < 5
+     tr_param = []; 
+  end
 
   %
   % Apply defaults
   %
-  if isempty(mat)
-    mat = 0;
+  if isempty(tr_param) 
+     alpha = [];
+     beta = [];
+     kappa = [];
+     mat = [];
+     X = [];
+     w = [];
+  else 
+      alpha = tr_param{1}; 
+      if length(tr_param) >= 2
+          beta = tr_param{2};
+      else 
+          beta = [];
+      end
+      if length(tr_param) >= 3          
+          kappa = tr_param{3};
+      else
+          kappa = [];
+      end
+      if length(tr_param) >= 4
+          mat = tr_param{4};
+      else
+          mat = [];
+      end
+      if length(tr_param) >= 5
+          X = tr_param{5};
+      else
+          X = [];
+      end
+      if length(tr_param) >= 6
+          w = tr_param{6};
+      else
+          w = [];
+      end
   end
+    
+  if isempty(mat)
+     mat = 0;
+  end  
   
   %
   % Calculate sigma points
   %
-  if generate_sigmas == 0
+  if isempty(w) == 0
       WM = w{1};
       c  = w{3};
       if mat
@@ -96,15 +120,15 @@ function [mu,S,C,X,Y,w] = ut_transform(M,P,g,param,alpha,beta,kappa,mat,X,w)
   %
   if isnumeric(g)
     Y = g*X;
-  elseif isstr(g) | strcmp(class(g),'function_handle')
+  elseif ischar(g) | strcmp(class(g),'function_handle')
     Y = [];
     for i=1:size(X,2)
-      Y = [Y feval(g,X(:,i),param)];
+      Y = [Y feval(g,X(:,i),g_param)];
     end
   else
     Y = [];
     for i=1:size(X,2)
-      Y = [Y g(X(:,i),param)];
+      Y = [Y g(X(:,i),g_param)];
     end
   end
   

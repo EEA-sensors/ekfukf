@@ -1,4 +1,4 @@
-function [mu,S,C,SX,W] = ckf_transform(m,P,g,param)
+function [mu,S,C,SX,W] = ckf_transform(m,P,g,param,varargin)
 % CKF_TRANSFORM - Cubature Kalman filter transform of random variables
 %
 % Syntax:
@@ -9,7 +9,7 @@ function [mu,S,C,SX,W] = ckf_transform(m,P,g,param)
 %   P - Random variable covariance (NxN pos.def. matrix)
 %   g - Transformation function of the form g(x,param) as
 %       matrix, inline function, function name or function reference
-%   param - Parameters of g               (optional, default empty)
+%   g_param - Parameters of g               (optional, default empty)
 %
 % Out:
 %   mu - Estimated mean of y

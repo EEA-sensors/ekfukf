@@ -1,4 +1,4 @@
-function [mu,S,C,SX,W] = gh_transform(m,P,g,p,param)
+function [mu,S,C,SX,W] = gh_transform2(m,P,g,g_param,tr_param)
 % GH_TRANSFORM - Gauss-Hermite transform of random variables
 %
 % Syntax:
@@ -9,8 +9,10 @@ function [mu,S,C,SX,W] = gh_transform(m,P,g,p,param)
 %   P - Random variable covariance (NxN pos.def. matrix)
 %   g - Transformation function of the form g(x,param) as
 %       matrix, inline function, function name or function reference
-%   p - Number of points in Gauss-Hermite integration
-%   param - Parameters of g               (optional, default empty)
+%   g_param - Parameters of g               (optional, default empty)
+%   tr_param - Parameters of the integration method in form {p}:
+%       p - Number of points in Gauss-Hermite integration
+% 
 %
 % Out:
 %   mu - Estimated mean of y
@@ -25,19 +27,23 @@ function [mu,S,C,SX,W] = gh_transform(m,P,g,p,param)
 % Licence (version 2 or later); please refer to the file
 % Licence.txt, included with the software, for details.
 %%
-
-  % Estimate the mean of g
-  if nargin < 5
+  if nargin > 4
+      p = tr_param{1};
+  else
+      p = 3;      
+  end
+   % Estimate the mean of g
+  if nargin < 4
     [mu,SX,x,W,F] = ngausshermi(g,p,m,P);
   else
-    [mu,SX,x,W,F] = ngausshermi(g,p,m,P,param);
+    [mu,SX,x,W,F] = ngausshermi(g,p,m,P,g_param);
   end
   
   % Estimate the P and C
   if nargin < 5
     [pc,SX,x,W,FPC] = ngausshermi(@gh_packed_pc,p,m,P,{g,m,mu});
   else
-    [pc,SX,x,W,FPC] = ngausshermi(@gh_packed_pc,p,m,P,{g,m,mu,param});
+    [pc,SX,x,W,FPC] = ngausshermi(@gh_packed_pc,p,m,P,{g,m,mu,g_param});
   end
   d = size(m,1);
   s = size(mu,1);

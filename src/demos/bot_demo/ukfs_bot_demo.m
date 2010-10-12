@@ -18,8 +18,10 @@
 
   % Create a bit curved trajectory and angle
   % measurements from two sensors
-  S1 = [-1;-2];
+  %S1 = [-1;-2];
+  S1 = [0.5;-2];
   S2 = [1;1];
+  %S2 = [0.5;1];
   sd = 0.05;
   dt = 0.01;
   if ~keep_trajectory

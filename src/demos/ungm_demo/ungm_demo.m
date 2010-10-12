@@ -156,6 +156,30 @@ ERTS_MSE = sum((X-MMS_ERTS).^2)/n;
 
 fprintf('Done!\n');
 
+fprintf('Filtering with EKF2...');
+
+% Filtering with EKF2
+M = x_0;
+P = P_0;
+
+MM_EKF2 = zeros(size(M,1),size(Y,2));
+PP_EKF2 = zeros(size(M,1),size(M,1),size(Y,2));
+
+% Filtering loop for EKF
+for k = 1:size(Y,2)
+   [M,P] = ekf_predict2(M,P,df_func,d2f_func,u_n,f_func,[],k);
+   [M,P] = ekf_update2(M,P,Y(:,k),dh_func,d2h_func,v_n,h_func,[],[]);
+   MM_EKF2(:,k)   = M;
+   PP_EKF2(:,:,k) = P;    
+end
+
+%[MMS_ERTS2,PPS_ERTS2] = erts_smooth2(MM_EKF2,PP_EKF2,df_func,u_n,f_func,[],params,0);
+
+EKF_MSE2 = sum((X-MM_EKF2).^2)/n;
+%ERTS_MSE = sum((X-MMS_ERTS).^2)/n;
+
+fprintf('Done!\n');
+
 fprintf('Filtering with bootstrap filter...');
 
 % Filtering with bootstrap filter
@@ -228,6 +252,89 @@ CKF_MSE = sum((X-MM_CKF).^2)/n;
 CRTS_MSE = sum((X-MMS_CRTS).^2)/n;
 
 fprintf('Done!\n');
+
+
+% With generalized ADF code
+
+% GHKF
+tr_method = @gh_transform2;
+tr_param_f = {3};
+tr_param_h = {3};
+
+% UKF
+tr_method = @ut_transform2
+tr_param_f = {};
+tr_param_h = {};
+
+% EKF
+tr_method = @lin_transform
+tr_param_f = {df_func};
+tr_param_h = {dh_func};
+
+% EKF2
+tr_method = @quad_transform
+tr_param_f = {df_func d2f_func};
+tr_param_h = {dh_func d2h_func};
+
+% Cubature Kalman filter
+tr_method = @ckf_transform;
+tr_param_f = {};
+tr_param_h = {};
+
+tr_method = @cd_transform;
+tr_param_f = {sqrt(3)};
+tr_param_h = {sqrt(3)};
+
+M = x_0;
+P = P_0;
+
+MM_ADF = zeros(size(M,1),size(Y,2));
+PP_ADF = zeros(size(M,1),size(M,1),size(Y,2));
+
+% Filtering loop for CKF
+for k = 1:size(Y,2)
+    [M,P] = adf_predict(M,P,f_func,u_n,k,tr_method,tr_param_f);
+    [M,P] = adf_update(M,P,Y(:,k),h_func,v_n,[],tr_method,tr_param_h);
+    MM_ADF(:,k)   = M;
+    PP_ADF(:,:,k) = P;
+end
+[MMS_ADRTS, PPS_ADRTS] = adrts_smooth(MM_ADF,PP_ADF,f_func,u_n,params,tr_method,tr_param_f,0);
+
+ADF_MSE = sum((X-MM_ADF).^2)/n;
+ADRTS_MSE = sum((X-MMS_ADRTS).^2)/n;
+
+
+cdr = sqrt(0.1:0.1:.5);
+ADF_MSE = zeros(length(cdr),length(cdr));
+ADRTS_MSE = zeros(length(cdr),length(cdr));
+for i = 1:length(cdr)
+    for j = 1:length(cdr)
+        (i-1)*length(cdr)+j
+        
+        tr_method = @cd_transform;
+        tr_param_f = {sqrt(cdr(i))};
+        tr_param_h = {sqrt(cdr(j))};
+        
+        
+        M = x_0;
+        P = P_0;
+        
+        MM_ADF = zeros(size(M,1),size(Y,2));
+        PP_ADF = zeros(size(M,1),size(M,1),size(Y,2));
+        
+        % Filtering loop for CKF
+        for k = 1:size(Y,2)
+            [M,P] = adf_predict(M,P,f_func,u_n,k,tr_method,tr_param_f);
+            [M,P] = adf_update(M,P,Y(:,k),h_func,v_n,[],tr_method,tr_param_h);
+            MM_ADF(:,k)   = M;
+            PP_ADF(:,:,k) = P;
+        end
+        [MMS_ADRTS, PPS_ADRTS] = adrts_smooth(MM_ADF,PP_ADF,f_func,u_n,params,tr_method,tr_param_f,0);
+        
+        ADF_MSE(i,j) = sum((X-MM_ADF).^2)/n;
+        ADRTS_MSE(i,j) = sum((X-MMS_ADRTS).^2)/n;
+    end
+end
 
 
 %% Visualize results

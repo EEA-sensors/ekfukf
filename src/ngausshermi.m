@@ -76,6 +76,7 @@ function [I,SX,x,W,F] = ngausshermi(f,n,m,P,param)
   % 1D coefficients
   Wc = pow2(n-1)*factorial(n)*sqrt(pi)/n^2;
   p2 = hermitepolynomial(n-1);
+  W  = zeros(1,n);
   for i=1:n
      W(i)=Wc*polyval(p2,x(i)).^-2;
   end

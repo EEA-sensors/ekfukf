@@ -33,7 +33,7 @@
 %   UKF_UPDATE1, UKF_PREDICT2, UKF_UPDATE2, UKF_PREDICT3, UKF_UPDATE3,
 %   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS
 
-% Copyright (C) 2003-2006 Simo Särkkä
+% Copyright (C) 2003-2006 Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -41,7 +41,7 @@
 % Licence (version 2 or later); please refer to the file
 % Licence.txt, included with the software, for details.
 
-function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)
+function [M,P,D] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)
 
   %
   % Check which arguments are there
@@ -88,6 +88,6 @@ function [M,P] = ukf_predict1(M,P,a,Q,param,alpha,beta,kappa,mat)
   % Do transform
   % and add process noise
   %
-  [M,P] = ut_transform(M,P,a,param,alpha,beta,kappa,mat);
+  [M,P,D] = ut_transform(M,P,a,param,alpha,beta,kappa,mat);
   P = P + Q;
 

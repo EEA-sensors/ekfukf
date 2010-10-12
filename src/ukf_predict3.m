@@ -38,7 +38,7 @@
 %   UKF_PREDICT1, UKF_UPDATE1, UKF_PREDICT2, UKF_UPDATE2, UKF_UPDATE3
 %   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS 
 
-% Copyright (C) 2003-2006 Simo Särkkä
+% Copyright (C) 2003-2006 Simo Sï¿½rkkï¿½
 % Copyright (C) 2007 Jouni Hartikainen
 %
 % $Id$
@@ -47,7 +47,7 @@
 % Licence (version 2 or later); please refer to the file
 % Licence.txt, included with the software, for details.
 
-function [M,P,X,w] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)
+function [M,P,X,w,C] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)
 
   %
   % Check which arguments are there

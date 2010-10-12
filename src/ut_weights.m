@@ -20,7 +20,7 @@
 % See also UT_MWEIGHTS UT_TRANSFORM UT_SIGMAS
 % 
 
-% Copyright (C) 2006 Simo Särkkä
+% Copyright (C) 2006 Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -50,10 +50,10 @@ end
 % Apply default values
 %
 if isempty(alpha)
-  alpha = 0.5;
+  alpha = 1;
 end
 if isempty(beta)
-  beta = 2;
+  beta = 0;
 end
 if isempty(kappa)
   kappa = 3 - n;

@@ -57,7 +57,7 @@
 % References:
 %   [1] Wan, Merwe: The Unscented Kalman Filter
 
-% Copyright (C) 2002-2006 Simo Särkkä
+% Copyright (C) 2002-2006 Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -100,6 +100,7 @@ function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)
   % Do transform and make the update
   %
   [MU,S,C] = ut_transform(M,P,h,param,alpha,beta,kappa,mat);
+  
   S = S + R;
   K = C / S;
   M = M + K * (Y - MU);

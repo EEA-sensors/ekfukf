@@ -58,7 +58,7 @@
 % References:
 %   [1] Wan, Merwe: The Unscented Kalman Filter
 %
-% Copyright (C) 2007 Jouni Hartikainen, Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen, Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -102,7 +102,7 @@ function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)
   %
   
   [MU,S,C,X,Y_s] = ut_transform(M,P,h,param,alpha,beta,kappa,mat,X,w);
-  K = C * inv(S);
+  K = C / S;
   M = M + K * (Y - MU);
   P = P - K * S * K';
   if nargout > 5
