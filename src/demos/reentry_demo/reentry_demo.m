@@ -8,6 +8,7 @@
 %      * Unscented Kalman filter
 %      * Gauss-Hermite Kalman filter (degree 3)
 %      * Cubature Kalman filter
+%      * Centra-Difference Kalman filter
 %    Additionally, the corresponding smoother results are also presented.
 %
 %  References:
@@ -19,9 +20,9 @@
 %    ghrts_smooth, ckf_predict, ckf_update, crts_smooth
 %
 %  Author:
-%    Copyright (C) 2006 Simo Särkkä
-%                  2007 Jouni Hartikainen
-%                  2010 Arno Solin
+%    Copyright (C) 2006       Simo Särkkä
+%                  2007, 2010 Jouni Hartikainen
+%                  2010       Arno Solin
 %
 %  Licence:
 %    This software is distributed under the GNU General Public 

@@ -1,12 +1,12 @@
 % Jacobian of the measurement model function in the random sine signal demo
 
-% Copyright (C) 2007 Jouni Hartikainen
+% Copyright (C) 2007, 2010 Jouni Hartikainen
 %
 % This software is distributed under the GNU General Public 
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function dY = ekf_sine_dh_dx(x,param)
+function dY = sine_dh_dx(x,param)
 f = x(1,:);
 w = x(2,:);
 a = x(3,:);

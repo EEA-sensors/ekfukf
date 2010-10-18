@@ -41,7 +41,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [mu,S,C,X,Y,w] = ut_transform2(M,P,g,g_param,tr_param)
+function [mu,S,C,X,Y,w] = ut_transform(M,P,g,g_param,tr_param)
 
   if nargin < 4
      g_param = [];

@@ -1,4 +1,4 @@
-function [mu,S,C,SX,W] = gh_transform2(m,P,g,g_param,tr_param)
+function [mu,S,C,SX,W] = gh_transform(m,P,g,g_param,tr_param)
 % GH_TRANSFORM - Gauss-Hermite transform of random variables
 %
 % Syntax:
@@ -21,7 +21,7 @@ function [mu,S,C,SX,W] = gh_transform2(m,P,g,g_param,tr_param)
 %   SX - Sigma points of x
 %    W - Weights as cell array
 
-% Copyright (c), 2009 Hartikainen, Särkkä, Solin
+% Copyright (c), 2009, 2010 Hartikainen, Särkkä, Solin
 %
 % This software is distributed under the GNU General Public
 % Licence (version 2 or later); please refer to the file
