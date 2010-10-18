@@ -1,16 +1,16 @@
 %URTS_SMOOTH2  Augmented form Unscented Rauch-Tung-Striebel smoother
 %
 % Syntax:
-%   [M,P,S] = URTS_SMOOTH2(M,P,a,Q,[param,alpha,beta,kappa,mat,same_p])
+%   [M,P,S] = URTS_SMOOTH2(M,P,f,Q,[f_param,alpha,beta,kappa,mat,same_p])
 %
 % In:
 %   M - NxK matrix of K mean estimates from Unscented Kalman filter
 %   P - NxNxK matrix of K state covariances from Unscented Kalman Filter
-%   a - Dynamic model function as inline function,
+%   f - Dynamic model function as inline function,
 %       function handle or name of function in
 %       form a([x;w],param)
 %   Q - Non-singular covariance of process noise w
-%   param - Parameters of a. Parameters should be a single cell array,
+%   f_param - Parameters of a. Parameters should be a single cell array,
 %           vector or a matrix containing the same parameters for each
 %           step, or if different parameters are used on each step they
 %           must be a cell array of the format { param_1, param_2, ...},
@@ -39,7 +39,7 @@
 % See also:
 %   URTS_SMOOTH1, UKF_PREDICT2, UKF_UPDATE2
 
-% Copyright (C) 2006 Simo Särkkä
+% Copyright (C) 2006 Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -47,7 +47,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)
+function [M,P,D] = urts_smooth2(M,P,f,Q,f_param,alpha,beta,kappa,mat,same_p)
 
   %
   % Check which arguments are there
@@ -56,7 +56,7 @@ function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)
     error('Too few arguments');
   end
   if nargin < 5
-    param = [];
+    f_param = [];
   end
   if nargin < 6
     alpha = [];
@@ -86,12 +86,12 @@ function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)
   %
   D = zeros(size(M,1),size(M,1),size(M,2));
   for k=(size(M,2)-1):-1:1
-    if isempty(param)
+    if isempty(f_param)
         params = [];
     elseif same_p
-        params = param;
+        params = f_param;
     else
-        params = param{k};
+        params = f_param{k};
     end
       
     MA = [M(:,k);zeros(size(Q,1),1)];
@@ -99,8 +99,9 @@ function [M,P,D] = urts_smooth2(M,P,a,Q,param,alpha,beta,kappa,mat,same_p)
     PA(1:size(P,1),1:size(P,1)) = P(:,:,k);
     PA(1+size(P,1):end,1+size(P,1):end) = Q;
     
+    tr_param = {alpha beta kappa mat};
     [m_pred,P_pred,C] = ...
-	ut_transform(MA,PA,a,params,alpha,beta,kappa);
+	ut_transform(MA,PA,f,params,tr_param);
     C = C(1:size(M,1),:);
     
     D(:,:,k) = C / P_pred;

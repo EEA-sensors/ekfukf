@@ -1,8 +1,8 @@
-function [M,P,D] = ghrts_smooth(M,P,f,Q,param,p,same_p)
+function [M,P,D] = ghrts_smooth(M,P,f,Q,f_param,p,same_p)
 % GHRTS_SMOOTH - Additive form Gauss-Hermite Rauch-Tung-Striebel smoother
 %
 % Syntax:
-%   [M,P,D] = GHRTS_SMOOTH(M,P,f,Q,[param,p,same_p])
+%   [M,P,D] = GHRTS_SMOOTH(M,P,f,Q,[f_param,p,same_p])
 %
 % In:
 %   M - NxK matrix of K mean estimates from Gauss-Hermite Kalman filter
@@ -13,7 +13,7 @@ function [M,P,D] = ghrts_smooth(M,P,f,Q,param,p,same_p)
 %       form a(x,param)                   (optional, default eye())
 %   Q - NxN process noise covariance matrix or NxNxK matrix
 %       of K state process noise covariance matrices for each step.
-%   param - Parameters of f(.). Parameters should be a single cell array,
+%   f_param - Parameters of f(.). Parameters should be a single cell array,
 %           vector or a matrix containing the same parameters for each
 %           step, or if different parameters are used on each step they
 %           must be a cell array of the format { param_1, param_2, ...},
@@ -69,7 +69,7 @@ function [M,P,D] = ghrts_smooth(M,P,f,Q,param,p,same_p)
     error('Too few arguments');
   end
   if nargin < 5
-    param = [];
+    f_param = [];
   end
   if nargin < 6
     p = [];
@@ -102,9 +102,10 @@ function [M,P,D] = ghrts_smooth(M,P,f,Q,param,p,same_p)
   % Run the smoother
   %
   D = zeros(size(M,1),size(M,1),size(M,2));
-  if isempty(param)
+  if isempty(f_param)
     for k=(size(M,2)-1):-1:1
-      [m_pred,P_pred,C] = gh_transform(M(:,k),P(:,:,k),f,p);
+        tr_param = {p};
+      [m_pred,P_pred,C] = gh_transform(M(:,k),P(:,:,k),f,f_param,tr_param);
       P_pred = P_pred + Q(:,:,k);
       D(:,:,k) = C / P_pred;
       M(:,k)   = M(:,k) + D(:,:,k) * (M(:,k+1) - m_pred);
@@ -112,14 +113,15 @@ function [M,P,D] = ghrts_smooth(M,P,f,Q,param,p,same_p)
     end  
   else
     for k=(size(M,2)-1):-1:1
-      if isempty(param)
+      if isempty(f_param)
         params = [];
       elseif same_p
-        params = param;
+        params = f_param;
       else
-        params = param{k};
+        params = f_param{k};
       end
-      [m_pred,P_pred,C] = gh_transform(M(:,k),P(:,:,k),f,p,params);
+      tr_param = {p};
+      [m_pred,P_pred,C] = gh_transform(M(:,k),P(:,:,k),f,params,tr_param);
       P_pred = P_pred + Q(:,:,k);
       D(:,:,k) = C / P_pred;
       M(:,k)   = M(:,k) + D(:,:,k) * (M(:,k+1) - m_pred);
