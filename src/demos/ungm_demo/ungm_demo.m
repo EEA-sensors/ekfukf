@@ -1,32 +1,31 @@
-%% Demonstration of univariate nonstationary growth model (UNGM) 
+%% Demonstration of univariate nonstationary growth model (UNGM)
 %
 %  Description:
 %    In this example various different non-linear filters and smoothers are
-%    applied to the univariate nonstationary growth model (UNGM). The 
+%    applied to the univariate nonstationary growth model (UNGM). The
 %    filters used in this demonstration are:
 %      * Extended Kalman filter
 %      * Unscented Kalman filter (augmented and non-augmented forms)
 %      * Bootstrap filter
 %      * Gauss-Hermite Kalman filter (degree 10)
 %      * Cubature Kalman filter
-%    Additionally, the corresponding Rauch-Tung-Striebel smoother results 
+%    Additionally, the corresponding Rauch-Tung-Striebel smoother results
 %    are also presented.
 %
 %  References:
 %    Refer to the Toolbox documentation for details on the model.
 %
 %  See also:
-%    ukf_predict1, ukf_update1, ukf_predict3, ukf_update3, urts_smooth1,
-%    ekf_predict1, ekf_update1, erts_smooth1, ghkf_predict, ghkf_update, 
-%    ghrts_smooth, ckf_predict, ckf_update, crts_smooth
+%   adf_predict, adf_update, adrts_smooth, lin_transform, ut_transform
+%   cd_transform, gh_transform, ckf_transform
 %
 %  Author:
-%    Copyright (C) 2007 Jouni Hartikainen,
-%    Updated by Arno Solin (2010).
+%    Copyright (C) 2007, 2010 Jouni Hartikainen,
+%                  2010, Arno Solin
 %
 %  Licence:
-%    This software is distributed under the GNU General Public 
-%    Licence (version 2 or later); please refer to the file 
+%    This software is distributed under the GNU General Public
+%    Licence (version 2 or later); please refer to the file
 %    Licence.txt, included with the software, for details.
 
 %% Set up the model parameters
@@ -34,7 +33,8 @@
 silent = 0;
 
 clf; clc;
-disp('This is a demonstration for EKF and UKF using the UNGM model.');
+disp('This is a demonstration for Assumed Density Filters and Smoothers');
+disp('by using the univariate nonstationary growth model (UNGM).');
 disp(' ');
 
 % Handles to dynamic and measurement model functions,
@@ -50,27 +50,28 @@ d2h_func = @ungm_d2h_dx2;
 n = 500;
 
 % Initial state and covariance
-x_0 = .1;
+M_0 = .1;
 P_0 = 1;
 
 % Space for measurements
 Y = zeros(1,n);
 
 % Strengths of perturbations
-u_n = 1;
-v_n = 1;
+Q = 1;
+R = 1;
 
 fprintf('Generating real states and measurements...');
 % Generate the true states with process noise
 X = zeros(1,n);
-X(1) = ungm_f(x_0,1) + gauss_rnd(0,u_n,1);
+X(1) = ungm_f(M_0,1) + gauss_rnd(0,P_0,1);
+%X(1) = ungm_f(x_0,1) + gauss_rnd(0,u_n,1);
 for i = 2:n
-    X(i) = feval(f_func,X(i-1),i) + gauss_rnd(0,u_n,1);
+    X(i) = feval(f_func,X(i-1),i) + gauss_rnd(0,Q,1);
 end
-    
+
 % Generate the observations with measurement noise
 for i = 1:n
-    Y(i) = feval(h_func,X(i)) + gauss_rnd(0,v_n,1);
+    Y(i) = feval(h_func,X(i)) + gauss_rnd(0,R,1);
 end
 
 Y_r = feval(h_func,X);
@@ -80,405 +81,192 @@ fprintf('Done!\n');
 % Parameters for dynamic model. Used by smoothers.
 params = cell(size(Y,2));
 for i = 1:size(Y,2)
-   params{i} = i+1; 
+    params{i} = i+1;
 end
 
 
 %% Run the various filters and smoothers
+tr_method  = cell(1,6);
+tr_param_f = cell(1,6);
+tr_param_h = cell(1,6);
+tr_name    = cell(1,6);
 
-fprintf('Filtering with UKF1...');
+% EKF
+tr_method{1}  = @lin_transform;
+tr_param_f{1} = {df_func};
+tr_param_h{1} = {dh_func};
+tr_name{1}    = {'EKF' 'ERTS'};
 
-% Initial values and space for non-augmented UKF (UKF1)
-M = x_0;
-P = P_0;
-MM_UKF1 = zeros(size(M,1),size(Y,2));
-PP_UKF1 = zeros(size(M,1),size(M,1),size(Y,2));
+% UKF
+tr_method{2}  = @ut_transform;
+tr_param_f{2} = {};
+tr_param_h{2} = {};
+tr_name{2}    = {'UKF' 'URTS'};
 
-% Filtering loop for UKF1
-for k = 1:size(Y,2)
-   [M,P] = ukf_predict1(M,P,f_func,u_n,k);
-   [M,P] = ukf_update1(M,P,Y(:,k),h_func,v_n);
-   MM_UKF1(:,k)   = M;
-   PP_UKF1(:,:,k) = P;    
+% Gauss-Hermite Kalman filter
+tr_method{3}  = @gh_transform;
+tr_param_f{3} = {10};
+tr_param_h{3} = {10};
+tr_name{3}    = {'GHKF' 'GHRTS'};
+
+% Cubature Kalman filter
+tr_method{4}  = @ckf_transform;
+tr_param_f{4} = {};
+tr_param_h{4} = {};
+tr_name{4}    = {'CKF' 'CRTS'};
+
+% Central-difference Kalman filter
+tr_method{5}  = @cd_transform;
+tr_param_f{5} = {sqrt(3)};
+tr_param_h{5} = {sqrt(3)};
+tr_name{5}    = {'CDKF' 'CDRTS'};
+
+% Monte Carlo Kalman filter
+% (can be numerically unstable with low amount of samples)
+tr_method{6}  = @mc_transform;
+tr_param_f{6} = {5000};
+tr_param_h{6} = {5000};
+tr_name{6}    = {'MCKF' 'MCRTS'};
+
+%%% Filtering and smoothing
+
+% Space for means and covariances
+ntr = length(tr_method);
+MM_ADF = cell(1,ntr);
+PP_ADF = cell(1,ntr);
+MMS_ADRTS = cell(1,ntr);
+PPS_ADRTS = cell(1,ntr);
+
+FMSE = zeros(1,ntr);
+SMSE = zeros(1,ntr);
+
+
+for i = 1:ntr
+    fprintf(['Filtering and smoothing with ' tr_name{i}{1} '/' tr_name{i}{2} '...']);
+    
+    % Initialize the mean and covariance
+    M = M_0;
+    P = P_0;
+    
+    MM = zeros(size(M,1),size(Y,2));
+    PP = zeros(size(M,1),size(M,1),size(Y,2));
+    
+    % Filtering loop
+    for k = 1:size(Y,2)
+        if k > 1
+            [M,P] = adf_predict(M,P,f_func,Q,k,tr_method{i},tr_param_f{i});
+        end
+        [M,P] = adf_update(M,P,Y(:,k),h_func,R,[],tr_method{i},tr_param_h{i});
+        MM(:,k)   = M;
+        PP(:,:,k) = P;
+    end
+    
+    % Smooth
+    [MMS, PPS] = adrts_smooth(MM,PP,f_func,Q,params,tr_method{i},tr_param_f{i},0);
+    
+    % Save estimates
+    MM_ADF{i} = MM;
+    PP_ADF{i} = PP;
+    MMS_ADRTS{i} = MMS;
+    PPS_ADRTS{i} = PPS;
+    
+    % Calculate MSE values
+    FMSE(i) = sum((X-MM).^2)/n;
+    SMSE(i) = sum((X-MMS).^2)/n;
+    
+    fprintf('Done!\n');
 end
-[MMS_URTS1, PPS_URTS1] = urts_smooth1(MM_UKF1,PP_UKF1,f_func,u_n,params,[],[],[],[],0);
-
-% MSE for UKF1
-UKF1_MSE = sum((X-MM_UKF1).^2)/n;
-UKS1_MSE = sum((X-MMS_URTS1).^2)/n;
-
-fprintf('Done!\n');
-fprintf('Filtering with UKF2...');
-
-% Initial valuesand space for augmented UKF (UKF2)
-M = x_0;
-P = P_0;
-MM_UKF2 = zeros(size(M,1),size(Y,2));
-PP_UKF2 = zeros(size(M,1),size(M,1),size(Y,2));
-
-% Filtering loop for UKF2
-for k = 1:size(Y,2)
-   [M,P,X_s,w] = ukf_predict3(M,P,f_func,u_n,v_n,k);
-   [M,P] = ukf_update3(M,P,Y(:,k),h_func,v_n,X_s,w,[]);
-   MM_UKF2(:,k)   = M;
-   PP_UKF2(:,:,k) = P;    
-end
-
-[MMS_URTS2, PPS_URTS2] = urts_smooth1(MM_UKF2,PP_UKF2,f_func,u_n,params,[],[],[],[],0);
-
-% MSE for UKF2
-UKF2_MSE = sum((X-MM_UKF2).^2)/n;
-UKS2_MSE = sum((X-MMS_URTS2).^2)/n;
-
-fprintf('Done!\n');
-
-fprintf('Filtering with EKF...');
-
-% Filtering with EKF
-M = x_0;
-P = P_0;
-
-MM_EKF = zeros(size(M,1),size(Y,2));
-PP_EKF = zeros(size(M,1),size(M,1),size(Y,2));
-
-% Filtering loop for EKF
-for k = 1:size(Y,2)
-   [M,P] = ekf_predict1(M,P,df_func,u_n,f_func,[],k);
-   [M,P] = ekf_update1(M,P,Y(:,k),dh_func,v_n,h_func,[],[]);
-   MM_EKF(:,k)   = M;
-   PP_EKF(:,:,k) = P;    
-end
-
-[MMS_ERTS,PPS_ERTS] = erts_smooth1(MM_EKF,PP_EKF,df_func,u_n,f_func,[],params,0);
-
-EKF_MSE = sum((X-MM_EKF).^2)/n;
-ERTS_MSE = sum((X-MMS_ERTS).^2)/n;
-
-fprintf('Done!\n');
-
-fprintf('Filtering with EKF2...');
-
-% Filtering with EKF2
-M = x_0;
-P = P_0;
-
-MM_EKF2 = zeros(size(M,1),size(Y,2));
-PP_EKF2 = zeros(size(M,1),size(M,1),size(Y,2));
-
-% Filtering loop for EKF
-for k = 1:size(Y,2)
-   [M,P] = ekf_predict2(M,P,df_func,d2f_func,u_n,f_func,[],k);
-   [M,P] = ekf_update2(M,P,Y(:,k),dh_func,d2h_func,v_n,h_func,[],[]);
-   MM_EKF2(:,k)   = M;
-   PP_EKF2(:,:,k) = P;    
-end
-
-%[MMS_ERTS2,PPS_ERTS2] = erts_smooth2(MM_EKF2,PP_EKF2,df_func,u_n,f_func,[],params,0);
-
-EKF_MSE2 = sum((X-MM_EKF2).^2)/n;
-%ERTS_MSE = sum((X-MMS_ERTS).^2)/n;
-
-fprintf('Done!\n');
 
 fprintf('Filtering with bootstrap filter...');
 
 % Filtering with bootstrap filter
-M = x_0;
+M = M_0;
 P = P_0;
 n_particles = 1000;
 SX = gauss_rnd(M,P,n_particles);
+SXX = zeros(n_particles,size(Y,2));
 
-MM_BS = zeros(size(M,1),size(Y,2));
-PP_BS = zeros(size(M,1),size(M,1),size(Y,2));
+MM_BSF = zeros(size(M,1),size(Y,2));
+PP_BSF = zeros(size(M,1),size(M,1),size(Y,2));
 
 % Filtering loop for bootstrap filter
 for k = 1:size(Y,2)
-   SX = ungm_f(SX,k) + gauss_rnd(0,1,size(SX,2));
-   W  = gauss_pdf(Y(:,k),ungm_h(SX,k),1);
-   ind = resampstr(W);
-   SX = SX(:,ind);
-   M = mean(SX);
-   P = var(SX);
-   MM_BS(:,k)   = M;
-   PP_BS(:,:,k) = P;    
+    SX = feval(f_func,SX,k) + gauss_rnd(0,1,size(SX,2));
+    W  = gauss_pdf(Y(:,k),feval(h_func,SX,k),1);
+    ind = resampstr(W);
+    SX = SX(:,ind);
+    M = mean(SX);
+    P = var(SX);
+    MM_BSF(:,k)   = M;
+    PP_BSF(:,:,k) = P;
+    SXX(:,k) = SX';
 end
 
-BS_MSE = sum((X-MM_BS).^2)/n;
+BSF_MSE = sum((X-MM_BSF).^2)/n;
 
 fprintf('Done!\n');
-
-fprintf('Filtering with Gauss-Hermite Kalman filter...');
-
-% Filtering with GHKF
-M = x_0;
-P = P_0;
-
-MM_GHKF = zeros(size(M,1),size(Y,2));
-PP_GHKF = zeros(size(M,1),size(M,1),size(Y,2));
-
-% Filtering loop for GHKF
-for k = 1:size(Y,2)
-   [M,P] = ghkf_predict(M,P,f_func,u_n,k);
-   [M,P] = ghkf_update(M,P,Y(:,k),h_func,v_n);
-   MM_GHKF(:,k)   = M;
-   PP_GHKF(:,:,k) = P;    
-end
-[MMS_GHRTS, PPS_GHRTS] = ghrts_smooth(MM_GHKF,PP_GHKF,f_func,u_n,params,[],0);
-
-GHKF_MSE = sum((X-MM_GHKF).^2)/n;
-GHRTS_MSE = sum((X-MMS_GHRTS).^2)/n;
-
-fprintf('Done!\n');
-
-fprintf('Filtering with Cubature Kalman filter...');
-
-% Filtering with CKF
-M = x_0;
-P = P_0;
-
-MM_CKF = zeros(size(M,1),size(Y,2));
-PP_CKF = zeros(size(M,1),size(M,1),size(Y,2));
-
-% Filtering loop for CKF
-for k = 1:size(Y,2)
-   [M,P] = ckf_predict(M,P,f_func,u_n,k);
-   [M,P] = ckf_update(M,P,Y(:,k),h_func,v_n);
-   MM_CKF(:,k)   = M;
-   PP_CKF(:,:,k) = P;    
-end
-[MMS_CRTS, PPS_CRTS] = crts_smooth(MM_CKF,PP_CKF,f_func,u_n,params,0);
-
-CKF_MSE = sum((X-MM_CKF).^2)/n;
-CRTS_MSE = sum((X-MMS_CRTS).^2)/n;
-
-fprintf('Done!\n');
-
-
-% With generalized ADF code
-
-% GHKF
-tr_method = @gh_transform2;
-tr_param_f = {3};
-tr_param_h = {3};
-
-% UKF
-tr_method = @ut_transform2
-tr_param_f = {};
-tr_param_h = {};
-
-% EKF
-tr_method = @lin_transform
-tr_param_f = {df_func};
-tr_param_h = {dh_func};
-
-% EKF2
-tr_method = @quad_transform
-tr_param_f = {df_func d2f_func};
-tr_param_h = {dh_func d2h_func};
-
-% Cubature Kalman filter
-tr_method = @ckf_transform;
-tr_param_f = {};
-tr_param_h = {};
-
-tr_method = @cd_transform;
-tr_param_f = {sqrt(3)};
-tr_param_h = {sqrt(3)};
-
-M = x_0;
-P = P_0;
-
-MM_ADF = zeros(size(M,1),size(Y,2));
-PP_ADF = zeros(size(M,1),size(M,1),size(Y,2));
-
-% Filtering loop for CKF
-for k = 1:size(Y,2)
-    [M,P] = adf_predict(M,P,f_func,u_n,k,tr_method,tr_param_f);
-    [M,P] = adf_update(M,P,Y(:,k),h_func,v_n,[],tr_method,tr_param_h);
-    MM_ADF(:,k)   = M;
-    PP_ADF(:,:,k) = P;
-end
-[MMS_ADRTS, PPS_ADRTS] = adrts_smooth(MM_ADF,PP_ADF,f_func,u_n,params,tr_method,tr_param_f,0);
-
-ADF_MSE = sum((X-MM_ADF).^2)/n;
-ADRTS_MSE = sum((X-MMS_ADRTS).^2)/n;
-
-
-cdr = sqrt(0.1:0.1:.5);
-ADF_MSE = zeros(length(cdr),length(cdr));
-ADRTS_MSE = zeros(length(cdr),length(cdr));
-for i = 1:length(cdr)
-    for j = 1:length(cdr)
-        (i-1)*length(cdr)+j
-        
-        tr_method = @cd_transform;
-        tr_param_f = {sqrt(cdr(i))};
-        tr_param_h = {sqrt(cdr(j))};
-        
-        
-        M = x_0;
-        P = P_0;
-        
-        MM_ADF = zeros(size(M,1),size(Y,2));
-        PP_ADF = zeros(size(M,1),size(M,1),size(Y,2));
-        
-        % Filtering loop for CKF
-        for k = 1:size(Y,2)
-            [M,P] = adf_predict(M,P,f_func,u_n,k,tr_method,tr_param_f);
-            [M,P] = adf_update(M,P,Y(:,k),h_func,v_n,[],tr_method,tr_param_h);
-            MM_ADF(:,k)   = M;
-            PP_ADF(:,:,k) = P;
-        end
-        [MMS_ADRTS, PPS_ADRTS] = adrts_smooth(MM_ADF,PP_ADF,f_func,u_n,params,tr_method,tr_param_f,0);
-        
-        ADF_MSE(i,j) = sum((X-MM_ADF).^2)/n;
-        ADRTS_MSE(i,j) = sum((X-MMS_ADRTS).^2)/n;
-    end
-end
 
 
 %% Visualize results
-
 if ~silent
-  subplot(3,1,1);
-  plot(1:100,X(1:100),'-kx',1:100,MM_UKF2(1:100),'--bo')
-  title('UKF2 filtering result');
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal', 'UKF2 filtered estimate');
+    subplot(3,1,1);
+    plot(1:100,X(1:100),'-kx',1:100,MM_ADF{1}(1:100),'--bo')
+    title([tr_name{1}{1} ' filtering result']);
+    xlim([0 100]);
+    ylim([-20 20]);
+    legend('Real signal', [tr_name{1}{1} ' estimate']);
+    
+    subplot(3,1,2);
+    plot(1:100,X(1:100),'-kx',1:100,MM_ADF{3}(1:100),'--bo')
+    title([tr_name{3}{1} ' filtering result']);
+    xlim([0 100]);
+    ylim([-20 20]);
+    legend('Real signal', [tr_name{3}{1} ' estimate']);
+    
+    subplot(3,1,3);
+    plot(1:100,X(1:100),'-kx',1:100,MM_BSF(1:100),'--bo')
+    title('Bootstrap filtering result')
+    xlim([0 100]);
+    ylim([-20 20]);
+    legend('Real signal','BSF estimates')
+    
+    disp(' ');
+    disp('First 100 values of the filtering results with EKF, GHKF and BS are now displayed.')
+    disp(' ');
+    disp('<press any key to see the estimation error of EKF, GHKF and BS>');
+    pause;
+    
+    subplot(3,1,1);
+    E = X-MM_ADF{1};
+    PP_EKF = squeeze(PP_ADF{1});
+    plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_EKF(1:100))','--r',1:100,-3*sqrt(PP_EKF(1:100))','--r');
+    title([tr_name{1}{1} ' error']);
+    legend([tr_name{1}{1} ' error'],'3\sigma interval');
+    
+    subplot(3,1,2);
+    E = X-MM_ADF{3};
+    PP_GHKF = squeeze(PP_ADF{3});
+    plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_GHKF(1:100))','--r',1:100,-3*sqrt(PP_GHKF(1:100))','--r');
+    title([tr_name{3}{1} ' error']);
+    legend([tr_name{3}{1} ' error'],'3\sigma interval');
+    
+    subplot(3,1,3);
+    E = X-MM_BSF;
+    PP_BSF = squeeze(PP_BSF);
+    plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_BSF(1:100))','--r',1:100,-3*sqrt(PP_BSF(1:100))','--r');
+    title('BSF error');
+    legend('BSF error','3\sigma interval')
 
-  subplot(3,1,2);
-  plot(1:100,X(1:100),'-kx',1:100,MM_EKF(1:100),'--bo')
-  title('EKF filtering result');
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal', 'EKF filtered estimate');
-
-  subplot(3,1,3);
-  plot(1:100,X(1:100),'-kx',1:100,MM_BS(1:100),'--bo')
-  title('Bootstrap filtering result')
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal','Filtered estimates')
-  % Uncomment if you want to print images
-  %print -dpsc ungm_states.ps
-
-  disp(' ');
-  disp(['First 100 values of the filtering results with UKF2, EKF and BS are now displayed.',...
-        'Notice how the BS gives clearly better performance than UKF2 and EKF.']);
-  disp(' ');
-  disp('<press any key to see the estimation error of UKF2, EKF and BS>');
-  
-  pause;
-
-  subplot(3,1,1);
-  E = X-MM_UKF2;
-  PP_UKF2 = squeeze(PP_UKF2);
-  plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_UKF2(1:100))','--r',1:100,-3*sqrt(PP_UKF2(1:100))','--r');
-  title('UKF2 error');
-  legend('Estimation error of UKF2','3\sigma interval')
-
-  subplot(3,1,2);
-  E = X-MM_EKF;
-  PP_EKF = squeeze(PP_EKF);
-  plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_EKF(1:100))','--r',1:100,-3*sqrt(PP_EKF(1:100))','--r');
-  title('EKF error');
-  legend('Estimation error of EKF','3\sigma interval');
-
-  subplot(3,1,3);
-  E = X-MM_BS;
-  PP_BS = squeeze(PP_BS);
-  plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_BS(1:100))','--r',1:100,-3*sqrt(PP_BS(1:100))','--r');
-  title('Bootstrap filtering error');
-  legend('Estimation error with BS','3\sigma interval')
-  % Uncomment if you want to print images
-  %print -dpsc ungm_c_errors.ps
-  clc;
-  disp(['The estimation errors of UKF2, EKF and BS are now displayed.',...
-        'The superiority of BS can easily be seen also from this.']);
-  disp(' ');
-  disp('<press any key to see the filtering results of UKF1 and UKF2>');  
-  pause;  
-  
-  subplot(2,1,1);
-  plot(1:100,X(1:100),'-kx',1:100,MM_UKF1(1:100),'--bo')
-  title('UKF1 filtering result');
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal', 'UKF1 filtered estimate');
-  
-  subplot(2,1,2);
-  plot(1:100,X(1:100),'-kx',1:100,MM_UKF2(1:100),'--bo')
-  title('UKF2 filtering result');
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal', 'UKF2 filtered estimate');
-  % Uncomment if you want to print images 
-  %print -dpsc ungm_ukf_comp.ps
-  clc;
-  disp(['First 100 values of the filtering results with UKF1 and UKF2 are now displayed. ',...
-       'Clearly the non-augmented UKF is not applicable to this problem.']);
-  disp(' ');
-  disp('<press any key to see the estimation errors of UKF1 and UKF2>');
-  
-  pause
-
-  subplot(2,1,1);
-  E = X-MM_UKF1;
-  PP_UKF1 = squeeze(PP_UKF1);
-  plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_UKF1(1:100))','--r',1:100,-3*sqrt(PP_UKF1(1:100))','--r');
-  title('UKF1 error');
-  legend('Estimation error of UKF1','3\sigma interval')
-
-  subplot(2,1,2);
-  E = X-MM_UKF2;
-  PP_UKF2 = squeeze(PP_UKF2);
-  plot(1:100,E(1:100),'-kx',1:100,3*sqrt(PP_UKF2(1:100))','--r',1:100,-3*sqrt(PP_UKF2(1:100))','--r');
-  title('UKF2 error');
-  legend('Estimation error of UKF2','3\sigma interval')
-  % Uncomment if you want to print images 
-  %print -dpsc ungm_ukf_comp_error.ps
-  clc;
-  disp('The absolute estimation errors of UKF1 and UKF2 are now displayed.');
-  disp(' ');
-  disp('<press any key to see the filtering results of GHKF and CKF>');
-  pause
-  
-  subplot(2,1,1);
-  plot(1:100,X(1:100),'-kx',1:100,MM_GHKF(1:100),'--bo')
-  title('GHKF filtering result');
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal', 'GHKF filtered estimate');
-  
-  subplot(2,1,2);
-  plot(1:100,X(1:100),'-kx',1:100,MM_CKF(1:100),'--bo')
-  title('CKF filtering result');
-  xlim([0 100]);
-  ylim([-20 20]);
-  legend('Real signal', 'CKF filtered estimate');
-  % Uncomment if you want to print images 
-  %print -dpsc ungm_ukf_comp.ps
-  clc;
-  disp(['First 100 values of the filtering results with GHKF (10 th degree) and CKF are now displayed. ',...
-       'Clearly the non-augmented UKF is not applicable to this problem.']);
-  disp(' ');
-  disp('<press any key to see MSE values for each method>');
-  
-  pause
-  
+    clc;
+    disp('The estimation errors of EKF, GHKF and BS are now displayed.');
+    disp(' ');
+    disp('<press any key to see the filtering results of UKF1 and UKF2>');
 end
 
+%%% Print errors
 disp('MS errors:');
-fprintf('UKF1-MSE  = %.4f\n',UKF1_MSE);
-fprintf('UKS1-MSE  = %.4f\n',UKS1_MSE);
-fprintf('UKF2-MSE  = %.4f\n',UKF2_MSE);
-fprintf('UKS2-MSE  = %.4f\n',UKS2_MSE);
-fprintf('EKF-MSE   = %.4f\n',EKF_MSE);
-fprintf('ERTS-MSE  = %.4f\n',ERTS_MSE);
-fprintf('BS-MSE    = %.4f\n',BS_MSE);
-% CKF and GHKF methods
-fprintf('GHKF-MSE  = %.4f\n',GHKF_MSE);
-fprintf('GHRTS-MSE = %.4f\n',GHRTS_MSE);
-fprintf('CKF-MSE   = %.4f\n',CKF_MSE);
-fprintf('CRTS-MSE  = %.4f\n',CRTS_MSE);
+for i = 1:ntr
+    fprintf([tr_name{i}{1} sprintf(' = %.4f\n',FMSE(i))]);
+    fprintf([tr_name{i}{2} sprintf(' = %.4f\n',SMSE(i))]);
+end
+fprintf('BSF = %.4f\n',BSF_MSE)
