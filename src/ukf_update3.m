@@ -1,7 +1,7 @@
 %UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,MU,IS,LH] = UKF_UPDATE3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat,sigmas)
+%   [M,P,K,MU,IS,LH] = UKF_UPDATE3(M,P,Y,h,R,X,w,h_param,alpha,beta,kappa,mat,sigmas)
 %
 % In:
 %   M  - Mean state estimate after prediction step
@@ -14,7 +14,7 @@
 %   R  - Measurement covariance.
 %   X - Sigma points of x
 %   w - Weights as cell array {mean-weights,cov-weights,c}
-%   param - Parameters of a               (optional, default empty)
+%   h_param - Parameters of h               (optional, default empty)
 %   alpha - Transformation parameter      (optional)
 %   beta  - Transformation parameter      (optional)
 %   kappa - Transformation parameter      (optional)
@@ -66,7 +66,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)
+function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,h_param,alpha,beta,kappa,mat)
 
   %
   % Check that all arguments are there
@@ -75,7 +75,7 @@ function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)
     error('Too few arguments');
   end
   if nargin < 8
-    param = [];
+    h_param = [];
   end
   if nargin < 9
     alpha = [];
@@ -100,8 +100,8 @@ function [M,P,K,MU,S,LH] = ukf_update3(M,P,Y,h,R,X,w,param,alpha,beta,kappa,mat)
   %
   % Do transform and make the update
   %
-  
-  [MU,S,C,X,Y_s] = ut_transform(M,P,h,param,alpha,beta,kappa,mat,X,w);
+  tr_param = {alpha beta kappa mat X w};
+  [MU,S,C,X,Y_s] = ut_transform(M,P,h,h_param,tr_param);
   K = C / S;
   M = M + K * (Y - MU);
   P = P - K * S * K';

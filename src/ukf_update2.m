@@ -1,7 +1,7 @@
 %UKF_UPDATE2 - Augmented form Unscented Kalman Filter update step
 %
 % Syntax:
-%   [M,P,K,MU,IS,LH] = UKF_UPDATE2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
+%   [M,P,K,MU,IS,LH] = UKF_UPDATE2(M,P,Y,h,R,h_param,alpha,beta,kappa,mat)
 %
 % In:
 %   M  - Mean state estimate after prediction step
@@ -12,7 +12,7 @@
 %        function handle or name of function in
 %        form h([x;r],param)
 %   R  - Measurement covariance.
-%   param - Parameters of a               (optional, default empty)
+%   param - Parameters of h               (optional, default empty)
 %   alpha - Transformation parameter      (optional)
 %   beta  - Transformation parameter      (optional)
 %   kappa - Transformation parameter      (optional)
@@ -55,7 +55,7 @@
 % References:
 %   [1] Wan, Merwe: The Unscented Kalman Filter
 %
-% Copyright (C) 2007 Jouni Hartikainen, Simo Särkkä
+% Copyright (C) 2007 Jouni Hartikainen, Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -63,7 +63,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
+function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,h_param,alpha,beta,kappa,mat)
 
   %
   % Check that all arguments are there
@@ -72,7 +72,7 @@ function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
     error('Too few arguments');
   end
   if nargin < 6
-    param = [];
+    h_param = [];
   end
   if nargin < 7
     alpha = [];
@@ -103,10 +103,10 @@ function [M,P,K,MU,S,LH] = ukf_update2(M,P,Y,h,R,param,alpha,beta,kappa,mat)
   PA = zeros(size(P,1)+size(R,1));
   PA(1:size(P,1),1:size(P,1)) = P;
   PA(1+size(P,1):end,1+size(P,1):end) = R;  
-  [MU,S,C] = ut_transform(MA,PA,h,param,alpha,beta,kappa,mat); 
-  %MU = MU(1:m,:);
-  %C = S(1:m,m+1:n);
-  %S = S(m+1:n,m+1:n);
+  
+  tr_param = {alpha beta kappa mat};
+  [MU,S,C] = ut_transform(MA,PA,h,h_param,tr_param); 
+
   K = C / S;
   MA = MA + K * (Y - MU);
   PA = PA - K * S * K';

@@ -1,8 +1,8 @@
-function [M,P] = ghkf_predict(M,P,f,Q,param,p)
+function [M,P] = ghkf_predict(M,P,f,Q,f_param,p)
 % GHKF_PREDICT - Gauss-Hermite Kalman filter prediction step
 %
 % Syntax:
-%   [M,P] = GHKF_PREDICT(M,P,[f,Q,param,p])
+%   [M,P] = GHKF_PREDICT(M,P,[f,Q,f_param,p])
 %
 % In:
 %   M - Nx1 mean state estimate of previous step
@@ -12,7 +12,7 @@ function [M,P] = ghkf_predict(M,P,f,Q,param,p)
 %       function handle or name of function in
 %       form f(x,param)                   (optional, default eye())
 %   Q - Process noise of discrete model   (optional, default zero)
-%   param - Parameters of f               (optional, default empty)
+%   f_param - Parameters of f               (optional, default empty)
 %   p - Degree of approximation (number of quadrature points)
 %
 % Out:
@@ -55,7 +55,7 @@ function [M,P] = ghkf_predict(M,P,f,Q,param,p)
     Q = [];
   end
   if nargin < 5
-    param = [];
+    f_param = [];
   end
   if nargin < 6
      p = []; 
@@ -77,7 +77,8 @@ function [M,P] = ghkf_predict(M,P,f,Q,param,p)
   %
   % Do transform and add process noise
   %
-  [M,P] = gh_transform(M,P,f,p,param);
+  tr_param = {p};
+  [M,P] = gh_transform(M,P,f,f_param,tr_param);
   P = P + Q;
 
 

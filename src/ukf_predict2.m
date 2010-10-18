@@ -6,11 +6,11 @@
 % In:
 %   M - Nx1 mean state estimate of previous step
 %   P - NxN state covariance of previous step
-%   a - Dynamic model function as inline function,
+%   f - Dynamic model function as inline function,
 %       function handle or name of function in
 %       form a([x;w],param)
 %   Q - Non-singular covariance of process noise w
-%   param - Parameters of a               (optional, default empty)
+%   f_param - Parameters of f               (optional, default empty)
 %   alpha - Transformation parameter      (optional)
 %   beta  - Transformation parameter      (optional)
 %   kappa - Transformation parameter      (optional)
@@ -35,7 +35,7 @@
 %   UKF_PREDICT1, UKF_UPDATE1, UKF_UPDATE2, UKF_PREDICT3, UKF_UPDATE3,
 %   UT_TRANSFORM, UT_WEIGHTS, UT_MWEIGHTS, UT_SIGMAS
 
-% Copyright (C) 2003-2006 Simo Särkkä
+% Copyright (C) 2003-2006 Simo Sï¿½rkkï¿½
 %
 % $Id$
 %
@@ -43,7 +43,7 @@
 % Licence (version 2 or later); please refer to the file
 % Licence.txt, included with the software, for details.
 
-function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)
+function [M,P] = ukf_predict2(M,P,f,Q,f_param,alpha,beta,kappa,mat)
 
   %
   % Check which arguments are there
@@ -52,13 +52,13 @@ function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)
     error('Too few arguments');
   end
   if nargin < 3
-    a = [];
+    f = [];
   end
   if nargin < 4
     Q = [];
   end
   if nargin < 5
-    param = [];
+    f_param = [];
   end
   if nargin < 6
     alpha = [];
@@ -90,4 +90,5 @@ function [M,P] = ukf_predict2(M,P,a,Q,param,alpha,beta,kappa,mat)
   PA = zeros(size(P,1)+size(Q,1));
   PA(1:size(P,1),1:size(P,1)) = P;
   PA(1+size(P,1):end,1+size(P,1):end) = Q;
-  [M,P] = ut_transform(MA,PA,a,param,alpha,beta,kappa,mat);
+  tr_param = {alpha beta kappa mat};
+  [M,P] = ut_transform(MA,PA,f,f_param,tr_param);

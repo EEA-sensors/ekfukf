@@ -1,5 +1,5 @@
 
-function [M,P,K,MU,S,LH] = ckf_update(M,P,Y,h,R,param)
+function [M,P,K,MU,S,LH] = ckf_update(M,P,Y,h,R,h_param)
 % CKF_UPDATE - Cubature Kalman filter update step
 %
 % Syntax:
@@ -14,7 +14,7 @@ function [M,P,K,MU,S,LH] = ckf_update(M,P,Y,h,R,param)
 %        function handle or name of function in
 %        form h(x,param)
 %   R  - Measurement covariance.
-%   param - Parameters of h.
+%   h_param - Parameters of h.
 %
 % Out:
 %   M  - Updated state mean
@@ -67,7 +67,7 @@ function [M,P,K,MU,S,LH] = ckf_update(M,P,Y,h,R,param)
   if nargin < 6
     [MU,S,C,X] = ckf_transform(M,P,h);
   else  
-    [MU,S,C,X] = ckf_transform(M,P,h,param);
+    [MU,S,C,X] = ckf_transform(M,P,h,h_param);
   end
   
   S = S + R;

@@ -1,4 +1,4 @@
-function [M,P,K,MU,S,LH] = ghkf_update(M,P,Y,h,R,param,p)
+function [M,P,K,MU,S,LH] = ghkf_update(M,P,Y,h,R,h_param,p)
 % GHKF_UPDATE - Gauss-Hermite Kalman filter update step
 %
 % Syntax:
@@ -13,7 +13,7 @@ function [M,P,K,MU,S,LH] = ghkf_update(M,P,Y,h,R,param,p)
 %        function handle or name of function in
 %        form h(x,param)
 %   R  - Measurement covariance
-%   param - Parameters of h
+%   h_param - Parameters of h
 %   p  - Degree of approximation (number of quadrature points)
 %
 % Out:
@@ -61,22 +61,23 @@ function [M,P,K,MU,S,LH] = ghkf_update(M,P,Y,h,R,param,p)
   % Check that all arguments are there
   %
   if nargin < 5
-    error('Too few arguments');
+     error('Too few arguments');
   end
   if nargin < 6
-    param = [];
+     h_param = [];
   end
   if nargin < 7
      p = []; 
   end
   if isempty(p)
-    p = 10;
+     p = 3;
   end
 
   %
   % Do the transform and make the update
   %
-  [MU,S,C,X] = gh_transform(M,P,h,p,param);
+  tr_param = {p};
+  [MU,S,C,X] = gh_transform(M,P,h,h_param,tr_param);
   S = S + R;
   K = C / S;
   M = M + K * (Y - MU);

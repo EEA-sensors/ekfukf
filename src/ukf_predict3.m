@@ -1,17 +1,17 @@
 %UKF_PREDICT3  Augmented (state, process and measurement noise) UKF prediction step
 %
 % Syntax:
-%   [M,P,X,w] = UKF_PREDICT3(M,P,a,Q,R,[param,alpha,beta,kappa])
+%   [M,P,X,w] = UKF_PREDICT3(M,P,f,Q,R,f_param,alpha,beta,kappa)
 %
 % In:
 %   M - Nx1 mean state estimate of previous step
 %   P - NxN state covariance of previous step
-%   a - Dynamic model function as inline function,
+%   f - Dynamic model function as inline function,
 %       function handle or name of function in
 %       form a([x;w],param)
 %   Q - Non-singular covariance of process noise w
 %   R - Measurement covariance.
-%   param - Parameters of a               (optional, default empty)
+%   f_param - Parameters of f               (optional, default empty)
 %   alpha - Transformation parameter      (optional)
 %   beta  - Transformation parameter      (optional)
 %   kappa - Transformation parameter      (optional)
@@ -47,7 +47,7 @@
 % Licence (version 2 or later); please refer to the file
 % Licence.txt, included with the software, for details.
 
-function [M,P,X,w,C] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)
+function [M,P,X,w,C] = ukf_predict3(M,P,f,Q,R,f_param,alpha,beta,kappa,mat)
 
   %
   % Check which arguments are there
@@ -56,7 +56,7 @@ function [M,P,X,w,C] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)
     error('Too few arguments');
   end
   if nargin < 3
-    a = [];
+    f = [];
   end
   if nargin < 4
     Q = [];
@@ -65,7 +65,7 @@ function [M,P,X,w,C] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)
     R = [];
   end
   if nargin < 6
-    param = [];
+    f_param = [];
   end
   if nargin < 7
     alpha = [];
@@ -99,7 +99,8 @@ function [M,P,X,w,C] = ukf_predict3(M,P,a,Q,R,param,alpha,beta,kappa,mat)
   PA(1+i1:i2,1+i1:i2) = Q;
   PA(1+i2:end,1+i2:end) = R;
   
-  [M,P,C,X_s,X_pred,w] = ut_transform(MA,PA,a,param,alpha,beta,kappa,mat);
+  tr_param = {alpha beta kappa mat};
+  [M,P,C,X_s,X_pred,w] = ut_transform(MA,PA,f,f_param,tr_param);
     
   % Save sigma points
   X = X_s;

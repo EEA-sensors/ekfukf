@@ -1,8 +1,8 @@
-function [M,P] = ckf_predict(M,P,f,Q,param)
+function [M,P] = ckf_predict(M,P,f,Q,f_param)
 % CKF_PREDICT - Cubature Kalman filter prediction step
 %
 % Syntax:
-%   [M,P] = CKF_PREDICT(M,P,[f,Q,param])
+%   [M,P] = CKF_PREDICT(M,P,[f,Q,f_param])
 %
 % In:
 %   M - Nx1 mean state estimate of previous step
@@ -12,7 +12,7 @@ function [M,P] = ckf_predict(M,P,f,Q,param)
 %       function handle or name of function in
 %       form f(x,param)                   (optional, default eye())
 %   Q - Process noise of discrete model   (optional, default zero)
-%   param - Parameters of f               (optional, default empty)
+%   f_param - Parameters of f               (optional, default empty)
 %
 % Out:
 %   M - Updated state mean
@@ -70,7 +70,7 @@ function [M,P] = ckf_predict(M,P,f,Q,param)
   if nargin < 5
     [M,P] = ckf_transform(M,P,f);      
   else
-    [M,P] = ckf_transform(M,P,f,param);
+    [M,P] = ckf_transform(M,P,f,f_param);
   end
   P = P + Q;
 

@@ -12,7 +12,7 @@
 %        function handle or name of function in
 %        form h(x,param)
 %   R  - Measurement covariance.
-%   param - Parameters of a               (optional, default empty)
+%   h_param - Parameters of h               (optional, default empty)
 %   alpha - Transformation parameter      (optional)
 %   beta  - Transformation parameter      (optional)
 %   kappa - Transformation parameter      (optional)
@@ -65,7 +65,7 @@
 % Licence (version 2 or later); please refer to the file 
 % Licence.txt, included with the software, for details.
 
-function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)
+function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,h_param,alpha,beta,kappa,mat)
 
   %
   % Check that all arguments are there
@@ -74,7 +74,7 @@ function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)
     error('Too few arguments');
   end
   if nargin < 6
-    param = [];
+    h_param = [];
   end
   if nargin < 7
     alpha = [];
@@ -99,7 +99,8 @@ function [M,P,K,MU,S,LH] = ukf_update1(M,P,Y,h,R,param,alpha,beta,kappa,mat)
   %
   % Do transform and make the update
   %
-  [MU,S,C] = ut_transform(M,P,h,param,alpha,beta,kappa,mat);
+  tr_param = {alpha beta kappa mat};
+  [MU,S,C] = ut_transform(M,P,h,h_param,tr_param);
   
   S = S + R;
   K = C / S;
