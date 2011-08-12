@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,twoside, english]{article}
+\documentclass[11pt,a4paper,english]{article}
 %\frenchspacing
 \usepackage{babel}
 \usepackage[latin1]{inputenc}
@@ -27,16 +27,16 @@
 \lstloadlanguages{[visual]C++,matlab}
 \lstset{basicstyle=\normalsize,columns=fullflexible,frame=lines}
 
-\oddsidemargin 1cm    %   Note \oddsidemargin = \evensidemargin
-\evensidemargin 1cm
-\marginparwidth 0.2 true cm
-%\marginparwidth 0.75 true in
-%\topmargin 0 true pt           % Nominal distance from top of page to top of
-%\topmargin 0.125in
-\topmargin -1.25cm
-\addtolength{\headsep}{0.25in}
-\textheight 21.5 true cm       % Height of text (including footnotes & figures)
-\textwidth 14 true cm        % Width of text line.
+%\oddsidemargin 1cm    %   Note \oddsidemargin = \evensidemargin
+%\evensidemargin 1cm
+%\marginparwidth 0.2 true cm
+%%\marginparwidth 0.75 true in
+%%\topmargin 0 true pt           % Nominal distance from top of page to top of
+%%\topmargin 0.125in
+%\topmargin -1.25cm
+%\addtolength{\headsep}{0.25in}
+%\textheight 21.5 true cm       % Height of text (including footnotes & figures)
+%\textwidth 14 true cm        % Width of text line.
 
 % \topmargin 5mm
 % \oddsidemargin 16mm
@@ -188,7 +188,7 @@
   Manual for Matlab toolbox EKF/UKF}
 \author{Jouni Hartikainen, Arno Solin and Simo Särkkä\\
 Department of Biomedical Engineering and Computational Science,\\
-Aalto University School of Science and Technology,\\
+Aalto University School of Science,\\
 P.O.Box 1100, FI-00076 AALTO, Espoo, Finland \\
 {\it jmjharti@lce.hut.fi, arno.solin@tkk.fi, simo.sarkka@hut.fi}\vspace{-.5\baselineskip}}
 %\date{}
@@ -204,8 +204,9 @@ Version 1.3
 
   In this paper we present a documentation for an optimal filtering
   toolbox for mathematical software package Matlab. The methods in the
-  toolbox include Kalman filter, extended Kalman filter and unscented
-  Kalman filter for discrete time state space models. Algorithms for
+  toolbox include Kalman filter, extended Kalman filter, unscented
+  Kalman filter, Gauss-Hermite Kalman filter and (symmetric third order rule based)
+  cubature Kalman filter for discrete time state space models. Algorithms for
   multiple model systems are provided in the form of Interacting
   Multiple Model (IMM) filter and it's non-linear extensions, which
   are based on banks of extended and unscented Kalman filters. Also
@@ -324,13 +325,11 @@ This documentation is organized as follows:
   filter, for estimating such systems. It's usage and function is
   demonstrated with three examples.
 
-\item Lastly we list and describe briefly all the functions included
-  in the toolbox.
-
 \end{itemize}
 
-The mathematical notation used in this document follows the notation
-used in (Särkkä, 2006b).
+Details of the toolbox functions can be found on the toolbox web page, or
+in Matlab by typing \texttt{help <function name>}. The mathematical notation 
+used in this document follows the notation used in (Särkkä, 2006b).
 
 %Most of the code has been written by Simo Särkkä in the
 %Laboratory of Computational Engineering at Helsinki University of Technology.  
@@ -584,7 +583,7 @@ The matrix $\mat{Q}_k$ is then given as $\mat{Q}_k = \mat{C}_k
 \mat{D}_k^{-1}$.
 
 In this toolbox the discretization can be done with the function
-\texttt{lti\_disc} (see page \pageref{page:lti_disc}), which uses the
+\texttt{lti\_disc}, which uses the
 matrix fractional decomposition.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -659,8 +658,7 @@ the predict step of Kalman filter, but naturally the accuracy of the estimate de
 step.
 
 The prediction and update steps can be calculated with functions \texttt{kf\_predict}
-and \texttt{kf\_update}, described on pages \pageref{page:kf_predict} and \pageref{page:kf_update},
-respectively.
+and \texttt{kf\_update}.
 
 \subsubsection{Kalman smoother}
 
@@ -711,8 +709,7 @@ forward and in smoother backward, as can be seen from the equations above. In sm
 starts from the last time step T with $\vec{m}^s_T = \vec{m}_T$ and $\mat{P}^s_T = \mat{P}_T$. 
 
 The smoothed estimate for states and covariances using the RTS smoother can be
-calculated with the function \texttt{rts\_smooth}, which is described on
-page \pageref{page:rts_smooth}.
+calculated with the function \texttt{rts\_smooth}.
 
 In addition to RTS smoother it is possible to formulate the smoothing operation as a combination
 of two optimum filters (Fraser and Potter, 1969), of which the first filter sweeps the data forward going from the
@@ -722,7 +719,7 @@ an smoothed estimate for the state, which has lower mean square error than any o
 (Gelb, 1974). With linear models the forward-backward smoother gives the same error as the RTS-smoother,
 but in non-linear cases the error behaves differently in some
 situations. In this toolbox forward-backward smoothing solution can be
-calculated with function \texttt{tf\_smooth} (see page \pageref{page:tf_smooth}).
+calculated with function \texttt{tf\_smooth}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1162,8 +1159,7 @@ $\mat{H}_{\vec{x}}(\vec{m}_k^-,k)$ in EKF. Predicted mean
 $\vec{m}_k^-$ and residual of prediction $\vec{v}_k$ are also
 calculated differently in the EKF.  In this toolbox the prediction and
 update steps of the first order EKF can be computed with functions
-\texttt{ekf\_predict1} and \texttt{ekf\_update1} (see page
-\pageref{page:ekf_predict1}), respectively.
+\texttt{ekf\_predict1} and \texttt{ekf\_update1}, respectively.
 
 \subsubsection*{Second Order Extended Kalman Filter}
 
@@ -1536,8 +1532,7 @@ d2h_dx2_func = @ekf_sine_d2h_dx2;
 It is also important to check out that the implementation on
 calculating the derivatives is done right, as it is, especially with
 more complex models, easy to make errors in the equations. This can be
-done with function \texttt{der\_check} (see page
-\pageref{page:der_check} for more details):
+done with function \texttt{der\_check}.
 %
 \begin{verbatim} der_check(h_func, dh_dx_func, 1, [f w a]');
 \end{verbatim}
@@ -1823,8 +1818,7 @@ $\mat{A} = \sqrt{\mat{P}}$, where
 To calculate the matrix $\mat{A}$ we can use, for example, lower
 triangular matrix of the Cholesky factorialization, which can be
 computed with built-in Matlab function \texttt{chol}. For convience,
-we have provided a function (\texttt{schol}, see page
-\ref{page:schol}), which computes the factorialization also for
+we have provided a function (\texttt{schol}), which computes the factorialization also for
 positive semidefinite matrices.
 
 
@@ -4764,2722 +4758,2725 @@ implementation is easier, as we have seen in the previous examples.
 
 \clearpage
 
-%\newpage %\newpage
+% %\newpage %\newpage
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% \section{Functions in the toolbox}
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% In table \ref{table:functions} we have listed all the functions in the
+% toolbox and the page numbers (sorted by page numbers in increasing
+% order), where the function description begins. Some of the functions
+% have optional input parameters. The default values for these
+% parameters are listed in end of parameter descriptions.
+
+
+% %
+% \begin{table}
+% \begin{center}
+% \begin{tabular}{|r|r|}
+% \hline
+% Function & Page\\
+% \hline
+% \hline
+% \texttt{lti\_disc} & \pageref{page:lti_disc}\\
+% \hline
+% \texttt{kf\_predict} & \pageref{page:kf_predict}\\
+% \texttt{kf\_update} & \pageref{page:kf_update}\\
+% \texttt{rts\_smooth} & \pageref{page:rts_smooth}\\
+% \texttt{tf\_smooth} & \pageref{page:tf_smooth}\\
+% \hline
+% \texttt{ekf\_predict1} & \pageref{page:ekf_predict1}\\
+% \texttt{ekf\_update1} & \pageref{page:ekf_update1}\\
+% \texttt{ekf\_predict2} & \pageref{page:ekf_predict2}\\
+% \texttt{ekf\_update2} & \pageref{page:ekf_update2}\\
+% \texttt{erts\_smooth1} & \pageref{page:erts_smooth1}\\
+% \texttt{etf\_smooth1} & \pageref{page:etf_smooth1}\\
+% \hline
+% \texttt{ut\_weights} & \pageref{page:ut_weights}\\
+% \texttt{ut\_mweights} & \pageref{page:ut_mweights}\\
+% \texttt{ut\_sigmas} & \pageref{page:ut_sigmas}\\
+% \texttt{ut\_transform} & \pageref{page:ut_transform}\\
+% \texttt{ukf\_predict1} & \pageref{page:ukf_predict1}\\
+% \texttt{ukf\_update1} & \pageref{page:ukf_update1}\\
+% \texttt{ukf\_predict2} & \pageref{page:ukf_predict2}\\
+% \texttt{ukf\_update2} & \pageref{page:ukf_update1}\\
+% \texttt{ukf\_predict3} & \pageref{page:ukf_predict3}\\
+% \texttt{ukf\_update3} & \pageref{page:ukf_update1}\\
+% \texttt{urts\_smooth1} & \pageref{page:urts_smooth1}\\
+% \texttt{urts\_smooth2} & \pageref{page:urts_smooth2}\\
+% \texttt{utf\_smooth1} & \pageref{page:utf_smooth1}\\
+% \hline
+% \texttt{gh\_transform} & \pageref{page:gh_transform}\\
+% \texttt{ngausshermi} & \pageref{page:ngausshermi}\\
+% \texttt{hermitepolynomial} & \pageref{page:hermitepolynomial}\\
+% \texttt{gh\_packed\_pc} & \pageref{page:gh_packed_pc}\\
+% \texttt{ghkf\_predict} & \pageref{page:ghkf_predict}\\
+% \texttt{ghkf\_update} & \pageref{page:ghkf_update}\\
+% \texttt{ghrts\_smooth} & \pageref{page:ghrts_smooth}\\
+% \hline
+% \texttt{ckf\_transform} & \pageref{page:ckf_transform}\\
+% \texttt{sphericalradial} & \pageref{page:sphericalradial}\\
+% \texttt{ckf\_packed\_pc} & \pageref{page:ckf_packed_pc}\\
+% \texttt{ckf\_predict} & \pageref{page:ckf_predict}\\
+% \texttt{ckf\_update} & \pageref{page:ckf_update}\\
+% \texttt{crts\_smooth} & \pageref{page:crts_smooth}\\
+% \hline
+% \texttt{imm\_predict} & \pageref{page:imm_predict}\\
+% \texttt{imm\_update} & \pageref{page:imm_update}\\
+% \texttt{imm\_smooth} & \pageref{page:imm_smooth}\\
+% \texttt{eimm\_predict} & \pageref{page:eimm_predict}\\
+% \texttt{eimm\_update} & \pageref{page:eimm_update}\\
+% \texttt{eimm\_smooth} & \pageref{page:eimm_smooth}\\
+% \texttt{uimm\_predict} & \pageref{page:uimm_predict}\\
+% \texttt{uimm\_update} & \pageref{page:uimm_update}\\
+% \texttt{uimm\_smooth} & \pageref{page:uimm_smooth}\\
+% \hline
+% \texttt{der\_check} & \pageref{page:der_check}\\
+% \texttt{gauss\_pdf} & \pageref{page:gauss_pdf}\\
+% \texttt{gauss\_rnd} & \pageref{page:gauss_rnd}\\
+% \texttt{rk4} & \pageref{page:rk4}\\
+% \texttt{schol} & \pageref{page:schol}\\
+% \hline
+% \end{tabular}
+% \caption{Functions provided with the toolbox. Functions are sorted
+%   according to page numbers, from which function descriptions begin.}
+% \label{table:functions}
+% \end{center}
+% \end{table}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% \subsection{Discrete-time state space estimation}
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \label{page:lti_disc}
+
+% %{\bf The discretization of a continous-time dynamic system} using the matrix fractional
+% %decomposition (equation (\ref{eq:noisy_ltisolution_cov1})) can be calculated with the function
+% %\texttt{lti\_disc}: \\
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{lti\_disc}} \\
+
+% %{\bf Description:}
+% %\begin{tabular}{l}
+% Discretizes a linear, continous-time dynamic system using the matrix \\
+% fraction decomposition (eq. (\ref{eq:noisy_ltisolution_cov1})). \\
+% %\end{tabular} \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[A,Q] = lti\_disc(F,L,Qc,dt)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{F} & $N\times N$ feedback matrix \\
+% \texttt{L} & $N\times L$ noise effect matrix & default: identity \\
+% \texttt{Qc} & $L \times L$ diagonal diffusion matrix & default: zeros \\
+% \texttt{dt} & time step                              & default: 1 \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{A} & The transition matrix\\
+% \texttt{Q} & The covariance of the discrete process\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% \subsubsection{Linear models}
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsubsection*{Kalman filter}
+
+% %{\bf The prediction step} of the Kalman filter (eq. (\ref{eq:dkf_predict}))
+% %can be calculated using the function \texttt{kf\_predict}:\\
+
+
+
+% \label{page:kf_predict}
+
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{kf\_predict}} \\
+
+% Calculates the {\bf prediction step} of the Kalman filter (eq.
+% (\ref{eq:dkf_predict})). \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X,P] = kf\_predict(X,P,A,Q,B,U)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{A} & Transition matrix of the discrete model & default: identity\\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{B} & Input effect matrix & default: identity\\
+% \texttt{U} & Constant input & default: empty\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% %\noindent {\bf The update step} of the Kalman filter (eq. \ref{eq:dkf_update}) can
+% %be calculated using the function \texttt{kf\_update}: \\
+
+% \label{page:kf_update}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{kf\_update}} \\
+
+% Calculates the {\bf update step} of the Kalman filter (eq.
+% \ref{eq:dkf_update}). \\
+
+% \hline
+
+% {\bf Syntax:}
+% \texttt{[X,P,K,IM,IS,LH] = kf\_update(X,P,Y,H,R)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X} & $N\times 1$ vector containing the predicted state mean estimate from the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the predicted state covariance of the prediction step\\
+% \texttt{Y} & $D\times 1$ vector containing the measurement on this time step\\
+% \texttt{H} & $N\times D$ measurement matrix on this time step\\
+% \texttt{R} & $S\times D$ measurement noise covariance matrix on this time step\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X}  & $N\times 1$ vector containing the updated state mean\\
+% \texttt{P}  & $N\times N$ matrix containing the updated state covariance\\
+% \texttt{K}  & Computed gain for the Kalman filter\\
+% \texttt{IM} & Mean of predictive distribution of \texttt{Y}\\
+% \texttt{IS} & Covariance or predictive mean of \texttt{Y}\\
+% \texttt{LH} & Predictive probability of the measurement\\
+% \end{tabular}\\
+
+% \hline
+
+
+% \end{tabular}
+% \subsubsection*{Kalman smoother}
+
+
+% %{\bf The smoothed estimate} for the state mean and covariance using {\bf the RTS smoother}
+% %(eq. (\ref{eq:kfrts})) can be calculated with function \texttt{rts\_smooth}:\\
+
+% \label{page:rts_smooth}
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{rts\_smooth}} \\
+
+% Computes {\bf The smoothed estimate} for the state mean and covariance using {\bf the RTS smoother}
+% (eq. (\ref{eq:kfrts})).\\
+
+% \hline
+% {\bf Syntax:} 
+% \texttt{[M,P,S] = rts\_smooth(M,P,A,Q)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & $N\times K$ matrix containing $K$ mean estimates calculated with Kalman filter\\
+% \texttt{P} & $N\times N\times K$ matrix of $K$ state covariances calculated with Kalman filter \\
+% \texttt{A} & $N\times N$ state transition matrix or $N\times N\times K$ matrix of $K$ state covariances
+% \\ & for each time step\\
+% \texttt{Q} & $N\times N$ process noise covariance matrix or $N\times N\times K$ matrix of $K$ process\\ & noise covariance matrices for each time step
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean on each time step\\
+% \texttt{P} & Smoothed state covariance sequence on each time step\\
+% \texttt{S} & Smoother gain on each time step
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% %{\bf The smoothed estimate} for the state mean and covariance using {\bf the TF smoother}
+% %can be calculated with function \texttt{tf\_smooth}:\\
+
+% \label{page:tf_smooth}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{tf\_smooth}} \\
+
+% Calculates the {\bf The smoothed estimate} for the state mean and covariance using {\bf the TF smoother}.\\
+
+% \hline
+
+% {\bf Syntax:} 
+% \texttt{[M,P] = tf\_smooth(M,P,Y,A,Q,H,R,use\_inf)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & $N\times K$ matrix containing $K$ mean estimates calculated with Kalman filter\\
+% \texttt{P} & $N\times N\times K$ matrix of $K$ state covariances calculated with Kalman filter \\
+% \texttt{Y} & $D\times K$ matrix containing the sequence of $K$ measurements \\
+% \texttt{A} & $N\times N$ state transition matrix or $N\times N\times K$ matrix of $K$ state covariances
+% \\ & for each time step\\
+% \texttt{Q} & $N\times N$ process noise covariance matrix or $N\times
+% N\times K$ matrix of $K$ process\\ & noise covariance matrices for
+% each time step \\
+% \texttt{H} & $D\times N$ measurement matrix \\
+% \texttt{R} & $D\times D$ measurement noise covariance \\
+% \texttt{use\_inf} & if information filter should be used
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean on each time step\\
+% \texttt{P} & Smoothed state covariance sequence on each time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% \subsubsection{Nonlinear models}
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsubsection*{Extended Kalman filter}
+
+% %{\bf The prediction step} of the {\bf first order extended Kalman filter}
+% %(eq. (\ref{eq:dekf_predict1})) can be calculated using the function
+% %\texttt{ekf\_predict1}:\\
+
+% \label{page:ekf_predict1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ekf\_predict1}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf first order extended Kalman filter}
+% (eq. (\ref{eq:dekf_predict1})).\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ekf\_predict1(M,P,[A,Q,a,W,param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{A(x,param)} & default: identity\\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: \texttt{A(x)*M}\\
+% \texttt{W} & Derivative of \texttt{a} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{W(x,param)} & default: identity\\
+% \texttt{param} & Parameters of function a & default: empty\\
+% %\texttt{B} & Input effect matrix & default: identity,\\
+% %\texttt{U} & Constant input & default: empty.\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+
+% %\noindent {\bf The update step} of the {\bf first order extended Kalman filter}
+% %(eq. (\ref{eq:dekf_update1})) can be calculated using the function
+% %\texttt{ekf\_update1}:\\
+
+% \label{page:ekf_update1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ekf\_update1}} \\
+
+% Calculates the {\bf The update step} of the {\bf first order extended Kalman filter}
+% (eq. (\ref{eq:dekf_update1})).\\      
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ekf\_update1(M,P,Y,H,R,h,V,[param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{H} & Derivative of \texttt{h} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{H(x,param)}\\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{h} & Measurement model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{h(x,param)} & default: \texttt{H(x)*M}\\
+% \texttt{V} & Derivative of \texttt{h} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% %\texttt{B} & Input effect matrix & default: identity,\\
+% %\texttt{U} & Constant input & default: empty.\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:ekf_predict2}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ekf\_predict2}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf second order extended Kalman filter}
+% (eq. (\ref{eq:dekf_predict2})).\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ekf\_predict2(M,P,[A,F,Q,a,W,param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{A(x,param)} & default: identity\\
+% \texttt{F} & $N\times N\times N$ Hessian matrix of the state
+% transition w.r.t. state variables & \\ & as matrix, 
+% function handle of name of function in form \texttt{F(x,param)} & default:
+% identity \\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: $A(x)*M$\\
+% \texttt{W} & Derivative of \texttt{a} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{W(x,param)} & default: identity\\
+% \texttt{param} & Parameters of function a & default: empty\\
+% %\texttt{B} & Input effect matrix & default: identity,\\
+% %\texttt{U} & Constant input & default: empty.\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:ekf_update2}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ekf\_update2}} \\
+
+% Calculates the {\bf The update step} of the {\bf second order extended Kalman filter}
+% (eq. (\ref{eq:dekf_update2})).\\      
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ekf\_update2(M,P,Y,H,H\_xx,R,h,V,[param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{H} & Derivative of \texttt{h} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{H(x,param)}\\
+% \texttt{H\_xx} & $D\times N \times N$ Hessian of \texttt{h} w.r.t. state
+% variables as matrix, inline function, & \\ & function handle or name
+% of function in form \texttt{H\_xx(x,param)} \\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{h} & Measurement model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{h(x,param)} & default: \texttt{H(x)*M}\\
+% \texttt{V} & Derivative of \texttt{h} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% %\texttt{B} & Input effect matrix & default: identity,\\
+% %\texttt{U} & Constant input & default: empty.\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+
+% \subsubsection*{Extended Kalman smoothers}
+
+% %{\bf The smoothed estimate} for the state mean and covariance using
+% %{\bf the extended RTS smoother} (eq. (\ref{eq:derts})) can be calculated using the function
+% %\texttt{erts\_smooth1}:\\
+
+% In extended and unscented smoothers the parameters of dynamic and
+% measurement function are passed as a single cell array, vector or a
+% matrix containing the same parameters for each step, or if different
+% parameters are used on each step they must be a cell array of the format \\
+% \texttt{\{param\_1,param\_2,...\}}, where \texttt{param\_x} contains
+% the parameters for step x as a cell array, vector or matrix. \\
+
+% \label{page:erts_smooth1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{erts\_smooth1}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and covariance using
+% {\bf the extended RTS smoother} (eq. (\ref{eq:derts})).\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,D] = erts\_smooth1(M,P,[A,Q,s,W,param,same\_p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the EKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the EKF\\
+% \texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline
+% function, & \\ & function handle or name of the function in form
+% \texttt{A(x,param)} & default: zero\\
+% \texttt{Q} & Process noise of discrete model & default: zero\\ 
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: \texttt{H(x)*M}\\
+% \texttt{W} & Derivative of \texttt{a} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
+% \texttt{param} & Parameters of function \texttt{h} & default: empty\\
+% \texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
+% %\texttt{B} & Input effect matrix & default: identity,\\
+% %\texttt{U} & Constant input & default: empty.\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \texttt{D} & Smoother gain for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:etf_smooth1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{etf\_smooth1}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and covariance using
+% {\bf the extended TF smoother}.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = etf\_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,s\_p\_a,s\_p\_h)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the EKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the EKF\\
+% \texttt{Y} & Measurement vector \\
+% \texttt{A} & Derivative of \texttt{ia} with respect to state as matrix, inline
+% function, & \\ & function handle or name of the function in form
+% \texttt{A(x,param)} & default: identity\\
+% \texttt{Q} & Process noise of discrete model & default: zero\\
+% \texttt{ia} & Inverse prediction function as vector, inline function,
+% function handle & \\ & or name of function in form
+% \texttt{ia(x,param)} & default: \texttt{inv(A(x))*M} \\
+% \texttt{W} & Derivative of \texttt{ia} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
+% \texttt{aparam} & Parameters of function \texttt{ia} & default: empty\\
+% \texttt{H} & Derivative of \texttt{h} with respect to state as matrix,
+%         inline function, & \\ & function handle or name
+%         of function in form \texttt{H(x,param)} \\
+% \texttt{R} & Measurement noise covariance \\
+% \texttt{h} & Measurement model function as vector, inline
+% function, & \\ & function handle or name of the function in form
+% \texttt{h(x,param)} & default: \texttt{H(x)*M}\\
+% \texttt{V} & Derivative of \texttt{h} w.r.t. noise as matrix, inline
+% function & \\ & function handle or name of function in form
+% \texttt{V(x,param)} & default: identity \\
+% \texttt{hparam} & Parameters of h & default: \texttt{aparam}\\
+% \texttt{s\_p\_a} & If 1 uses the same parameters on every time step
+% for \texttt{a} & default: 1 \\
+% \texttt{s\_p\_h} & If 1 uses the same parameters on every time step
+% for \texttt{h} & default: 1\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \subsubsection*{Unscented Kalman Filter}
+
+
+
+% %The {\bf weights} for the {\bf unscented transform} using the
+% %{\bf summation} form (eq. (\ref{eq:ut_weights})) can be calculated using the function
+% %\texttt{ut\_weights}:\\
+
+% \label{page:ut_weights}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ut\_weights}} \\
+
+% Calculates the {\bf weights} for the {\bf unscented transform} using the
+% {\bf summation} form (eq. (\ref{eq:ut_weights})). \\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{[WM,WC,c] = ut\_weights(n,alpha,beta,kappa)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{n} & Dimensionality of random variable,  \\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: 0.5 \\
+% \texttt{beta}  & Transformation parameter $\beta$ & default: 2 \\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: 3-N\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{WM} & $(2n+1) \times 1$ vector containing the weights for mean estimation \\
+% \texttt{WC} & $(2n+1) \times 1$ vector containing the weights for covariance estimation \\
+% \texttt{c} & Scaling constant\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+% %\noindent The {\bf weights} for the {\bf unscented transform} using the
+% %{\bf matrix} form (eq. (\ref{eq:vec_wm}) and (\ref{eq:mat_w})) can be calculated using the function
+% %\texttt{ut\_mweights}:\\
+
+% \label{page:ut_mweights}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ut\_mweights}} \\
+
+% Calculates the {\bf weights} for the {\bf unscented transform} using
+% the
+% {\bf matrix} form (eq. (\ref{eq:vec_wm}) and (\ref{eq:mat_w})). \\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{[WM,W,c] = ut\_mweights(n,alpha,beta,kappa)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{n} & Dimensionality of the state variable  \\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: 0.5 \\
+% \texttt{beta}  & Transformation parameter $\beta$ & default: 2 \\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: 3-N\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{WM} & $(2n+1) \times 1$ vector containing the weights for mean estimation \\
+% \texttt{W} & $(2n+1) \times (2n+1)$ matrix containing the weights for covariance estimation\\
+% \texttt{c} & Scaling constant\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+% %\noindent The {\bf sigma points} for the {\bf unscented transform} 
+% %(eq. (\ref{eq:ut_sigmas})) can be generated using the function
+% %\texttt{ut\_sigmas}:\\
+
+% \label{page:ut_sigmas}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ut\_sigmas}} \\
+
+% Generates The {\bf sigma points} for the {\bf unscented transform} 
+% with eq. (\ref{eq:ut_sigmas}). \\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{[X] = ut\_sigmas(M,P,c)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & $N \times 1$ vector containing the initial state mean \\
+% \texttt{P} & $N \times N$ matrix containing the initial state covariance \\
+% \texttt{c} & Parameter returned by \texttt{ut\_weights} \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X} & $(2n+1) \times (2n+1)$ matrix containing the sigma points in its columns \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}\\
+
+
+% %\noindent The {\bf unscented transform} using the summation or matrix form
+% % can be calculated using the function
+% %\texttt{ut\_transform}:\\
+
+% \label{page:ut_transform}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ut\_transform}} \\
+
+% Calculates the {\bf unscented transform} of function $\vec{g}$ using
+% the summation or matrix form.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[mu,S,C,X,Y,w] = ut\_transform(g,M,P,[param,alpha,beta,kappa,mat])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{g} & Transformation function of the form \texttt{g(x,param)} as & \\ &
+% matrix, inline function, function name or function reference \\
+% \texttt{M} & $N \times 1$ containing mean of $\vec{x}$ \\
+% \texttt{P} & $N \times N$ matrix containing the covariance of $\vec{x}$ \\
+% \texttt{param} & Parameters of function \texttt{g} & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: 0.5 \\
+% \texttt{beta} & Transformation parameter $\beta$ & default: 2 \\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: 3-N\\
+% \texttt{mat} & 1 if the matrix form is used, otherwise 0 & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{mu} & Estimated mean of y\\
+% \texttt{S} & Estimated covariance of y\\
+% \texttt{C} & Estimated cross-covariance of x and y\\
+% \texttt{X} & Sigma points of x\\
+% \texttt{Y} & Sigma points of y\\
+% \texttt{w} & Weights of sigma points as cell-array of form \texttt{\{mean-weights,cov-weights,c\}}\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+% \label{page:ukf_predict1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ukf\_predict1}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf non-augmented
+% form unscented Kalman filter} (eq. (\ref{eq:ukf1_predict})).\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ukf\_predict1(M,P,a,Q,[param,alpha,beta,kappa])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ &
+% function handle or name of the function in form \texttt{a(x,param)} \\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{param} & Parameters of function a & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+% \label{page:ukf_update1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ukf\_update1}} \\
+
+% Calculates the {\bf The update step} of the {\bf nonaugmented form unscented Kalman filter}
+% (eq. (\ref{eq:ukf1_update1}) and (\ref{eq:ukf1_update2})).\\      
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ukf\_update1(M,P,Y,h,R,[param,alpha,beta,kappa,mat])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{h} & Measurement model function as vector, inline function, &
+% \\ & function handle or name of the function in form
+% \texttt{h(x,param)} \\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:ukf_predict2}
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ukf\_predict2}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf augmented form
+%   unscented Kalman filter}
+% which concatenates \\ state variables and
+% process noise terms together. \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ukf\_predict2(M,P,a,Q,[param,alpha,beta,kappa])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ &
+% function handle or name of the function in form \texttt{a([x;q],param)} \\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{param} & Parameters of function a & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+% \label{page:ukf_update2}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ukf\_update2}} \\
+
+% Calculates the {\bf The update step} of the {\bf augmented form
+%   unscented Kalman filter}, which concatenates state \\variables and
+% measurement noise terms together. Note that this function creates a new set of sigma points, so \\some odd-order moment
+% information carried by process noise terms might get lost. \\ 
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ukf\_update2(M,P,Y,h,R,[param,alpha,beta,kappa,mat])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{h} & Measurement model function as vector, inline function, &
+% \\ & function handle or name of the function in form \texttt{h([x;r],param)} \\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:ukf_predict3}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ukf\_predict3}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf augmented form
+%   unscented Kalman filter} (eq.
+% (\ref{eq:ukf2_predict1}),(\ref{eq:ukf2_predict2}) and (\ref{eq:ukf2_predict3})),\\
+% which concatenates state variables, process and
+% measurement noise terms together. \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ukf\_predict3(M,P,a,Q,[param,alpha,beta,kappa])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ &
+% function handle or name of the function in form \texttt{a([x;q],param)} \\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{param} & Parameters of function a & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \texttt{X} & Sigma points of x\\
+% \texttt{w} & Weights as cell array of form \texttt{\{mean-weights,cov-weights,c\}}\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+% \label{page:ukf_update3}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ukf\_update3}} \\
+
+% Calculates the {\bf The update step} of the {\bf augmented form
+%   unscented Kalman filter} (eq. (\ref{eq:ukf2_update1}) and
+% (\ref{eq:ukf2_update2})), \\ which concatenates state variables and
+% measurement noise terms together. Note that this
+% function  uses the \\ sigma points created in the prediction step, so that
+% odd-order moment information could get captured better.\\  
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ukf\_update3(M,P,Y,h,R,X,w,[param,alpha,beta,kappa,mat])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{h} & Measurement model function as vector, inline function, &
+% \\ & function handle or name of the function in form \texttt{h([x;r],param)} \\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{X} & Sigma points of x\\
+% \texttt{w} & Weights as cell array of form \texttt{\{mean-weights,cov-weights,c\}}\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:urts_smooth1}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{urts\_smooth1}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and covariance using\\
+% {\bf the nonaugmented form unscented RTS smoother}. Note that this
+% assumes \\ that the noises are additive.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,D] = urts\_smooth1(M,P,a,Q,[param,alpha,beta,kappa,mat,same\_p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the EKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the EKF\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} \\
+% \texttt{Q} & Process noise of discrete model & default: zero\\ 
+% \texttt{param} & Parameters of function \texttt{a} & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \texttt{D} & Smoother gain for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:urts_smooth2}
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{urts\_smooth2}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and
+% covariance using \\
+% {\bf the augmented form unscented RTS smoother} (eq. (\ref{eq:urts1})
+% - (\ref{eq:urts5})).\\ 
+% Note that in this case noises can be non-additive.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,D] = urts\_smooth2(M,P,a,Q,[param,alpha,beta,kappa,mat,same\_p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the EKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the EKF\\
+% \texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a([x;w],param)} \\
+% \texttt{Q} & Process noise of discrete model & default: zero\\ 
+% \texttt{param} & Parameters of function \texttt{a} & default: empty\\
+% \texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \texttt{D} & Smoother gain for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:utf_smooth1}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{utf\_smooth1}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and covariance using
+% {\bf the unscented TF smoother}.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = utf\_smooth1(M,P,Y,[ia,Q,ap,h,R,hp,aa,bb,kk,mat,s\_p\_a,s\_p\_h])}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the EKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the EKF\\
+% \texttt{Y} & Measurement vector \\
+% \texttt{ia} & Inverse prediction function as vector, inline function,
+% function handle & \\ & or name of function in form
+% \texttt{ia(x,param)} & default: identity \\
+% \texttt{Q} & Process noise of discrete model & default: zero\\
+% \texttt{ap} & Parameters of function \texttt{ia} & default: empty\\
+% \texttt{h} & Measurement model function as vector, inline
+% function, & \\ & function handle or name of the function in form
+% \texttt{h(x,param)} \\
+% \texttt{R} & Measurement noise covariance \\
+% \texttt{hp} & Parameters of h & default: \texttt{aparam}\\
+% \texttt{aa} & Transformation parameter $\alpha$ & default: $0.5$\\
+% \texttt{bb} & Transformation parameter $\beta$ & default: $2$\\
+% \texttt{kk} & Transformation parameter $\kappa$ & default: $3-N$\\
+% \texttt{mat} & If 1 uses matrix form & default: 0\\
+% \texttt{s\_p\_a} & If 1 uses the same parameters on every time step
+% for \texttt{a} & default: 1 \\
+% \texttt{s\_p\_h} & If 1 uses the same parameters on every time step
+% for \texttt{h} & default: 1\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+%   % Cubature methods
+% %
+%   % Added by Arno Solin, 2010
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% \subsubsection*{Gauss-Hermite Kalman Filter}
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % >> lookfor Gauss-Hermite
+% % ghkf_predict                   - Gauss-Hermite Kalman filter prediction step
+% % ghrts_smooth                   - Additive form Gauss-Hermite Rauch-Tung-Striebel smoother
+% % ngausshermi                    - ND scaled Gauss-Hermite quadrature (cubature) rule
+% % gh_transform                   - Gauss-Hermite transform of random variables
+% % ghkf_update                    - Gauss-Hermite Kalman filter update step
+% % gh_packed_pc                   - Pack P and C for the Gauss-Hermite transformation
+
+
+
+
+% \label{page:gh_transform}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{gh\_transform}} \\
+
+% Calculates the {\bf Gauss--Hermite transform} of function $\vec{g}$ using
+% the summation form.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[mu,S,C,X,Y,w] = gh\_transform(M,P,g,p,[param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N \times 1$ containing mean of $\vec{x}$ \\
+% \texttt{P} & $N \times N$ matrix containing the covariance of $\vec{x}$ \\
+% \texttt{g} & Transformation function of the form \texttt{g(x,param)} as & \\ &
+% matrix, inline function, function name or function reference \\
+% \texttt{p} & Degree of approximation in the Gauss--Hermite rule \\
+% \texttt{param} & Parameters of function \texttt{g} & default: empty\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{mu} & Estimated mean of y\\
+% \texttt{S} & Estimated covariance of y\\
+% \texttt{C} & Estimated cross-covariance of x and y\\
+% \texttt{SX} & Sigma points of x\\
+% \texttt{W} & Weights of sigma points as cell-array of form \texttt{\{mean-weights,cov-weights,c\}}\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+
+% \label{page:ngausshermi}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ngausshermi}} \\
+
+% Approximates a Gaussian integral using the {\bf Gauss-Hermite method}
+%     in multiple dimensions\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[I,x,W,F] = ngausshermi(f,p,m,P[,param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+%     \texttt{f} & Function $f(x,param)$ as inline, name or reference \\
+%     \texttt{n} & Polynomial order \\
+%     \texttt{m} & Mean of the $d$-dimensional Gaussian distribution \\
+%     \texttt{P} & Covariance of the Gaussian distribution \\
+%     \texttt{param} & Optional parameters for the function (optional) \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+%     \texttt{I} & The integral value \\
+%     \texttt{x} & Evaluation points \\
+%     \texttt{W} & Weights \\
+%     \texttt{F} & Function values \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+% \label{page:hermitepolynomial}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{hermitepolynomial}} \\
+
+% Forms the {\bf Hermite polynomial} of order $n$.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{p = hermitepolynomial(n)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+%     \texttt{n} & Polynomial order \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+%     \texttt{p} & Polynomial coefficients (starting from greatest order) \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+% \label{page:gh_packed_pc}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{gh\_packed\_pc}} \\
+
+% Packs the integrals that need to be evaluated to nice function form to
+%     ease the evaluation. \\Evaluates \texttt{P = (f-fm)(f-fm)'} and \texttt{C = (x-m)(f-fm)'}\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{pc = GH\_PACKED\_PC(x,fmmparam)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+%     \texttt{x} & Evaluation point \\
+%     \texttt{fmmparam} & Array of handles and parameters to form the functions \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+%     \texttt{pc} & Packed function \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+
+
+
+
+
+% \label{page:ghkf_predict}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ghkf\_predict}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf Gauss--Hermite
+% Kalman filter}.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ghkf\_predict(M,P,f,Q,[param,p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{f} & Dynamic model function as vector, inline function, & \\ &
+% function handle or name of the function in form \texttt{f(x,param)} \\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{param} & Parameters of function f & default: empty\\
+% \texttt{p} & Degree of approximation (number of quadrature points) & default: 10\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+% \label{page:ghkf_update}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ghkf\_update}} \\
+
+% Calculates the {\bf The update step} of the {\bf Gauss--Hermite Kalman filter}.\\      
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ghkf\_update(M,P,Y,h,R,[param,p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{h} & Measurement model function as vector, inline function, &
+% \\ & function handle or name of the function in form
+% \texttt{h(x,param)} \\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% \texttt{p} & Degree of approximation (number of quadrature points) & default: 10\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+
+
+
+
+
+% \label{page:ghrts_smooth}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ghrts\_smooth}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and covariance using\\
+% {\bf the Gauss--Hermite RTS smoother}. Note that this
+% assumes \\ that the noises are additive.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,D] = ghrts\_smooth(M,P,f,Q,[param,p,same\_p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the GHKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the GHKF\\
+% \texttt{f} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} \\
+% \texttt{Q} & Process noise of discrete model & default: zero\\ 
+% \texttt{param} & Parameters of function \texttt{a} & default: empty\\
+% \texttt{p} & Degree of approximation (number of quadrature points) & default: 10\\
+% \texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \texttt{D} & Smoother gain for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% \subsubsection*{Cubature Kalman Filter}
+% %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% % >> lookfor cubature
+% % ckf_packed_pc                  - Pack P and C for the Cubature Kalman filter transform
+% % ckf_predict                    - Cubature Kalman filter prediction step
+% % ckf_transform                  - Cubature Kalman filter transform of random variables
+% % ckf_update                     - Cubature Kalman filter update step
+% % crts_smooth                    - Additive form cubature Rauch-Tung-Striebel smoother
+% % sphericalradial                - ND scaled spherical-radial cubature rule
+
+
+
+% \label{page:ckf_transform}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ckf\_transform}} \\
+
+% Calculates the {\bf spherical-radial rule} based {\bf cubature transform} of function $\vec{g}$ using
+% the summation form.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[mu,S,C,X,Y,w] = ckf\_transform(M,P,g,[param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N \times 1$ containing mean of $\vec{x}$ \\
+% \texttt{P} & $N \times N$ matrix containing the covariance of $\vec{x}$ \\
+% \texttt{g} & Transformation function of the form \texttt{g(x,param)} as & \\ &
+% matrix, inline function, function name or function reference \\
+% \texttt{param} & Parameters of function \texttt{g} & default: empty\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{mu} & Estimated mean of y\\
+% \texttt{S} & Estimated covariance of y\\
+% \texttt{C} & Estimated cross-covariance of x and y\\
+% \texttt{SX} & Sigma points of x\\
+% \texttt{W} & Weights of sigma points as cell-array of form \texttt{\{mean-weights,cov-weights,c\}}\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+% \label{page:sphericalradial}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{sphericalradial}} \\
+
+% Approximates a Gaussian integral using the $d$-dimensional {\bf spherical--radial cubature rule} \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[I,x,W,F] = sphericalradial(f,m,P[,param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+%     \texttt{f} & Function $f(x,param)$ as inline, name or reference \\
+%     \texttt{m} & Mean of the $d$-dimensional Gaussian distribution \\
+%     \texttt{P} & Covariance of the Gaussian distribution \\
+%     \texttt{param} & Optional parameters for the function (optional) \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+%     \texttt{I} & The integral value \\
+%     \texttt{x} & Evaluation points \\
+%     \texttt{W} & Weights \\
+%     \texttt{F} & Function values \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+
+% \label{page:ckf_packed_pc}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ckf\_packed\_pc}} \\
+
+% Packs the integrals that need to be evaluated to nice function form to
+%     ease the evaluation. \\Evaluates \texttt{P = (f-fm)(f-fm)'} and \texttt{C = (x-m)(f-fm)'}\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{pc = CKF\_PACKED\_PC(x,fmmparam)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+%     \texttt{x} & Evaluation point \\
+%     \texttt{fmmparam} & Array of handles and parameters to form the functions \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+%     \texttt{pc} & Packed function \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+
+
+
+
+
+% \label{page:ckf_predict}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ckf\_predict}} \\
+
+% Calculates the {\bf The prediction step} of the {\bf cubature
+% Kalman filter}.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P] = ckf\_predict(M,P,f,Q,[param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
+% \texttt{f} & Dynamic model function as vector, inline function, & \\ &
+% function handle or name of the function in form \texttt{f(x,param)} \\
+% \texttt{Q} & Process noise of the discrete model & default: zero\\
+% \texttt{param} & Parameters of function f & default: empty\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Predicted mean for the state on the next time step\\
+% \texttt{P} & Predicted covariance for the state on the next time step\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular} \\
+
+
+
+
+
+
+
+% \label{page:ckf_update}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{ckf\_update}} \\
+
+% Calculates the {\bf The update step} of the {\bf cubature Kalman filter}.\\      
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,K,MU,S,LH] = ckf\_update(M,P,Y,h,R,[param])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times 1$ vector containing the state mean estimate &
+% \\ & after the prediction step\\
+% \texttt{P} & $N\times N$ matrix containing the state covariance after
+% & \\ & the prediction step\\
+% \texttt{Y} & $D\times 1$ measurement vector \\
+% \texttt{h} & Measurement model function as vector, inline function, &
+% \\ & function handle or name of the function in form
+% \texttt{h(x,param)} \\
+% \texttt{R} & Measurement noise covariance\\
+% \texttt{param} & Parameters of function h & default: empty\\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Updated mean for the state on the next time step\\
+% \texttt{P} & Updated covariance for the state on the next time step\\
+% \texttt{K} & Computed Kalman gain\\
+% \texttt{MU} & Predictive mean of Y\\
+% \texttt{S} & Predictive covariance of Y\\
+% \texttt{LH} & Predictive probability (likelihood) of measurement\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+
+
+
+
+
+% \label{page:crts_smooth}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{crts\_smooth}} \\
+
+% Calculates {\bf The smoothed estimate} for the state mean and covariance using\\
+% {\bf the cubature RTS smoother}. Note that this assumes \\ that the noises are additive.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[M,P,D] = crts\_smooth(M,P,f,Q,[param,p,same\_p])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $N\times K$ matrix containing the state mean estimates
+% produced & \\ &  by the CKF\\
+% \texttt{P} & $N\times N \times K$ matrix containing the state
+% covariances produced & \\ & by the CKF\\
+% \texttt{f} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} \\
+% \texttt{Q} & Process noise of discrete model & default: zero\\ 
+% \texttt{param} & Parameters of function \texttt{a} & default: empty\\
+% \texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{M} & Smoothed state mean sequence for all time steps\\
+% \texttt{P} & Smoothed state covariance for all time steps\\
+% \texttt{D} & Smoother gain for all time steps\\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%% End of cubature functions %%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% \subsection{Multiple Model Systems}
+
+
+% \label{page:imm_predict}
+
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{imm\_predict}} \\
+
+% Calculates {\bf the prediction step} of {\bf IMM filter}.\\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X\_p,P\_p,c\_j,X,P] = imm\_predict(X\_ip,P\_ip,MU\_ip,p\_ij,ind,dims,A,Q)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X\_ip} & Cell array containing $N^j \times 1$ mean state estimate
+% vectors for & \\ & each model $j$ after update step of previous time step
+% \\
+% \texttt{P\_ip} & Cell array containing $N^j \times N^j$ state covariance matrices for 
+%            & \\ &each model $j$ after update step of previous time step \\
+% \texttt{MU\_ip} & Vector containing the model probabilities at previous time step \\
+% \texttt{p\_ij} &  Model transition probability matrix \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{A} & State transition matrices for each model as a cell array \\
+% \texttt{Q} & Process noise matrices for each model as a cell array \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_p} & Predicted state mean for each model as a cell array \\
+% \texttt{P\_p} & Predicted state covariance for each model as a cell
+% array \\
+% \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+% \texttt{X} & Combined predicted state mean estimate \\
+% \texttt{P} & Combined predicted state covariance estimate \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:imm_update}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{imm\_update}} \\
+
+% Calculates {\bf the update step} of {\bf IMM filter}. \\
+
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X\_i,P\_i,MU,X,P] = imm\_update(X\_p,P\_p,c\_j,ind,dims,Y,H,R)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X\_p} & Cell array containing $N^j \times 1$ mean state estimate
+% vectors for & \\ & each model $j$ after update step of previous time step
+% \\
+% \texttt{P\_p} & Cell array containing $N^j \times N^j$ state covariance matrices for 
+%            & \\ &each model $j$ after update step of previous time step \\
+% \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{Y} & $D \times 1$ measurement vector \\
+% \texttt{H} & Measurement matrices for each model as a cell array \\
+% \texttt{R} & Measurement noise covariances for each model as a cell array \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_i} & Updated state mean for each model as a cell array \\
+% \texttt{P\_i} & Updated state covariance for each model as a cell
+% array \\
+% \texttt{MU} & Estimated probabilities of each model \\
+% \texttt{X} & Combined updated state mean estimate \\
+% \texttt{P} & Combined updated state covariance estimate \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+% \label{page:imm_smooth}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{imm\_smooth}} \\
+
+% Smooths the filtered state estimates with the {\bf fixed-interval two-filter IMM smoother}.\\
+
+% \hline
+
+% {\bf Syntax:}
+
+%  \texttt{[X\_S,P\_S,X\_IS,P\_IS,MU\_S] = imm\_smooth(MM,PP,MM\_i,PP\_i,MU,p\_ij,...}\\
+%  \hspace{9.2 cm} \texttt{mu\_0j,ind,dims,A,Q,R,H,Y)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{MM} & $N\times K$ matrix containing the means of forward-time
+% IMM-filter on each time step \\
+% \texttt{PP} & $N\times N \times K$ matrix containing the covariances of forward-time IMM-filter on each time step
+% \\
+% \texttt{MM\_i} &  Model-conditional means of forward-time IMM-filter on
+% each time step as a cell array \\
+% \texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter
+% on each time step as a cell array \\
+% \texttt{MU} & Model probabilities of forward-time IMM-filter on each time step \\
+% \texttt{p\_ij} & Model transition probability matrix \\
+% \texttt{mu\_0j} & Prior model probabilities \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{A} & State transition matrices for each model as a cell array \\
+% \texttt{Q} & Process noise matrices for each model as a cell array \\
+% \texttt{R} & Measurement noise covariances for each model as a cell array \\
+% \texttt{H} & Measurement matrices for each model as a cell array \\
+% \texttt{Y} & $D \times K$ sized measurement matrix \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_S} & Smoothed state means for each time step \\
+% \texttt{P\_S} & Smoothed state covariances for each time step \\
+% \texttt{X\_IS} & Model-conditioned smoothed state means for each time
+% step \\
+% \texttt{P\_IS} & Model-conditioned smoothed state covariances for each
+% time step \\
+% \texttt{MU\_S} & Smoothed model probabilities for each time step \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:eimm_predict}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{eimm\_predict}} \\
+
+% Calculates {\bf the prediction step} of {\bf IMM-EKF filter}. Uses standard \\
+% Kalman filter update step for models having linear dynamics. \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X\_p,P\_p,c\_j,X,P] =
+%   eimm\_predict(X\_ip,P\_ip,MU\_ip,p\_ij,ind,...} \\
+% \hspace{8.1 cm} \texttt{dims,A,a,param,Q)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X\_ip} & Cell array containing $N^j \times 1$ mean state estimate
+% vectors for & \\ & each model $j$ after update step of previous time step
+% \\
+% \texttt{P\_ip} & Cell array containing $N^j \times N^j$ state covariance matrices for 
+%            & \\ &each model $j$ after update step of previous time step \\
+% \texttt{MU\_ip} & Vector containing the model probabilities at previous time step \\
+% \texttt{p\_ij} &  Model transition probability matrix \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{A} & Dynamic model matrices for each linear model and
+% Jacobians of each & \\ &
+%            non-linear model's dynamic model function as a cell array
+% \\
+% \texttt{a} & Function handles for dynamic model functions for each model
+% as a cell array
+% \\
+% \texttt{param} & Parameters of a for each model as a cell array
+% \\
+% \texttt{Q} & Process noise matrices for each model as a cell array \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_p} & Predicted state mean for each model as a cell array \\
+% \texttt{P\_p} & Predicted state covariance for each model as a cell
+% array \\
+% \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+% \texttt{X} & Combined predicted state mean estimate \\
+% \texttt{P} & Combined predicted state covariance estimate \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:eimm_update}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{eimm\_update}} \\
+
+% Calculates {\bf the update step} of {\bf IMM-EKF filter}. Uses standard \\
+% Kalman filter update step for models having linear measurements. \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X\_i,P\_i,MU,X,P] = eimm\_update(X\_p,P\_p,c\_j,ind,dims,...}
+% \\
+% \hspace{7.7 cm} \texttt{Y,H,h,h\_param,R)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X\_p} & Cell array containing $N^j \times 1$ mean state estimate
+% vectors for & \\ & each model $j$ after update step of previous time step
+% \\
+% \texttt{P\_p} & Cell array containing $N^j \times N^j$ state covariance matrices for 
+%            & \\ &each model $j$ after update step of previous time step \\
+% \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{Y} & $D \times 1$ measurement vector \\
+% \texttt{H} & Measurement matrices for each linear model and Jacobians
+% of each & \\ & non-linear model's measurement model function as a cell array \\
+% \texttt{h} & Cell array containing function handles for measurement
+% functions & \\ & for each model having non-linear measurements \\
+% \texttt{h\_param} & Parameters of h as a cell array \\
+% \texttt{R} & Measurement noise covariances for each model as a cell array \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_i} & Updated state mean for each model as a cell array \\
+% \texttt{P\_i} & Updated state covariance for each model as a cell
+% array \\
+% \texttt{MU} & Estimated probabilities of each model \\
+% \texttt{X} & Combined updated state mean estimate \\
+% \texttt{P} & Combined updated state covariance estimate \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:eimm_smooth}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{eimm\_smooth}} \\
+
+% Smooths the filtered state estimates with the {\bf EKF based fixed-interval
+%   two-filter IMM smoother}.\\
+
+% \hline
+
+% {\bf Syntax:}
+
+%  \texttt{[X\_S,P\_S,X\_IS,P\_IS,MU\_S] = eimm\_smooth(MM,PP,MM\_i,PP\_i,MU,p\_ij,...}\\
+%  \hspace{9.4 cm} \texttt{mu\_0j,ind,dims,A,a,a\_param,}\\
+%  \hspace{9.4 cm} \texttt{Q,R,H,h,h\_param,Y)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{MM} & $N\times K$ matrix containing the means & \\ & of forward-time
+% IMM-filter on each time step \\
+% \texttt{PP} & $N\times N \times K$ matrix containing the covariances &
+% \\ & of forward-time IMM-filter on each time step
+% \\
+% \texttt{MM\_i} &  Model-conditional means of forward-time IMM-filter
+% on & \\ &
+% each time step as a cell array \\
+% \texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter
+% on & \\ & each time step as a cell array\\
+% \texttt{MU} & Model probabilities of forward-time IMM-filter on each time step \\
+% \texttt{p\_ij} & Model transition probability matrix \\
+% \texttt{mu\_0j} & Prior model probabilities \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{A} & Dynamic model matrices for each linear model and Jacobians of each
+% & \\ & non-linear model's measurement model function as a cell array
+% \\
+% \texttt{a} & Cell array containing function handles for measurement
+% functions & \\ &
+% for each model having non-linear measurements \\
+% \texttt{a\_param} & Parameters of a as a cell array \\
+% \texttt{Q} & Process noise matrices for each model as a cell array \\
+% \texttt{R} & Measurement noise covariances for each model as a cell array \\
+% \texttt{H} & Measurement matrices for each linear model and Jacobians
+% of each & \\ & non-linear model's measurement model function as a cell array \\
+% \texttt{h} & Cell array containing function handles for measurement
+% functions & \\ & for each model having non-linear measurements \\
+% \texttt{h\_param} & Parameters of h as a cell array \\
+% \texttt{Y} & $D \times K$ sized measurement matrix \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_S} & Smoothed state means for each time step \\
+% \texttt{P\_S} & Smoothed state covariances for each time step \\
+% \texttt{X\_IS} & Model-conditioned smoothed state means for each time
+% step \\
+% \texttt{P\_IS} & Model-conditioned smoothed state covariances for each
+% time step \\
+% \texttt{MU\_S} & Smoothed model probabilities for each time step \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:uimm_predict}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{uimm\_predict}} \\
+
+% Calculates {\bf the prediction step} of {\bf IMM-UKF filter}. Uses
+% standard \\  Kalman filter prediction step for models having linear dynamics. \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X\_p,P\_p,c\_j,X,P] =
+%   uimm\_predict(X\_ip,P\_ip,MU\_ip,p\_ij,ind,...} \\
+% \hspace{8.1 cm} \texttt{dims,a,param,Q)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X\_ip} & Cell array containing $N^j \times 1$ mean state estimate
+% vectors for & \\ & each model $j$ after update step of previous time step
+% \\
+% \texttt{P\_ip} & Cell array containing $N^j \times N^j$ state covariance matrices for 
+%            & \\ &each model $j$ after update step of previous time step \\
+% \texttt{MU\_ip} & Vector containing the model probabilities at previous time step \\
+% \texttt{p\_ij} &  Model transition probability matrix \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{A} & Dynamic model matrices for each linear model and
+% Jacobians of each & \\ &
+%            non-linear model's dynamic model function as a cell array
+% \\
+% \texttt{a} & Function handles for dynamic model functions for each model
+% as a cell array
+% \\
+% \texttt{param} & Parameters of a for each model as a cell array
+% \\
+% \texttt{Q} & Process noise matrices for each model as a cell array \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_p} & Predicted state mean for each model as a cell array \\
+% \texttt{P\_p} & Predicted state covariance for each model as a cell
+% array \\
+% \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+% \texttt{X} & Combined predicted state mean estimate \\
+% \texttt{P} & Combined predicted state covariance estimate \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:uimm_update}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{uimm\_update}} \\
+
+% Calculates {\bf the update step} of {\bf IMM-UKF filter}. Uses standard \\
+% Kalman filter update step for models having linear measurements. \\
+
+% \hline
+
+% {\bf Syntax:}
+% %
+% \texttt{[X\_i,P\_i,MU,X,P] = uimm\_update(X\_p,P\_p,c\_j,ind,dims,...}
+% \\
+% \hspace{7.7 cm} \texttt{Y,H,h,h\_param,R)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X\_p} & Cell array containing $N^j \times 1$ mean state estimate
+% vectors for & \\ & each model $j$ after update step of previous time step
+% \\
+% \texttt{P\_p} & Cell array containing $N^j \times N^j$ state covariance matrices for 
+%            & \\ &each model $j$ after update step of previous time step \\
+% \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{Y} & $D \times 1$ measurement vector \\
+% \texttt{H} & Measurement matrices for each linear model and Jacobians
+% of each & \\ & non-linear model's measurement model function as a cell
+% array \\
+% \texttt{h} & Cell array containing function handles for measurement
+% functions & \\ & for each model having non-linear measurements \\
+% \texttt{h\_param} & Parameters of h as a cell array \\
+% \texttt{R} & Measurement noise covariances for each model as a cell array \\
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X\_i} & Updated state mean for each model as a cell array \\
+% \texttt{P\_i} & Updated state covariance for each model as a cell
+% array \\
+% \texttt{MU} & Estimated probabilities of each model \\
+% \texttt{X} & Combined updated state mean estimate \\
+% \texttt{P} & Combined updated state covariance estimate \\
+% \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \label{page:uimm_smooth}
+
+% \noindent \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{uimm\_smooth}} \\
+
+% Smooths the filtered state estimates with the {\bf UKF based fixed-interval
+%   two-filter IMM smoother}.\\
+
+% \hline
+
+% {\bf Syntax:}
+
+%  \texttt{[X\_S,P\_S,X\_IS,P\_IS,MU\_S] = uimm\_smooth(MM,PP,MM\_i,PP\_i,MU,p\_ij,...}\\
+%  \hspace{9.4 cm} \texttt{mu\_0j,ind,dims,A,a,a\_param,}\\
+%  \hspace{9.4 cm} \texttt{Q,R,H,h,h\_param,Y)}\\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{MM} & $N\times K$ matrix containing the means & \\ & of forward-time
+% IMM-filter on each time step \\
+% \texttt{PP} & $N\times N \times K$ matrix containing the covariances &
+% \\ & of forward-time IMM-filter on each time step
+% \\
+% \texttt{MM\_i} &  Model-conditional means of forward-time IMM-filter
+% on & \\ &
+% each time step as a cell array \\
+% \texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter
+% on & \\ & each time step as a cell array\\
+% \texttt{MU} & Model probabilities of forward-time IMM-filter on each time step \\
+% \texttt{p\_ij} & Model transition probability matrix \\
+% \texttt{mu\_0j} & Prior model probabilities \\
+% \texttt{ind} &  Indexes of state components for each model as a cell
+% array \\
+% \texttt{dims} &  Total number of different state components in the
+% combined system \\
+% \texttt{A} & Dynamic model matrices for each linear model and Jacobians of each
+% & \\ & non-linear model's measurement model function as a cell array
+% \\
+% \texttt{a} & Cell array containing function handles for measurement
+% functions & \\ &
+% for each model having non-linear measurements \\
+% \texttt{a\_param} & Parameters of a as a cell array \\
+% \texttt{Q} & Process noise matrices for each model as a cell array \\
+% \texttt{R} & Measurement noise covariances for each model as a cell array \\
+% \texttt{H} & Measurement matrices for each linear model and Jacobians
+% of each & \\ & non-linear model's measurement model function as a cell array \\
+% \texttt{h} & Cell array containing function handles for measurement
+% functions & \\ & for each model having non-linear measurements. \\
+% \texttt{h\_param} & Parameters of h as a cell array \\
+% \texttt{Y} & $D \times K$ sized measurement matrix  \\
+% \end{tabular}\\
+% \hline
+
+%  {\bf Output:}
+%  %
+%  \begin{tabular}{l l}
+%  \texttt{X\_S} & Smoothed state means for each time step \\
+%  \texttt{P\_S} & Smoothed state covariances for each time step \\
+%  \texttt{X\_IS} & Model-conditioned smoothed state means for each time
+%  step \\
+%  \texttt{P\_IS} & Model-conditioned smoothed state covariances for each
+%  time step \\
+%  \texttt{MU\_S} & Smoothed model probabilities for each time step \\
+%  \end{tabular}\\
+
+% \hline
+% \end{tabular}
+
+
+% \subsection{Other functions}
+
+
+
+% For convience and to make this toolbox independent of any other
+% toolboxes (e.g. Statistics toolbox) we provide
+% some functions, which are useful for methods described above.
+
+% \label{page:gauss_pdf}
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{gauss\_pdf}} \\
+
+% Calculates the density of a multivariate Gaussian distribution. \\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{P = gauss\_pdf(X,M,S)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{X} & $D\times N$ matrix containing $N$ vectors with size $D\times 1$ \\
+% \texttt{M} & $D\times 1$ mean of distribution or $N$ values as $D\times N$ matrix \\
+% \texttt{S} & $D\times D$ covariance matrix \\
+
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{P} & Vector containing the probabilities of \texttt{X} \\
+% \end{tabular}\\
+
+% \hline
+
+% %\hline
+% \end{tabular}\\
+
+
+% \label{page:gauss_rnd}
+
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{gauss\_rnd}} \\
+
+% Generates random samples from multivariate Gaussian distribution. \\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{P = gauss\_rnd(M,S,N)} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{M} & $D\times 1$ mean of distribution or $N$ values as $D\times N$ matrix \\
+% \texttt{S} & $D\times D$ covariance matrix \\
+% \texttt{N} & Number of samples & default: 1\\
+
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{X} & $D\times (K*N)$ matrix of samples\\
+% \end{tabular}\\
+
+% \hline
+
+% %\hline
+% \end{tabular}\\
+
+% \label{page:der_check}
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{der\_check}} \\
+
+% Evaluates the derivative of given functions derivative analytically
+% and \\ using finite differences. If no output parameters are not
+% given, issues a \\warning if the derivatives differ too much.  
+% Otherwise the derivatives are \\stored in output parameters. The purpose
+% of this is to check that the \\ derivatives  of the
+% dynamic and measurement functions are bug free.\\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{[D0,D1] = der\_check(F,DF,INDEX,[P1,P2,P3,...])} \\
+
+% \hline
+% {\bf Input:}
+% %
+% \begin{tabular}{l l l}
+% \texttt{F}     & Name of the function or inline function in form \texttt{F(P1,P2,...)} \\
+% \texttt{DF}    & Derivative value as matrix, name of derivative
+% function or inline & \\ & function in form \texttt{DF(P1,P2,...)} \\
+% \texttt{INDEX} & Index of parameter of interest. \texttt{DF} should
+% calculate the derivative & \\ & w.r.t. parameter \texttt{Pn}, where
+% \texttt{n} is the index. \\
+% \texttt{Pn}    & Parameters of the function \\
+
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{D0} & Actual derivative \\
+% \texttt{D1} & Approximate derivative \\
+% \end{tabular}\\
+
+% \hline
+
+% %\hline
+% \end{tabular}\\
+
+
+% \label{page:rk4}
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{rk4}} \\
+
+% Performs one fourth order Runge-Kutta iteration step for differential \\
+% equation of the form\\
+% $d\vec{x}/dt = f(\vec{x}(t),\theta(t))$,\\
+% or for the chained case \\
+% $d\vec{x}/dt = f(\vec{x}(t),\vec{y}(t),\theta(t))$ \\
+% $d\vec{y}/dt = g(\vec{x}(t),\theta(t))$,\\
+% where $\theta(t)$ is some parameter vector for functions $f$ and $g$ on
+% time $t$.\\\\
+
+% See the source file for more details and examples.\\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{[x,Y] = rk4(f,dt,x,[P1,P2,P3,Y])} \\
+
+% \hline
+% {\bf Input:} 
+% %
+% \begin{tabular}{l l l}
+% \texttt{f}  & Name of the function in form \texttt{f(x,P(:))}, or
+% inline function & \\ & taking the same parameters. In chained case the
+% function should & \\ & be \texttt{f(x,y,P(:))} \\
+% \texttt{dt} & Step size as scalar \\
+% \texttt{x}  & Value of x from the previous time step \\
+% \texttt{P1} & Values of parameters of \texttt{f} at initial time $t$
+% & \\ & as a cell array or scalar & default: empty\\
+% \texttt{P2} & Values of parameters of \texttt{f} at time $t+\dt/2$
+% & default: \texttt{P1} \\
+% \texttt{P3} &  Values of parameters of \texttt{f} at time $t+\dt$ &
+% default: \texttt{P2} \\
+% \texttt{Y}  &  Cell array of partial results $y_1,y_2,y_3,y_4$ in the
+% RK algorithm & \\ & of the second parameter in the integrated
+% function. This can be & \\ & used for chaining the integrators & default: empty\\
+
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{x} & Next value of x\\
+% \texttt{Y} & Cell array of partial results in Runge-Kutta algorithm\\
+% \end{tabular}\\
+
+% \hline
+
+% %\hline
+% \end{tabular}
+
+% \label{page:schol}
+
+% \begin{tabular}{|l|}
+% \hline
+
+% {\bf \texttt{schol}} \\
+
+% Computes the lower triangular Cholesky factor $\mat{L}$ of symmetric
+% positive \\ semidefinite matrix $\mat{A}$ such that $\mat{A} = \mat{L}\mat{L}^T$.\\
+
+% \hline
+% {\bf Syntax:}
+% %
+% \texttt{[L,def] = schol(A)} \\
+
+% \hline
+% {\bf Input:} 
+% %
+% \begin{tabular}{l l l}
+% \texttt{A} Matrix to be factorized \\
+
+% \end{tabular}\\
+% \hline
+
+% {\bf Output:}
+% %
+% \begin{tabular}{l l}
+% \texttt{L} & Lower triangular Cholesky factor if \texttt{A} is not
+% negative definite \\
+% \texttt{def} & Value 1,0,-1 denoting that \texttt{A} was positive
+% definite, positive \\ & semidefinite of negative definite, respectively \\
+% \end{tabular}\\
+
+% \hline
+
+% %\hline
+% \end{tabular}
+
+
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-\section{Functions in the toolbox}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In table \ref{table:functions} we have listed all the functions in the
-toolbox and the page numbers (sorted by page numbers in increasing
-order), where the function description begins. Some of the functions
-have optional input parameters. The default values for these
-parameters are listed in end of parameter descriptions.
-
-
-%
-\begin{table}
-\begin{center}
-\begin{tabular}{|r|r|}
-\hline
-Function & Page\\
-\hline
-\hline
-\texttt{lti\_disc} & \pageref{page:lti_disc}\\
-\hline
-\texttt{kf\_predict} & \pageref{page:kf_predict}\\
-\texttt{kf\_update} & \pageref{page:kf_update}\\
-\texttt{rts\_smooth} & \pageref{page:rts_smooth}\\
-\texttt{tf\_smooth} & \pageref{page:tf_smooth}\\
-\hline
-\texttt{ekf\_predict1} & \pageref{page:ekf_predict1}\\
-\texttt{ekf\_update1} & \pageref{page:ekf_update1}\\
-\texttt{ekf\_predict2} & \pageref{page:ekf_predict2}\\
-\texttt{ekf\_update2} & \pageref{page:ekf_update2}\\
-\texttt{erts\_smooth1} & \pageref{page:erts_smooth1}\\
-\texttt{etf\_smooth1} & \pageref{page:etf_smooth1}\\
-\hline
-\texttt{ut\_weights} & \pageref{page:ut_weights}\\
-\texttt{ut\_mweights} & \pageref{page:ut_mweights}\\
-\texttt{ut\_sigmas} & \pageref{page:ut_sigmas}\\
-\texttt{ut\_transform} & \pageref{page:ut_transform}\\
-\texttt{ukf\_predict1} & \pageref{page:ukf_predict1}\\
-\texttt{ukf\_update1} & \pageref{page:ukf_update1}\\
-\texttt{ukf\_predict2} & \pageref{page:ukf_predict2}\\
-\texttt{ukf\_update2} & \pageref{page:ukf_update1}\\
-\texttt{ukf\_predict3} & \pageref{page:ukf_predict3}\\
-\texttt{ukf\_update3} & \pageref{page:ukf_update1}\\
-\texttt{urts\_smooth1} & \pageref{page:urts_smooth1}\\
-\texttt{urts\_smooth2} & \pageref{page:urts_smooth2}\\
-\texttt{utf\_smooth1} & \pageref{page:utf_smooth1}\\
-\hline
-\texttt{gh\_transform} & \pageref{page:gh_transform}\\
-\texttt{ngausshermi} & \pageref{page:ngausshermi}\\
-\texttt{hermitepolynomial} & \pageref{page:hermitepolynomial}\\
-\texttt{gh\_packed\_pc} & \pageref{page:gh_packed_pc}\\
-\texttt{ghkf\_predict} & \pageref{page:ghkf_predict}\\
-\texttt{ghkf\_update} & \pageref{page:ghkf_update}\\
-\texttt{ghrts\_smooth} & \pageref{page:ghrts_smooth}\\
-\hline
-\texttt{ckf\_transform} & \pageref{page:ckf_transform}\\
-\texttt{sphericalradial} & \pageref{page:sphericalradial}\\
-\texttt{ckf\_packed\_pc} & \pageref{page:ckf_packed_pc}\\
-\texttt{ckf\_predict} & \pageref{page:ckf_predict}\\
-\texttt{ckf\_update} & \pageref{page:ckf_update}\\
-\texttt{crts\_smooth} & \pageref{page:crts_smooth}\\
-\hline
-\texttt{imm\_predict} & \pageref{page:imm_predict}\\
-\texttt{imm\_update} & \pageref{page:imm_update}\\
-\texttt{imm\_smooth} & \pageref{page:imm_smooth}\\
-\texttt{eimm\_predict} & \pageref{page:eimm_predict}\\
-\texttt{eimm\_update} & \pageref{page:eimm_update}\\
-\texttt{eimm\_smooth} & \pageref{page:eimm_smooth}\\
-\texttt{uimm\_predict} & \pageref{page:uimm_predict}\\
-\texttt{uimm\_update} & \pageref{page:uimm_update}\\
-\texttt{uimm\_smooth} & \pageref{page:uimm_smooth}\\
-\hline
-\texttt{der\_check} & \pageref{page:der_check}\\
-\texttt{gauss\_pdf} & \pageref{page:gauss_pdf}\\
-\texttt{gauss\_rnd} & \pageref{page:gauss_rnd}\\
-\texttt{rk4} & \pageref{page:rk4}\\
-\texttt{schol} & \pageref{page:schol}\\
-\hline
-\end{tabular}
-\caption{Functions provided with the toolbox. Functions are sorted
-  according to page numbers, from which function descriptions begin.}
-\label{table:functions}
-\end{center}
-\end{table}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-\subsection{Discrete-time state space estimation}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\label{page:lti_disc}
-
-%{\bf The discretization of a continous-time dynamic system} using the matrix fractional
-%decomposition (equation (\ref{eq:noisy_ltisolution_cov1})) can be calculated with the function
-%\texttt{lti\_disc}: \\
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{lti\_disc}} \\
-
-%{\bf Description:}
-%\begin{tabular}{l}
-Discretizes a linear, continous-time dynamic system using the matrix \\
-fraction decomposition (eq. (\ref{eq:noisy_ltisolution_cov1})). \\
-%\end{tabular} \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[A,Q] = lti\_disc(F,L,Qc,dt)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{F} & $N\times N$ feedback matrix \\
-\texttt{L} & $N\times L$ noise effect matrix & default: identity \\
-\texttt{Qc} & $L \times L$ diagonal diffusion matrix & default: zeros \\
-\texttt{dt} & time step                              & default: 1 \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{A} & The transition matrix\\
-\texttt{Q} & The covariance of the discrete process\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-\subsubsection{Linear models}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection*{Kalman filter}
-
-%{\bf The prediction step} of the Kalman filter (eq. (\ref{eq:dkf_predict}))
-%can be calculated using the function \texttt{kf\_predict}:\\
-
-
-
-\label{page:kf_predict}
-
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{kf\_predict}} \\
-
-Calculates the {\bf prediction step} of the Kalman filter (eq.
-(\ref{eq:dkf_predict})). \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X,P] = kf\_predict(X,P,A,Q,B,U)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{A} & Transition matrix of the discrete model & default: identity\\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{B} & Input effect matrix & default: identity\\
-\texttt{U} & Constant input & default: empty\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-%\noindent {\bf The update step} of the Kalman filter (eq. \ref{eq:dkf_update}) can
-%be calculated using the function \texttt{kf\_update}: \\
-
-\label{page:kf_update}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{kf\_update}} \\
-
-Calculates the {\bf update step} of the Kalman filter (eq.
-\ref{eq:dkf_update}). \\
-
-\hline
-
-{\bf Syntax:}
-\texttt{[X,P,K,IM,IS,LH] = kf\_update(X,P,Y,H,R)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l}
-\texttt{X} & $N\times 1$ vector containing the predicted state mean estimate from the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the predicted state covariance of the prediction step\\
-\texttt{Y} & $D\times 1$ vector containing the measurement on this time step\\
-\texttt{H} & $N\times D$ measurement matrix on this time step\\
-\texttt{R} & $S\times D$ measurement noise covariance matrix on this time step\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X}  & $N\times 1$ vector containing the updated state mean\\
-\texttt{P}  & $N\times N$ matrix containing the updated state covariance\\
-\texttt{K}  & Computed gain for the Kalman filter\\
-\texttt{IM} & Mean of predictive distribution of \texttt{Y}\\
-\texttt{IS} & Covariance or predictive mean of \texttt{Y}\\
-\texttt{LH} & Predictive probability of the measurement\\
-\end{tabular}\\
-
-\hline
-
-
-\end{tabular}
-\subsubsection*{Kalman smoother}
-
-
-%{\bf The smoothed estimate} for the state mean and covariance using {\bf the RTS smoother}
-%(eq. (\ref{eq:kfrts})) can be calculated with function \texttt{rts\_smooth}:\\
-
-\label{page:rts_smooth}
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{rts\_smooth}} \\
-
-Computes {\bf The smoothed estimate} for the state mean and covariance using {\bf the RTS smoother}
-(eq. (\ref{eq:kfrts})).\\
-
-\hline
-{\bf Syntax:} 
-\texttt{[M,P,S] = rts\_smooth(M,P,A,Q)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l}
-\texttt{M} & $N\times K$ matrix containing $K$ mean estimates calculated with Kalman filter\\
-\texttt{P} & $N\times N\times K$ matrix of $K$ state covariances calculated with Kalman filter \\
-\texttt{A} & $N\times N$ state transition matrix or $N\times N\times K$ matrix of $K$ state covariances
-\\ & for each time step\\
-\texttt{Q} & $N\times N$ process noise covariance matrix or $N\times N\times K$ matrix of $K$ process\\ & noise covariance matrices for each time step
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean on each time step\\
-\texttt{P} & Smoothed state covariance sequence on each time step\\
-\texttt{S} & Smoother gain on each time step
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-%{\bf The smoothed estimate} for the state mean and covariance using {\bf the TF smoother}
-%can be calculated with function \texttt{tf\_smooth}:\\
-
-\label{page:tf_smooth}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{tf\_smooth}} \\
-
-Calculates the {\bf The smoothed estimate} for the state mean and covariance using {\bf the TF smoother}.\\
-
-\hline
-
-{\bf Syntax:} 
-\texttt{[M,P] = tf\_smooth(M,P,Y,A,Q,H,R,use\_inf)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l}
-\texttt{M} & $N\times K$ matrix containing $K$ mean estimates calculated with Kalman filter\\
-\texttt{P} & $N\times N\times K$ matrix of $K$ state covariances calculated with Kalman filter \\
-\texttt{Y} & $D\times K$ matrix containing the sequence of $K$ measurements \\
-\texttt{A} & $N\times N$ state transition matrix or $N\times N\times K$ matrix of $K$ state covariances
-\\ & for each time step\\
-\texttt{Q} & $N\times N$ process noise covariance matrix or $N\times
-N\times K$ matrix of $K$ process\\ & noise covariance matrices for
-each time step \\
-\texttt{H} & $D\times N$ measurement matrix \\
-\texttt{R} & $D\times D$ measurement noise covariance \\
-\texttt{use\_inf} & if information filter should be used
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean on each time step\\
-\texttt{P} & Smoothed state covariance sequence on each time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-\subsubsection{Nonlinear models}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection*{Extended Kalman filter}
-
-%{\bf The prediction step} of the {\bf first order extended Kalman filter}
-%(eq. (\ref{eq:dekf_predict1})) can be calculated using the function
-%\texttt{ekf\_predict1}:\\
-
-\label{page:ekf_predict1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ekf\_predict1}} \\
-
-Calculates the {\bf The prediction step} of the {\bf first order extended Kalman filter}
-(eq. (\ref{eq:dekf_predict1})).\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ekf\_predict1(M,P,[A,Q,a,W,param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{A(x,param)} & default: identity\\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: \texttt{A(x)*M}\\
-\texttt{W} & Derivative of \texttt{a} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{W(x,param)} & default: identity\\
-\texttt{param} & Parameters of function a & default: empty\\
-%\texttt{B} & Input effect matrix & default: identity,\\
-%\texttt{U} & Constant input & default: empty.\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-
-%\noindent {\bf The update step} of the {\bf first order extended Kalman filter}
-%(eq. (\ref{eq:dekf_update1})) can be calculated using the function
-%\texttt{ekf\_update1}:\\
-
-\label{page:ekf_update1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ekf\_update1}} \\
-
-Calculates the {\bf The update step} of the {\bf first order extended Kalman filter}
-(eq. (\ref{eq:dekf_update1})).\\      
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ekf\_update1(M,P,Y,H,R,h,V,[param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{H} & Derivative of \texttt{h} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{H(x,param)}\\
-\texttt{R} & Measurement noise covariance\\
-\texttt{h} & Measurement model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{h(x,param)} & default: \texttt{H(x)*M}\\
-\texttt{V} & Derivative of \texttt{h} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
-\texttt{param} & Parameters of function h & default: empty\\
-%\texttt{B} & Input effect matrix & default: identity,\\
-%\texttt{U} & Constant input & default: empty.\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:ekf_predict2}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ekf\_predict2}} \\
-
-Calculates the {\bf The prediction step} of the {\bf second order extended Kalman filter}
-(eq. (\ref{eq:dekf_predict2})).\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ekf\_predict2(M,P,[A,F,Q,a,W,param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{A(x,param)} & default: identity\\
-\texttt{F} & $N\times N\times N$ Hessian matrix of the state
-transition w.r.t. state variables & \\ & as matrix, 
-function handle of name of function in form \texttt{F(x,param)} & default:
-identity \\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: $A(x)*M$\\
-\texttt{W} & Derivative of \texttt{a} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{W(x,param)} & default: identity\\
-\texttt{param} & Parameters of function a & default: empty\\
-%\texttt{B} & Input effect matrix & default: identity,\\
-%\texttt{U} & Constant input & default: empty.\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:ekf_update2}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ekf\_update2}} \\
-
-Calculates the {\bf The update step} of the {\bf second order extended Kalman filter}
-(eq. (\ref{eq:dekf_update2})).\\      
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ekf\_update2(M,P,Y,H,H\_xx,R,h,V,[param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{H} & Derivative of \texttt{h} with respect to state as matrix, inline function, & \\ & function handle or name of the function in form \texttt{H(x,param)}\\
-\texttt{H\_xx} & $D\times N \times N$ Hessian of \texttt{h} w.r.t. state
-variables as matrix, inline function, & \\ & function handle or name
-of function in form \texttt{H\_xx(x,param)} \\
-\texttt{R} & Measurement noise covariance\\
-\texttt{h} & Measurement model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{h(x,param)} & default: \texttt{H(x)*M}\\
-\texttt{V} & Derivative of \texttt{h} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
-\texttt{param} & Parameters of function h & default: empty\\
-%\texttt{B} & Input effect matrix & default: identity,\\
-%\texttt{U} & Constant input & default: empty.\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-
-\subsubsection*{Extended Kalman smoothers}
-
-%{\bf The smoothed estimate} for the state mean and covariance using
-%{\bf the extended RTS smoother} (eq. (\ref{eq:derts})) can be calculated using the function
-%\texttt{erts\_smooth1}:\\
-
-In extended and unscented smoothers the parameters of dynamic and
-measurement function are passed as a single cell array, vector or a
-matrix containing the same parameters for each step, or if different
-parameters are used on each step they must be a cell array of the format \\
-\texttt{\{param\_1,param\_2,...\}}, where \texttt{param\_x} contains
-the parameters for step x as a cell array, vector or matrix. \\
-
-\label{page:erts_smooth1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{erts\_smooth1}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and covariance using
-{\bf the extended RTS smoother} (eq. (\ref{eq:derts})).\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,D] = erts\_smooth1(M,P,[A,Q,s,W,param,same\_p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the EKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the EKF\\
-\texttt{A} & Derivative of \texttt{a} with respect to state as matrix, inline
-function, & \\ & function handle or name of the function in form
-\texttt{A(x,param)} & default: zero\\
-\texttt{Q} & Process noise of discrete model & default: zero\\ 
-\texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} & default: \texttt{H(x)*M}\\
-\texttt{W} & Derivative of \texttt{a} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
-\texttt{param} & Parameters of function \texttt{h} & default: empty\\
-\texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
-%\texttt{B} & Input effect matrix & default: identity,\\
-%\texttt{U} & Constant input & default: empty.\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\texttt{D} & Smoother gain for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:etf_smooth1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{etf\_smooth1}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and covariance using
-{\bf the extended TF smoother}.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = etf\_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,s\_p\_a,s\_p\_h)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the EKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the EKF\\
-\texttt{Y} & Measurement vector \\
-\texttt{A} & Derivative of \texttt{ia} with respect to state as matrix, inline
-function, & \\ & function handle or name of the function in form
-\texttt{A(x,param)} & default: identity\\
-\texttt{Q} & Process noise of discrete model & default: zero\\
-\texttt{ia} & Inverse prediction function as vector, inline function,
-function handle & \\ & or name of function in form
-\texttt{ia(x,param)} & default: \texttt{inv(A(x))*M} \\
-\texttt{W} & Derivative of \texttt{ia} with respect to noise as matrix, inline function, & \\ & function handle or name of the function in form \texttt{V(x,param)} & default: identity\\
-\texttt{aparam} & Parameters of function \texttt{ia} & default: empty\\
-\texttt{H} & Derivative of \texttt{h} with respect to state as matrix,
-        inline function, & \\ & function handle or name
-        of function in form \texttt{H(x,param)} \\
-\texttt{R} & Measurement noise covariance \\
-\texttt{h} & Measurement model function as vector, inline
-function, & \\ & function handle or name of the function in form
-\texttt{h(x,param)} & default: \texttt{H(x)*M}\\
-\texttt{V} & Derivative of \texttt{h} w.r.t. noise as matrix, inline
-function & \\ & function handle or name of function in form
-\texttt{V(x,param)} & default: identity \\
-\texttt{hparam} & Parameters of h & default: \texttt{aparam}\\
-\texttt{s\_p\_a} & If 1 uses the same parameters on every time step
-for \texttt{a} & default: 1 \\
-\texttt{s\_p\_h} & If 1 uses the same parameters on every time step
-for \texttt{h} & default: 1\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\subsubsection*{Unscented Kalman Filter}
-
-
-
-%The {\bf weights} for the {\bf unscented transform} using the
-%{\bf summation} form (eq. (\ref{eq:ut_weights})) can be calculated using the function
-%\texttt{ut\_weights}:\\
-
-\label{page:ut_weights}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ut\_weights}} \\
-
-Calculates the {\bf weights} for the {\bf unscented transform} using the
-{\bf summation} form (eq. (\ref{eq:ut_weights})). \\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{[WM,WC,c] = ut\_weights(n,alpha,beta,kappa)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{n} & Dimensionality of random variable,  \\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: 0.5 \\
-\texttt{beta}  & Transformation parameter $\beta$ & default: 2 \\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: 3-N\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{WM} & $(2n+1) \times 1$ vector containing the weights for mean estimation \\
-\texttt{WC} & $(2n+1) \times 1$ vector containing the weights for covariance estimation \\
-\texttt{c} & Scaling constant\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-%\noindent The {\bf weights} for the {\bf unscented transform} using the
-%{\bf matrix} form (eq. (\ref{eq:vec_wm}) and (\ref{eq:mat_w})) can be calculated using the function
-%\texttt{ut\_mweights}:\\
-
-\label{page:ut_mweights}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ut\_mweights}} \\
-
-Calculates the {\bf weights} for the {\bf unscented transform} using
-the
-{\bf matrix} form (eq. (\ref{eq:vec_wm}) and (\ref{eq:mat_w})). \\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{[WM,W,c] = ut\_mweights(n,alpha,beta,kappa)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{n} & Dimensionality of the state variable  \\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: 0.5 \\
-\texttt{beta}  & Transformation parameter $\beta$ & default: 2 \\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: 3-N\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{WM} & $(2n+1) \times 1$ vector containing the weights for mean estimation \\
-\texttt{W} & $(2n+1) \times (2n+1)$ matrix containing the weights for covariance estimation\\
-\texttt{c} & Scaling constant\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-%\noindent The {\bf sigma points} for the {\bf unscented transform} 
-%(eq. (\ref{eq:ut_sigmas})) can be generated using the function
-%\texttt{ut\_sigmas}:\\
-
-\label{page:ut_sigmas}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ut\_sigmas}} \\
-
-Generates The {\bf sigma points} for the {\bf unscented transform} 
-with eq. (\ref{eq:ut_sigmas}). \\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{[X] = ut\_sigmas(M,P,c)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l}
-\texttt{M} & $N \times 1$ vector containing the initial state mean \\
-\texttt{P} & $N \times N$ matrix containing the initial state covariance \\
-\texttt{c} & Parameter returned by \texttt{ut\_weights} \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X} & $(2n+1) \times (2n+1)$ matrix containing the sigma points in its columns \\
-\end{tabular}\\
-
-\hline
-\end{tabular}\\
-
-
-%\noindent The {\bf unscented transform} using the summation or matrix form
-% can be calculated using the function
-%\texttt{ut\_transform}:\\
-
-\label{page:ut_transform}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ut\_transform}} \\
-
-Calculates the {\bf unscented transform} of function $\vec{g}$ using
-the summation or matrix form.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[mu,S,C,X,Y,w] = ut\_transform(g,M,P,[param,alpha,beta,kappa,mat])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{g} & Transformation function of the form \texttt{g(x,param)} as & \\ &
-matrix, inline function, function name or function reference \\
-\texttt{M} & $N \times 1$ containing mean of $\vec{x}$ \\
-\texttt{P} & $N \times N$ matrix containing the covariance of $\vec{x}$ \\
-\texttt{param} & Parameters of function \texttt{g} & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: 0.5 \\
-\texttt{beta} & Transformation parameter $\beta$ & default: 2 \\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: 3-N\\
-\texttt{mat} & 1 if the matrix form is used, otherwise 0 & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{mu} & Estimated mean of y\\
-\texttt{S} & Estimated covariance of y\\
-\texttt{C} & Estimated cross-covariance of x and y\\
-\texttt{X} & Sigma points of x\\
-\texttt{Y} & Sigma points of y\\
-\texttt{w} & Weights of sigma points as cell-array of form \texttt{\{mean-weights,cov-weights,c\}}\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-\label{page:ukf_predict1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ukf\_predict1}} \\
-
-Calculates the {\bf The prediction step} of the {\bf non-augmented
-form unscented Kalman filter} (eq. (\ref{eq:ukf1_predict})).\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ukf\_predict1(M,P,a,Q,[param,alpha,beta,kappa])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{a(x,param)} \\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{param} & Parameters of function a & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-\label{page:ukf_update1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ukf\_update1}} \\
-
-Calculates the {\bf The update step} of the {\bf nonaugmented form unscented Kalman filter}
-(eq. (\ref{eq:ukf1_update1}) and (\ref{eq:ukf1_update2})).\\      
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ukf\_update1(M,P,Y,h,R,[param,alpha,beta,kappa,mat])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form
-\texttt{h(x,param)} \\
-\texttt{R} & Measurement noise covariance\\
-\texttt{param} & Parameters of function h & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:ukf_predict2}
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ukf\_predict2}} \\
-
-Calculates the {\bf The prediction step} of the {\bf augmented form
-  unscented Kalman filter}
-which concatenates \\ state variables and
-process noise terms together. \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ukf\_predict2(M,P,a,Q,[param,alpha,beta,kappa])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{a([x;q],param)} \\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{param} & Parameters of function a & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-\label{page:ukf_update2}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ukf\_update2}} \\
-
-Calculates the {\bf The update step} of the {\bf augmented form
-  unscented Kalman filter}, which concatenates state \\variables and
-measurement noise terms together. Note that this function creates a new set of sigma points, so \\some odd-order moment
-information carried by process noise terms might get lost. \\ 
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ukf\_update2(M,P,Y,h,R,[param,alpha,beta,kappa,mat])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form \texttt{h([x;r],param)} \\
-\texttt{R} & Measurement noise covariance\\
-\texttt{param} & Parameters of function h & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:ukf_predict3}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ukf\_predict3}} \\
-
-Calculates the {\bf The prediction step} of the {\bf augmented form
-  unscented Kalman filter} (eq.
-(\ref{eq:ukf2_predict1}),(\ref{eq:ukf2_predict2}) and (\ref{eq:ukf2_predict3})),\\
-which concatenates state variables, process and
-measurement noise terms together. \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ukf\_predict3(M,P,a,Q,[param,alpha,beta,kappa])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{a([x;q],param)} \\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{param} & Parameters of function a & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\texttt{X} & Sigma points of x\\
-\texttt{w} & Weights as cell array of form \texttt{\{mean-weights,cov-weights,c\}}\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-\label{page:ukf_update3}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ukf\_update3}} \\
-
-Calculates the {\bf The update step} of the {\bf augmented form
-  unscented Kalman filter} (eq. (\ref{eq:ukf2_update1}) and
-(\ref{eq:ukf2_update2})), \\ which concatenates state variables and
-measurement noise terms together. Note that this
-function  uses the \\ sigma points created in the prediction step, so that
-odd-order moment information could get captured better.\\  
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ukf\_update3(M,P,Y,h,R,X,w,[param,alpha,beta,kappa,mat])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form \texttt{h([x;r],param)} \\
-\texttt{R} & Measurement noise covariance\\
-\texttt{X} & Sigma points of x\\
-\texttt{w} & Weights as cell array of form \texttt{\{mean-weights,cov-weights,c\}}\\
-\texttt{param} & Parameters of function h & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:urts_smooth1}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{urts\_smooth1}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and covariance using\\
-{\bf the nonaugmented form unscented RTS smoother}. Note that this
-assumes \\ that the noises are additive.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,D] = urts\_smooth1(M,P,a,Q,[param,alpha,beta,kappa,mat,same\_p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the EKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the EKF\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} \\
-\texttt{Q} & Process noise of discrete model & default: zero\\ 
-\texttt{param} & Parameters of function \texttt{a} & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\texttt{D} & Smoother gain for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:urts_smooth2}
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{urts\_smooth2}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and
-covariance using \\
-{\bf the augmented form unscented RTS smoother} (eq. (\ref{eq:urts1})
-- (\ref{eq:urts5})).\\ 
-Note that in this case noises can be non-additive.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,D] = urts\_smooth2(M,P,a,Q,[param,alpha,beta,kappa,mat,same\_p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the EKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the EKF\\
-\texttt{a} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a([x;w],param)} \\
-\texttt{Q} & Process noise of discrete model & default: zero\\ 
-\texttt{param} & Parameters of function \texttt{a} & default: empty\\
-\texttt{alpha} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{beta} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kappa} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\texttt{D} & Smoother gain for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:utf_smooth1}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{utf\_smooth1}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and covariance using
-{\bf the unscented TF smoother}.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = utf\_smooth1(M,P,Y,[ia,Q,ap,h,R,hp,aa,bb,kk,mat,s\_p\_a,s\_p\_h])}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the EKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the EKF\\
-\texttt{Y} & Measurement vector \\
-\texttt{ia} & Inverse prediction function as vector, inline function,
-function handle & \\ & or name of function in form
-\texttt{ia(x,param)} & default: identity \\
-\texttt{Q} & Process noise of discrete model & default: zero\\
-\texttt{ap} & Parameters of function \texttt{ia} & default: empty\\
-\texttt{h} & Measurement model function as vector, inline
-function, & \\ & function handle or name of the function in form
-\texttt{h(x,param)} \\
-\texttt{R} & Measurement noise covariance \\
-\texttt{hp} & Parameters of h & default: \texttt{aparam}\\
-\texttt{aa} & Transformation parameter $\alpha$ & default: $0.5$\\
-\texttt{bb} & Transformation parameter $\beta$ & default: $2$\\
-\texttt{kk} & Transformation parameter $\kappa$ & default: $3-N$\\
-\texttt{mat} & If 1 uses matrix form & default: 0\\
-\texttt{s\_p\_a} & If 1 uses the same parameters on every time step
-for \texttt{a} & default: 1 \\
-\texttt{s\_p\_h} & If 1 uses the same parameters on every time step
-for \texttt{h} & default: 1\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-  % Cubature methods
-%
-  % Added by Arno Solin, 2010
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-\subsubsection*{Gauss-Hermite Kalman Filter}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% >> lookfor Gauss-Hermite
-% ghkf_predict                   - Gauss-Hermite Kalman filter prediction step
-% ghrts_smooth                   - Additive form Gauss-Hermite Rauch-Tung-Striebel smoother
-% ngausshermi                    - ND scaled Gauss-Hermite quadrature (cubature) rule
-% gh_transform                   - Gauss-Hermite transform of random variables
-% ghkf_update                    - Gauss-Hermite Kalman filter update step
-% gh_packed_pc                   - Pack P and C for the Gauss-Hermite transformation
-
-
-
-
-\label{page:gh_transform}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{gh\_transform}} \\
-
-Calculates the {\bf Gauss--Hermite transform} of function $\vec{g}$ using
-the summation form.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[mu,S,C,X,Y,w] = gh\_transform(M,P,g,p,[param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N \times 1$ containing mean of $\vec{x}$ \\
-\texttt{P} & $N \times N$ matrix containing the covariance of $\vec{x}$ \\
-\texttt{g} & Transformation function of the form \texttt{g(x,param)} as & \\ &
-matrix, inline function, function name or function reference \\
-\texttt{p} & Degree of approximation in the Gauss--Hermite rule \\
-\texttt{param} & Parameters of function \texttt{g} & default: empty\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{mu} & Estimated mean of y\\
-\texttt{S} & Estimated covariance of y\\
-\texttt{C} & Estimated cross-covariance of x and y\\
-\texttt{SX} & Sigma points of x\\
-\texttt{W} & Weights of sigma points as cell-array of form \texttt{\{mean-weights,cov-weights,c\}}\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-
-\label{page:ngausshermi}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ngausshermi}} \\
-
-Approximates a Gaussian integral using the {\bf Gauss-Hermite method}
-    in multiple dimensions\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[I,x,W,F] = ngausshermi(f,p,m,P[,param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-    \texttt{f} & Function $f(x,param)$ as inline, name or reference \\
-    \texttt{n} & Polynomial order \\
-    \texttt{m} & Mean of the $d$-dimensional Gaussian distribution \\
-    \texttt{P} & Covariance of the Gaussian distribution \\
-    \texttt{param} & Optional parameters for the function (optional) \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-    \texttt{I} & The integral value \\
-    \texttt{x} & Evaluation points \\
-    \texttt{W} & Weights \\
-    \texttt{F} & Function values \\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-\label{page:hermitepolynomial}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{hermitepolynomial}} \\
-
-Forms the {\bf Hermite polynomial} of order $n$.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{p = hermitepolynomial(n)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-    \texttt{n} & Polynomial order \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-    \texttt{p} & Polynomial coefficients (starting from greatest order) \\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-\label{page:gh_packed_pc}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{gh\_packed\_pc}} \\
-
-Packs the integrals that need to be evaluated to nice function form to
-    ease the evaluation. \\Evaluates \texttt{P = (f-fm)(f-fm)'} and \texttt{C = (x-m)(f-fm)'}\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{pc = GH\_PACKED\_PC(x,fmmparam)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-    \texttt{x} & Evaluation point \\
-    \texttt{fmmparam} & Array of handles and parameters to form the functions \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-    \texttt{pc} & Packed function \\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-
-
-
-
-
-\label{page:ghkf_predict}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ghkf\_predict}} \\
-
-Calculates the {\bf The prediction step} of the {\bf Gauss--Hermite
-Kalman filter}.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ghkf\_predict(M,P,f,Q,[param,p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{f} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{f(x,param)} \\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{param} & Parameters of function f & default: empty\\
-\texttt{p} & Degree of approximation (number of quadrature points) & default: 10\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-\label{page:ghkf_update}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ghkf\_update}} \\
-
-Calculates the {\bf The update step} of the {\bf Gauss--Hermite Kalman filter}.\\      
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ghkf\_update(M,P,Y,h,R,[param,p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form
-\texttt{h(x,param)} \\
-\texttt{R} & Measurement noise covariance\\
-\texttt{param} & Parameters of function h & default: empty\\
-\texttt{p} & Degree of approximation (number of quadrature points) & default: 10\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-
-
-
-
-
-\label{page:ghrts_smooth}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ghrts\_smooth}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and covariance using\\
-{\bf the Gauss--Hermite RTS smoother}. Note that this
-assumes \\ that the noises are additive.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,D] = ghrts\_smooth(M,P,f,Q,[param,p,same\_p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the GHKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the GHKF\\
-\texttt{f} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} \\
-\texttt{Q} & Process noise of discrete model & default: zero\\ 
-\texttt{param} & Parameters of function \texttt{a} & default: empty\\
-\texttt{p} & Degree of approximation (number of quadrature points) & default: 10\\
-\texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\texttt{D} & Smoother gain for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-\subsubsection*{Cubature Kalman Filter}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% >> lookfor cubature
-% ckf_packed_pc                  - Pack P and C for the Cubature Kalman filter transform
-% ckf_predict                    - Cubature Kalman filter prediction step
-% ckf_transform                  - Cubature Kalman filter transform of random variables
-% ckf_update                     - Cubature Kalman filter update step
-% crts_smooth                    - Additive form cubature Rauch-Tung-Striebel smoother
-% sphericalradial                - ND scaled spherical-radial cubature rule
-
-
-
-\label{page:ckf_transform}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ckf\_transform}} \\
-
-Calculates the {\bf spherical-radial rule} based {\bf cubature transform} of function $\vec{g}$ using
-the summation form.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[mu,S,C,X,Y,w] = ckf\_transform(M,P,g,[param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N \times 1$ containing mean of $\vec{x}$ \\
-\texttt{P} & $N \times N$ matrix containing the covariance of $\vec{x}$ \\
-\texttt{g} & Transformation function of the form \texttt{g(x,param)} as & \\ &
-matrix, inline function, function name or function reference \\
-\texttt{param} & Parameters of function \texttt{g} & default: empty\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{mu} & Estimated mean of y\\
-\texttt{S} & Estimated covariance of y\\
-\texttt{C} & Estimated cross-covariance of x and y\\
-\texttt{SX} & Sigma points of x\\
-\texttt{W} & Weights of sigma points as cell-array of form \texttt{\{mean-weights,cov-weights,c\}}\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-\label{page:sphericalradial}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{sphericalradial}} \\
-
-Approximates a Gaussian integral using the $d$-dimensional {\bf spherical--radial cubature rule} \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[I,x,W,F] = sphericalradial(f,m,P[,param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-    \texttt{f} & Function $f(x,param)$ as inline, name or reference \\
-    \texttt{m} & Mean of the $d$-dimensional Gaussian distribution \\
-    \texttt{P} & Covariance of the Gaussian distribution \\
-    \texttt{param} & Optional parameters for the function (optional) \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-    \texttt{I} & The integral value \\
-    \texttt{x} & Evaluation points \\
-    \texttt{W} & Weights \\
-    \texttt{F} & Function values \\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-
-\label{page:ckf_packed_pc}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ckf\_packed\_pc}} \\
-
-Packs the integrals that need to be evaluated to nice function form to
-    ease the evaluation. \\Evaluates \texttt{P = (f-fm)(f-fm)'} and \texttt{C = (x-m)(f-fm)'}\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{pc = CKF\_PACKED\_PC(x,fmmparam)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-    \texttt{x} & Evaluation point \\
-    \texttt{fmmparam} & Array of handles and parameters to form the functions \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-    \texttt{pc} & Packed function \\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-
-
-
-
-
-\label{page:ckf_predict}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ckf\_predict}} \\
-
-Calculates the {\bf The prediction step} of the {\bf cubature
-Kalman filter}.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P] = ckf\_predict(M,P,f,Q,[param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate of the previous step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance of the previous step\\
-\texttt{f} & Dynamic model function as vector, inline function, & \\ &
-function handle or name of the function in form \texttt{f(x,param)} \\
-\texttt{Q} & Process noise of the discrete model & default: zero\\
-\texttt{param} & Parameters of function f & default: empty\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Predicted mean for the state on the next time step\\
-\texttt{P} & Predicted covariance for the state on the next time step\\
-\end{tabular}\\
-
-\hline
-\end{tabular} \\
-
-
-
-
-
-
-
-\label{page:ckf_update}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{ckf\_update}} \\
-
-Calculates the {\bf The update step} of the {\bf cubature Kalman filter}.\\      
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,K,MU,S,LH] = ckf\_update(M,P,Y,h,R,[param])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times 1$ vector containing the state mean estimate &
-\\ & after the prediction step\\
-\texttt{P} & $N\times N$ matrix containing the state covariance after
-& \\ & the prediction step\\
-\texttt{Y} & $D\times 1$ measurement vector \\
-\texttt{h} & Measurement model function as vector, inline function, &
-\\ & function handle or name of the function in form
-\texttt{h(x,param)} \\
-\texttt{R} & Measurement noise covariance\\
-\texttt{param} & Parameters of function h & default: empty\\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Updated mean for the state on the next time step\\
-\texttt{P} & Updated covariance for the state on the next time step\\
-\texttt{K} & Computed Kalman gain\\
-\texttt{MU} & Predictive mean of Y\\
-\texttt{S} & Predictive covariance of Y\\
-\texttt{LH} & Predictive probability (likelihood) of measurement\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-
-
-
-
-
-\label{page:crts_smooth}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{crts\_smooth}} \\
-
-Calculates {\bf The smoothed estimate} for the state mean and covariance using\\
-{\bf the cubature RTS smoother}. Note that this assumes \\ that the noises are additive.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[M,P,D] = crts\_smooth(M,P,f,Q,[param,p,same\_p])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $N\times K$ matrix containing the state mean estimates
-produced & \\ &  by the CKF\\
-\texttt{P} & $N\times N \times K$ matrix containing the state
-covariances produced & \\ & by the CKF\\
-\texttt{f} & Dynamic model function as vector, inline function, & \\ & function handle or name of the function in form \texttt{a(x,param)} \\
-\texttt{Q} & Process noise of discrete model & default: zero\\ 
-\texttt{param} & Parameters of function \texttt{a} & default: empty\\
-\texttt{same\_p} & If 1 uses the same parameters on every time step & default: 1 \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{M} & Smoothed state mean sequence for all time steps\\
-\texttt{P} & Smoothed state covariance for all time steps\\
-\texttt{D} & Smoother gain for all time steps\\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% End of cubature functions %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-\subsection{Multiple Model Systems}
-
-
-\label{page:imm_predict}
-
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{imm\_predict}} \\
-
-Calculates {\bf the prediction step} of {\bf IMM filter}.\\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X\_p,P\_p,c\_j,X,P] = imm\_predict(X\_ip,P\_ip,MU\_ip,p\_ij,ind,dims,A,Q)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X\_ip} & Cell array containing $N^j \times 1$ mean state estimate
-vectors for & \\ & each model $j$ after update step of previous time step
-\\
-\texttt{P\_ip} & Cell array containing $N^j \times N^j$ state covariance matrices for 
-           & \\ &each model $j$ after update step of previous time step \\
-\texttt{MU\_ip} & Vector containing the model probabilities at previous time step \\
-\texttt{p\_ij} &  Model transition probability matrix \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{A} & State transition matrices for each model as a cell array \\
-\texttt{Q} & Process noise matrices for each model as a cell array \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_p} & Predicted state mean for each model as a cell array \\
-\texttt{P\_p} & Predicted state covariance for each model as a cell
-array \\
-\texttt{c\_j} & Normalizing factors for mixing probabilities \\
-\texttt{X} & Combined predicted state mean estimate \\
-\texttt{P} & Combined predicted state covariance estimate \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:imm_update}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{imm\_update}} \\
-
-Calculates {\bf the update step} of {\bf IMM filter}. \\
-
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X\_i,P\_i,MU,X,P] = imm\_update(X\_p,P\_p,c\_j,ind,dims,Y,H,R)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X\_p} & Cell array containing $N^j \times 1$ mean state estimate
-vectors for & \\ & each model $j$ after update step of previous time step
-\\
-\texttt{P\_p} & Cell array containing $N^j \times N^j$ state covariance matrices for 
-           & \\ &each model $j$ after update step of previous time step \\
-\texttt{c\_j} & Normalizing factors for mixing probabilities \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{Y} & $D \times 1$ measurement vector \\
-\texttt{H} & Measurement matrices for each model as a cell array \\
-\texttt{R} & Measurement noise covariances for each model as a cell array \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_i} & Updated state mean for each model as a cell array \\
-\texttt{P\_i} & Updated state covariance for each model as a cell
-array \\
-\texttt{MU} & Estimated probabilities of each model \\
-\texttt{X} & Combined updated state mean estimate \\
-\texttt{P} & Combined updated state covariance estimate \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-\label{page:imm_smooth}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{imm\_smooth}} \\
-
-Smooths the filtered state estimates with the {\bf fixed-interval two-filter IMM smoother}.\\
-
-\hline
-
-{\bf Syntax:}
-
- \texttt{[X\_S,P\_S,X\_IS,P\_IS,MU\_S] = imm\_smooth(MM,PP,MM\_i,PP\_i,MU,p\_ij,...}\\
- \hspace{9.2 cm} \texttt{mu\_0j,ind,dims,A,Q,R,H,Y)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{MM} & $N\times K$ matrix containing the means of forward-time
-IMM-filter on each time step \\
-\texttt{PP} & $N\times N \times K$ matrix containing the covariances of forward-time IMM-filter on each time step
-\\
-\texttt{MM\_i} &  Model-conditional means of forward-time IMM-filter on
-each time step as a cell array \\
-\texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter
-on each time step as a cell array \\
-\texttt{MU} & Model probabilities of forward-time IMM-filter on each time step \\
-\texttt{p\_ij} & Model transition probability matrix \\
-\texttt{mu\_0j} & Prior model probabilities \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{A} & State transition matrices for each model as a cell array \\
-\texttt{Q} & Process noise matrices for each model as a cell array \\
-\texttt{R} & Measurement noise covariances for each model as a cell array \\
-\texttt{H} & Measurement matrices for each model as a cell array \\
-\texttt{Y} & $D \times K$ sized measurement matrix \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_S} & Smoothed state means for each time step \\
-\texttt{P\_S} & Smoothed state covariances for each time step \\
-\texttt{X\_IS} & Model-conditioned smoothed state means for each time
-step \\
-\texttt{P\_IS} & Model-conditioned smoothed state covariances for each
-time step \\
-\texttt{MU\_S} & Smoothed model probabilities for each time step \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:eimm_predict}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{eimm\_predict}} \\
-
-Calculates {\bf the prediction step} of {\bf IMM-EKF filter}. Uses standard \\
-Kalman filter update step for models having linear dynamics. \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X\_p,P\_p,c\_j,X,P] =
-  eimm\_predict(X\_ip,P\_ip,MU\_ip,p\_ij,ind,...} \\
-\hspace{8.1 cm} \texttt{dims,A,a,param,Q)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X\_ip} & Cell array containing $N^j \times 1$ mean state estimate
-vectors for & \\ & each model $j$ after update step of previous time step
-\\
-\texttt{P\_ip} & Cell array containing $N^j \times N^j$ state covariance matrices for 
-           & \\ &each model $j$ after update step of previous time step \\
-\texttt{MU\_ip} & Vector containing the model probabilities at previous time step \\
-\texttt{p\_ij} &  Model transition probability matrix \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{A} & Dynamic model matrices for each linear model and
-Jacobians of each & \\ &
-           non-linear model's dynamic model function as a cell array
-\\
-\texttt{a} & Function handles for dynamic model functions for each model
-as a cell array
-\\
-\texttt{param} & Parameters of a for each model as a cell array
-\\
-\texttt{Q} & Process noise matrices for each model as a cell array \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_p} & Predicted state mean for each model as a cell array \\
-\texttt{P\_p} & Predicted state covariance for each model as a cell
-array \\
-\texttt{c\_j} & Normalizing factors for mixing probabilities \\
-\texttt{X} & Combined predicted state mean estimate \\
-\texttt{P} & Combined predicted state covariance estimate \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:eimm_update}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{eimm\_update}} \\
-
-Calculates {\bf the update step} of {\bf IMM-EKF filter}. Uses standard \\
-Kalman filter update step for models having linear measurements. \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X\_i,P\_i,MU,X,P] = eimm\_update(X\_p,P\_p,c\_j,ind,dims,...}
-\\
-\hspace{7.7 cm} \texttt{Y,H,h,h\_param,R)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X\_p} & Cell array containing $N^j \times 1$ mean state estimate
-vectors for & \\ & each model $j$ after update step of previous time step
-\\
-\texttt{P\_p} & Cell array containing $N^j \times N^j$ state covariance matrices for 
-           & \\ &each model $j$ after update step of previous time step \\
-\texttt{c\_j} & Normalizing factors for mixing probabilities \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{Y} & $D \times 1$ measurement vector \\
-\texttt{H} & Measurement matrices for each linear model and Jacobians
-of each & \\ & non-linear model's measurement model function as a cell array \\
-\texttt{h} & Cell array containing function handles for measurement
-functions & \\ & for each model having non-linear measurements \\
-\texttt{h\_param} & Parameters of h as a cell array \\
-\texttt{R} & Measurement noise covariances for each model as a cell array \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_i} & Updated state mean for each model as a cell array \\
-\texttt{P\_i} & Updated state covariance for each model as a cell
-array \\
-\texttt{MU} & Estimated probabilities of each model \\
-\texttt{X} & Combined updated state mean estimate \\
-\texttt{P} & Combined updated state covariance estimate \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:eimm_smooth}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{eimm\_smooth}} \\
-
-Smooths the filtered state estimates with the {\bf EKF based fixed-interval
-  two-filter IMM smoother}.\\
-
-\hline
-
-{\bf Syntax:}
-
- \texttt{[X\_S,P\_S,X\_IS,P\_IS,MU\_S] = eimm\_smooth(MM,PP,MM\_i,PP\_i,MU,p\_ij,...}\\
- \hspace{9.4 cm} \texttt{mu\_0j,ind,dims,A,a,a\_param,}\\
- \hspace{9.4 cm} \texttt{Q,R,H,h,h\_param,Y)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{MM} & $N\times K$ matrix containing the means & \\ & of forward-time
-IMM-filter on each time step \\
-\texttt{PP} & $N\times N \times K$ matrix containing the covariances &
-\\ & of forward-time IMM-filter on each time step
-\\
-\texttt{MM\_i} &  Model-conditional means of forward-time IMM-filter
-on & \\ &
-each time step as a cell array \\
-\texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter
-on & \\ & each time step as a cell array\\
-\texttt{MU} & Model probabilities of forward-time IMM-filter on each time step \\
-\texttt{p\_ij} & Model transition probability matrix \\
-\texttt{mu\_0j} & Prior model probabilities \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{A} & Dynamic model matrices for each linear model and Jacobians of each
-& \\ & non-linear model's measurement model function as a cell array
-\\
-\texttt{a} & Cell array containing function handles for measurement
-functions & \\ &
-for each model having non-linear measurements \\
-\texttt{a\_param} & Parameters of a as a cell array \\
-\texttt{Q} & Process noise matrices for each model as a cell array \\
-\texttt{R} & Measurement noise covariances for each model as a cell array \\
-\texttt{H} & Measurement matrices for each linear model and Jacobians
-of each & \\ & non-linear model's measurement model function as a cell array \\
-\texttt{h} & Cell array containing function handles for measurement
-functions & \\ & for each model having non-linear measurements \\
-\texttt{h\_param} & Parameters of h as a cell array \\
-\texttt{Y} & $D \times K$ sized measurement matrix \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_S} & Smoothed state means for each time step \\
-\texttt{P\_S} & Smoothed state covariances for each time step \\
-\texttt{X\_IS} & Model-conditioned smoothed state means for each time
-step \\
-\texttt{P\_IS} & Model-conditioned smoothed state covariances for each
-time step \\
-\texttt{MU\_S} & Smoothed model probabilities for each time step \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:uimm_predict}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{uimm\_predict}} \\
-
-Calculates {\bf the prediction step} of {\bf IMM-UKF filter}. Uses
-standard \\  Kalman filter prediction step for models having linear dynamics. \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X\_p,P\_p,c\_j,X,P] =
-  uimm\_predict(X\_ip,P\_ip,MU\_ip,p\_ij,ind,...} \\
-\hspace{8.1 cm} \texttt{dims,a,param,Q)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X\_ip} & Cell array containing $N^j \times 1$ mean state estimate
-vectors for & \\ & each model $j$ after update step of previous time step
-\\
-\texttt{P\_ip} & Cell array containing $N^j \times N^j$ state covariance matrices for 
-           & \\ &each model $j$ after update step of previous time step \\
-\texttt{MU\_ip} & Vector containing the model probabilities at previous time step \\
-\texttt{p\_ij} &  Model transition probability matrix \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{A} & Dynamic model matrices for each linear model and
-Jacobians of each & \\ &
-           non-linear model's dynamic model function as a cell array
-\\
-\texttt{a} & Function handles for dynamic model functions for each model
-as a cell array
-\\
-\texttt{param} & Parameters of a for each model as a cell array
-\\
-\texttt{Q} & Process noise matrices for each model as a cell array \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_p} & Predicted state mean for each model as a cell array \\
-\texttt{P\_p} & Predicted state covariance for each model as a cell
-array \\
-\texttt{c\_j} & Normalizing factors for mixing probabilities \\
-\texttt{X} & Combined predicted state mean estimate \\
-\texttt{P} & Combined predicted state covariance estimate \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:uimm_update}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{uimm\_update}} \\
-
-Calculates {\bf the update step} of {\bf IMM-UKF filter}. Uses standard \\
-Kalman filter update step for models having linear measurements. \\
-
-\hline
-
-{\bf Syntax:}
-%
-\texttt{[X\_i,P\_i,MU,X,P] = uimm\_update(X\_p,P\_p,c\_j,ind,dims,...}
-\\
-\hspace{7.7 cm} \texttt{Y,H,h,h\_param,R)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X\_p} & Cell array containing $N^j \times 1$ mean state estimate
-vectors for & \\ & each model $j$ after update step of previous time step
-\\
-\texttt{P\_p} & Cell array containing $N^j \times N^j$ state covariance matrices for 
-           & \\ &each model $j$ after update step of previous time step \\
-\texttt{c\_j} & Normalizing factors for mixing probabilities \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{Y} & $D \times 1$ measurement vector \\
-\texttt{H} & Measurement matrices for each linear model and Jacobians
-of each & \\ & non-linear model's measurement model function as a cell
-array \\
-\texttt{h} & Cell array containing function handles for measurement
-functions & \\ & for each model having non-linear measurements \\
-\texttt{h\_param} & Parameters of h as a cell array \\
-\texttt{R} & Measurement noise covariances for each model as a cell array \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_i} & Updated state mean for each model as a cell array \\
-\texttt{P\_i} & Updated state covariance for each model as a cell
-array \\
-\texttt{MU} & Estimated probabilities of each model \\
-\texttt{X} & Combined updated state mean estimate \\
-\texttt{P} & Combined updated state covariance estimate \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\label{page:uimm_smooth}
-
-\noindent \begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{uimm\_smooth}} \\
-
-Smooths the filtered state estimates with the {\bf UKF based fixed-interval
-  two-filter IMM smoother}.\\
-
-\hline
-
-{\bf Syntax:}
-
- \texttt{[X\_S,P\_S,X\_IS,P\_IS,MU\_S] = uimm\_smooth(MM,PP,MM\_i,PP\_i,MU,p\_ij,...}\\
- \hspace{9.4 cm} \texttt{mu\_0j,ind,dims,A,a,a\_param,}\\
- \hspace{9.4 cm} \texttt{Q,R,H,h,h\_param,Y)}\\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{MM} & $N\times K$ matrix containing the means & \\ & of forward-time
-IMM-filter on each time step \\
-\texttt{PP} & $N\times N \times K$ matrix containing the covariances &
-\\ & of forward-time IMM-filter on each time step
-\\
-\texttt{MM\_i} &  Model-conditional means of forward-time IMM-filter
-on & \\ &
-each time step as a cell array \\
-\texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter
-on & \\ & each time step as a cell array\\
-\texttt{MU} & Model probabilities of forward-time IMM-filter on each time step \\
-\texttt{p\_ij} & Model transition probability matrix \\
-\texttt{mu\_0j} & Prior model probabilities \\
-\texttt{ind} &  Indexes of state components for each model as a cell
-array \\
-\texttt{dims} &  Total number of different state components in the
-combined system \\
-\texttt{A} & Dynamic model matrices for each linear model and Jacobians of each
-& \\ & non-linear model's measurement model function as a cell array
-\\
-\texttt{a} & Cell array containing function handles for measurement
-functions & \\ &
-for each model having non-linear measurements \\
-\texttt{a\_param} & Parameters of a as a cell array \\
-\texttt{Q} & Process noise matrices for each model as a cell array \\
-\texttt{R} & Measurement noise covariances for each model as a cell array \\
-\texttt{H} & Measurement matrices for each linear model and Jacobians
-of each & \\ & non-linear model's measurement model function as a cell array \\
-\texttt{h} & Cell array containing function handles for measurement
-functions & \\ & for each model having non-linear measurements. \\
-\texttt{h\_param} & Parameters of h as a cell array \\
-\texttt{Y} & $D \times K$ sized measurement matrix  \\
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X\_S} & Smoothed state means for each time step \\
-\texttt{P\_S} & Smoothed state covariances for each time step \\
-\texttt{X\_IS} & Model-conditioned smoothed state means for each time
-step \\
-\texttt{P\_IS} & Model-conditioned smoothed state covariances for each
-time step \\
-\texttt{MU\_S} & Smoothed model probabilities for each time step \\
-\end{tabular}\\
-
-\hline
-\end{tabular}
-
-
-\subsection{Other functions}
-
-
-
-For convience and to make this toolbox independent of any other
-toolboxes (e.g. Statistics toolbox) we provide
-some functions, which are useful for methods described above.
-
-\label{page:gauss_pdf}
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{gauss\_pdf}} \\
-
-Calculates the density of a multivariate Gaussian distribution. \\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{P = gauss\_pdf(X,M,S)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{X} & $D\times N$ matrix containing $N$ vectors with size $D\times 1$ \\
-\texttt{M} & $D\times 1$ mean of distribution or $N$ values as $D\times N$ matrix \\
-\texttt{S} & $D\times D$ covariance matrix \\
-
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{P} & Vector containing the probabilities of \texttt{X} \\
-\end{tabular}\\
-
-\hline
-
-%\hline
-\end{tabular}\\
-
-
-\label{page:gauss_rnd}
-
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{gauss\_rnd}} \\
-
-Generates random samples from multivariate Gaussian distribution. \\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{P = gauss\_rnd(M,S,N)} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{M} & $D\times 1$ mean of distribution or $N$ values as $D\times N$ matrix \\
-\texttt{S} & $D\times D$ covariance matrix \\
-\texttt{N} & Number of samples & default: 1\\
-
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{X} & $D\times (K*N)$ matrix of samples\\
-\end{tabular}\\
-
-\hline
-
-%\hline
-\end{tabular}\\
-
-\label{page:der_check}
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{der\_check}} \\
-
-Evaluates the derivative of given functions derivative analytically
-and \\ using finite differences. If no output parameters are not
-given, issues a \\warning if the derivatives differ too much.  
-Otherwise the derivatives are \\stored in output parameters. The purpose
-of this is to check that the \\ derivatives  of the
-dynamic and measurement functions are bug free.\\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{[D0,D1] = der\_check(F,DF,INDEX,[P1,P2,P3,...])} \\
-
-\hline
-{\bf Input:}
-%
-\begin{tabular}{l l l}
-\texttt{F}     & Name of the function or inline function in form \texttt{F(P1,P2,...)} \\
-\texttt{DF}    & Derivative value as matrix, name of derivative
-function or inline & \\ & function in form \texttt{DF(P1,P2,...)} \\
-\texttt{INDEX} & Index of parameter of interest. \texttt{DF} should
-calculate the derivative & \\ & w.r.t. parameter \texttt{Pn}, where
-\texttt{n} is the index. \\
-\texttt{Pn}    & Parameters of the function \\
-
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{D0} & Actual derivative \\
-\texttt{D1} & Approximate derivative \\
-\end{tabular}\\
-
-\hline
-
-%\hline
-\end{tabular}\\
-
-
-\label{page:rk4}
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{rk4}} \\
-
-Performs one fourth order Runge-Kutta iteration step for differential \\
-equation of the form\\
-$d\vec{x}/dt = f(\vec{x}(t),\theta(t))$,\\
-or for the chained case \\
-$d\vec{x}/dt = f(\vec{x}(t),\vec{y}(t),\theta(t))$ \\
-$d\vec{y}/dt = g(\vec{x}(t),\theta(t))$,\\
-where $\theta(t)$ is some parameter vector for functions $f$ and $g$ on
-time $t$.\\\\
-
-See the source file for more details and examples.\\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{[x,Y] = rk4(f,dt,x,[P1,P2,P3,Y])} \\
-
-\hline
-{\bf Input:} 
-%
-\begin{tabular}{l l l}
-\texttt{f}  & Name of the function in form \texttt{f(x,P(:))}, or
-inline function & \\ & taking the same parameters. In chained case the
-function should & \\ & be \texttt{f(x,y,P(:))} \\
-\texttt{dt} & Step size as scalar \\
-\texttt{x}  & Value of x from the previous time step \\
-\texttt{P1} & Values of parameters of \texttt{f} at initial time $t$
-& \\ & as a cell array or scalar & default: empty\\
-\texttt{P2} & Values of parameters of \texttt{f} at time $t+\dt/2$
-& default: \texttt{P1} \\
-\texttt{P3} &  Values of parameters of \texttt{f} at time $t+\dt$ &
-default: \texttt{P2} \\
-\texttt{Y}  &  Cell array of partial results $y_1,y_2,y_3,y_4$ in the
-RK algorithm & \\ & of the second parameter in the integrated
-function. This can be & \\ & used for chaining the integrators & default: empty\\
-
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{x} & Next value of x\\
-\texttt{Y} & Cell array of partial results in Runge-Kutta algorithm\\
-\end{tabular}\\
-
-\hline
-
-%\hline
-\end{tabular}
-
-\label{page:schol}
-
-\begin{tabular}{|l|}
-\hline
-
-{\bf \texttt{schol}} \\
-
-Computes the lower triangular Cholesky factor $\mat{L}$ of symmetric
-positive \\ semidefinite matrix $\mat{A}$ such that $\mat{A} = \mat{L}\mat{L}^T$.\\
-
-\hline
-{\bf Syntax:}
-%
-\texttt{[L,def] = schol(A)} \\
-
-\hline
-{\bf Input:} 
-%
-\begin{tabular}{l l l}
-\texttt{A} Matrix to be factorized \\
-
-\end{tabular}\\
-\hline
-
-{\bf Output:}
-%
-\begin{tabular}{l l}
-\texttt{L} & Lower triangular Cholesky factor if \texttt{A} is not
-negative definite \\
-\texttt{def} & Value 1,0,-1 denoting that \texttt{A} was positive
-definite, positive \\ & semidefinite of negative definite, respectively \\
-\end{tabular}\\
-
-\hline
-
-%\hline
-\end{tabular}
-
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\appendix
+\clearpage
+%\appendix
+
+\phantomsection
+\addcontentsline{toc}{section}{References}
 
 %\section{Full source code for the examples}
 
