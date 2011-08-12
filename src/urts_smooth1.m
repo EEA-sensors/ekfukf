@@ -71,7 +71,7 @@ function [M,P,D] = urts_smooth1(M,P,f,Q,f_param,alpha,beta,kappa,mat,same_p)
     error('Too few arguments');
   end
   if nargin < 5
-    param = [];
+    f_param = [];
   end
   if nargin < 6
     alpha = [];
