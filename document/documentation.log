@@ -1,6 +1,5 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.30)  13 SEP 2010 16:11
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.12)  12 AUG 2011 13:29
 entering extended mode
- restricted \write18 enabled.
  %&-line parsing enabled.
 **documentation.tex
 (./documentation.tex
@@ -1108,7 +1107,7 @@ courier/ucrb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb
 ></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-t
 exlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/u
 rw/times/utmri8a.pfb>
-Output written on documentation.pdf (96 pages, 1185725 bytes).
+Output written on documentation.pdf (96 pages, 1185723 bytes).
 PDF statistics:
  1493 PDF objects out of 1728 (max. 8388607)
  449 named destinations out of 1000 (max. 500000)
