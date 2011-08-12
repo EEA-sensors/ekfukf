@@ -7,6 +7,13 @@
 ####################################################################
 
 ---------------------------------------------
+  Version 1.3:  Fri Aug  12 2011
+---------------------------------------------
+	* Added Gauss-Hermite and third order cubature rule based methods.
+	* Demos updated
+	* Minor bux fixes.
+
+---------------------------------------------
   Version 1.2:  Mon Feb  25 2008
 ---------------------------------------------
 	* Made few more minor corrections to function descriptions.

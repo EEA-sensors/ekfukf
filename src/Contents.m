@@ -1,9 +1,11 @@
 % EKF/UKF toolbox for Matlab 7.x
-% Version 1.2, February 8. 2008
+% Version 1.3, August 12, 2011
 %
-% Copyright (C) 2005-2008 Simo Särkkä, <simo.sarkka@hut.fi>
-%               2007-2008 Jouni Hartikainen <jmjharti@cc.hut.fi>
+% Copyright (C) 2005-2011 Simo Sï¿½rkkï¿½, <simo.sarkka@hut.fi>
+%               2007-2011 Jouni Hartikainen <jmjharti@cc.hut.fi>
+%               2010-2011 Arno Solin <arno.solin@tkk.fi>
 % History:      
+%   12.08.2011 JH & AS & SS Updated to version 1.3
 %   04.09.2007 JH & SS Updated for version 1.1
 %   06.08.2007 JH Updated for version 1.0
 %
@@ -27,7 +29,7 @@
 %   ERTS_SMOOTH1  1st order Extended RTS Smoother
 %   ETF_SMOOTH1   Smoother based on two 1. order extended Kalman filters           
 %
-% Unscented transform / Unscented Kalman filtering
+% Nonlinear transform based filtering
 %   UT_WEIGHTS    Generate weights for sigma points using the summation form
 %   UT_MWEIGTS    Generate weights for sigma points using the matrix form
 %   UT_SIGMAS     Generate Sigma Points for Unscented Transformation
@@ -41,6 +43,14 @@
 %   URTS_SMOOTH1  Nonaugmented unscented RTS-smoother
 %   URTS_SMOOTH2  Augmented unscented RTS-smoother
 %   UTF_SMOOTH    Smoother based on combination of two unscented Kalman filters
+%   GH_TRANSFORM  Gauss-Hermite transform of random variables
+%   GHKF_PREDICT  Gauss-Hermite Kalman filter prediction step
+%   GHKF_UPDATE   Gauss-Hermite Kalman filter update step
+%   GHRTS_SMOOTH  Additive form Gauss-Hermite Rauch-Tung-Striebel smoother
+%   CKF_TRANSFORM Cubature Kalman filter transform of random variables
+%   CKF_PREDICT   Cubature Kalman filter prediction step
+%   CKF_UPDATE    Cubature Kalman filter update step
+%   CRTS_SMOOTH - Additive form cubature Rauch-Tung-Striebel smoother
 %
 % Multiple Model Filtering
 %   IMM_PREDICT   IMM filter prediction step
@@ -92,6 +102,8 @@
 %      BOT_DEMO_ALL       BOT demo with EKF and UKF
 %      EKFS_BOT_DEMO      BOT demo with EKF
 %      UKFS_BOT_DEMO      BOT demo with UKF
+%      GHKFS_BOT_DEMO     BOT demo with GHKF
+%      CKFS_BOT_DEMO      BOT demo with CKF
 %
 %   /REENTRY_DEMO/        
 %      REENTRY_F          Dynamic model function
