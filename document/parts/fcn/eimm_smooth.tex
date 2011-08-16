@@ -1,0 +1,54 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{eimm\_smooth}
+\label{function:eimm_smooth}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.1\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{eimm\_smooth}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    EKF based two-filter fixed-interval IMM smoother.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [X\_S,P\_S,X\_IS,P\_IS,MU\_S] = EIMM\_SMOOTH(MM,PP, MM\_i,PP\_i,MU,p\_ij,mu\_0j,ind,dims, A,a,a\_param,Q,R,H,h,h\_param,Y)} } \\
+\hline
+\multirow{17}{*}{\bf Input:}
+ & \texttt{MM} & Means of forward-time IMM-filter on each time step \\
+ & \texttt{PP} & Covariances of forward-time IMM-filter on each time step \\
+ & \texttt{MM\_i} & Model-conditional means of forward-time IMM-filter on each time step  \\
+ & \texttt{PP\_i} & Model-conditional covariances of forward-time IMM-filter on each time step \\
+ & \texttt{MU} & Model probabilities of forward-time IMM-filter on each time step  \\
+ & \texttt{p\_ij} & Model transition probability matrix \\
+ & \texttt{ind} & Indices of state components for each model as a cell array \\
+ & \texttt{dims} & Total number of different state components in the combined system \\
+ & \texttt{A} & Dynamic model matrices for each linear model and Jacobians of each
+            non-linear model's measurement model function as a cell array \\
+ & \texttt{a} & Cell array containing function handles for dynamic functions
+            for each model having non-linear dynamics \\
+ & \texttt{a\_param} & Parameters of a as a cell array. \\
+ & \texttt{Q} & Process noise matrices for each model as a cell array. \\
+ & \texttt{R} & Measurement noise matrices for each model as a cell array. \\
+ & \texttt{H} & Measurement matrices for each linear model and Jacobians of each
+            non-linear model's measurement model function as a cell array \\
+ & \texttt{h} & Cell array containing function handles for measurement functions
+            for each model having non-linear measurements \\
+ & \texttt{h\_param} & Parameters of h as a cell array. \\
+ & \texttt{Y} & Measurement sequence \\
+\hline
+\multirow{5}{*}{\bf Output:}
+ & \texttt{X\_S} & Smoothed state means for each time step \\
+ & \texttt{P\_S} & Smoothed state covariances for each time step \\
+ & \texttt{X\_IS} & Model-conditioned smoothed state means for each time step \\
+ & \texttt{P\_IS} & Model-conditioned smoothed state covariances for each time step \\
+ & \texttt{MU\_S} & Smoothed model probabilities for each time step
+     \\
+\hline
+\end{tabular*}

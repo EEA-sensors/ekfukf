@@ -1,0 +1,40 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{tf\_smooth}
+\label{function:tf_smooth}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.2\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{tf\_smooth}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Two filter linear smoother algorithm. Calculate "smoothed"
+    sequence from given Kalman filter output sequence
+    by conditioning all steps to all measurements.} \\ 
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [M,P] = TF\_SMOOTH(M,P,Y,A,Q,H,R,[use\_inf])} } \\
+\hline
+\multirow{8}{*}{\bf Input:}
+ & \texttt{M} & NxK matrix of K mean estimates from Kalman filter \\
+ & \texttt{P} & NxNxK matrix of K state covariances from Kalman Filter \\ 
+ & \texttt{Y} & Sequence of K measurement as DxK matrix \\
+ & \texttt{A} & NxN state transition matrix. \\
+ & \texttt{Q} & NxN process noise covariance matrix. \\
+ & \texttt{H} & DxN Measurement matrix. \\
+ & \texttt{R} & DxD Measurement noise covariance. \\
+ & \texttt{use\_inf} & If information filter should be used (default 1) \\
+\hline
+\multirow{2}{*}{\bf Output:}
+ & \texttt{M} & Smoothed state mean sequence \\
+ & \texttt{P} & Smoothed state covariance sequence
+     \\
+\hline
+\end{tabular*}

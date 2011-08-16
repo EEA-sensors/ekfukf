@@ -1,0 +1,47 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{rk4}
+\label{function:rk4}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.1\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{rk4}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Perform one fourth order Runge-Kutta iteration step
+    for differential equation} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [x,Y] = rk4(f,dt,x, [P1,P2,P3,Y])} } \\
+\hline
+\multirow{7}{*}{\bf Input:}
+ & \texttt{f} & Name of function in form f(x,P(:)) or
+         inline function taking the same parameters.
+         In chained case the function should be f(x,y,P(:)). \\
+ & \texttt{dt} & Delta time as scalar. \\
+ & \texttt{x} & Value of x from the previous time step. \\
+ & \texttt{P1} & Values of parameters of the function at initial time t
+         as a cell array (or single plain value). Defaults to empty
+         array (no parameters). \\
+ & \texttt{P2} & Values of parameters of the function at time t+dt/2 as
+         a cell array (or single plain value). Defaults to P1 and
+         each empty (or missing) value in the cell array is replaced
+         with the corresponding value in P1. \\
+ & \texttt{P3} & Values of parameters of the function at time t+dt.
+         Defaults to P2 similarly to above. \\
+ & \texttt{Y} & Cell array of partial results y1,y2,y3,y4 in the RK algorithm
+         of the second parameter in the interated function. This can be
+         used for chaining the integrators. Defaults to empty. \\
+\hline
+\multirow{2}{*}{\bf Output:}
+ & \texttt{x} & Next value of X \\
+ & \texttt{Y} & Cell array of partial results in Runge-Kutta algorithm. \\
+\hline
+\end{tabular*}

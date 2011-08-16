@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.12)  12 AUG 2011 15:49
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.12)  16 AUG 2011 10:10
 entering extended mode
  %&-line parsing enabled.
 **documentation.tex
@@ -12,23 +12,24 @@ skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
 orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
 , estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
 rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size11.clo
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\c@subparagraph=\count84
-\c@figure=\count85
-\c@table=\count86
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-)
+) (./parts/head.tex
 (/var/lib/texmf/tex/generic/babel/babel.sty
 Package: babel 2008/07/06 v3.8l The Babel package
 
@@ -37,7 +38,7 @@ Language: english 2005/03/30 v3.3o English support from the babel system
 
 (/usr/share/texmf-texlive/tex/generic/babel/babel.def
 File: babel.def 2008/07/06 v3.8l Babel common definitions
-\babel@savecnt=\count87
+\babel@savecnt=\count88
 \U@D=\dimen103
 )
 \l@canadian = a dialect from \language\l@american 
@@ -49,8 +50,217 @@ Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(/usr/share/texmf-texlive/tex/latex/base/latin1.def
-File: latin1.def 2008/03/30 v1.1d Input encoding file
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+Now handling font encoding OML ...
+... no UTF-8 mapping file for font encoding OML
+Now handling font encoding T1 ...
+... processing UTF-8 mapping file for font encoding T1
+
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
+File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C0 (decimal 192)
+   defining Unicode char U+00C1 (decimal 193)
+   defining Unicode char U+00C2 (decimal 194)
+   defining Unicode char U+00C3 (decimal 195)
+   defining Unicode char U+00C4 (decimal 196)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00C7 (decimal 199)
+   defining Unicode char U+00C8 (decimal 200)
+   defining Unicode char U+00C9 (decimal 201)
+   defining Unicode char U+00CA (decimal 202)
+   defining Unicode char U+00CB (decimal 203)
+   defining Unicode char U+00CC (decimal 204)
+   defining Unicode char U+00CD (decimal 205)
+   defining Unicode char U+00CE (decimal 206)
+   defining Unicode char U+00CF (decimal 207)
+   defining Unicode char U+00D0 (decimal 208)
+   defining Unicode char U+00D1 (decimal 209)
+   defining Unicode char U+00D2 (decimal 210)
+   defining Unicode char U+00D3 (decimal 211)
+   defining Unicode char U+00D4 (decimal 212)
+   defining Unicode char U+00D5 (decimal 213)
+   defining Unicode char U+00D6 (decimal 214)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00D9 (decimal 217)
+   defining Unicode char U+00DA (decimal 218)
+   defining Unicode char U+00DB (decimal 219)
+   defining Unicode char U+00DC (decimal 220)
+   defining Unicode char U+00DD (decimal 221)
+   defining Unicode char U+00DE (decimal 222)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E0 (decimal 224)
+   defining Unicode char U+00E1 (decimal 225)
+   defining Unicode char U+00E2 (decimal 226)
+   defining Unicode char U+00E3 (decimal 227)
+   defining Unicode char U+00E4 (decimal 228)
+   defining Unicode char U+00E5 (decimal 229)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00E7 (decimal 231)
+   defining Unicode char U+00E8 (decimal 232)
+   defining Unicode char U+00E9 (decimal 233)
+   defining Unicode char U+00EA (decimal 234)
+   defining Unicode char U+00EB (decimal 235)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F0 (decimal 240)
+   defining Unicode char U+00F1 (decimal 241)
+   defining Unicode char U+00F2 (decimal 242)
+   defining Unicode char U+00F3 (decimal 243)
+   defining Unicode char U+00F4 (decimal 244)
+   defining Unicode char U+00F5 (decimal 245)
+   defining Unicode char U+00F6 (decimal 246)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+00F9 (decimal 249)
+   defining Unicode char U+00FA (decimal 250)
+   defining Unicode char U+00FB (decimal 251)
+   defining Unicode char U+00FC (decimal 252)
+   defining Unicode char U+00FD (decimal 253)
+   defining Unicode char U+00FE (decimal 254)
+   defining Unicode char U+00FF (decimal 255)
+   defining Unicode char U+0102 (decimal 258)
+   defining Unicode char U+0103 (decimal 259)
+   defining Unicode char U+0104 (decimal 260)
+   defining Unicode char U+0105 (decimal 261)
+   defining Unicode char U+0106 (decimal 262)
+   defining Unicode char U+0107 (decimal 263)
+   defining Unicode char U+010C (decimal 268)
+   defining Unicode char U+010D (decimal 269)
+   defining Unicode char U+010E (decimal 270)
+   defining Unicode char U+010F (decimal 271)
+   defining Unicode char U+0110 (decimal 272)
+   defining Unicode char U+0111 (decimal 273)
+   defining Unicode char U+0118 (decimal 280)
+   defining Unicode char U+0119 (decimal 281)
+   defining Unicode char U+011A (decimal 282)
+   defining Unicode char U+011B (decimal 283)
+   defining Unicode char U+011E (decimal 286)
+   defining Unicode char U+011F (decimal 287)
+   defining Unicode char U+0130 (decimal 304)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0132 (decimal 306)
+   defining Unicode char U+0133 (decimal 307)
+   defining Unicode char U+0139 (decimal 313)
+   defining Unicode char U+013A (decimal 314)
+   defining Unicode char U+013D (decimal 317)
+   defining Unicode char U+013E (decimal 318)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0143 (decimal 323)
+   defining Unicode char U+0144 (decimal 324)
+   defining Unicode char U+0147 (decimal 327)
+   defining Unicode char U+0148 (decimal 328)
+   defining Unicode char U+014A (decimal 330)
+   defining Unicode char U+014B (decimal 331)
+   defining Unicode char U+0150 (decimal 336)
+   defining Unicode char U+0151 (decimal 337)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0154 (decimal 340)
+   defining Unicode char U+0155 (decimal 341)
+   defining Unicode char U+0158 (decimal 344)
+   defining Unicode char U+0159 (decimal 345)
+   defining Unicode char U+015A (decimal 346)
+   defining Unicode char U+015B (decimal 347)
+   defining Unicode char U+015E (decimal 350)
+   defining Unicode char U+015F (decimal 351)
+   defining Unicode char U+0160 (decimal 352)
+   defining Unicode char U+0161 (decimal 353)
+   defining Unicode char U+0162 (decimal 354)
+   defining Unicode char U+0163 (decimal 355)
+   defining Unicode char U+0164 (decimal 356)
+   defining Unicode char U+0165 (decimal 357)
+   defining Unicode char U+016E (decimal 366)
+   defining Unicode char U+016F (decimal 367)
+   defining Unicode char U+0170 (decimal 368)
+   defining Unicode char U+0171 (decimal 369)
+   defining Unicode char U+0178 (decimal 376)
+   defining Unicode char U+0179 (decimal 377)
+   defining Unicode char U+017A (decimal 378)
+   defining Unicode char U+017B (decimal 379)
+   defining Unicode char U+017C (decimal 380)
+   defining Unicode char U+017D (decimal 381)
+   defining Unicode char U+017E (decimal 382)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+2423 (decimal 9251)
+)
+Now handling font encoding OT1 ...
+... processing UTF-8 mapping file for font encoding OT1
+
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
+File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00B8 (decimal 184)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+)
+Now handling font encoding OMS ...
+... processing UTF-8 mapping file for font encoding OMS
+
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
+File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+)
+Now handling font encoding OMX ...
+... no UTF-8 mapping file for font encoding OMX
+Now handling font encoding U ...
+... no UTF-8 mapping file for font encoding U
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+02C6 (decimal 710)
+   defining Unicode char U+02DC (decimal 732)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2026 (decimal 8230)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2423 (decimal 9251)
 ))
 (/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
@@ -82,7 +292,7 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 
 (/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
-\Gread@gobject=\count88
+\Gread@gobject=\count89
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
@@ -117,11 +327,13 @@ O)
 Package: xcolor-patch 2009/10/02 xcolor patch
 ))
 \@linkdim=\dimen106
-\Hy@linkcounter=\count89
-\Hy@pagecounter=\count90
+\Hy@linkcounter=\count90
+\Hy@pagecounter=\count91
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 )
 (/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
@@ -188,7 +400,7 @@ Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 )))
-\Fld@menulength=\count91
+\Fld@menulength=\count92
 \Field@Width=\dimen107
 \Fld@charsize=\dimen108
 \Field@toks=\toks17
@@ -203,14 +415,14 @@ Package hyperref Info: PDF/A mode OFF on input line 4407.
 (/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
 )
-\Hy@abspage=\count92
-\c@Item=\count93
-\c@Hfootnote=\count94
+\Hy@abspage=\count93
+\c@Item=\count94
+\c@Hfootnote=\count95
 )
 *hyperref using driver hpdftex*
 (/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
-\Fld@listcount=\count95
+\Fld@listcount=\count96
 )
 (/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
@@ -232,13 +444,13 @@ Package: amsbsy 1999/11/29 v1.2d
 (/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count96
+\inf@bad=\count97
 LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count97
-\leftroot@=\count98
+\uproot@=\count98
+\leftroot@=\count99
 LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count99
-\DOTSCASE@=\count100
+\classnum@=\count100
+\DOTSCASE@=\count101
 LaTeX Info: Redefining \ldots on input line 379.
 LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
@@ -247,15 +459,15 @@ LaTeX Info: Redefining \cdots on input line 467.
 \big@size=\dimen111
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count101
-\c@MaxMatrixCols=\count102
+\macc@depth=\count102
+\c@MaxMatrixCols=\count103
 \dotsspace@=\muskip11
-\c@parentequation=\count103
-\dspbrk@lvl=\count104
+\c@parentequation=\count104
+\dspbrk@lvl=\count105
 \tag@help=\toks19
-\row@=\count105
-\column@=\count106
-\maxfields@=\count107
+\row@=\count106
+\column@=\count107
+\maxfields@=\count108
 \andhelp@=\toks20
 \eqnshift@=\dimen112
 \alignsep@=\dimen113
@@ -280,6 +492,21 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 )
+(/usr/share/texmf-texlive/tex/latex/caption/caption.sty
+Package: caption 2009/10/09 v3.1k Customizing captions (AR)
+
+(/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
+Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
+\captionmargin=\dimen118
+\captionmargin@=\dimen119
+\captionwidth=\dimen120
+\caption@indent=\dimen121
+\caption@parindent=\dimen122
+\caption@hangindent=\dimen123
+)
+\c@ContinuedFloat=\count109
+Package caption Info: hyperref package is loaded.
+)
 (/usr/share/texmf-texlive/tex/latex/amsfonts/eufrak.sty
 
 Package eufrak Warning: The eufrak package is redundant if the amsfonts package
@@ -294,14 +521,14 @@ LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigtopskip=\skip46
 \subfigcapskip=\skip47
-\subfigcaptopadj=\dimen118
+\subfigcaptopadj=\dimen124
 \subfigbottomskip=\skip48
-\subfigcapmargin=\dimen119
+\subfigcapmargin=\dimen125
 \subfiglabelskip=\skip49
-\c@subfigure=\count108
-\c@lofdepth=\count109
-\c@subtable=\count110
-\c@lotdepth=\count111
+\c@subfigure=\count110
+\c@lofdepth=\count111
+\c@subtable=\count112
+\c@lotdepth=\count113
 
 ****************************************
 * Local config file subfigure.cfg used *
@@ -316,16 +543,16 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \LTright=\skip53
 \LTpre=\skip54
 \LTpost=\skip55
-\LTchunksize=\count112
-\LTcapwidth=\dimen120
+\LTchunksize=\count114
+\LTcapwidth=\dimen126
 \LT@head=\box28
 \LT@firsthead=\box29
 \LT@foot=\box30
 \LT@lastfoot=\box31
-\LT@cols=\count113
-\LT@rows=\count114
-\c@LT@tables=\count115
-\c@LT@chunks=\count116
+\LT@cols=\count115
+\LT@rows=\count116
+\c@LT@tables=\count117
+\c@LT@chunks=\count118
 \LT@p@ftn=\toks23
 )
 (/usr/share/texmf-texlive/tex/latex/moreverb/moreverb.sty
@@ -338,28 +565,28 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@in@stream=\read1
 )
 \verbatim@out=\write3
-\tab@position=\count117
-\tab@size=\count118
-\listing@line=\count119
+\tab@position=\count119
+\tab@size=\count120
+\listing@line=\count121
 )
 (/usr/share/texmf-texlive/tex/latex/listings/listings.sty
-\lst@mode=\count120
+\lst@mode=\count122
 \lst@gtempboxa=\box32
 \lst@token=\toks26
-\lst@length=\count121
-\lst@currlwidth=\dimen121
-\lst@column=\count122
-\lst@pos=\count123
-\lst@lostspace=\dimen122
-\lst@width=\dimen123
-\lst@newlines=\count124
-\lst@lineno=\count125
-\lst@maxwidth=\dimen124
+\lst@length=\count123
+\lst@currlwidth=\dimen127
+\lst@column=\count124
+\lst@pos=\count125
+\lst@lostspace=\dimen128
+\lst@width=\dimen129
+\lst@newlines=\count126
+\lst@lineno=\count127
+\lst@maxwidth=\dimen130
 
 (/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
-\c@lstnumber=\count126
-\lst@skipnumbers=\count127
+\c@lstnumber=\count128
+\lst@skipnumbers=\count129
 \lst@framebox=\box33
 )
 (/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
@@ -367,9 +594,182 @@ File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
+(/usr/share/texmf-texlive/tex/latex/natbib/natbib.sty
+Package: natbib 2009/07/16 8.31 (PWD, AO)
+\bibhang=\skip56
+\bibsep=\skip57
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count130
+)
 (/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
-) (./documentation.aux
+) (./mcode.sty
+-- Package: `mcode' 1.7 <2010/02/01> --
+Package: mcode 2010/02/01 1.7
+ - settings optimized for display (colour formating)
+ - framed listings
+(/usr/share/texmf-texlive/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/share/texmf-texlive/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+(/usr/share/texmf-texlive/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+))
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+))
+(/usr/share/texmf-texlive/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2006/07/14 v1.1d eso-pic (RN)
+
+(/usr/share/texmf-texlive/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/share/texmf-texlive/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen131
+)
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip58
+\f@ncyO@elh=\skip59
+\f@ncyO@erh=\skip60
+\f@ncyO@olh=\skip61
+\f@ncyO@orh=\skip62
+\f@ncyO@elf=\skip63
+\f@ncyO@erf=\skip64
+\f@ncyO@olf=\skip65
+\f@ncyO@orf=\skip66
+))
+(./documentation.aux
 
 LaTeX Warning: Label `eq:imm_mtpm' multiply defined.
 
@@ -379,480 +779,2007 @@ LaTeX Warning: Label `eq:imm_modelprior' multiply defined.
 )
 \openout1 = `documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 196.
-LaTeX Font Info:    ... okay on input line 196.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 196.
- (/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 7.
+ (/usr/share/texmf-texlive/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 7.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count128
-\scratchdimen=\dimen125
+\scratchcounter=\count131
+\scratchdimen=\dimen132
 \scratchbox=\box34
-\nofMPsegments=\count129
-\nofMParguments=\count130
+\nofMPsegments=\count132
+\nofMParguments=\count133
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count131
-\MPscratchDim=\dimen126
-\MPnumerator=\count132
+\MPscratchCnt=\count134
+\MPscratchDim=\dimen133
+\MPnumerator=\count135
 \everyMPtoPDFconversion=\toks28
 )
-Package hyperref Info: Link coloring ON on input line 196.
+Package hyperref Info: Link coloring ON on input line 7.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count133
+\c@section@level=\count136
 )
-LaTeX Info: Redefining \ref on input line 196.
-LaTeX Info: Redefining \pageref on input line 196.
+LaTeX Info: Redefining \ref on input line 7.
+LaTeX Info: Redefining \pageref on input line 7.
 
 (./documentation.out) (./documentation.out)
 \@outlinefile=\write4
 \openout4 = `documentation.out'.
 
 \AtBeginShipoutBox=\box35
-\c@lstlisting=\count134
-LaTeX Font Info:    Try loading font information for U+msa on input line 198.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
+Package caption Info: longtable package is loaded.
+
+(/usr/share/texmf-texlive/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2008/03/28 v1.2 longtable captions (AR)
+)
+Package caption Info: subfigure package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count137
+
+ABD: EveryShipout initializing macros
+LaTeX Font Info:    Try loading font information for U+msa on input line 11.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 198.
+LaTeX Font Info:    Try loading font information for U+msb on input line 11.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 201.
- [1
+<pics/cover.jpg, id=135, 1660.2025pt x 2346.7675pt>
+File: pics/cover.jpg Graphic file (type jpg)
+ <use pics/cover.jpg>
+[1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 235.
- (./documentation.toc
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./pics/cover.jpg>]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 2.
-
-Overfull \hbox (0.6017pt too wide) in paragraph at lines 5--5
- [][] [][][]\T1/ptm/m/n/10.95 Discretization of continuous-time lin-ear time-in
-variant sys- 
- []
-
-)
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 12.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.31 \end{abstract}
+                    [1]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 37.
+ (./documentation.toc)
 \tf@toc=\write5
 \openout5 = `documentation.toc'.
 
- [2] [3]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 296.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.39 \newpage
+              [1
 
- (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 296.
- [4]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 331.
+]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 42.
 
+
+Package natbib Warning: Citation `Sarkka:2006' on page 2 undefined on input lin
+e 46.
+
+LaTeX Font Info:    Try loading font information for T1+phv on input line 62.
+(/usr/share/texmf-texlive/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+) [2]
+(./parts/ch01-introduction.tex
+Chapter 1.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <20.74> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 3.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 35.
+(/usr/share/texmf-texlive/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [3
+
+]
+
+LaTeX Warning: Reference `ch:IMM' on page 4 undefined on input line 65.
+
+
+LaTeX Warning: Reference `ch:IMM' on page 4 undefined on input line 66.
+
+
+LaTeX Warning: Reference `ch:IMM' on page 4 undefined on input line 66.
+
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 78.
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Overfull \hbox (0.72723pt too wide) in paragraph at lines 363--369
-[]$\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OT1/cmr/bx/n/10.95 x[] \OMS/cmsy/m
-/n/10.95 j \OT1/cmr/bx/n/10.95 x[]\OT1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 is th
-e dy-namic model which chara-ter-izes the dy-namic be-haviour
- []
 
-[5]
+Package natbib Warning: Citation `Sarkka:2006' on page 4 undefined on input lin
+e 78.
+
+) [4] (./parts/ch02-linear-estimation.tex
+Chapter 2.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\\' on input line 3.
+
+[5
+
+
+]
+
+Package natbib Warning: Citation `Sarkka:2006b' on page 6 undefined on input li
+ne 82.
+
+
+Package natbib Warning: Citation `Sarkka+Vehtari+Lampinen:2007' on page 6 undef
+ined on input line 109.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 20.91951pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[6]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 466.
- [6] [7] [8]
-Overfull \hbox (1.98746pt too wide) in paragraph at lines 660--662
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 187.
+
+
+Package natbib Warning: Citation `Sarkka:2006b' on page 7 undefined on input li
+ne 222.
+
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 7 und
+efined on input line 222.
+
+[7]
+
+Package natbib Warning: Citation `Kalman:1960' on page 8 undefined on input lin
+e 261.
+
+
+Package natbib Warning: Citation `Sarkka+Vehtari+Lampinen:2007' on page 8 undef
+ined on input line 268.
+
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 8 und
+efined on input line 268.
+
+[8]
+Overfull \hbox (1.98746pt too wide) in paragraph at lines 324--326
 []\T1/ptm/m/n/10.95 The pre-dic-tion and up-date steps can be cal-cu-lated with
  func-tions \T1/pcr/m/n/10.95 kf_predict
  []
 
 
-Overfull \hbox (14.72661pt too wide) in paragraph at lines 665--669
-\T1/ptm/m/n/10.95 The discrete-time Kalman smoother, also known as the Rauch-Tu
-ng-Striebel-smoother
- []
+Package natbib Warning: Citation `Rauch+Tung+Striebel:1965' on page 9 undefined
+ on input line 330.
 
-[9] [10] <pics/demo1_f1.pdf, id=261, 483.8075pt x 388.45125pt>
+
+Package natbib Warning: Citation `Gelb:1974' on page 9 undefined on input line 
+330.
+
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 9 und
+efined on input line 330.
+
+[9]
+
+Package natbib Warning: Citation `Fraser+Potter:1969' on page 10 undefined on i
+nput line 379.
+
+
+Package natbib Warning: Citation `Gelb:1974' on page 10 undefined on input line
+ 381.
+
+[10]
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 11 un
+defined on input line 447.
+
+<pics/demo1_f1.pdf, id=252, 483.8075pt x 388.45125pt>
 File: pics/demo1_f1.pdf Graphic file (type pdf)
+ <use pics/demo1_f1.pdf>
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 520.
 
-<use pics/demo1_f1.pdf> [11] [12 <./pics/demo1_f1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 879--891
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 539--551
 
  []
 
-<pics/demo1_f2.pdf, id=284, 499.8675pt x 407.5225pt>
+[12 <./pics/demo1_f1.pdf>]
+<pics/demo1_f2.pdf, id=294, 499.8675pt x 407.5225pt>
 File: pics/demo1_f2.pdf Graphic file (type pdf)
  <use pics/demo1_f2.pdf>
-<pics/demo1_f3.pdf, id=286, 499.8675pt x 407.5225pt>
+<pics/demo1_f3.pdf, id=295, 499.8675pt x 407.5225pt>
 File: pics/demo1_f3.pdf Graphic file (type pdf)
- <use pics/demo1_f3.pdf>
-[13] [14 <./pics/demo1_f2.pdf>] [15 <./pics/demo1_f3.pdf>] [16] [17] [18]
-[19] [20] [21] [22]
-Overfull \hbox (34.19952pt too wide) in paragraph at lines 1493--1493
-[]\T1/pcr/m/n/10.95 x(3,:); Y = a.*sin(f); if size(x,1) == 7 Y = Y + x(7,:); en
-d[] 
- []
+ <use pics/demo1_f3.pdf>)
+[13 <./pics/demo1_f2.pdf> <./pics/demo1_f3.pdf>]
+(./parts/ch03-nonlinear-estimation.tex
+Chapter 3.
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 14 un
+defined on input line 47.
+
+[14
 
 
-Overfull \hbox (27.62953pt too wide) in paragraph at lines 1507--1507
-[]\T1/pcr/m/n/10.95 = x(2,:); a = x(3,:); dY = [(a.*cos(f))' zeros(size(f,2),1)
-[] 
- []
+]
+
+Package natbib Warning: Citation `Jazwinski:1966' on page 15 undefined on input
+ line 145.
 
 
-Overfull \hbox (80.18947pt too wide) in paragraph at lines 1517--1517
-[]\T1/pcr/m/n/10.95 df = zeros(1,3,3); df(1,:,:) = [-a*sin(f) 0 cos(f); 0 0 0; 
-cos(f) 0[] 
- []
-
-[23]
-Overfull \hbox (21.05954pt too wide) in paragraph at lines 1557--1557
-[]  \T1/pcr/m/n/10.95 for k=1:size(Y,2) [M,P] = ekf_predict1(M,P,A,Q); [M,P] =[
-] 
- []
+Package natbib Warning: Citation `Maybeck:1982' on page 15 undefined on input l
+ine 145.
 
 
-Overfull \hbox (60.47949pt too wide) in paragraph at lines 1558--1558
-[]\T1/pcr/m/n/10.95 ekf_update1(M,P,Y(:,k),dh_dx_func,R*eye(1),h_func); MM(:,k)
- = M;[] 
- []
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 15 un
+defined on input line 145.
 
 
-Overfull \hbox (21.05954pt too wide) in paragraph at lines 1579--1579
-[]  \T1/pcr/m/n/10.95 for k=1:size(Y,2) [M,P] = ekf_predict1(M,P,A,Q); [M,P] =[
-] 
- []
+Package natbib Warning: Citation `Grewal+Andrews:2001' on page 15 undefined on 
+input line 145.
 
 
-Overfull \hbox (93.32945pt too wide) in paragraph at lines 1580--1580
-[]\T1/pcr/m/n/10.95 ekf_update2(M,P,Y(:,k),dh_dx_func,...  d2h_dx2_func,R*eye(1
-),h_func);[] 
- []
+Package natbib Warning: Citation `Sarkka:2006' on page 15 undefined on input li
+ne 145.
 
-[24] [25] <pics/demo2_f1.pdf, id=416, 475.7775pt x 388.45125pt>
+[15] [16] [17]
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 18 undefined on 
+input line 311.
+
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 18 undefined on 
+input line 325.
+
+
+Package natbib Warning: Citation `Cox:1964' on page 18 undefined on input line 
+349.
+
+
+Package natbib Warning: Citation `Sage+Melsa:1971' on page 18 undefined on inpu
+t line 349.
+
+[18] [19] [20] [21]
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 587.
+
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ts1pcr.fd
+File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
+)
+[22]
+
+LaTeX Warning: Reference `ch:functions' on page 23 undefined on input line 658.
+
+
+[23] <pics/demo2_f1.pdf, id=483, 475.7775pt x 388.45125pt>
 File: pics/demo2_f1.pdf Graphic file (type pdf)
 
-<use pics/demo2_f1.pdf> <pics/demo2_f2.pdf, id=417, 475.7775pt x 388.45125pt>
+<use pics/demo2_f1.pdf> <pics/demo2_f2.pdf, id=484, 475.7775pt x 388.45125pt>
 File: pics/demo2_f2.pdf Graphic file (type pdf)
 
-<use pics/demo2_f2.pdf> <pics/demo2_f3.pdf, id=418, 475.7775pt x 388.45125pt>
+<use pics/demo2_f2.pdf> <pics/demo2_f3.pdf, id=485, 475.7775pt x 388.45125pt>
 File: pics/demo2_f3.pdf Graphic file (type pdf)
 
-<use pics/demo2_f3.pdf> [26 <./pics/demo2_f1.pdf>] [27 <./pics/demo2_f2.pdf>]
-[28 <./pics/demo2_f3.pdf>] [29] [30] [31] [32]
-Overfull \hbox (8.50725pt too wide) in paragraph at lines 2077--2081
-\T1/ptm/m/n/10.95 The Rauch-Rung-Striebel type smoother us-ing the un-scented t
-rans-for-ma-tion (Särkkä,
+<use pics/demo2_f3.pdf>
+
+Package natbib Warning: Citation `Julier+Uhlmann+Durrant-Whyte:1995' on page 24
+ undefined on input line 821.
+
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 24 undefined on 
+input line 821.
+
+
+Package natbib Warning: Citation `Wan+Merwe:2001' on page 24 undefined on input
+ line 821.
+
+[24] [25 <./pics/demo2_f1.pdf>] [26 <./pics/demo2_f2.pdf>] [27 <./pics/demo2_f3
+.pdf>]
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 28 undefined on 
+input line 832.
+
+[28]
+
+Package natbib Warning: Citation `Julier+Uhlmann+Durrant-Whyte:1995' on page 29
+ undefined on input line 959.
+
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 29 undefined on 
+input line 959.
+
+
+Package natbib Warning: Citation `Wan+Merwe:2001' on page 29 undefined on input
+ line 959.
+
+[29]
+
+Package natbib Warning: Citation `Wu+Hu+Wu+Hu:2005' on page 30 undefined on inp
+ut line 1041.
+
+[30] [31]
+Underfull \hbox (badness 1360) in paragraph at lines 1148--1153
+\T1/ptm/m/n/10.95 with func-tions \T1/pcr/m/n/10.95 ukf_predict3 \T1/ptm/m/n/10
+.95 and \T1/pcr/m/n/10.95 ukf_update3\T1/ptm/m/n/10.95 , re-spec-tively. These
  []
 
-[33] [34] [35
+
+Package natbib Warning: Citation `Sarkka:2008' on page 32 undefined on input li
+ne 1171.
+
+[32] [33]
+
+Package natbib Warning: Citation `Maybeck:1982' on page 34 undefined on input l
+ine 1289.
+
+
+Package natbib Warning: Citation `Ito+Xiong:2000' on page 34 undefined on input
+ line 1289.
+
+
+Package natbib Warning: Citation `Abramowitz+Stegun:1964' on page 34 undefined 
+on input line 1308.
+
+
+Package natbib Warning: Citation `Wu+Hu+Wu+Hu:2006' on page 34 undefined on inp
+ut line 1314.
+
+
+Package natbib Warning: Citation `Cools:1997' on page 34 undefined on input lin
+e 1321.
+
+[34
 
 ]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 2245.
+(amsmath)                 on input line 1340.
 
-[36] [37]
-Overfull \hbox (9.46886pt too wide) in paragraph at lines 2356--2357
-\T1/ptm/m/n/10.95 are known to-gether with the smooth-ing re-sult $\OML/cmm/m/i
-t/10.95 p\OT1/cmr/m/n/10.95 (\OT1/cmr/bx/n/10.95 x[] \OMS/cmsy/m/n/10.95 j \OT1
-/cmr/bx/n/10.95 y[]\OT1/cmr/m/n/10.95 ) = [](\OT1/cmr/bx/n/10.95 m[]\OML/cmm/m/
-it/10.95 ; \OT1/cmr/bx/n/10.95 P[]\OT1/cmr/m/n/10.95 )$\T1/ptm/m/n/10.95 . 
- []
 
-[38] [39] [40] [41]
-Overfull \hbox (34.34843pt too wide) in paragraph at lines 2544--2545
-\OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; [] ; T$ \T1/ptm/m/n/10.95 as-sume the
- pos-te-rior den-sity func-tion $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OT1/
-cmr/bx/n/10.95 x[] \OMS/cmsy/m/n/10.95 j \OT1/cmr/bx/n/10.95 y[]\OT1/cmr/m/n/10
-.95 ) = [](\OT1/cmr/bx/n/10.95 m[]\OML/cmm/m/it/10.95 ; \OT1/cmr/bx/n/10.95 P[]
-\OT1/cmr/m/n/10.95 )$
- []
+Package natbib Warning: Citation `Wu+Hu+Wu+Hu:2006' on page 35 undefined on inp
+ut line 1343.
 
-[42] [43] [44]
-Overfull \hbox (67.04948pt too wide) in paragraph at lines 2778--2778
-[]\T1/pcr/m/n/10.95 0.5*x(1,:) + 25*x(1,:)./(1+x(1,:).*x(1,:)) + 8*cos(1.2*(n-1
-)); if[] 
- []
+[35] [36]
 
-[45]
-Overfull \hbox (80.18947pt too wide) in paragraph at lines 2798--2798
-[]\T1/pcr/m/n/10.95 x_n(1,:).*x_n(1,:) ./ 20; if size(x_n,1) == 3 y_n = y_n + x
-_n(3,:);[] 
+Package natbib Warning: Citation `Sarkka+Hartikainen:2010' on page 37 undefined
+ on input line 1451.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1451--1452
+\T1/ptm/m/n/10.95 The Gauss--Hermite Rauch--Tung--Striebel smoother (GHRTS) al-
+go-rithm
  []
 
 
-Overfull \hbox (47.33951pt too wide) in paragraph at lines 2806--2806
-[]\T1/pcr/m/n/10.95 ukf_update3(M,P,Y(:,k),h_func,v_n,X_s,w,[]); MM_UKF2(:,k) =
- M;[] 
+Underfull \hbox (badness 1668) in paragraph at lines 1451--1452
+\T1/ptm/m/n/10.95 (\T1/ptm/b/n/10.95 ?\T1/ptm/m/n/10.95 ) of de-gree $\OML/cmm/
+m/it/10.95 p$ \T1/ptm/m/n/10.95 is pre-sented be-low. As-sume the fil-ter-ing r
+e-sult mean
  []
 
-[46] <pics/ungm_states.pdf, id=634, 480.79625pt x 388.45125pt>
+
+Underfull \hbox (badness 1946) in paragraph at lines 1451--1452
+\OT1/cmr/bx/n/10.95 m[]$ \T1/ptm/m/n/10.95 and co-vari-ance $\OT1/cmr/bx/n/10.9
+5 P[]$ \T1/ptm/m/n/10.95 are known to-gether with the smooth-ing re-sult
+ []
+
+[37] [38]
+
+Package natbib Warning: Citation `Arasaratnam+Haykin:2009' on page 39 undefined
+ on input line 1560.
+
+
+Package natbib Warning: Citation `Cools:1997' on page 39 undefined on input lin
+e 1560.
+
+[39]
+
+Package natbib Warning: Citation `Cools:1997' on page 40 undefined on input lin
+e 1562.
+
+
+Package natbib Warning: Citation `Arasaratnam:2009' on page 40 undefined on inp
+ut line 1571.
+
+
+Package natbib Warning: Citation `Abramowitz+Stegun:1964' on page 40 undefined 
+on input line 1594.
+
+
+Package natbib Warning: Citation `Arasaratnam:2009' on page 40 undefined on inp
+ut line 1599.
+
+[40] [41] [42]
+
+Package natbib Warning: Citation `Solin:2010' on page 43 undefined on input lin
+e 1725.
+
+[43]
+
+Package natbib Warning: Citation `Kotecha+Djuric:2003' on page 44 undefined on 
+input line 1849.
+
+
+Package natbib Warning: Citation `Wu+Hu+Wu+Hu:2005' on page 44 undefined on inp
+ut line 1849.
+
+[44]
+
+Package natbib Warning: Citation `Gordon+Salmon+Smith:1993' on page 45 undefine
+d on input line 1919.
+
+
+Package natbib Warning: Citation `Kitagawa:1996' on page 45 undefined on input 
+line 1932.
+
+
+Package natbib Warning: Citation `Vanhatalo+Vehtari:2006' on page 45 undefined 
+on input line 1941.
+
+[45] <pics/ungm_states.pdf, id=747, 480.79625pt x 388.45125pt>
 File: pics/ungm_states.pdf Graphic file (type pdf)
 
 <use pics/ungm_states.pdf>
-<pics/ungm_c_errors.pdf, id=636, 486.81876pt x 388.45125pt>
+<pics/ungm_c_errors.pdf, id=749, 486.81876pt x 388.45125pt>
 File: pics/ungm_c_errors.pdf Graphic file (type pdf)
 
 <use pics/ungm_c_errors.pdf>
-<pics/ungm_ukf_comp.pdf, id=638, 480.79625pt x 388.45125pt>
+
+Package natbib Warning: Citation `Wu+Hu+Wu+Hu:2005' on page 46 undefined on inp
+ut line 1983.
+
+<pics/ungm_ukf_comp.pdf, id=751, 480.79625pt x 388.45125pt>
 File: pics/ungm_ukf_comp.pdf Graphic file (type pdf)
 
-<use pics/ungm_ukf_comp.pdf> [47 <./pics/ungm_states.pdf>] [48 <./pics/ungm_c_e
-rrors.pdf>] [49 <./pics/ungm_ukf_comp.pdf>]
-Overfull \hbox (10.54425pt too wide) in paragraph at lines 2925--2928
-[]\T1/ptm/m/n/10.95 The Gauss--Hermite method per-formed rather well in both fi
-l-ter-ing and smooth-
- []
-
-<pics/ungm_mse.pdf, id=684, 480.79625pt x 388.45125pt>
+<use pics/ungm_ukf_comp.pdf> [46 <./pics/ungm_states.pdf>] [47 <./pics/ungm_c_e
+rrors.pdf>] [48 <./pics/ungm_ukf_comp.pdf>]
+<pics/ungm_mse.pdf, id=800, 480.79625pt x 388.45125pt>
 File: pics/ungm_mse.pdf Graphic file (type pdf)
  <use pics/ungm_mse.pdf>
-[50] [51 <./pics/ungm_mse.pdf>]
-<pics/bot_demo_measurements.pdf, id=700, 483.8075pt x 388.45125pt>
+[49] [50 <./pics/ungm_mse.pdf>]
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 51 un
+defined on input line 2084.
+
+
+Package natbib Warning: Citation `Sarkka+Vehtari+Lampinen:2007' on page 51 unde
+fined on input line 2090.
+
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 51 un
+defined on input line 2106.
+
+<pics/bot_demo_measurements.pdf, id=818, 483.8075pt x 388.45125pt>
 File: pics/bot_demo_measurements.pdf Graphic file (type pdf)
 
-<use pics/bot_demo_measurements.pdf> [52
+<use pics/bot_demo_measurements.pdf> [51
 
-] [53 <./pics/bot_demo_measurements.pdf>] [54] <pics/bot_demo_ekf1.pdf, id=735,
+] [52 <./pics/bot_demo_measurements.pdf>] [53] <pics/bot_demo_ekf1.pdf, id=860,
  481.8pt x 388.45125pt>
 File: pics/bot_demo_ekf1.pdf Graphic file (type pdf)
 
 <use pics/bot_demo_ekf1.pdf>
-<pics/bot_demo_ekf2.pdf, id=736, 481.8pt x 388.45125pt>
+<pics/bot_demo_ekf2.pdf, id=861, 481.8pt x 388.45125pt>
 File: pics/bot_demo_ekf2.pdf Graphic file (type pdf)
 
 <use pics/bot_demo_ekf2.pdf>
-<pics/bot_demo_ukf.pdf, id=737, 481.8pt x 388.45125pt>
+<pics/bot_demo_ukf.pdf, id=862, 481.8pt x 388.45125pt>
 File: pics/bot_demo_ukf.pdf Graphic file (type pdf)
 
-<use pics/bot_demo_ukf.pdf> [55] [56 <./pics/bot_demo_ekf1.pdf> <./pics/bot_dem
-o_ekf2.pdf>] [57 <./pics/bot_demo_ukf.pdf>] [58
+<use pics/bot_demo_ukf.pdf> [54] [55 <./pics/bot_demo_ekf1.pdf> <./pics/bot_dem
+o_ekf2.pdf>] [56 <./pics/bot_demo_ukf.pdf>]
 
-] [59] [60] [61]
-<pics/reentry_trajectory.pdf, id=804, 488.82625pt x 377.41pt>
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 57 undefined on 
+input line 2315.
+
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004b' on page 57 undefined on
+ input line 2317.
+
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 57 undefined on 
+input line 2331.
+
+[57
+
+]
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 58 undefined on 
+input line 2399.
+
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004b' on page 58 undefined on
+ input line 2399.
+
+[58] [59]
+
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 60 undefined on 
+input line 2470.
+
+[60] <pics/reentry_trajectory.pdf, id=929, 488.82625pt x 377.41pt>
 File: pics/reentry_trajectory.pdf Graphic file (type pdf)
 
-<use pics/reentry_trajectory.pdf>
-Overfull \hbox (6.94193pt too wide) in paragraph at lines 3451--3453
-[]\T1/ptm/m/n/10.95 URTS1: un-scented Rauch-Tung-Striebel smoother with non-aug
-mented sigma
- []
+<use pics/reentry_trajectory.pdf> [61]
 
-[62] <pics/reentry_errors.pdf, id=815, 503.8825pt x 406.51875pt>
+Package natbib Warning: Citation `Julier+Uhlmann:2004' on page 62 undefined on 
+input line 2567.
+
+<pics/reentry_errors.pdf, id=941, 503.8825pt x 406.51875pt>
 File: pics/reentry_errors.pdf Graphic file (type pdf)
 
-<use pics/reentry_errors.pdf> [63 <./pics/reentry_trajectory.pdf>] [64 <./pics/
-reentry_errors.pdf>] [65
+<use pics/reentry_errors.pdf>) [62 <./pics/reentry_trajectory.pdf>] [63 <./pics
+/reentry_errors.pdf>] (./parts/ch04-multiple-model-systems.tex
+Chapter 4.
 
-] [66] [67]
-Overfull \hbox (2.40091pt too wide) in paragraph at lines 3788--3796
-\T1/ptm/m/n/10.95 The backward-time tran-si-tion prob-a-bil-i-ties of switch-in
-g from model $\OML/cmm/m/it/10.95 M[]$ \T1/ptm/m/n/10.95 to model
- []
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 64 un
+defined on input line 32.
 
-[68]
-Overfull \hbox (73.94728pt too wide) in paragraph at lines 3820--3826
+[64
+
+
+]
+
+Package natbib Warning: Citation `Bar-Shalom+Li+Kirubarajan:2001' on page 65 un
+defined on input line 66.
+
+[65] [66]
+
+Package natbib Warning: Citation `Helmick+Blair+Hoffman:1995' on page 67 undefi
+ned on input line 191.
+
+[67]
+Underfull \hbox (badness 1062) in paragraph at lines 297--303
 []\T1/ptm/m/n/10.95 The den-sity $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 (\OT1
 /cmr/bx/n/10.95 x[]\OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 M[]; \OT1/cmr/bx/n/
 10.95 y[]\OT1/cmr/m/n/10.95 )$ \T1/ptm/m/n/10.95 is now ap-prox-i-mated with a 
-Gaus-sian $\OML/cmm/m/it/10.95 N\OT1/cmr/m/n/10.95 (\OT1/cmr/bx/n/10.95 x[]\OMS
-/cmsy/m/n/10.95 j\OT1/cmr/bx/n/10.95 m[]\OML/cmm/m/it/10.95 ; \OT1/cmr/bx/n/10.
-95 P[]\OT1/cmr/m/n/10.95 )$\T1/ptm/m/n/10.95 ,
+Gaus-sian
+ []
+
+[68]
+Underfull \hbox (badness 2970) in paragraph at lines 417--423
+\T1/ptm/m/n/10.95 where $\OML/cmm/m/it/10.95 ^^V[]$ \T1/ptm/m/n/10.95 is the fo
+rward-time fil-tered model prob-a-bil-ity, $\OML/cmm/m/it/10.95 d[]$ \T1/ptm/m/
+n/10.95 the den-sity
  []
 
 [69]
-Overfull \hbox (57.29326pt too wide) in paragraph at lines 3940--3946
-\T1/ptm/m/n/10.95 where $\OML/cmm/m/it/10.95 ^^V[]$ \T1/ptm/m/n/10.95 is the fo
-rward-time fil-tered model prob-a-bil-ity, $\OML/cmm/m/it/10.95 d[]$ \T1/ptm/m/
-n/10.95 the den-sity $\OML/cmm/m/it/10.95 d[] \OT1/cmr/m/n/10.95 = \OML/cmm/m/i
-t/10.95 p\OT1/cmr/m/n/10.95 (\OT1/cmr/bx/n/10.95 y[]\OMS/cmsy/m/n/10.95 j\OML/c
-mm/m/it/10.95 M[]; \OT1/cmr/bx/n/10.95 y[]\OT1/cmr/m/n/10.95 )$
+Underfull \hbox (badness 1173) in paragraph at lines 465--476
+\T1/ptm/m/n/10.95 model-conditioned backward-time one-step pre-dicted means and
+ co-vari-ances
  []
 
-
-Overfull \hbox (16.58455pt too wide) in paragraph at lines 3988--3999
-\T1/ptm/m/n/10.95 conditioned backward-time one-step pre-dicted means and co-va
-ri-ances $\OMS/cmsy/m/n/10.95 f[]\OML/cmm/m/it/10.95 ; []\OMS/cmsy/m/n/10.95 g[
-]$\T1/ptm/m/n/10.95 ,
- []
-
-[70] [71] [72]
-Overfull \hbox (93.32945pt too wide) in paragraph at lines 4192--4192
-[]\T1/pcr/m/n/10.95 imm_predict(x_ip,P_ip,mu_ip,p_ij,ind,dims,A,Q); [x_ip,P_ip,
-mu_ip,m,P][] 
- []
-
-
-Overfull \hbox (60.47949pt too wide) in paragraph at lines 4193--4193
-[]\T1/pcr/m/n/10.95 = imm_update(x_p,P_p,c_j,...  ind,dims,Y(:,i),H,R); MM(:,i)
- = m;[] 
- []
-
-
-Overfull \hbox (99.89944pt too wide) in paragraph at lines 4194--4194
-[]\T1/pcr/m/n/10.95 PP(:,:,i) = P; MU(:,i) = mu_ip'; MM_i(:,i) = x_ip'; PP_i(:,
-i) = P_ip';[] 
- []
-
-
-Overfull \hbox (73.61948pt too wide) in paragraph at lines 4229--4229
-[]\T1/pcr/m/n/10.95 imm_smooth(MM,PP,MM_i,PP_i,MU,p_ij,...  mu_0j,ind,dims,A,Q,
-R,H,Y);[] 
- []
-
-
-LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 4230.
-
-[73] <pics/imm1.pdf, id=951, 469.755pt x 383.4325pt>
+[70] [71] [72] [73] <pics/imm1.pdf, id=1119, 469.755pt x 383.4325pt>
 File: pics/imm1.pdf Graphic file (type pdf)
- <use pics/imm1.pdf>
-<pics/imm2.pdf, id=952, 469.755pt x 378.41376pt>
+
+<use pics/imm1.pdf> <pics/imm2.pdf, id=1120, 469.755pt x 378.41376pt>
 File: pics/imm2.pdf Graphic file (type pdf)
- <use pics/imm2.pdf>
-<pics/imm3.pdf, id=953, 469.755pt x 378.41376pt>
+
+<use pics/imm2.pdf> <pics/imm3.pdf, id=1121, 469.755pt x 378.41376pt>
 File: pics/imm3.pdf Graphic file (type pdf)
- <use pics/imm3.pdf>
-<pics/imm4.pdf, id=954, 468.75125pt x 379.4175pt>
+
+<use pics/imm3.pdf> <pics/imm4.pdf, id=1122, 468.75125pt x 379.4175pt>
 File: pics/imm4.pdf Graphic file (type pdf)
- <use pics/imm4.pdf> [74]
-[75 <./pics/imm1.pdf>] [76 <./pics/imm2.pdf>] [77 <./pics/imm3.pdf>] [78 <./pic
-s/imm4.pdf>]
-Overfull \hbox (41.39612pt too wide) in paragraph at lines 4338--4343
-[]\T1/ptm/m/n/10.95 The pre-dic-tion and up-date steps of IMM-EKF is pro-vided 
-by func-tions \T1/pcr/m/n/10.95 eimm_predict
+
+<use pics/imm4.pdf> [74 <./pics/imm1.pdf>] [75 <./pics/imm2.pdf>] [76 <./pics/i
+mm3.pdf>] [77 <./pics/imm4.pdf>]
+Underfull \hbox (badness 2582) in paragraph at lines 823--828
+\T1/pcr/m/n/10.95 eimm_predict \T1/ptm/m/n/10.95 and \T1/pcr/m/n/10.95 eimm_upd
+ate\T1/ptm/m/n/10.95 , and smooth-ing can be done with
  []
 
 
-Overfull \hbox (3.7672pt too wide) in paragraph at lines 4338--4343
-\T1/ptm/m/n/10.95 The cor-re-spond-ing func-tions for IMM-UKF are \T1/pcr/m/n/1
-0.95 uimm_predict\T1/ptm/m/n/10.95 , \T1/pcr/m/n/10.95 uimm_update
+Underfull \hbox (badness 1158) in paragraph at lines 823--828
+\T1/ptm/m/n/10.95 func-tion \T1/pcr/m/n/10.95 eimm_smooth\T1/ptm/m/n/10.95 . Th
+e cor-re-spond-ing func-tions for IMM-UKF are
  []
 
-[79]
-Overfull \hbox (28.29846pt too wide) in paragraph at lines 4449--4449
+[78]
+Overfull \hbox (28.29846pt too wide) in paragraph at lines 934--934
 [] 
  []
 
 
-Overfull \hbox (5.74828pt too wide) in paragraph at lines 4449--4453
+Overfull \hbox (5.74828pt too wide) in paragraph at lines 934--938
 \T1/ptm/m/n/10.95 The source code for cal-cu-lat-ing the Ja-co-bian is lo-cated
  in the m-file \T1/pcr/m/n/10.95 f_turn_dx.m\T1/ptm/m/n/10.95 . 
  []
 
-[80]
-Overfull \hbox (86.75946pt too wide) in paragraph at lines 4515--4515
-[]\T1/pcr/m/n/10.95 eimm_predict(x_ip,P_ip,mu_ip,p_ij,ind,...  dims,A,a_func,a_
-param,Q);[] 
- []
-
-
-LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 4516.
-
-
-Overfull \hbox (93.32945pt too wide) in paragraph at lines 4531--4531
-[]\T1/pcr/m/n/10.95 eimm_smooth(MM,PP,MM_i,PP_i,MU,p_ij,...  mu_0j,ind,dims,A,i
-a_func,...[] 
- []
-
-
-Overfull \hbox (2.35396pt too wide) in paragraph at lines 4535--4543
+[79]
+Underfull \hbox (badness 1762) in paragraph at lines 1022--1030
 \T1/ptm/m/n/10.95 where we pass the func-tion han-dles of in-verse dy-namic mod
--els (vari-able \T1/pcr/m/n/10.95 ia_func\T1/ptm/m/n/10.95 )
+-els (vari-able
  []
 
-[81] <pics/eimm1_trajectory.pdf, id=1039, 468.75125pt x 375.4025pt>
+[80] <pics/eimm1_trajectory.pdf, id=1220, 468.75125pt x 375.4025pt>
 File: pics/eimm1_trajectory.pdf Graphic file (type pdf)
 
 <use pics/eimm1_trajectory.pdf>
-<pics/eimm1_1.pdf, id=1040, 468.75125pt x 375.4025pt>
+<pics/eimm1_1.pdf, id=1221, 468.75125pt x 375.4025pt>
 File: pics/eimm1_1.pdf Graphic file (type pdf)
  <use pics/eimm1_1.pdf>
-<pics/eimm1_2.pdf, id=1041, 473.77pt x 375.4025pt>
+<pics/eimm1_2.pdf, id=1222, 473.77pt x 375.4025pt>
 File: pics/eimm1_2.pdf Graphic file (type pdf)
  <use pics/eimm1_2.pdf>
-<pics/eimm1_3.pdf, id=1042, 477.785pt x 375.4025pt>
+<pics/eimm1_3.pdf, id=1223, 477.785pt x 375.4025pt>
 File: pics/eimm1_3.pdf Graphic file (type pdf)
  <use pics/eimm1_3.pdf>
-[82] [83 <./pics/eimm1_trajectory.pdf>] [84 <./pics/eimm1_1.pdf> <./pics/eimm1_
-2.pdf>] <pics/eimm2_trajectory.pdf, id=1080, 468.75125pt x 375.4025pt>
+[81] [82 <./pics/eimm1_trajectory.pdf> <./pics/eimm1_1.pdf>] [83 <./pics/eimm1_
+2.pdf> <./pics/eimm1_3.pdf>]
+<pics/eimm2_trajectory.pdf, id=1275, 468.75125pt x 375.4025pt>
 File: pics/eimm2_trajectory.pdf Graphic file (type pdf)
 
-<use pics/eimm2_trajectory.pdf>
-Overfull \hbox (67.04948pt too wide) in paragraph at lines 4659--4659
-[]\T1/pcr/m/n/10.95 eimm_update(x_p,P_p,c_j,ind,dims,...  Y(:,i),H,h_func,R,h_p
-aram);[] 
- []
-
-[85 <./pics/eimm1_3.pdf>] [86 <./pics/eimm2_trajectory.pdf>]
-<pics/eimm2_1.pdf, id=1109, 468.75125pt x 375.4025pt>
+<use pics/eimm2_trajectory.pdf> [84 <./pics/eimm2_trajectory.pdf>]
+<pics/eimm2_1.pdf, id=1295, 468.75125pt x 375.4025pt>
 File: pics/eimm2_1.pdf Graphic file (type pdf)
  <use pics/eimm2_1.pdf>
-<pics/eimm2_2.pdf, id=1110, 473.77pt x 375.4025pt>
+<pics/eimm2_2.pdf, id=1296, 473.77pt x 375.4025pt>
 File: pics/eimm2_2.pdf Graphic file (type pdf)
  <use pics/eimm2_2.pdf>
-<pics/eimm2_3.pdf, id=1111, 477.785pt x 375.4025pt>
+<pics/eimm2_3.pdf, id=1297, 477.785pt x 375.4025pt>
 File: pics/eimm2_3.pdf Graphic file (type pdf)
  <use pics/eimm2_3.pdf>
-[87 <./pics/eimm2_1.pdf>] [88 <./pics/eimm2_2.pdf>] [89 <./pics/eimm2_3.pdf>]
-[90] [91
+[85 <./pics/eimm2_1.pdf>] [86 <./pics/eimm2_2.pdf> <./pics/eimm2_3.pdf>])
+[87] (./parts/ch05-functions-in-the-toolbox.tex
+Chapter 5.
+(./parts/fcn/kf_predict.tex
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 15.
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 31--32
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--22
+
+ []
+
+(./parts/fcn/kf_update.tex
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [X,P,K,IM,IS,LH] =
+ []
 
 
-] [92] [93] (./documentation.aux)
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 31--32
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--24
+
+ []
+
+(./parts/fcn/kf_lhood.tex [88
+
+
+]
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 32--33
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--26
+
+ []
+
+(./parts/fcn/kf_loop.tex
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 43--44
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--28
+
+ []
+
+(./parts/fcn/rts_smooth.tex [89]
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 33--34
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--30
+
+ []
+
+(./parts/fcn/tf_smooth.tex
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P] = TF_SMOOTH(M,P,Y,A,Q,H,R,
+ []
+
+
+Overfull \hbox (9.98775pt too wide) in paragraph at lines 33--33
+[]\T1/pcr/m/n/10.95 use_inf| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 35--36
+[][]| 
+ []
+
+) [90] (./parts/fcn/ekf_predict1.tex
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [M,P] = EKF_PREDICT1(M,P,
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 30--33
+\T1/ptm/m/n/10.95 tion, func-tion han-dle or name of func-tion in form
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 38--39
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--37
+
+ []
+
+(./parts/fcn/ekf_predict2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [M,P] = EKF_PREDICT2(M,P,
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 34--37
+\T1/ptm/m/n/10.95 tion, func-tion han-dle or name of func-tion in form
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 42--43
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--39
+
+ []
+
+(./parts/fcn/ekf_update1.tex [91]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,S,LH] =
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 40--41
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--41
+
+ []
+
+(./parts/fcn/ekf_update2.tex [92]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,S,LH] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+\T1/pcr/m/n/10.95 EKF_UPDATE2(M,P,Y,H,H_xx,R,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 43--44
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--43
+
+ []
+
+(./parts/fcn/erts_smooth1.tex [93]
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,D] = ERTS_SMOOTH1(M,P,A,Q,
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 32--35
+\T1/ptm/m/n/10.95 tion, func-tion han-dle or name of func-tion in form
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 43--43
+[]\T1/pcr/m/n/10.95 same_p| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 48--49
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--45
+
+ []
+
+(./parts/fcn/etf_smooth1.tex [94]
+Overfull \hbox (30.51076pt too wide) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P] = ETF_SMOOTH1(M,P,Y,A,Q,ia,W,aparam,
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 39--39
+[]\T1/pcr/m/n/10.95 aparam| 
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 54--54
+[]\T1/pcr/m/n/10.95 hparam| 
+ []
+
+
+Overfull \hbox (16.55774pt too wide) in paragraph at lines 56--56
+[]\T1/pcr/m/n/10.95 same_p_a| 
+ []
+
+
+Overfull \hbox (16.55774pt too wide) in paragraph at lines 58--58
+[]\T1/pcr/m/n/10.95 same_p_h| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 61--62
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--47
+
+ []
+
+[95]
+Overfull \vbox (12.79793pt too high) has occurred while \output is active []
+
+
+[96] (./parts/fcn/ukf_predict1.tex
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [M,P] = UKF_PREDICT1(M,P,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 37--38
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--52
+
+ []
+
+(./parts/fcn/ukf_predict2.tex
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [M,P] = UKF_PREDICT2(M,P,a,Q,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 37--38
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--54
+
+ []
+
+(./parts/fcn/ukf_predict3.tex
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [M,P,X,w] = UKF_PREDICT3(M,P,a,Q,R,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 38--39
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--56
+
+ []
+
+(./parts/fcn/ukf_update1.tex [97]
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,S,LH] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+\T1/pcr/m/n/10.95 UKF_UPDATE1(M,P,Y,h,R,param,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 40--41
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--58
+
+ []
+
+(./parts/fcn/ukf_update2.tex [98]
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,IS,LH] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+\T1/pcr/m/n/10.95 UKF_UPDATE2(M,P,Y,h,R,param,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 40--41
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--60
+
+ []
+
+(./parts/fcn/ukf_update3.tex [99]
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,IS,LH] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+\T1/pcr/m/n/10.95 UKF_UPDATE3(M,P,Y,h,R,X,w,param,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 42--43
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--62
+
+ []
+
+(./parts/fcn/urts_smooth1.tex [100]
+Underfull \hbox (badness 10000) in paragraph at lines 20--20
+[] \T1/pcr/m/n/10.95 [M,P,D] = URTS_SMOOTH1(M,P,a,Q,
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 41--41
+[]\T1/pcr/m/n/10.95 same_p| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--64
+
+ []
+
+(./parts/fcn/urts_smooth2.tex [101]
+Underfull \hbox (badness 10000) in paragraph at lines 19--19
+[]\T1/ptm/m/n/10.95 Unscented Rauch-Tung-Striebel smoother al-go-rithm. Cal-cu-
+late
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 19--19
+\T1/ptm/m/n/10.95 "smoothed" se-quence from given Kalman fil-ter out-put se-que
+nce by
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,S] = URTS_SMOOTH2(M,P,a,Q,
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 42--42
+[]\T1/pcr/m/n/10.95 same_p| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 45--46
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--66
+
+ []
+
+(./parts/fcn/utf_smooth1.tex [102]
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P] = UTF_SMOOTH1(M,P,Y,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+\T1/pcr/m/n/10.95 [ia,Q,aparam,h,R,hparam,
+ []
+
+
+Overfull \hbox (10.80078pt too wide) in paragraph at lines 23--23
+\T1/pcr/m/n/10.95 alpha,beta,kappa,mat,same_p_a,same_p_h])| 
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 34--34
+[]\T1/pcr/m/n/10.95 aparam| 
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 40--40
+[]\T1/pcr/m/n/10.95 hparam| 
+ []
+
+
+Overfull \hbox (16.55774pt too wide) in paragraph at lines 45--45
+[]\T1/pcr/m/n/10.95 same_p_a| 
+ []
+
+
+Overfull \hbox (16.55774pt too wide) in paragraph at lines 47--47
+[]\T1/pcr/m/n/10.95 same_p_h| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 50--51
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--68
+
+ []
+
+(./parts/fcn/ut_transform.tex [103]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [mu,S,C,X,Y,w] = UT_TRANSFORM(M,P,g,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 37--38
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--70
+
+ []
+
+(./parts/fcn/ut_weights.tex [104]
+Overfull \hbox (30.51076pt too wide) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [WM,WC,c] = ut_weights(n,alpha,beta,kappa)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 29--30
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--72
+
+ []
+
+(./parts/fcn/ut_mweights.tex
+Overfull \hbox (30.51076pt too wide) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [WM,W,c] = ut_mweights(n,alpha,beta,kappa)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 29--30
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--74
+
+ []
+
+(./parts/fcn/ut_sigmas.tex [105]
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 30--31
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--76
+
+ []
+
+(./parts/fcn/ckf_packed_pc.tex) (./parts/fcn/ckf_predict.tex)
+(./parts/fcn/ckf_transform.tex
+Overfull \hbox (30.51076pt too wide) in paragraph at lines 20--20
+[] \T1/pcr/m/n/10.95 [mu,S,C,SX,W] = CKF_TRANSFORM(M,P,g,param)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 29--30
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--85
+
+ []
+
+(./parts/fcn/ckf_update.tex
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,S,LH] =
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 35--36
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--87
+
+ []
+
+(./parts/fcn/crts_smooth.tex [106]
+Underfull \hbox (badness 10000) in paragraph at lines 24--24
+[] \T1/pcr/m/n/10.95 [M,P,D] = CKF_SMOOTH(M,P,a,Q,
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 41--41
+[]\T1/pcr/m/n/10.95 same_p| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 44--45
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--89
+
+ []
+
+(./parts/fcn/sphericalradial.tex [107]
+Overfull \hbox (30.51076pt too wide) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [I,x,W,F] = sphericalradial(f,m,P[,param])| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 31--32
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--91
+
+ []
+
+[108] (./parts/fcn/gh_packed_pc.tex
+Overfull \hbox (16.55774pt too wide) in paragraph at lines 27--27
+[]\T1/pcr/m/n/10.95 fmmparam| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 29--30
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--96
+
+ []
+
+(./parts/fcn/gh_transform.tex
+Overfull \hbox (37.08075pt too wide) in paragraph at lines 20--20
+[] \T1/pcr/m/n/10.95 [mu,S,C,SX,W] = GH_TRANSFORM(M,P,g,p,param)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 30--31
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--98
+
+ []
+
+(./parts/fcn/ghkf_predict.tex
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [M,P] = GHKF_PREDICT(M,P,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 34--35
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--100
+
+ []
+
+(./parts/fcn/ghkf_update.tex [109]
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,K,MU,S,LH] =
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 37--38
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--102
+
+ []
+
+(./parts/fcn/ghrts_smooth.tex
+Underfull \hbox (badness 1983) in paragraph at lines 19--19
+[]\T1/ptm/m/n/10.95 Gauss-Hermite Rauch-Tung-Striebel smoother al-go-rithm. Cal
+-cu-late
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [M,P,D] = GHRTS_SMOOTH(M,P,f,Q,
+ []
+
+
+Underfull \hbox (badness 1694) in paragraph at lines 27--28
+[]\T1/ptm/m/n/10.95 NxNxK ma-trix of K state co-vari-ances from Gauss-
+ []
+
+
+Overfull \hbox (3.41776pt too wide) in paragraph at lines 41--41
+[]\T1/pcr/m/n/10.95 same_p| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 44--45
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--104
+
+ []
+
+(./parts/fcn/hermitepolynomial.tex [110]
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 26--27
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--106
+
+ []
+
+(./parts/fcn/ngausshermi.tex
+Overfull \hbox (4.23079pt too wide) in paragraph at lines 24--24
+[] \T1/pcr/m/n/10.95 [I,x,W,F] = ngausshermi(f,p,m,P,param)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 33--34
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--108
+
+ []
+
+[111] (./parts/fcn/imm_filter.tex
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[] \T1/pcr/m/n/10.95 [X_i,P_i,MU,X,P] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+\T1/pcr/m/n/10.95 IMM_FILTER(X_ip,P_ip,MU_ip,p_ij,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 40--41
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--118
+
+ []
+
+(./parts/fcn/imm_predict.tex [112]
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [X_p,P_p,c_j,X,P] =
+ []
+
+
+Overfull \hbox (50.22073pt too wide) in paragraph at lines 21--21
+\T1/pcr/m/n/10.95 IMM_PREDICT(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 35--36
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--120
+
+ []
+
+(./parts/fcn/imm_smooth.tex [113]
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [X_S,P_S,X_IS,P_IS,MU_S] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+\T1/pcr/m/n/10.95 IMM_SMOOTH(MM,PP,MM_i,PP_i,
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 30--32
+[]\T1/ptm/m/n/10.95 Model-conditional co-vari-ances of forward-time IMM-
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 43--44
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--122
+
+ []
+
+(./parts/fcn/imm_update.tex [114]
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [X_i,P_i,MU,X,P] =
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 35--36
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--124
+
+ []
+
+[115] (./parts/fcn/eimm_predict.tex
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [X_p,P_p,c_j,X,P] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+\T1/pcr/m/n/10.95 EIMM_PREDICT(X_ip,P_ip,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 40--41
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--128
+
+ []
+
+(./parts/fcn/eimm_smooth.tex [116]
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [X_S,P_S,X_IS,P_IS,MU_S]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+\T1/pcr/m/n/10.95 = EIMM_SMOOTH(MM,PP,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+\T1/pcr/m/n/10.95 MM_i,PP_i,MU,p_ij,mu_0j,ind,dims,
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 27--28
+[]\T1/ptm/m/n/10.95 Model-conditional co-vari-ances of forward-time IMM-
+ []
+
+
+Overfull \hbox (9.98775pt too wide) in paragraph at lines 36--36
+[]\T1/pcr/m/n/10.95 a_param| 
+ []
+
+
+Overfull \hbox (9.98775pt too wide) in paragraph at lines 43--43
+[]\T1/pcr/m/n/10.95 h_param| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 46--47
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--130
+
+ []
+
+(./parts/fcn/eimm_update.tex [117]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [X_i,P_i,MU,X,P] =
+ []
+
+
+Overfull \hbox (50.22073pt too wide) in paragraph at lines 22--22
+\T1/pcr/m/n/10.95 IMM_UPDATE(X_p,P_p,c_j,ind,dims,Y,H,h,R,param)| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 40--41
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--132
+
+ []
+
+[118] (./parts/fcn/uimm_predict.tex
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [X_p,P_p,c_j,X,P] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+\T1/pcr/m/n/10.95 UIMM_PREDICT(X_ip,P_ip,
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 38--39
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--136
+
+ []
+
+(./parts/fcn/uimm_smooth.tex [119]
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+[] \T1/pcr/m/n/10.95 [X_S,P_S,X_IS,P_IS,MU_S]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+\T1/pcr/m/n/10.95 = UIMM_SMOOTH(MM,PP,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--21
+\T1/pcr/m/n/10.95 MM_i,PP_i,MU,p_ij,mu_0j,ind,dims,A,a,
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 27--28
+[]\T1/ptm/m/n/10.95 Model-conditional co-vari-ances of forward-time IMM-
+ []
+
+
+Overfull \hbox (9.98775pt too wide) in paragraph at lines 36--36
+[]\T1/pcr/m/n/10.95 a_param| 
+ []
+
+
+Overfull \hbox (9.98775pt too wide) in paragraph at lines 43--43
+[]\T1/pcr/m/n/10.95 h_param| 
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 46--47
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--138
+
+ []
+
+(./parts/fcn/uimm_update.tex [120]
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[] \T1/pcr/m/n/10.95 [X_i,P_i,MU,X,P] =
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 38--39
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--140
+
+ []
+
+[121] (./parts/fcn/der_check.tex
+Underfull \hbox (badness 10000) in paragraph at lines 24--24
+[] \T1/pcr/m/n/10.95 [D0,D1] = DER_CHECK(F,DF,INDEX,
+ []
+
+
+Underfull \hbox (badness 1418) in paragraph at lines 27--29
+[]\T1/ptm/m/n/10.95 Name of ac-tual func-tion or in-line func-tion in form
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 35--36
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--146
+
+ []
+
+(./parts/fcn/lti_disc.tex [122]
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 30--31
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--148
+
+ []
+
+(./parts/fcn/lti_int.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 12--150
+
+ []
+
+(./parts/fcn/schol.tex
+Underfull \hbox (badness 1412) in paragraph at lines 18--18
+[]\T1/ptm/m/n/10.95 Compute lower tri-an-gu-lar Cholesky fac-tor L of sym-met-r
+ic pos-i-tive
+ []
+
+
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 27--28
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--152
+
+ []
+
+(./parts/fcn/gauss_pdf.tex [123]
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 29--30
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--154
+
+ []
+
+(./parts/fcn/gauss_rnd.tex
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 28--29
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--156
+
+ []
+
+(./parts/fcn/rk4.tex
+Overfull \hbox (1.72005pt too wide) in paragraph at lines 43--44
+[][]| 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 12--158
+
+ []
+
+(./parts/fcn/resampstr.tex [124])
+Underfull \hbox (badness 10000) in paragraph at lines 12--160
+
+ []
+
+) [125]
+No file documentation.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+(./documentation.aux)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8196 strings out of 493848
- 112901 string characters out of 1152823
- 218953 words of memory out of 3000000
- 10843 multiletter control sequences out of 15000+50000
- 47626 words of font info for 76 fonts, out of 3000000 for 9000
+ 11414 strings out of 493848
+ 159570 string characters out of 1152823
+ 271153 words of memory out of 3000000
+ 13517 multiletter control sequences out of 15000+50000
+ 68590 words of font info for 107 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 38i,22n,36p,638b,433s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/cm/cmbx8.pfb></usr/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
-cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/typ
-e1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
-fonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss
-8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf
--texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fon
-ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-texlive/fonts/typ
-e1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8
-a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/te
-xmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on documentation.pdf (93 pages, 1113849 bytes).
+ 40i,22n,43p,702b,1815s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{table.7} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.28} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.27} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.26} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.25} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{table.6} has been referenced but does not exist, re
+placed by a fixed one
+
+pdfTeX warning (dest): name{figure.23} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.22} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.21} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.189} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.151} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.147} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.130} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{table.5} has been referenced but does not exist, re
+placed by a fixed one
+
+pdfTeX warning (dest): name{figure.20} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.19} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.18} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.17} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.133} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.126} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.193} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.194} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.162} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.158} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.139} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.142} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.140} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.137} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.3.125} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.19} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.18} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.16} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{table.4} has been referenced but does not exist, re
+placed by a fixed one
+
+pdfTeX warning (dest): name{equation.2.109} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.15} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{table.3} has been referenced but does not exist, re
+placed by a fixed one
+
+pdfTeX warning (dest): name{figure.14} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.13} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.12} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.11} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{table.2} has been referenced but does not exist, re
+placed by a fixed one
+
+pdfTeX warning (dest): name{figure.10} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.9} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{figure.8} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{figure.7} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.97} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.102} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.100} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.101} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.98} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.99} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.95} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.36} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{table.1} has been referenced but does not exist, re
+placed by a fixed one
+
+pdfTeX warning (dest): name{figure.6} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{figure.5} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{figure.4} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.60} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.58} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.55} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.41} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.40} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.32} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.29} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.3} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{figure.2} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{figure.1} has been referenced but does not exist, r
+eplaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.23} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.16} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.15} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.12} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.14} has been referenced but does not exi
+st, replaced by a fixed one
+
+pdfTeX warning (dest): name{section*.12} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.3.2.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.3.2.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.2} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.3.1.3} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.3.1.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.3.1.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.1} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{section.3} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.16} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.15} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.14} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.13} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.12} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.11} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.10} has been referenced but does 
+not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.9} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.8} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.7} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.6} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.5} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.4} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.3} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.2.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.2} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.1.4} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.1.3} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.1.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.1.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.1} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{section.2} has been referenced but does not exist, 
+replaced by a fixed one
+
+pdfTeX warning (dest): name{section.1} has been referenced but does not exist, 
+replaced by a fixed one
+
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive
+/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmbx8.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+mi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/tex
+mf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-texlive/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/sy
+mbols/msbm10.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrb8a.pfb><
+/usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-t
+exlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/type
+1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.p
+fb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on documentation.pdf (127 pages, 1486296 bytes).
 PDF statistics:
- 1357 PDF objects out of 1440 (max. 8388607)
- 433 named destinations out of 1000 (max. 500000)
- 405 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1788 PDF objects out of 2073 (max. 8388607)
+ 713 named destinations out of 1000 (max. 500000)
+ 410 words of extra memory for PDF output out of 10000 (max. 10000000)
 

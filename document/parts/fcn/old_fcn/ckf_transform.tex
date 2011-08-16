@@ -1,0 +1,37 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{ckf\_transform}
+\label{function:ckf_transform}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{ckf\_transform}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [mu,S,C,SX,W] = CKF\_TRANSFORM(M,P,g,param)} } \\
+\hline
+\multirow{4}{*}{\bf Input:}
+ & \texttt{M} & Random variable mean (Nx1 column vector) \\
+ & \texttt{P} & Random variable covariance (NxN pos.def. matrix) \\
+ & \texttt{g} & Transformation function of the form g(x,param) as
+        matrix, inline function, function name or function reference \\
+ & \texttt{param} & Parameters of g               (optional, default empty) \\
+\hline
+\multirow{5}{*}{\bf Output:}
+ & \texttt{mu} & Estimated mean of y \\
+ & \texttt{S} & Estimated covariance of y \\
+ & \texttt{C} & Estimated cross-covariance of x and y \\
+ & \texttt{SX} & Sigma points of x \\
+ & \texttt{W} & Weights as cell array
+ \\
+\hline
+\end{tabular*}

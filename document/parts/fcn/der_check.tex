@@ -1,0 +1,39 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{der\_check}
+\label{function:der_check}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.1\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{der\_check}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Evaluates function derivative analytically and
+    using finite differences. If no output arguments
+    are given, issues a warning if these two values
+    differ too much.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [D0,D1] = DER\_CHECK(F,DF,INDEX, [P1,P2,P3,...])} } \\
+\hline
+\multirow{3}{*}{\bf Input:}
+ & \texttt{F} & Name of actual function or inline function
+         in form F(P1,P2,...) \\
+ & \texttt{DF} & Derivative value as matrix, name of derivative
+         function or inline function in form DF(P1,P2,...). \\
+ & \texttt{INDEX} & Index of parameter of interest. DF should
+         Calculate the derivative with recpect to parameter
+         Pn, where n is the index. \\
+\hline
+\multirow{2}{*}{\bf Output:}
+ & \texttt{D0} & Actual derivative \\
+ & \texttt{D1} & Estimated derivative \\
+\hline
+\end{tabular*}

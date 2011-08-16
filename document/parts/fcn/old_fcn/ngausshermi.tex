@@ -1,0 +1,39 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{ngausshermi}
+\label{function:ngausshermi}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{ngausshermi}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Approximates a Gaussian integral using the Gauss-Hermite method
+    in multiple dimensions:
+      int f(x) N(x | m,P) dx
+} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [I,x,W,F] = ngausshermi(f,p,m,P,param)} } \\
+\hline
+\multirow{5}{*}{\bf Input:}
+ & \texttt{f} & Function f(x,param) as inline, name or reference \\
+ & \texttt{n} & Polynomial order \\
+ & \texttt{m} & Mean of the d-dimensional Gaussian distribution \\
+ & \texttt{P} & Covariance of the Gaussian distribution \\
+ & \texttt{param} & Optional parameters for the function \\
+\hline
+\multirow{4}{*}{\bf Output:}
+ & \texttt{I} & The integral value \\
+ & \texttt{x} & Evaluation points \\
+ & \texttt{W} & Weights \\
+ & \texttt{F} & Function values \\
+\hline
+\end{tabular*}

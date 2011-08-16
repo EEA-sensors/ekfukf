@@ -1,0 +1,43 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{imm\_update}
+\label{function:imm_update}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{imm\_update}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    IMM filter measurement update step.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [X\_i,P\_i,MU,X,P] = IMM\_UPDATE(X\_p,P\_p,c\_j,ind,dims,Y,H,R)} } \\
+\hline
+\multirow{8}{*}{\bf Input:}
+ & \texttt{X\_p} & Cell array containing N\^j x 1 mean state estimate vector for
+           each model j after prediction step \\
+ & \texttt{P\_p} & Cell array containing N\^j x N\^j state covariance matrix for 
+           each model j after prediction step \\
+ & \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+ & \texttt{ind} & Indices of state components for each model as a cell array \\
+ & \texttt{dims} & Total number of different state components in the combined system \\
+ & \texttt{Y} & Dx1 measurement vector. \\
+ & \texttt{H} & Measurement matrices for each model as a cell array. \\
+ & \texttt{R} & Measurement noise covariances for each model as a cell array. \\
+\hline
+\multirow{5}{*}{\bf Output:}
+ & \texttt{X\_i} & Updated state mean estimate for each model as a cell array \\
+ & \texttt{P\_i} & Updated state covariance estimate for each model as a cell array \\
+ & \texttt{MU} & Estimated probabilities of each model \\
+ & \texttt{X} & Combined state mean estimate \\
+ & \texttt{P} & Combined state covariance estimate
+     \\
+\hline
+\end{tabular*}

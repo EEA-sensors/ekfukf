@@ -1,0 +1,45 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{urts\_smooth1}
+\label{function:urts_smooth1}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{urts\_smooth1}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [M,P,D] = URTS\_SMOOTH1(M,P,a,Q,[param,alpha,beta,kappa,mat,same\_p])} } \\
+\hline
+\multirow{10}{*}{\bf Input:}
+ & \texttt{M} & NxK matrix of K mean estimates from Unscented Kalman filter \\
+ & \texttt{P} & NxNxK matrix of K state covariances from Unscented Kalman Filter \\
+ & \texttt{a} & Dynamic model function as a matrix A defining
+        linear function a(x) = A*x, inline function,
+        function handle or name of function in
+        form a(x,param)                   (optional, default eye()) \\
+ & \texttt{Q} & NxN process noise covariance matrix or NxNxK matrix
+        of K state process noise covariance matrices for each step. \\
+ & \texttt{param} & Parameters of a. Parameters should be a single cell array,
+            vector or a matrix containing the same parameters for each
+            step, or if different parameters are used on each step they
+            must be a cell array of the format \{ param\_1, param\_2, ...\},
+            where param\_x contains the parameters for step x as a cell array,
+            a vector or a matrix.   (optional, default empty) \\
+ & \texttt{alpha} & Transformation parameter      (optional) \\
+ & \texttt{beta} & Transformation parameter      (optional) \\
+ & \texttt{kappa} & Transformation parameter      (optional) \\
+ & \texttt{mat} & If 1 uses matrix form         (optional, default 0) \\
+ & \texttt{same\_p} & If 1 uses the same parameters 
+             on every time step      (optional, default 1)  \\
+\hline
+\hline
+\end{tabular*}

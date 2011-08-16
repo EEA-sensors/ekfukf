@@ -1,0 +1,32 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{schol}
+\label{function:schol}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{schol}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Compute lower triangular Cholesky factor L of symmetric positive
+    semidefinite matrix A such that} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [L,def] = schol(A)} } \\
+\hline
+\multirow{1}{*}{\bf Input:}
+ & \texttt{A} & Symmetric pos.semi.def matrix to be factorized \\
+\hline
+\multirow{2}{*}{\bf Output:}
+ & \texttt{L} & Lower triangular matrix such that A=L*L' if def>=0. \\
+ & \texttt{def} & Value 1,0,-1 denoting that A was positive definite,
+          positive semidefinite or negative definite, respectively. \\
+\hline
+\end{tabular*}

@@ -1,0 +1,36 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{kf\_lhood}
+\label{function:kf_lhood}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{kf\_lhood}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Calculate likelihood of measurement in Kalman filter.
+    If and X and P define the parameters of predictive
+    distribution (e.g. from KF\_PREDICT)} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    LH = KF\_LHOOD(X,P,Y,H,R)} } \\
+\hline
+\multirow{5}{*}{\bf Input:}
+ & \texttt{X} & Nx1 state mean \\
+ & \texttt{P} & NxN state covariance \\
+ & \texttt{Y} & Dx1 measurement vector. \\
+ & \texttt{H} & Measurement matrix. \\
+ & \texttt{R} & Measurement noise covariance. \\
+\hline
+\multirow{1}{*}{\bf Output:}
+ & \texttt{LH} & Likelihood of measurement.
+     \\
+\hline
+\end{tabular*}

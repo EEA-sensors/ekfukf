@@ -1,0 +1,48 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{eimm\_update}
+\label{function:eimm_update}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.1\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{eimm\_update}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    IMM-EKF filter measurement update step. If some of the models have linear
+    measurements standard Kalman filter update step is used for those.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [X\_i,P\_i,MU,X,P] = IMM\_UPDATE(X\_p,P\_p,c\_j,ind,dims,Y,H,h,R,param)} } \\
+\hline
+\multirow{10}{*}{\bf Input:}
+ & \texttt{X\_p} & Cell array containing N\^j x 1 mean state estimate vector for
+           each model j after prediction step \\
+ & \texttt{P\_p} & Cell array containing N\^j x N\^j state covariance matrix for 
+           each model j after prediction step \\
+ & \texttt{c\_j} & Normalizing factors for mixing probabilities \\
+ & \texttt{ind} & Indices of state components for each model as a cell array \\
+ & \texttt{dims} & Total number of different state components in the combined system \\
+ & \texttt{Y} & Dx1 measurement vector. \\
+ & \texttt{H} & Measurement matrices for each linear model and Jacobians of each
+           non-linear model's measurement model function as a cell array \\
+ & \texttt{h} & Cell array containing function handles for measurement functions
+           for each model having non-linear measurements \\
+ & \texttt{R} & Measurement noise covariances for each model as a cell array. \\
+ & \texttt{param} & Parameters of h \\
+\hline
+\multirow{5}{*}{\bf Output:}
+ & \texttt{X\_i} & Updated state mean estimate for each model as a cell array \\
+ & \texttt{P\_i} & Updated state covariance estimate for each model as a cell array \\
+ & \texttt{MU} & Estimated probabilities of each model \\
+ & \texttt{X} & Combined updated state mean estimate \\
+ & \texttt{P} & Combined updated covariance estimate
+     \\
+\hline
+\end{tabular*}

@@ -1,0 +1,45 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{ut\_transform}
+\label{function:ut_transform}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{ut\_transform}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    ...
+    For default values of parameters, see UT\_WEIGHTS.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [mu,S,C,X,Y,w] = UT\_TRANSFORM(M,P,g,[param,alpha,beta,kappa,mat],n,X,w)} } \\
+\hline
+\multirow{10}{*}{\bf Input:}
+ & \texttt{M} & Random variable mean (Nx1 column vector) \\
+ & \texttt{P} & Random variable covariance (NxN pos.def. matrix) \\
+ & \texttt{g} & Transformation function of the form g(x,param) as
+        matrix, inline function, function name or function reference \\
+ & \texttt{param} & Parameters of g               (optional, default empty) \\
+ & \texttt{alpha} & Transformation parameter      (optional) \\
+ & \texttt{beta} & Transformation parameter      (optional) \\
+ & \texttt{kappa} & Transformation parameter      (optional) \\
+ & \texttt{mat} & If 1 uses matrix form         (optional, default 0) \\
+ & \texttt{X} & Sigma points of x \\
+ & \texttt{w} & Weights as cell array \{mean-weights,cov-weights,c\} \\
+\hline
+\multirow{6}{*}{\bf Output:}
+ & \texttt{mu} & Estimated mean of y \\
+ & \texttt{S} & Estimated covariance of y \\
+ & \texttt{C} & Estimated cross-covariance of x and y \\
+ & \texttt{X} & Sigma points of x \\
+ & \texttt{Y} & Sigma points of y \\
+ & \texttt{w} & Weights as cell array \{mean-weights,cov-weights,c\} \\
+\hline
+\end{tabular*}

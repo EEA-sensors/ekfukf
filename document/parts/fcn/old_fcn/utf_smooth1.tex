@@ -1,0 +1,55 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{utf\_smooth1}
+\label{function:utf_smooth1}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{utf\_smooth1}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Two filter nonlinear smoother algorithm. Calculate "smoothed"
+    sequence from given extended Kalman filter output sequence
+    by conditioning all steps to all measurements.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [M,P] = UTF\_SMOOTH1(M,P,Y,[ia,Q,aparam,h,R,hparam,,alpha,beta,kappa,mat,same\_p\_a,same\_p\_h])} } \\
+\hline
+\multirow{15}{*}{\bf Input:}
+ & \texttt{M} & NxK matrix of K mean estimates from Kalman filter \\
+ & \texttt{P} & NxNxK matrix of K state covariances from Kalman Filter \\
+ & \texttt{Y} & Measurement vector \\
+ & \texttt{ia} & Inverse prediction as a matrix IA defining
+        linear function ia(xw) = IA*xw, inline function,
+        function handle or name of function in
+        form ia(xw,param)                         (optional, default eye()) \\
+ & \texttt{Q} & Process noise of discrete model           (optional, default zero) \\
+ & \texttt{aparam} & Parameters of a                      (optional, default empty) \\
+ & \texttt{h} & Measurement model function as a matrix H defining
+         linear function h(x) = H*x, inline function,
+         function handle or name of function in
+         form h(x,param) \\
+ & \texttt{R} & Measurement noise covariance. \\
+ & \texttt{hparam} & Parameters of h              (optional, default aparam) \\
+ & \texttt{alpha} & Transformation parameter      (optional) \\
+ & \texttt{beta} & Transformation parameter      (optional) \\
+ & \texttt{kappa} & Transformation parameter      (optional) \\
+ & \texttt{mat} & If 1 uses matrix form         (optional, default 0) \\
+ & \texttt{same\_p\_a} & If 1 uses the same parameters 
+               on every time step for a   (optional, default 1) \\
+ & \texttt{same\_p\_h} & If 1 uses the same parameters 
+               on every time step for h   (optional, default 1)  \\
+\hline
+\multirow{2}{*}{\bf Output:}
+ & \texttt{M} & Smoothed state mean sequence \\
+ & \texttt{P} & Smoothed state covariance sequence
+     \\
+\hline
+\end{tabular*}

@@ -1,0 +1,51 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{urts\_smooth2}
+\label{function:urts_smooth2}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{urts\_smooth2}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Unscented Rauch-Tung-Striebel smoother algorithm. Calculate
+    "smoothed" sequence from given Kalman filter output sequence by
+    conditioning all steps to all measurements.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [M,P,S] = URTS\_SMOOTH2(M,P,a,Q,[param,alpha,beta,kappa,mat,same\_p])} } \\
+\hline
+\multirow{10}{*}{\bf Input:}
+ & \texttt{M} & NxK matrix of K mean estimates from Unscented Kalman filter \\
+ & \texttt{P} & NxNxK matrix of K state covariances from Unscented Kalman Filter \\
+ & \texttt{a} & Dynamic model function as inline function,
+        function handle or name of function in
+        form a([x;w],param) \\
+ & \texttt{Q} & Non-singular covariance of process noise w \\
+ & \texttt{param} & Parameters of a. Parameters should be a single cell array,
+            vector or a matrix containing the same parameters for each
+            step, or if different parameters are used on each step they
+            must be a cell array of the format \{ param\_1, param\_2, ...\},
+            where param\_x contains the parameters for step x as a cell array,
+            a vector or a matrix.   (optional, default empty) \\
+ & \texttt{alpha} & Transformation parameter      (optional) \\
+ & \texttt{beta} & Transformation parameter      (optional) \\
+ & \texttt{kappa} & Transformation parameter      (optional) \\
+ & \texttt{mat} & If 1 uses matrix form         (optional, default 0) \\
+ & \texttt{same\_p} & If 1 uses the same parameters 
+             on every time step      (optional, default 1)    \\
+\hline
+\multirow{3}{*}{\bf Output:}
+ & \texttt{K} & Smoothed state mean sequence \\
+ & \texttt{P} & Smoothed state covariance sequence \\
+ & \texttt{D} & Smoother gain sequence
+     \\
+\hline
+\end{tabular*}

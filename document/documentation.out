@@ -1,33 +1,55 @@
-\BOOKMARK [1][-]{section.1}{Introduction}{}
-\BOOKMARK [1][-]{section.2}{Discrete-Time State Space Models}{}
-\BOOKMARK [2][-]{subsection.2.1}{Linear state space estimation}{section.2}
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Discretization of continuous-time linear time-invariant systems}{subsection.2.1}
-\BOOKMARK [3][-]{subsubsection.2.1.2}{Kalman filter}{subsection.2.1}
-\BOOKMARK [3][-]{subsubsection.2.1.3}{Kalman smoother}{subsection.2.1}
-\BOOKMARK [3][-]{subsubsection.2.1.4}{Demonstration: 2D CWPA-model}{subsection.2.1}
-\BOOKMARK [2][-]{subsection.2.2}{Nonlinear state space estimation}{section.2}
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Taylor Series Based Approximations}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Extended Kalman filter}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.3}{Extended Kalman smoother}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.4}{Demonstration: Tracking a random sine signal}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.5}{Unscented Transform}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.6}{Unscented Kalman filter}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.7}{Unscented Kalman smoother}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.8}{Gauss-Hermite Cubature Transformation}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.9}{Gauss-Hermite Kalman Filter}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.10}{Gauss-Hermite Kalman Smoother}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.11}{Spherical-Radial Cubature Transformation}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.12}{Spherical-Radial Cubature Kalman Filter}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.13}{Spherical-Radial Cubature Kalman Smoother}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.14}{Demonstration: UNGM-model}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.15}{Demonstration: Bearings Only Tracking}{subsection.2.2}
-\BOOKMARK [3][-]{subsubsection.2.2.16}{Demonstration: Reentry Vehicle Tracking}{subsection.2.2}
-\BOOKMARK [1][-]{section.3}{Multiple Model Systems}{}
-\BOOKMARK [2][-]{subsection.3.1}{Linear Systems}{section.3}
-\BOOKMARK [3][-]{subsubsection.3.1.1}{Interacting Multiple Model Filter}{subsection.3.1}
-\BOOKMARK [3][-]{subsubsection.3.1.2}{Interacting Multiple Model Smoother}{subsection.3.1}
-\BOOKMARK [3][-]{subsubsection.3.1.3}{Demonstration: Tracking a Target with Simple Manouvers}{subsection.3.1}
-\BOOKMARK [2][-]{subsection.3.2}{Nonlinear Systems}{section.3}
-\BOOKMARK [3][-]{subsubsection.3.2.1}{Demonstration: Coordinated Turn Model}{subsection.3.2}
-\BOOKMARK [3][-]{subsubsection.3.2.2}{Demonstration: Bearings Only Tracking of a Manouvering Target}{subsection.3.2}
-\BOOKMARK [1][-]{section*.12}{References}{}
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}
+\BOOKMARK [0][-]{chapter.2}{Discrete-Time State Space Models: \040Linear Models}{}
+\BOOKMARK [1][-]{section.2.1}{Discrete-Time State Space Models}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Linear State Space Estimation}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.2.1}{Discretization of Continuous-Time Linear Time-Invariant Systems}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.2}{Kalman Filter}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.3}{Kalman Smoother}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.4}{Demonstration: 2D CWPA-model}{section.2.2}
+\BOOKMARK [0][-]{chapter.3}{Nonlinear State Space Estimation}{}
+\BOOKMARK [1][-]{section.3.1}{Extended Kalman Filter}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.1.1}{Taylor Series Based Approximations}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.2}{Linear Approximation}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.3}{Quadratic Approximation}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.4}{Extended Kalman filter}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.5}{The Limitations of EKF}{section.3.1}
+\BOOKMARK [2][-]{subsection.3.1.6}{Extended Kalman smoother}{section.3.1}
+\BOOKMARK [1][-]{section.3.2}{Demonstration: Tracking a random sine signal}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{Unscented Kalman Filter}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Unscented Transform}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{The Matrix Form of UT}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Unscented Kalman Filter}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Augmented UKF}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.5}{Unscented Kalman Smoother}{section.3.3}
+\BOOKMARK [1][-]{section.3.4}{Gauss-Hermite Kalman Filter}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.4.1}{Gauss-Hermite Cubature Transformation}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.2}{Gauss-Hermite Kalman Filter}{section.3.4}
+\BOOKMARK [2][-]{subsection.3.4.3}{Gauss-Hermite Kalman Smoother}{section.3.4}
+\BOOKMARK [1][-]{section.3.5}{Cubature Kalman Filter}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.5.1}{Spherical-Radial Cubature Transformation}{section.3.5}
+\BOOKMARK [2][-]{subsection.3.5.2}{Spherical-Radial Cubature Kalman Filter}{section.3.5}
+\BOOKMARK [2][-]{subsection.3.5.3}{Spherical-Radial Cubature Kalman Smoother}{section.3.5}
+\BOOKMARK [1][-]{section.3.6}{Demonstration: UNGM-model}{chapter.3}
+\BOOKMARK [1][-]{section.3.7}{Demonstration: Bearings Only Tracking}{chapter.3}
+\BOOKMARK [1][-]{section.3.8}{Demonstration: Reentry Vehicle Tracking}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{Multiple Model Systems}{}
+\BOOKMARK [1][-]{section.4.1}{Linear Systems}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Interacting Multiple Model Filter}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Interacting Multiple Model Smoother}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Two-filter based fixed-interval IMM-Smoother}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Demonstration: Tracking a Target with Simple Manouvers}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Nonlinear Systems}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Demonstration: Coordinated Turn Model}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Demonstration: Bearings Only Tracking of a Manouvering Target}{section.4.2}
+\BOOKMARK [0][-]{chapter.5}{Functions in the Toolbox}{}
+\BOOKMARK [1][-]{section.5.1}{Discrete-time State Space Estimation}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Linear Kalman Filter}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Extended Kalman Filter}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Unscented Kalman filter}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Cubature Kalman Filter}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.5}{Gauss-Hermite Kalman Filter}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{Multiple Model Systems}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{IMM Models}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{EIMM Models}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{UIMM Models}{section.5.2}
+\BOOKMARK [1][-]{section.5.3}{Other Functions}{chapter.5}

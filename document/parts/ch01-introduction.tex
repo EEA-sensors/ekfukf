@@ -1,0 +1,80 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\chapter{Introduction}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The term optimal filtering refers to methodology used for estimating
+the {\it state} of a time varying system, from which we observe
+indirect noisy measurements. The state refers to the physical state,
+which can be described by dynamic variables, such as position,
+velocity and acceleration of a moving object. The noise in the
+measurements means that there is a certain degree of uncertainty in
+them.  The dynamic system evolves as a function of time, and there is
+also noise in the dynamics of system, {\it process noise}, meaning
+that the dynamic system cannot be modelled entirely deterministically.
+In this context, the term filtering basically means the process of
+filtering out the noise in the measurements and providing an optimal
+estimate for the state given the observed measurements and the
+assumptions made about the dynamic system.
+
+This toolbox provides basic tools for estimating the state of a linear
+dynamic system, the Kalman filter, and also two extensions for it, the
+extended Kalman filter (EKF) and unscented Kalman filter (UKF), both
+of which can be used for estimating the states of nonlinear dynamic
+systems. Also the smoother counterparts of the filters are provided.
+Smoothing in this context means giving an estimate of the state of the
+system on some time step given all the measurements including ones
+encountered after that particular time step, in other words, the
+smoother gives a smoothed estimate for the history of the system's
+evolved state given all the measurements obtained so far.
+
+This documentation is organized as follows: 
+\begin{itemize}
+
+\item First we briefly introduce the concept of discrete-time state
+  space models. After that we consider linear, discrete-time state
+  space models in more detail and review Kalman filter, which is the
+  basic method for recursively solving the linear state space
+  estimation problems. Also Kalman smoother is introduced. After that
+  the function of Kalman filter and smoother and their usage in this
+  toolbox in demonstrated with one example (CWPA-model).
+
+\item Next we move from linear to nonlinear state space models and
+  review the extended Kalman filter (and smoother), which is the
+  classical extension to Kalman filter for nonlinear estimation. The
+  usage of EKF in this toolbox is illustrated exclusively with one
+  example (Tracking a random sine signal), which also compares the
+  performances of EKF, UKF and their smoother counter-parts.
+
+\item After EKF we review unscented Kalman filter (and smoother),
+  which is a newer extension to traditional Kalman filter to cover
+  nonlinear filtering problems. The usage of UKF is illustrated with
+  one example (UNGM-model), which also demonstrates the differences
+  between different nonlinear filtering techniques.
+
+\item We extend the concept of sigma-point filtring by studying
+  other non-linear variants of Kalman filters. The Gauss-Hermite
+  Kalman filter (GHKF) and third-order symmetric Cubature Kalman
+  filter (CKF) are presented at this stage.
+
+\item To give a more thorough demonstration to the provided methods
+  two more classical nonlinear filtering examples are provided
+  (Bearings Only Tracking and Reentry Vehicle Tracking).
+
+\item In chapter~\ref{ch:IMM} we shortly review the concept multiple model
+  systems in general, and in sections~\ref{ch:IMM}.1 and \ref{ch:IMM}.2 we take a look at
+  linear and non-linear multiple model systems in more detail. We also
+  review the standard method, the Interacting Multiple Model (IMM)
+  filter, for estimating such systems. It's usage and function is
+  demonstrated with three examples.
+
+%\item Lastly we list and describe briefly all the functions included
+%  in the toolbox.
+
+\end{itemize}
+
+Details of the toolbox functions can be found on the toolbox web page, or in
+Matlab by typing \texttt{help <function name>}. The mathematical notation used in this document follows the notation used in \citep{Sarkka:2006}.
+
+

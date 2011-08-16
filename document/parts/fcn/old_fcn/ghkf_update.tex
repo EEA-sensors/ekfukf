@@ -1,0 +1,46 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{ghkf\_update}
+\label{function:ghkf_update}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | l l p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{ghkf\_update}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Perform additive form Gauss-Hermite Kalman filter (GHKF)
+    measurement update step. Assumes additive measurement
+    noise.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [M,P,K,MU,S,LH] = GHKF\_UPDATE(M,P,Y,h,R,param,p)} } \\
+\hline
+\multirow{7}{*}{\bf Input:}
+ & \texttt{M} & Mean state estimate after prediction step \\
+ & \texttt{P} & State covariance after prediction step \\
+ & \texttt{Y} & Measurement vector. \\
+ & \texttt{h} & Measurement model function as a matrix H defining
+         linear function h(x) = H*x, inline function,
+         function handle or name of function in
+         form h(x,param) \\
+ & \texttt{R} & Measurement covariance \\
+ & \texttt{param} & Parameters of h \\
+ & \texttt{p} & Degree of approximation (number of quadrature points) \\
+\hline
+\multirow{6}{*}{\bf Output:}
+ & \texttt{M} & Updated state mean \\
+ & \texttt{P} & Updated state covariance \\
+ & \texttt{K} & Computed Kalman gain \\
+ & \texttt{MU} & Predictive mean of Y \\
+ & \texttt{S} & Predictive covariance Y \\
+ & \texttt{LH} & Predictive probability (likelihood) of measurement.
+     \\
+\hline
+\end{tabular*}

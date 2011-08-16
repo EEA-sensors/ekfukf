@@ -1,0 +1,34 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{ut\_weights}
+\label{function:ut_weights}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.1\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{ut\_weights}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Computes unscented transformation weights.} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [WM,WC,c] = ut\_weights(n,alpha,beta,kappa)} } \\
+\hline
+\multirow{4}{*}{\bf Input:}
+ & \texttt{n} & Dimensionality of random variable \\
+ & \texttt{alpha} & Transformation parameter  (optional, default 0.5) \\
+ & \texttt{beta} & Transformation parameter  (optional, default 2) \\
+ & \texttt{kappa} & Transformation parameter  (optional, default 3-n) \\
+\hline
+\multirow{3}{*}{\bf Output:}
+ & \texttt{WM} & Weights for mean calculation \\
+ & \texttt{WC} & Weights for covariance calculation \\
+ & \texttt{c} & Scaling constant \\
+\hline
+\end{tabular*}

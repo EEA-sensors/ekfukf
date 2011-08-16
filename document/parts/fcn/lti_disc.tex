@@ -1,0 +1,34 @@
+% This function reference sheet is automatically generated
+% by a Matlab script. The information shown here is based on
+% the actual function description in Matlab. Please, if this
+% description contains errors, edit the original function
+% rather than just fixing the problem here.
+% --- Script by Arno Solin (Oct 4, 2010)
+
+
+\subsubsection*{lti\_disc}
+\label{function:lti_disc}
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} | p{0.1\textwidth} p{0.1\textwidth} p{0.7\textwidth} |  }
+\hline
+\multicolumn{3}{| p{0.9\textwidth} |}{\bf \texttt{lti\_disc}} \\
+\multicolumn{3}{| p{0.9\textwidth} |}{
+    Discretize LTI ODE with Gaussian Noise. The original
+    ODE model is in form} \\
+\hline
+\textbf{Syntax:} & 
+  \multicolumn{2}{ p{0.7\textwidth} |}{\texttt{
+    [A,Q] = lti\_disc(F,L,Qc,dt)} } \\
+\hline
+\multirow{4}{*}{\bf Input:}
+ & \texttt{F} & NxN Feedback matrix \\
+ & \texttt{L} & NxL Noise effect matrix        (optional, default identity) \\
+ & \texttt{Qc} & LxL Diagonal Spectral Density  (optional, default zeros) \\
+ & \texttt{dt} & Time Step                      (optional, default 1) \\
+\hline
+\multirow{2}{*}{\bf Output:}
+ & \texttt{A} & Transition matrix \\
+ & \texttt{Q} & Discrete Process Covariance \\
+\hline
+\end{tabular*}
