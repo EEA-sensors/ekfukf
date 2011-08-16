@@ -8,8 +8,8 @@
 \section{Discrete-Time State Space Models}
 
 In this section we shall consider models where the states are defined
-in discrete-time models. The models are defined recursively in terms
-of distributions
+on discrete time instances. The models are defined recursively in
+terms of distributions
 %
 \begin{equation}
 \begin{split}
@@ -83,7 +83,7 @@ recursive Bayesian filtering equations  \citep[e.g.][]{Sarkka:2006b}:
 %
 \begin{equation} p(\vec{x}_k\,|\,\vec{y}_{1:k-1}) = \int
 p(\vec{x}_k\,|\,\vec{x}_{k-1}) \, p(\vec{x}_{k-1}\,|\,\vec{y}_{1:k-1})
-\, \diff\vec{x}_{k-1}.
+\, \diff\vec{x}_{k-1}
 \label{eq:bayesf_p}
 \end{equation} and
 \begin{equation} p(\vec{x}_k\,|\,\vec{y}_{1:k}) = \frac{1}{Z_k}
@@ -404,7 +404,7 @@ x_k & y_k & \dot{x}_k & \dot{y}_k & \ddot{x}_k & \ddot{y}_k
 %
 \end{equation}
 %
-In continous case the dynamics of the target's motion can be modelled as a linear, time-invariant system
+In continuous case the dynamics of the target's motion can be modelled as a linear, time-invariant system
 %
 \begin{equation}
 %

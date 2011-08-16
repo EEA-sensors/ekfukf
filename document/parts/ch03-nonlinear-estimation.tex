@@ -5,16 +5,20 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In many cases interesting dynamic systems are not linear by nature, so the
-traditional Kalman filter cannot be applied in estimating the state of such a
-system. In these kind of systems, both the dynamics and the measurement processes
-can be nonlinear, or only one them. In this section, we describe two extensions
-to the traditional Kalman filter, which can be applied for estimating nonlinear
-dynamical systems by forming Gaussian approximations to the joint distribution of
-the state $\vec{x}$ and measurement $\vec{y}$. First we present the Extended Kalman
-filter (EKF), which is based on Taylor series approximation of the joint
-distribution, and then the Unscented Kalman filter (UKF), which is
-respectively based on the unscented transformation of the joint distribution.      
+In many cases interesting dynamic systems are not linear by nature, so
+the traditional Kalman filter cannot be applied in estimating the
+state of such a system. In these kind of systems, both the dynamics
+and the measurement processes can be nonlinear, or only one them. In
+this section, we describe two extensions to the traditional Kalman
+filter, which can be applied for estimating nonlinear dynamical
+systems by forming Gaussian approximations to the joint distribution
+of the state $\vec{x}$ and measurement $\vec{y}$. First we present the
+Extended Kalman filter (EKF), which is based on Taylor series
+approximation of the joint distribution, and then the Unscented Kalman
+filter (UKF), which is respectively based on the unscented
+transformation of the joint distribution. After UKF we review
+Gauss-Hermite Kalman filter (GHKF) and third-order symmetric Cubature
+Kalman filter (CKF).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -566,7 +570,9 @@ function Y = ekf_demo1_h(x,param)
   f = x(1,:); 
   a = x(3,:); 
   Y = a.*sin(f); 
-  if size(x,1) == 7 Y = Y + x(7,:); end
+  if size(x,1) == 7 
+     Y = Y + x(7,:); 
+  end
 \end{lstlisting}
 %
 where the parameter \texttt{x} is a vector containing a single state
