@@ -103,7 +103,7 @@ function [X_p,P_p,c_j,X,P] = imm_predict(X_ip,P_ip,MU_ip,p_ij,ind,dims,A,Q)
 
         % Predicted state covariance
         for i = 1:m
-            P(ind{i},ind{i}) = P(ind{i},ind{i}) + MU_ip(i)*(P_p{i} + (X_ip{i}-X(ind{i}))*(X_i{i}-X(ind{i}))');
+            P(ind{i},ind{i}) = P(ind{i},ind{i}) + MU_ip(i)*(P_p{i} + (X_ip{i}-X(ind{i}))*(X_ip{i}-X(ind{i}))');
         end
     end
     
