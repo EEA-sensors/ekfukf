@@ -1,4 +1,4 @@
-EKF/UKF Toolbox for Matlab
+EKF/UKF Toolbox for Matlab and GNU Octave
 ==
 
 [Simo Särkkä](http://users.aalto.fi/~ssarkka/), Jouni Hartikainen, and [Arno Solin](http://arno.solin.fi)
