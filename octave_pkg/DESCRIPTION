@@ -1,0 +1,18 @@
+Name: ekfukf
+Version: 1.0.0
+Date: 2017-11-07
+Author: Simo Särkkä <simo.sarkka@aalto.fi>, Jouni Hartikainen <jouni.hartikainen@aalto.fi>, Arno Solin <arno.solin@aalto.fi>
+Maintainer: Juan Pablo Carbajal <ajuanpi+dev@gmail.com>
+Title: Kalman filters
+Description: EKF/UKF is an optimal filtering toolbox. Optimal filtering is a
+  frequently used term for a process, in which the state of a
+  dynamic system is estimated through noisy and indirect measurements. This
+  toolbox mainly consists of Kalman filters and smoothers, which are the most
+  common methods used in stochastic state-space estimation. The purpose of the
+  toolbox is not to provide a highly optimized software package, but instead to
+  provide a simple framework for building proof-of-concept implementations of
+  optimal filters and smoothers to be used in practical applications.
+Depends: octave (>= 4.0.0)
+Autoload: no
+License: GPLv2+
+Url: https://github.com/kakila/ekfukf

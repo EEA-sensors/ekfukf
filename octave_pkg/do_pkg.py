@@ -44,6 +44,8 @@ def get_files_byext (files, ext):
 def analyse_source (source):
   content = os.walk (source)
   mfiles = dict()
+  cfiles = dict()
+  ffiles = dict()
   for path, dirn, files in content:
       if '.' not in path:
 
@@ -57,14 +59,25 @@ def analyse_source (source):
           tmp = get_files_byext (files, 'm')
           if tmp:
             mfiles[folder] = tmp
+          tmp = get_files_byext (files, 'c{1,2}p{0,1}')
+          if tmp:
+           cfiles[folder] = tmp
+          tmp = get_files_byext (files, 'f(90){0,1}')
+          if tmp:
+            ffiles[folder] = tmp
 
-  return mfiles
+  return (mfiles, cfiles, ffiles)
 
-def do_empty_pkg (dest):
+def do_empty_pkg (dest, src=False):
   os.mkdir (dest)
   for f in PKG_STRUCT['folders']:
+
+    if (f == 'src') and (not src):
+      continue
+
     p = os.path.join (dest, f)
 
+  return
 
 def put_mfiles (mfiles, source, dest):
   print ('Copying m-files to {}'.format(dest))
@@ -80,6 +93,11 @@ def put_mfiles (mfiles, source, dest):
        os.makedirs (out_dir)
 
     [shutil.copy(f, out_dir) for f in in_files]
+    if 'Contents.m' in files:
+      idx = files.index('Contents.m')
+      shutil.move (os.path.join (out_dir, 'Contents.m'),\
+                   os.path.join (out_dir, '__contents__.m'))
+
   return
 
 def copy_done_file (in_file, dest):
@@ -105,16 +123,19 @@ def do_pkg (argv):
        print (help_str)
        sys.exit()
     elif opt in ("-i", "--idir"):
-       SOURCE = arg
+       SOURCE = os.path.abspath (arg)
     elif opt in ("-o", "--odir"):
-       DEST = arg
+       DEST = os.path.abspath (arg)
   print ('Input folder is ', SOURCE)
   print ('Output folder is ', DEST)
   ###### end parse arguments
 
-  do_empty_pkg (DEST)
+  mfiles, cfiles, ffiles = analyse_source (SOURCE)
+  src_folder = True
+  if not (cfiles and ffiles):
+    src_folder = False
+  do_empty_pkg (DEST, src=src_folder)
 
-  mfiles = analyse_source (SOURCE)
   put_mfiles (mfiles, SOURCE, DEST)
 
   # Pre-generated files
