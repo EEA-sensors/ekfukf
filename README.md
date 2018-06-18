@@ -14,7 +14,32 @@ Most of the code has been written by Prof. Simo Särkkä. Later Dr. Jouni Hartik
 Download and Installation Guide
 --
 
-The software consists of Matlab m-files. Clone or download the latest version and make sure the toolbox directory is included in your Matlab path by `addpath` *path to ekfukf*.
+Matlab
+---
+
+The software consists of Matlab m-files.
+Clone or download the latest version and make sure the toolbox directory is included in
+your Matlab path by `addpath` *path to ekfukf*.
+
+GNU Octave
+---
+
+1. Go to the `octave_pkg` folder and run the script `do_ekfukf_pkg.sh` (needs python 3, if you do not have it you can read the script and do the work manually).
+This script puts the original files in an octave
+package folder structure. 
+A folder `ekfukf_of` will be created.
+
+2. Go to the `ekfukf_of` folder and run
+
+        make dist
+
+    This will create an `OF` folder (see `Makefile` to change this behavior), 
+    inside it you will find the file `ekfukf-<version>.tar.gz`
+
+3. Install the package.
+    Start octave and run
+
+        pkg install ekfukf-<version>.tar.gz
 
 
 Documentation
