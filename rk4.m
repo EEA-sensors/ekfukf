@@ -153,7 +153,7 @@ function [x,Y] = rk4(f,dt,x,P1,P2,P3,Y)
     %
     % Chained integration
     %
-    if isstr(f) | strcmp(class(f),'function_handle')
+    if ischar(f) | strcmp(class(f),'function_handle')
       x1  = x;
       dx1 = feval(f,x1,Y{1},P1{:}) * dt;
       x2  = x+0.5*dx1;
@@ -173,7 +173,7 @@ function [x,Y] = rk4(f,dt,x,P1,P2,P3,Y)
       dx4 = f(x4,Y{4},P3{:}) * dt;
     end  
   else
-    if isstr(f) | strcmp(class(f),'function_handle')
+    if ischar(f) | strcmp(class(f),'function_handle')
       x1  = x;
       dx1 = feval(f,x1,P1{:}) * dt;
       x2  = x+0.5*dx1;

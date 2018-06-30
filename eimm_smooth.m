@@ -139,7 +139,7 @@ function [x_sk,P_sk,x_sik,P_sik,mu_sk] = eimm_smooth(MM,PP,MM_i,PP_i,MU,p_ij,mu_
             % Retrieve the transition matrix or the Jacobian of the dynamic model
             if isnumeric(A{i2})
                 A2 = A{i2};
-            elseif isstr(A{i2}) | strcmp(class(A{i2}),'function_handle')
+            elseif ischar(A{i2}) | strcmp(class(A{i2}),'function_handle')
                 A2 = feval(A{i2},x_bki{i2}(ind{i2}),a_param{i2});
             else
                 A2 = A{i2}(x_bki{i2}(ind{i2}),a_param{i2});

@@ -69,7 +69,7 @@ function [mu,S,C] = quad_transform(M,P,g,g_param,tr_param)
   
   if isnumeric(gx)
     % nop
-  elseif isstr(gx) | strcmp(class(gx),'function_handle')
+  elseif ischar(gx) | strcmp(class(gx),'function_handle')
     gx = feval(gx,M,g_param);
   else
     gx = gx(M,g_param);
@@ -77,7 +77,7 @@ function [mu,S,C] = quad_transform(M,P,g,g_param,tr_param)
   
   if isnumeric(gxx)
     % nop
-  elseif isstr(gxx) | strcmp(class(gxx),'function_handle')
+  elseif ischar(gxx) | strcmp(class(gxx),'function_handle')
     gxx = feval(gxx,M,g_param);
   else
     gxx = gxx(M,g_param);

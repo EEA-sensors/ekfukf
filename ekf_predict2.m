@@ -86,7 +86,7 @@ function [M,P] = ekf_predict2(M,P,A,F,Q,a,W,param)
 
   if isnumeric(A)
     % nop
-  elseif isstr(A) | strcmp(class(A),'function_handle')
+  elseif ischar(A) | strcmp(class(A),'function_handle')
     A = feval(A,M,param);
   else
     A = A(M,param);
@@ -94,7 +94,7 @@ function [M,P] = ekf_predict2(M,P,A,F,Q,a,W,param)
 
   if isnumeric(F)
     % nop
-  elseif isstr(F) | strcmp(class(F),'function_handle')
+  elseif ischar(F) | strcmp(class(F),'function_handle')
     F = feval(F,M,param);
   else
     F = F(M,param);
@@ -105,7 +105,7 @@ function [M,P] = ekf_predict2(M,P,A,F,Q,a,W,param)
     M = A*M;
   elseif isnumeric(a)
     M = a;
-  elseif isstr(a) | strcmp(class(a),'function_handle')
+  elseif ischar(a) | strcmp(class(a),'function_handle')
     M = feval(a,M,param);
   else
     M = a(M,param);
@@ -119,7 +119,7 @@ function [M,P] = ekf_predict2(M,P,A,F,Q,a,W,param)
 
   if isnumeric(W)
     % nop
-  elseif isstr(W) | strcmp(class(W),'function_handle')
+  elseif ischar(W) | strcmp(class(W),'function_handle')
     W = feval(W,M,param);
   else
     W = W(M,param);

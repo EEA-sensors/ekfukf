@@ -45,14 +45,14 @@ function [D0,D1] = der_check(f,df,index,varargin)
   %
   % Calculate function value and derivative
   %
-  if isstr(f) | strcmp(class(f),'function_handle')
+  if ischar(f) | strcmp(class(f),'function_handle')
     y0 = feval(f,varargin{:});
   else
     y0 = f(varargin{:});
   end
   if isnumeric(df)
     D0 = df;
-  elseif isstr(df) | strcmp(class(df),'function_handle')
+  elseif ischar(df) | strcmp(class(df),'function_handle')
     D0 = feval(df,varargin{:});
   else
     D0 = df(varargin{:});
@@ -69,7 +69,7 @@ function [D0,D1] = der_check(f,df,index,varargin)
       H = zeros(size(X,1),size(X,2));
       H(r,c) = h;
       varargin{index} = X+H;
-      if isstr(f) | strcmp(class(f),'function_handle')
+      if ischar(f) | strcmp(class(f),'function_handle')
         y1 = feval(f,varargin{:});
       else
         y1 = f(varargin{:});

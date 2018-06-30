@@ -75,7 +75,7 @@ function [M,P,K,MU,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)
   %
   if isnumeric(H)
     % nop
-  elseif isstr(H) | strcmp(class(H),'function_handle')
+  elseif ischar(H) | strcmp(class(H),'function_handle')
     H = feval(H,M,param);
   else
     H = H(M,param);
@@ -85,7 +85,7 @@ function [M,P,K,MU,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)
     MU = H*M;
   elseif isnumeric(h)
     MU = h;
-  elseif isstr(h) | strcmp(class(h),'function_handle')
+  elseif ischar(h) | strcmp(class(h),'function_handle')
     MU = feval(h,M,param);
   else
     MU = h(M,param);
@@ -93,7 +93,7 @@ function [M,P,K,MU,S,LH] = ekf_update1(M,P,y,H,R,h,V,param)
 
   if isnumeric(V)
     % nop
-  elseif isstr(V) | strcmp(class(V),'function_handle')
+  elseif ischar(V) | strcmp(class(V),'function_handle')
     V = feval(V,M,param);
   else
     V = V(M,param);
