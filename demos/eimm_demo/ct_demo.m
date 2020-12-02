@@ -149,7 +149,7 @@ mstate(161:200) = 1;
 % Generate object state values
 for i = 2:n
    st = mstate(i);
-   if isstr(a_func{st}) | strcmp(class(a_func{st}),'function_handle')
+   if ischar(a_func{st}) | strcmp(class(a_func{st}),'function_handle')
        X_r(ind{st},i) = feval(a_func{st},X_r(ind{st},i-1),a_param{st});
    else 
        X_r(ind{st},i) = A{st}*X_r(ind{st},i-1);

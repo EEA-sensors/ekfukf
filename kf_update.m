@@ -99,4 +99,3 @@ function [X,P,K,IM,IS,LH] = kf_update(X,P,y,H,R)
   if nargout > 5
     LH = gauss_pdf(y,IM,IS);
   end
-

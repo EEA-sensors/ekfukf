@@ -1,4 +1,4 @@
-EKF/UKF Toolbox for Matlab
+EKF/UKF Toolbox for Matlab and GNU Octave
 ==
 
 [Simo Särkkä](http://users.aalto.fi/~ssarkka/), Jouni Hartikainen, and [Arno Solin](http://arno.solin.fi)
@@ -14,7 +14,26 @@ Most of the code has been written by Prof. Simo Särkkä. Later Dr. Jouni Hartik
 Download and Installation Guide
 --
 
-The software consists of Matlab m-files. Clone or download the latest version and make sure the toolbox directory is included in your Matlab path by `addpath` *path to ekfukf*.
+Matlab
+---
+
+The software consists of Matlab m-files.
+Clone or download the latest version and make sure the toolbox directory is included in
+your Matlab path by `addpath` *path to ekfukf*.
+
+GNU Octave
+---
+
+1. Run the following command
+
+        make dist
+
+    This will create a  file `ekfukf-<version>.tar.gz`
+
+2. Install the package.
+    Start octave and run
+
+        pkg install ekfukf-<version>.tar.gz
 
 
 Documentation

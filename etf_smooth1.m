@@ -153,7 +153,7 @@ function [M,P] = etf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_
       IA = [];
     elseif isnumeric(A)
       IA = inv(A);
-    elseif isstr(A) | strcmp(class(A),'function_handle')
+    elseif ischar(A) | strcmp(class(A),'function_handle')
       IA = inv(feval(A,fm,aparams));
     else
       IA = inv(A(fm,aparams));
@@ -167,7 +167,7 @@ function [M,P] = etf_smooth1(M,P,Y,A,Q,ia,W,aparam,H,R,h,V,hparam,same_p_a,same_
       end
     elseif isnumeric(W)
       B = W;
-    elseif isstr(W) | strcmp(class(W),'function_handle')
+    elseif ischar(W) | strcmp(class(W),'function_handle')
       B = feval(W,mf,aparams);
     else
       B = W(mf,aparams);

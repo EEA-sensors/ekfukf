@@ -58,7 +58,7 @@ function [mu,S,C] = lin_transform(M,P,g,g_param,tr_param)
   
   if isnumeric(gx)
     % nop
-  elseif isstr(gx) | strcmp(class(gx),'function_handle')
+  elseif ischar(gx) | strcmp(class(gx),'function_handle')
     gx = feval(gx,M,g_param);
   else
     gx = gx(M,g_param);
@@ -68,7 +68,7 @@ function [mu,S,C] = lin_transform(M,P,g,g_param,tr_param)
     mu = g*M;
   elseif isnumeric(g)
     mu = g;
-  elseif isstr(g) | strcmp(class(g),'function_handle')
+  elseif ischar(g) | strcmp(class(g),'function_handle')
     mu = feval(g,M,g_param);
   else
     mu = g(M,g_param);

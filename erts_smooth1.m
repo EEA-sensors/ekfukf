@@ -122,7 +122,7 @@ function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)
       m_pred = A*M(:,k);
     elseif isnumeric(a)
       m_pred = a;
-    elseif isstr(a) | strcmp(class(a),'function_handle')
+    elseif ischar(a) | strcmp(class(a),'function_handle')
       m_pred = feval(a,M(:,k),params);
     else
       m_pred = a(M(:,k),params);
@@ -130,7 +130,7 @@ function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)
     
     if isnumeric(A)
       F = A;
-    elseif isstr(A) | strcmp(class(A),'function_handle')
+    elseif ischar(A) | strcmp(class(A),'function_handle')
       F = feval(A,M(:,k),params);
     else
       F = A(M(:,k),params);
@@ -138,7 +138,7 @@ function [M,P,D] = erts_smooth1(M,P,A,Q,a,W,param,same_p)
     
     if isnumeric(W)
       B = W;
-    elseif isstr(W) | strcmp(class(W),'function_handle')
+    elseif ischar(W) | strcmp(class(W),'function_handle')
       B = feval(W,M(:,k),params);
     else
       B = W(M(:,k),params);
